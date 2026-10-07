@@ -1,0 +1,11 @@
+{
+  "dataset": "Natural Earth 1:50m Admin 0 Countries",
+  "datasetVersion": "5.1.1",
+  "sourceURL": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson",
+  "downloadPage": "https://www.naturalearthdata.com/downloads/50m-cultural-vectors/50m-admin-0-countries-2/",
+  "license": "Public Domain",
+  "licenseURL": "https://www.naturalearthdata.com/about/terms-of-use/",
+  "sourceSha256": "3E458FC036AD0A66411F2C1E6CAC49C5D7BFB81CB1123BC513B22511A2B7FDEB",
+  "outputSha256": "7D244579DA368C2F405AF8AC54DF989F583DDBFCC359295AE7EC2A63F0AE71FE",
+  "modificationKo": "Japan feature의 외부 해안 링만 추출했습니다. 위도·경도 좌표는 이동하거나 역사 영토로 해석하지 않았습니다."
+}

@@ -1,0 +1,12 @@
+Taiko Drumloop — Xinematix
+Source: https://freesound.org/people/Xinematix/sounds/491278/
+Preview: https://cdn.freesound.org/previews/491/491278_4882128-hq.mp3
+License: CC0 1.0 Universal
+License text: CC0-1.0.txt
+Original MP3 SHA256: cc4803c47164fe8fcee7e18e89926427d65cb4fb1fccfde9ae4884ff7914ec7a
+
+taiko_march.wav uses the first 2 seconds of the licensed source audio,
+decoded with Godot, downmixed to mono PCM16/44100 Hz, level adjusted,
+with a 12 ms opening fade and 80 ms ending fade. No new composition,
+synthetic percussion, or generated audio was added. This is an external
+taiko audio asset; it is not presented as a historical battlefield recording.

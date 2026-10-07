@@ -1,0 +1,59 @@
+# Godot and Python generated caches
+.godot/
+**/__pycache__/
+*.pyc
+*.pyo
+*.tmp
+*.bak
+*.log
+
+# Release binaries are rebuilt together after the outstanding reviews.
+dist/
+export_templates/
+
+# Local test profiles, saved progress, captures and generation workspaces
+tests/profiles/
+tests/*profile*/
+tests/*capture*/
+tests/*frames*/
+tests/**/Godot/
+tests/**/app_userdata/
+tests/*.json
+tests/*.png
+output/
+feature_profiles/
+tools/*profile*/
+tools/*capture*/
+tools/art-research/
+tools/music/
+tools/sfx/
+tools/ui-front-capture/
+tools/ui-scene-capture/
+
+# Existing local engine / voice runtimes; keep them on this PC.
+tools/godot/
+tools/godot-engine.zip
+tools/voicevox*/
+tools/nemo*/
+tools/onnxruntime*/
+tools/python*/
+
+# Credentials and local environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+.codex/
+.agents/
+.aws/
+
+# Unused research candidates and local speech-generation runtime
+assets/models3d/candidates/
+assets/models3d/rocketbox/
+assets/learning-voice/build-tools/runtime/
+assets/learning-voice/build-tools/download-windows-x64.exe
+assets/learning-voice/build-tools/progress.json
+assets/learning-voice/build-tools/terms-approved.json

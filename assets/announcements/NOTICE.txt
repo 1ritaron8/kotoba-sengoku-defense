@@ -1,0 +1,66 @@
+JAPANESE FEMALE GAME / LEARNING ANNOUNCEMENTS — ORIGINAL RECORDINGS
+
+Active voice material: 雛乃木まや (Hinanogi Maya).
+Credit: 声素材：雛乃木まや（公開済み録音素材） https://hinanogimaya.com/
+These are pre-existing human recordings, not a commissioned performance or a
+claim that the performer participated in production of this game.
+
+Official free recording index / permission:
+https://hinanogimaya.com/download/
+Human performer / recording equipment:
+https://hinanogimaya.com/voice/
+Performer profile: https://hinanogimaya.com/profile/
+Checked and downloaded: 2026-10-06.
+
+The index and each recording page expressly permit anyone, including companies,
+to use the material free of charge in commercial and noncommercial works.
+Credit and a link are optional. The pages identify game development among uses.
+The creator retains copyright; this project does not grant rights to resell or
+redistribute sounds as an independent voice-material collection. Delivery uses
+recordings embedded in the offline game. No account, payment, contact, commission,
+AI synthesis, voice cloning or external upload was used.
+
+Five active complete original WAV files (unmodified downloaded bytes):
+  voice-sasuga.wav — さすが！ — https://hinanogimaya.com/557/
+  voice-genkidashite-sikkari.wav — 元気出して — https://hinanogimaya.com/783/
+  voice-goannai-itashimasu-sikkari.wav — ご案内いたします — https://hinanogimaya.com/884/
+  voice-omedetougozaimasu-sikkari.wav — おめでとうございます — https://hinanogimaya.com/747/
+  voice-atarashi-message-desu.wav — 新しいメッセージです — https://hinanogimaya.com/496/
+
+Retained comparison recordings by the same performer are inactive:
+  voice-genkidashite-yasashime.wav — https://hinanogimaya.com/783/
+  voice-goannai-itashimasu-yasashime.wav — https://hinanogimaya.com/884/
+  voice-omedetougozaimasu-yasashime.wav — https://hinanogimaya.com/747/
+  voice-kashikomarimashita-sikkari.wav — https://hinanogimaya.com/2874/
+  voice-kashikomarimashita-yasashime.wav — https://hinanogimaya.com/2874/
+
+Original recording pitch and speed are 1.0. No pitch/formant shifter, stretching,
+phrase splicing or audio edits are applied. Only per-clip attenuation, caller
+volume and the existing safety limiter are used. Selected variants are officially
+named しっかりお姉さん where variants exist. Creator pages have 落ち着いた声 tags.
+Selection is based on these descriptions and PCM checks; subjective low-register
+or dramatic suitability is not guaranteed without listening.
+
+Captions reproduce the complete recorded Japanese phrase, its reading and Korean
+meaning. Correct-answer feedback uses praise, incorrect-answer feedback uses
+encouragement, and hint/question prompts use generic guidance. These are not
+captioned as nonexistent 正解です / 不正解です / ヒントです recordings. They do not
+read arbitrary learning words, examples or any of the 120 mission reports.
+Male battle-start narration and the shared male/female/learning speech gate remain
+separate. manifest.json records exact active event mapping and original SHA256.
+
+INACTIVE LEGACY RECORDINGS RETAINED IN THIS WORKSPACE
+Previous source: 音枝優日 / 効果音ラボ (Sound Effect Lab).
+Credit: 声素材提供：音枝優日 / 効果音ラボ https://soundeffect-lab.info/
+Source: https://soundeffect-lab.info/sound/voice/info-lady1.html
+Performers: https://soundeffect-lab.info/sound/voice/voiceactor/
+Terms: https://soundeffect-lab.info/agreement/
+FAQ: https://soundeffect-lab.info/faq/
+Copyright remains with Sound Effect Lab. Official terms/FAQ permit free commercial
+game/application embedding, including distribution in a game pack. Standalone
+audio redistribution, sound collections, asset templates and sharing direct sound
+download links are prohibited. Do not use for AI training, cloning, adult/illegal
+uses, harming the performer, Content ID claims or exclusive sound marks.
+Credit is voice MATERIAL PROVIDED, never a directly involved cast member.
+Prior eight clips/*.mp3 files are inactive; no replacement event selects them.
+This legacy notice is retained if those files remain embedded in a delivery.

@@ -1,0 +1,167 @@
+[
+  {
+    "id": "beginner-forest",
+    "stageNumber": 11,
+    "title": "대나무 숲의 협곡",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean playable strategy battlefield background, full-bleed 16:9 landscape. Scene: Dense bamboo canyon with a wide diagonal dirt road and two staggered clearings; bamboo palisade outpost toward lower right. Composition: A broad zigzag road runs from upper left down through an open clearing at left-center, crosses the center diagonally, curves through a second open clearing at lower-center, and reaches a bamboo palisade outpost at lower right. A second broad open dirt feeder road enters from upper-right edge and joins center. Bamboo canyon rock walls remain along perimeter, two staggered flat clearings allow many unit placements. Style: detailed semi-photorealistic realistic 3D game environment, authentic late-16th-century Sengoku Japan, physical timber, stone and soil materials. High overhead strategy camera 65 degrees down, NO HORIZON. Empty readable broad roads and large clear flat ground for tower defense soldiers to be rendered later. Strong deliberate distinct layout. Natural subdued daylight. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime or chibi. No modern objects. Generate a new independent environment, not a screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-c8dac474-50d6-4f0b-9ea1-a09e4953f036.png",
+    "file": "assets/stages/beginner-forest.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "beginner-farm",
+    "stageNumber": 12,
+    "title": "계단식 논과 수차",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean playable strategy battlefield background, full-bleed 16:9 landscape. Scene: Terraced rice fields sweeping around a hillside, large working waterwheel and raised switchback lanes, granary near the upper left. Composition: terraced wet rice paddies on a hill with wide dry switchback lanes leading from lower-right edge toward a raised granary at upper-left. A large wooden waterwheel and irrigation channel at lower-left. Three distinct flat store-yard clearings connected by broad raised dry roads, stores at upper-left, center-right and lower-left. Lots of flat dry ground beside routes. No roads that end in water. Style: detailed semi-photorealistic realistic 3D game environment, authentic late-16th-century Sengoku Japan, physical timber, stone and soil materials. High overhead strategy camera 65 degrees down, NO HORIZON. Empty readable broad roads and large clear flat ground for tower defense soldiers to be rendered later. Strong deliberate distinct layout. Natural subdued daylight. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime or chibi. No modern objects. Generate a new independent environment, not a screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-3d49285b-d0ce-4025-a3f2-2346c3bc3818.png",
+    "file": "assets/stages/beginner-farm.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "beginner-town",
+    "stageNumber": 13,
+    "title": "도공 마을의 가마터",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean playable strategy battlefield background, full-bleed 16:9 landscape. Scene: Pottery village, giant climbing kilns on the left, ochre clay yards, winding broad roads around central ceramic sheds, protected gate near bottom right. Composition: giant climbing pottery kilns and smoke chimneys confined to far left edge, central low ceramic sheds within an ochre clay island. Two broad dirt roads enter from upper-left and upper-right, curve on either side of the central sheds, and merge toward a protected timber village gate near lower-right edge. Broad open clay yards on both sides provide clear placement ground. Style: detailed semi-photorealistic realistic 3D game environment, authentic late-16th-century Sengoku Japan, physical timber, stone and soil materials. High overhead strategy camera 65 degrees down, NO HORIZON. Empty readable broad roads and large clear flat ground for tower defense soldiers to be rendered later. Strong deliberate distinct layout. Natural subdued daylight. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime or chibi. No modern objects. Generate a new independent environment, not a screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-c6762894-815e-4ea9-9a10-ee113a84ae13.png",
+    "file": "assets/stages/beginner-town.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "beginner-river",
+    "stageNumber": 14,
+    "title": "폭포 아래의 나루",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one full-bleed 16:9 landscape clean playable strategy battlefield background. Scene: A roaring waterfall feeds a horizontal river across the upper-middle field, two staggered timber bridges, ferry landing and road junction, fort in bottom left. Layout: the waterfall is at upper-left perimeter flowing rightward into a broad horizontal river across y=0.35. Two vertical timber bridges cross it, the left bridge around x=0.35 and the right bridge around x=0.73, visibly staggered. Both connect wide open north-bank lanes to broad south-bank clearings; dry curving roads on south bank travel leftward to a modest timber fortified ferry post at lower left. Keep broad flat dry banks on both sides for defending units. The two bridge crossings are the main readable gameplay geometry. Style: detailed realistic 3D videogame environment, late-16th-century Sengoku Japan, physical water, timber, stone and soil materials, restrained natural light. High overhead strategy camera 65 degrees down, NO HORIZON. Empty broad roads and large clear flat ground for tower defense units to be rendered later. Distinct composition, not same layout as other maps. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, border, health bars, cartoon, anime or chibi. No modern objects. New independent scene, not collage or screenshot.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-07ba2593-2ac0-4586-b57b-942236442221.png",
+    "file": "assets/stages/beginner-river.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "beginner-harbor",
+    "stageNumber": 15,
+    "title": "암초 해안의 봉수대",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one full-bleed 16:9 landscape clean playable strategy battlefield background. Scene: Rocky turquoise cove, zigzag shoreline lanes and two small piers, signal-fire watchtower on a promontory to upper left, sea on the right. Layout: deep sea covers the right third with a crescent rocky cove, two small wooden piers project toward right into the water at upper-right-center and lower-right-center. Wide zigzag dry shore road climbs from lower-right pier along midground to a signal-fire watchtower at upper-left promontory. Large flat rock shelves and bare earth clearings along the west side of the coastal lane allow defense placement. Boats moored only at piers. The beacon fort is accessible by broad ground. Style: detailed realistic 3D videogame environment, late-16th-century Sengoku Japan, physical water, timber, stone and soil materials, restrained natural light. High overhead strategy camera 65 degrees down, NO HORIZON. Empty broad roads and large clear flat ground for tower defense units to be rendered later. Distinct composition, not same layout as other maps. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, border, health bars, cartoon, anime or chibi. No modern objects. New independent scene, not collage or screenshot.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-efc4ad05-014a-467f-a601-38a4e141963e.png",
+    "file": "assets/stages/beginner-harbor.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "beginner-convoy",
+    "stageNumber": 16,
+    "title": "차밭 언덕의 보급로",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean playable full-bleed 16:9 landscape strategy battlefield background. Scene: Tea plantation hills, long curved dirt supply road between contour rows, broad flat staging terraces, roadside post upper right. Layout: an entirely open winding dirt supply road enters lower-left, climbs an extended broad U-shaped sweep between contour tea rows, passes a broad dry central terrace, and exits near a small roadside post at upper-right. Tea bush rows form smooth curved bands along both sides. Flat dry terraces beside road permit many units. Road should have a small broad returning side lane or loop so convoy can travel back and forth. No carts or units baked in. Style: detailed semi-photorealistic realistic 3D game environment, authentic Sengoku late-16th-century Japan, physical timber, stone, soil materials. High overhead strategy camera 65 degrees down, NO HORIZON. Empty readable broad roads and large clear flat ground for tower defense units to be rendered later. Strong unique deliberate layout. Natural subdued light. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. New independent environment, not screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-38216f4f-a472-4002-9b6d-f9feb49e1b04.png",
+    "file": "assets/stages/beginner-convoy.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "beginner-temple",
+    "stageNumber": 17,
+    "title": "석등 정원의 참배길",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean playable full-bleed 16:9 landscape strategy battlefield background. Scene: Temple stone-lantern garden with koi ponds, rectangular gravel courtyard and asymmetric stone steps, shrine-gate at lower left. Layout: rectangular open gravel court in center, koi ponds along the upper-right edge and left upper edge, stone lanterns at perimeter. Broad stone stair road descends in an asymmetric zigzag from upper-right into the central court, then turns around central low stone garden walls toward a modest roofed temple gate at lower-left edge. A second wide approach enters right center. Three visible flat levels beside stairs provide playable placements. Keep center mostly empty gravel. Style: detailed semi-photorealistic realistic 3D game environment, authentic Sengoku late-16th-century Japan, physical timber, stone, soil materials. High overhead strategy camera 65 degrees down, NO HORIZON. Empty readable broad roads and large clear flat ground for tower defense units to be rendered later. Strong unique deliberate layout. Natural subdued light. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. New independent environment, not screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-5cd9c23c-b2ec-408d-b809-f23248ebcc11.png",
+    "file": "assets/stages/beginner-temple.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "beginner-snow",
+    "stageNumber": 18,
+    "title": "얼어붙은 호수 길",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean playable full-bleed 16:9 landscape strategy battlefield background. Scene: A frozen shallow lake occupies central field, packed snow paths skirt both banks and cross a rough ice causeway, hut fort upper right. Layout: broad frozen lake in center-left, its far edge curves from upper-left to lower-center; a clearly packed snow road skirts the north bank from left edge and another skirting lane approaches from lower-left around south bank. A single rough pale ice causeway connects central near and far banks. Routes join on flat snowfield near a small wooden hut fort at upper-right. Large flat snowy margins beside all lanes for unit placements, crisp readable winter light. Style: detailed semi-photorealistic realistic 3D game environment, authentic Sengoku late-16th-century Japan, physical timber, stone, soil materials. High overhead strategy camera 65 degrees down, NO HORIZON. Empty readable broad roads and large clear flat ground for tower defense units to be rendered later. Strong unique deliberate layout. Natural subdued light. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. New independent environment, not screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-c4d02a04-d3e3-4162-97c8-28a50a84a013.png",
+    "file": "assets/stages/beginner-snow.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "beginner-night",
+    "stageNumber": 19,
+    "title": "등불 축제의 골목",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean full-bleed 16:9 landscape playable battlefield background. Scene: Night festival town, wide L-shaped lanes lined with warm paper lanterns and unoccupied stalls, open square lower right, storehouse upper left. Layout: broad L-shaped town lane runs from lower-right open square horizontally left across lower middle, then bends and runs upward toward a large raised wooden storehouse at upper-left. Another wide lane enters upper-right and joins central bend. Empty paper-lantern stalls only along edges of streets, lots of open dry square ground around lower-right and inside L for units. Lantern poles with warm pools of light, cool blue moonlight makes ALL ground visible, not too dark. No people at festival. Style: detailed semi-photorealistic realistic 3D strategy game, authentic late-16th-century Sengoku Japan, believable physical timber and stone and soil materials. High overhead camera 65 degrees down, NO HORIZON. Empty readable wide paths and large clear flat unit-placement ground. Entire field visible. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. New independent scene not screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-01c52d10-50d2-4499-80d5-b80c46ebe26a.png",
+    "file": "assets/stages/beginner-night.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "beginner-siege",
+    "stageNumber": 20,
+    "title": "산성 외곽의 해자",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean full-bleed 16:9 landscape playable battlefield background. Scene: Mountain fortress outer dry moat and narrow ridge, offset drawbridge approaches from bottom and right, timber gate upper left. Layout: mountain timber fortified gate at upper-left, large dry ditch/moat carved diagonally across lower-left to upper-right. Two clear offset timber drawbridges cross the dry moat, one around lower-middle and one around upper-right-middle. Wide dirt approach roads from bottom edge and right edge converge on a large flat ridge courtyard leading to upper-left gate. Flat open shelves beside route for defense placement. Strong visible stone retaining banks, unoccupied palisade perimeter, no grand castle central object blocking battlefield. Style: detailed semi-photorealistic realistic 3D strategy game, authentic late-16th-century Sengoku Japan, believable physical timber and stone and soil materials. High overhead camera 65 degrees down, NO HORIZON. Empty readable wide paths and large clear flat unit-placement ground. Entire field visible. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. New independent scene not screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-e8f79f79-2b6f-413a-a3ac-aa9d2fe8384d.png",
+    "file": "assets/stages/beginner-siege.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "intermediate-forest",
+    "stageNumber": 21,
+    "title": "거목 계곡의 목교",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one full-bleed 16:9 landscape playable battlefield background. Scene: Ancient giant cedar ravine with a diagonal stream, a single high wooden bridge and two rugged terrace approaches, fort at lower center. Layout: enormous ancient cedars at the upper-left and lower-right edges, deep rocky ravine with a narrow stream diagonally across the field from upper-right to lower-left. ONE broad high wooden bridge crosses the ravine at center on a diagonal from upper-left bank to lower-right bank. Two rugged but wide dry terraced dirt approaches enter from top and left, converge before bridge, road after bridge descends to a small timber fort at lower-center. Large flat dry terraces on both sides for many defense placements. The ancient cedars dwarf perimeter only; center bridge and routes remain fully visible. Style: detailed semi-photorealistic realistic 3D videogame environment of authentic late-16th-century Sengoku Japan, natural timber, stone, soil and water materials. High overhead strategy camera 65 degrees down, NO HORIZON. Wide empty readable roads and large flat clear placement ground. Strong unique deliberate layout. Natural restrained daylight. No people, soldiers, units, animals, monsters, UI, text, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. Independent newly generated scene, not collage or screenshot.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-86b821b1-d98d-4c7b-86ac-ea2f92f0ff32.png",
+    "file": "assets/stages/intermediate-forest.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "intermediate-farm",
+    "stageNumber": 22,
+    "title": "삼각주 관개 제방",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one full-bleed 16:9 landscape playable battlefield background. Scene: River delta triangle rice parcels, irrigation canals with levee T-junctions, wide dry berms and raised sluice building at upper center. Layout: triangle-shaped flooded rice parcels surrounded by irrigation canals and wide dry berms in a Japanese delta. A large dry T-shaped road junction in center, with a raised sluice wooden store building at upper-center and two smaller storeyards at lower-left and lower-right. Broad raised lanes from left, right and bottom connect to center junction then each storeyard. Include broad dry staging patches around junction and near each store, enough for units. Thin canals not wide rivers, all roads physically continuous and clear. Style: detailed semi-photorealistic realistic 3D videogame environment of authentic late-16th-century Sengoku Japan, natural timber, stone, soil and water materials. High overhead strategy camera 65 degrees down, NO HORIZON. Wide empty readable roads and large flat clear placement ground. Strong unique deliberate layout. Natural restrained daylight. No people, soldiers, units, animals, monsters, UI, text, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. Independent newly generated scene, not collage or screenshot.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-f9244f20-ee26-4e90-983f-451829ede83d.png",
+    "file": "assets/stages/intermediate-farm.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "intermediate-town",
+    "stageNumber": 23,
+    "title": "무사 저택의 담장길",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one full-bleed 16:9 landscape playable battlefield background. Scene: Samurai residential quarter, tall white plaster walls and roofed perimeter gates, offset broad lanes forming an S around gardens, gate at lower right. Layout: large samurai estate gardens enclosed by tall white plaster walls and black tile-roof perimeter gates. Broad offset lanes form a long angular S-shape from upper-left to middle-left, center, middle-right and lower-right roofed gate. A second lane enters from upper-right through one open gate and joins center. Dry broad lane shoulders and open gravel estate yards beside S road for units. Green garden trees within side compounds only, not across streets. Style: detailed semi-photorealistic realistic 3D videogame environment of authentic late-16th-century Sengoku Japan, natural timber, stone, soil and water materials. High overhead strategy camera 65 degrees down, NO HORIZON. Wide empty readable roads and large flat clear placement ground. Strong unique deliberate layout. Natural restrained daylight. No people, soldiers, units, animals, monsters, UI, text, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. Independent newly generated scene, not collage or screenshot.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-667988aa-a486-4950-9771-fd77e4692ffe.png",
+    "file": "assets/stages/intermediate-town.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "intermediate-river",
+    "stageNumber": 24,
+    "title": "모래톱의 세 갈림길",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean full-bleed 16:9 landscape playable battlefield background. Scene: Wide shallow braided river with exposed sandbars and stepping causeways, two selectable broad crossings, river fort at far left middle. Layout: braided shallow river runs diagonally through center from upper-middle to lower-right, separated by large exposed sandy islands. A broad stone-and-earth causeway crosses near upper-center and another wide stepped gravel causeway crosses lower-center, both readable and solid enough to walk. Dirt approaches enter from upper-right and lower-right, pass separate open sandy island junctions, cross the two causeways, then travel on a wide open left-bank dirt lane to a low wooden river fort at far-left center. Lots of big DRY flat sandbar and grass shoulder placements beside crossings, no defense placements on water. Two primary selectable crossings have visibly different shapes. Style: detailed realistic 3D videogame environment, authentic late-16th-century Sengoku Japan, physical water, timber, stone and soil materials. High overhead strategy camera 65 degrees down, NO HORIZON. Empty broad clear roads and plenty of dry flat open placement ground. Entire landscape readable, unique independent geometry. Natural restrained daylight. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. New environment, not screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-16240ad0-5dba-4fa3-acd5-647873660cf1.png",
+    "file": "assets/stages/intermediate-river.png",
+    "inspected": true,
+    "geometryDesigned": true
+  },
+  {
+    "id": "intermediate-harbor",
+    "stageNumber": 25,
+    "title": "절벽 포구의 창고",
+    "tool": "built-in image_gen",
+    "prompt": "Use case: historical-scene. Asset type: one clean full-bleed 16:9 landscape playable battlefield background. Scene: Steep sea cliffs around a small cove, lower-left piers and stair-cut terrace road to fortified warehouse on the right, broad dry rock shelves. Layout: turquoise sea and small cove occupies LOWER-LEFT third, two traditional wooden piers at lower-left coast. A broad dry cliff-cut lane leads inland from piers through large flat bare rock shelf at center-left, ascends stone switchback ramps toward a fortified tiled-roof warehouse on far-right center. Exposed stepped rock shelves and open dry staging areas beside route, wide enough for defense placements. Road has three short stair segments and long flat landings, no paths across cliff void. Sea cliffs form perimeter only and do not block bird's-eye view. Style: detailed realistic 3D videogame environment, authentic late-16th-century Sengoku Japan, physical water, timber, stone and soil materials. High overhead strategy camera 65 degrees down, NO HORIZON. Empty broad clear roads and plenty of dry flat open placement ground. Entire landscape readable, unique independent geometry. Natural restrained daylight. No people, soldiers, units, animals, monsters, UI, labels, lettering, numbers, logos, watermark, minimap, borders, health bars, cartoon, anime, chibi or modern objects. New environment, not screenshot or collage.",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-0a838964-017b-4002-ba6a-b7804fc25851.png",
+    "file": "assets/stages/intermediate-harbor.png",
+    "inspected": true,
+    "geometryDesigned": true
+  }
+]

@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://boy52mvs0q1ej"
+path="res://.godot/imported/low-poly.obj-56e172be37fd097644143390b49538bd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/low-poly.obj-56e172be37fd097644143390b49538bd.mesh"]
+
+source_file="res://assets/models3d/makehuman/makehuman/data/eyes/low-poly/low-poly.obj"
+dest_files=["res://.godot/imported/low-poly.obj-56e172be37fd097644143390b49538bd.mesh", "res://.godot/imported/low-poly.obj-56e172be37fd097644143390b49538bd.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

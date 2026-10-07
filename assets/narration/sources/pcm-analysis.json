@@ -1,0 +1,142 @@
+[
+  {
+    "id": "honor",
+    "seconds": 1.209795918367347,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.1788321842934945,
+    "peak": 0.82891845703125,
+    "pitchEstimateHz": 148.48484848484847
+  },
+  {
+    "id": "fight",
+    "seconds": 0.8010884353741496,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.26484814248031097,
+    "peak": 0.98529052734375,
+    "pitchEstimateHz": 222.72727272727272
+  },
+  {
+    "id": "begin",
+    "seconds": 0.6675736961451247,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.2460578894196946,
+    "peak": 0.98858642578125,
+    "pitchEstimateHz": 200.45454545454544
+  },
+  {
+    "id": "halt",
+    "seconds": 0.8301133786848073,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.22687550527800868,
+    "peak": 0.955841064453125,
+    "pitchEstimateHz": 200.45454545454544
+  },
+  {
+    "id": "victory",
+    "seconds": 1.0565079365079366,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.2883838195592778,
+    "peak": 0.98858642578125,
+    "pitchEstimateHz": 200.45454545454544
+  },
+  {
+    "id": "retry",
+    "seconds": 1.5499319727891157,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.15235314722432006,
+    "peak": 0.7283935546875,
+    "pitchEstimateHz": 154.1958041958042
+  },
+  {
+    "id": "challenge",
+    "seconds": 1.1623582766439908,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.1375490785700713,
+    "peak": 0.89068603515625,
+    "pitchEstimateHz": 160.36363636363637
+  },
+  {
+    "id": "march",
+    "seconds": 1.6888888888888889,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.1199560561258981,
+    "peak": 0.98858642578125,
+    "pitchEstimateHz": 160.62062937062936
+  },
+  {
+    "id": "strong_enemy",
+    "seconds": 2.8909297052154197,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.0856843169798127,
+    "peak": 0.832763671875,
+    "pitchEstimateHz": 148.48484848484847
+  },
+  {
+    "id": "danger",
+    "seconds": 2.926575963718821,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.1288951551147466,
+    "peak": 0.96783447265625,
+    "pitchEstimateHz": 182.23140495867767
+  },
+  {
+    "id": "resolve",
+    "seconds": 2.1631746031746033,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.11332597096215127,
+    "peak": 0.98858642578125,
+    "pitchEstimateHz": 148.48484848484847
+  },
+  {
+    "id": "defeat",
+    "seconds": 0.7691609977324263,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.16536288098452243,
+    "peak": 0.988555908203125,
+    "pitchEstimateHz": 229.27807486631013
+  },
+  {
+    "id": "move_on",
+    "seconds": 1.8232426303854876,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.07326895028586365,
+    "peak": 0.70489501953125,
+    "pitchEstimateHz": 154.1958041958042
+  },
+  {
+    "id": "wounded_victory",
+    "seconds": 2.7189115646258504,
+    "sampleRate": 44100,
+    "channels": 1,
+    "bits": 16,
+    "rms": 0.0679076317713946,
+    "peak": 0.68634033203125,
+    "pitchEstimateHz": 143.1818181818182
+  }
+]

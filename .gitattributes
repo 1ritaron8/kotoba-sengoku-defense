@@ -1,0 +1,12 @@
+# Preserve exact bytes used by SHA-256 provenance records.
+* -text
+*.png binary
+*.jpg binary
+*.webp binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.glb binary
+*.fbx binary
+*.ttf binary
+*.otf binary

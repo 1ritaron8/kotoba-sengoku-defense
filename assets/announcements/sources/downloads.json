@@ -1,0 +1,74 @@
+[
+  {
+    "id": "start",
+    "jp": "開始します",
+    "sourcePage": "https://soundeffect-lab.info/sound/voice/info-lady1.html",
+    "originalFileName": "info-lady1-kaishishimasu1.mp3",
+    "path": "res://assets/announcements/clips/start.mp3",
+    "bytes": 26957,
+    "sha256": "9ED62641D086050266F7900EA8E38A33FDB8B30D53CB6ECD830FBA741AC6C897"
+  },
+  {
+    "id": "correct",
+    "jp": "正解です",
+    "sourcePage": "https://soundeffect-lab.info/sound/voice/info-lady1.html",
+    "originalFileName": "info-lady1-seikaidesu1.mp3",
+    "path": "res://assets/announcements/clips/correct.mp3",
+    "bytes": 25703,
+    "sha256": "7D30E17AEB1D36ABAAB82D4644820146E4400C8A158D8064140F9794CC527901"
+  },
+  {
+    "id": "incorrect",
+    "jp": "残念でした",
+    "sourcePage": "https://soundeffect-lab.info/sound/voice/info-lady1.html",
+    "originalFileName": "info-lady1-zannendeshita1.mp3",
+    "path": "res://assets/announcements/clips/incorrect.mp3",
+    "bytes": 25703,
+    "sha256": "9C31C43FE951A9E2E8D36A50DFEBB271E0E6F7EC2D891AE21A6A8B283B408B6D"
+  },
+  {
+    "id": "hint",
+    "jp": "ヒントです",
+    "sourcePage": "https://soundeffect-lab.info/sound/voice/info-lady1.html",
+    "originalFileName": "info-lady1-hintdesu1.mp3",
+    "path": "res://assets/announcements/clips/hint.mp3",
+    "bytes": 25703,
+    "sha256": "C46C99855AFDB0CE7AF37CCCA4FF5880C9794DAB00781619CE219AB186E35B95"
+  },
+  {
+    "id": "answer_select",
+    "jp": "答えを選択してください",
+    "sourcePage": "https://soundeffect-lab.info/sound/voice/info-lady1.html",
+    "originalFileName": "info-lady1-kotaewosentaku1.mp3",
+    "path": "res://assets/announcements/clips/answer_select.mp3",
+    "bytes": 50154,
+    "sha256": "EA9112605286ABA6C4100D3BB23C433E493431A8E3B7F0B4CF609235040E84B9"
+  },
+  {
+    "id": "next_question",
+    "jp": "次の問題です",
+    "sourcePage": "https://soundeffect-lab.info/sound/voice/info-lady1.html",
+    "originalFileName": "info-lady1-tsuginomondaidesu1.mp3",
+    "path": "res://assets/announcements/clips/next_question.mp3",
+    "bytes": 30092,
+    "sha256": "E3D26E253C28EDCE742A60135994EC96461BB05C49E4B5E9A4043B5CD019CDF0"
+  },
+  {
+    "id": "level_up",
+    "jp": "レベルが上がりました",
+    "sourcePage": "https://soundeffect-lab.info/sound/voice/info-lady1.html",
+    "originalFileName": "info-lady1-levelgaagarimashita1.mp3",
+    "path": "res://assets/announcements/clips/level_up.mp3",
+    "bytes": 33853,
+    "sha256": "9FF7DCCDCE887A8DA78C4E3E0524DF4E03AEE58FA0B7C7E6CBD1E93EFBF8FE56"
+  },
+  {
+    "id": "message_received",
+    "jp": "メッセージが届きました",
+    "sourcePage": "https://soundeffect-lab.info/sound/voice/info-lady1.html",
+    "originalFileName": "info-lady1-messagegatodokimashita1.mp3",
+    "path": "res://assets/announcements/clips/message_received.mp3",
+    "bytes": 38242,
+    "sha256": "1CA26F115E25804C751EC51C0C1EDF0333D8B8F2C06DD615E332DEF581DDC94D"
+  }
+]

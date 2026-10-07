@@ -1,0 +1,7 @@
+Voice Clip Pack - Male Adventurer RPG
+Voice performance: Brandon Song (wolfwoot)
+Source: https://opengameart.org/content/voice-clip-pack-male-adventurer-rpg
+License: CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/
+Release date: 2020-02-09
+Author permits any type of project and appreciates credit as Brandon Song.
+Changes: nonverbal hurt/death files only, trimmed, mono converted, EQ/fades; no generated voice or dialogue.

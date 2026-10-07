@@ -1,0 +1,58 @@
+{
+  "columns": 6,
+  "rows": 4,
+  "cellWidth": 256,
+  "cellHeight": 256,
+  "baselineY": 228,
+  "anchor": {
+    "x": 0.5,
+    "y": 0.890625
+  },
+  "animations": {
+    "idle": {
+      "row": 0,
+      "frames": 6,
+      "fps": 5,
+      "loop": true
+    },
+    "walk": {
+      "row": 1,
+      "frames": 6,
+      "fps": 9,
+      "loop": true
+    },
+    "attack": {
+      "row": 2,
+      "frames": 6,
+      "fps": 12,
+      "loop": false
+    },
+    "death": {
+      "row": 3,
+      "frames": 6,
+      "fps": 9,
+      "loop": false
+    }
+  },
+  "sprites": {
+    "archer": "res://assets/units-animated/archer.png",
+    "spear": "res://assets/units-animated/spear.png",
+    "samurai": "res://assets/units-animated/samurai.png",
+    "commander": "res://assets/units-animated/commander.png",
+    "enemy_light": "res://assets/units-animated/enemy_light.png",
+    "enemy_heavy": "res://assets/units-animated/enemy_heavy.png"
+  },
+  "impactFrames": {
+    "archer": 4,
+    "spear": 3,
+    "samurai": 4,
+    "commander": 3,
+    "enemy_light": 3,
+    "enemy_heavy": 3
+  },
+  "frameIndexBase": 0,
+  "artStyle": "Semi-realistic 3D Sengoku warriors, elevated three-quarter view facing lower right",
+  "createdDate": "2026-10-03",
+  "generator": "Built-in image_gen",
+  "normalization": "All 24 generated poses per character packed into exact 256x256 cells with one uniform scale per sheet; baseline 228 and transparent margins."
+}

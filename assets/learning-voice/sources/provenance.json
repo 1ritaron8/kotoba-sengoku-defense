@@ -1,0 +1,35 @@
+{
+  "synthetic": true,
+  "humanRecording": false,
+  "credit": "VOICEVOX Nemo",
+  "source": "https://voicevox.hiroshiba.jp/nemo/term/",
+  "retrievedDate": "2026-10-06",
+  "downloadMethod": "Official VOICEVOX core downloader, explicit user approval of model/ONNX/Nemo terms; project portable files only",
+  "systemInstallation": false,
+  "publicUpload": false,
+  "voiceCloning": false,
+  "downloader": {
+    "source": "https://github.com/VOICEVOX/voicevox_core/releases/download/0.17.0/download-windows-x64.exe",
+    "version": "0.17.0",
+    "bytes": 6825928,
+    "sha256": "4f0ae2758f3149f084cc91556065009553bf81010f58498c89acb6e2289546b6"
+  },
+  "model": {
+    "source": "https://github.com/VOICEVOX/voicevox_vvm/releases/download/0.17.0/n0.vvm",
+    "version": "0.17.0",
+    "bytes": 75175864,
+    "sha256": "f9793559a0ecad1622c15e68674860d7d00ce2736cf02b3f46b083e989c74ec7",
+    "learningStyle": {"name": "女声1", "styleId": 10005},
+    "briefingStyle": {"name": "男声1", "styleId": 10001},
+    "styleMappingSource": "https://github.com/VOICEVOX/voicevox_vvm/blob/main/README.md"
+  },
+  "runtime": {
+    "source": "https://github.com/VOICEVOX/onnxruntime-builder/releases/tag/voicevox_onnxruntime-1.23.2",
+    "version": "1.23.2",
+    "acceleration": "CPU",
+    "cpuThreads": 2
+  },
+  "output": {"sampleRate": 24000,"channels": 1,"sampleWidthBytes": 2,"runtimePitchScale": 1.0,"synthesisPitchShift": 0.0},
+  "scope": "Original authored Japanese learning text, with authored kana readings; separate exact 40-stage Japanese mission briefings using a neutral male Nemo style. Recorded male/female announcers are retained unchanged.",
+  "limits": "Automatic non-silence/decode tests do not establish pronunciation, naturalness or listening quality. Nemo is synthetic reading, not the existing human narrator."
+}

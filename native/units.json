@@ -1,0 +1,529 @@
+{
+  "version": 1,
+  "maxLevel": 10,
+  "units": [
+    {
+      "id": "archer",
+      "name": "궁병",
+      "jp": "弓兵",
+      "reading": "きゅうへい",
+      "parts": [
+        {
+          "text": "弓",
+          "reading": "きゅう"
+        },
+        {
+          "text": "兵",
+          "reading": "へい"
+        }
+      ],
+      "unlockClears": 0,
+      "damage": 15.0,
+      "range": 0.205,
+      "interval": 0.85,
+      "cost": 60,
+      "color": "87a48f",
+      "weight": 40,
+      "role": "성벽·고지 사격",
+      "description": "높은 진지에서 화살을 쏘아 보병이 막은 적을 견제합니다.",
+      "trait": "arrow",
+      "evolutions": [
+        {
+          "stage": 1,
+          "level": 4,
+          "jp": "熟練弓兵",
+          "reading": "じゅくれんきゅうへい",
+          "name": "숙련 궁병",
+          "damageMultiplier": 1.12,
+          "rangeMultiplier": 1.04,
+          "intervalMultiplier": 0.96
+        },
+        {
+          "stage": 2,
+          "level": 8,
+          "jp": "弓侍",
+          "reading": "ゆみざむらい",
+          "name": "궁술 사무라이",
+          "damageMultiplier": 1.3,
+          "rangeMultiplier": 1.08,
+          "intervalMultiplier": 0.92
+        }
+      ],
+      "skillUnlocks": [
+        {
+          "titleKo": "일제사격",
+          "level": 3,
+          "id": "archer_volley",
+          "descriptionKo": "궁병들이 사격 시간을 맞추어 강화된 화살을 발사합니다."
+        },
+        {
+          "titleKo": "불화살",
+          "level": 5,
+          "id": "archer_fire",
+          "descriptionKo": "불붙은 화살이 명중한 적에게 잠시 화상을 입힙니다."
+        },
+        {
+          "titleKo": "광역 화살비",
+          "level": 8,
+          "id": "archer_barrage",
+          "descriptionKo": "여러 화살을 쏘아 착탄 지점의 밀집한 적에게 피해를 줍니다."
+        }
+      ],
+      "recruitSeconds": 2.1
+    },
+    {
+      "id": "spear",
+      "name": "창병",
+      "jp": "槍兵",
+      "reading": "そうへい",
+      "parts": [
+        {
+          "text": "槍",
+          "reading": "そう"
+        },
+        {
+          "text": "兵",
+          "reading": "へい"
+        }
+      ],
+      "unlockClears": 0,
+      "damage": 16.0,
+      "range": 0.145,
+      "interval": 0.6,
+      "cost": 65,
+      "color": "adb697",
+      "weight": 32,
+      "role": "전진·돌격 저지",
+      "description": "기지에서 전진해 적을 붙잡습니다. 긴 창으로 돌격을 저지하고 사격 병력의 전열을 지킵니다.",
+      "trait": "single",
+      "evolutions": [
+        {
+          "stage": 1,
+          "level": 4,
+          "jp": "熟練槍兵",
+          "reading": "じゅくれんそうへい",
+          "name": "숙련 창병",
+          "damageMultiplier": 1.12,
+          "rangeMultiplier": 1.04,
+          "intervalMultiplier": 0.96
+        },
+        {
+          "stage": 2,
+          "level": 8,
+          "jp": "槍奉行",
+          "reading": "やりぶぎょう",
+          "name": "창술 지휘관",
+          "damageMultiplier": 1.3,
+          "rangeMultiplier": 1.08,
+          "intervalMultiplier": 0.92
+        }
+      ],
+      "skillUnlocks": [
+        {
+          "titleKo": "관통 찌르기",
+          "level": 3,
+          "id": "spear_pierce",
+          "descriptionKo": "찌른 방향의 뒤쪽 적까지 창이 관통합니다."
+        },
+        {
+          "titleKo": "2인 소집",
+          "level": 5,
+          "id": "spear_pair",
+          "descriptionKo": "소집 한 번의 비용과 생성 시간으로 창병 두 명을 모집합니다."
+        },
+        {
+          "titleKo": "독창",
+          "level": 8,
+          "id": "spear_poison",
+          "descriptionKo": "창에 맞은 적에게 잠시 중독 피해를 줍니다."
+        }
+      ],
+      "recruitSeconds": 2.275
+    },
+    {
+      "id": "samurai",
+      "name": "사무라이",
+      "jp": "侍",
+      "reading": "さむらい",
+      "unlockClears": 1,
+      "damage": 31.0,
+      "range": 0.145,
+      "interval": 0.76,
+      "cost": 85,
+      "color": "bd8064",
+      "weight": 20,
+      "role": "장갑 근접 격파",
+      "description": "기지에서 전진해 적과 근접전을 벌입니다. 갑옷을 베어 적 전열을 무너뜨립니다.",
+      "trait": "armor_cut",
+      "evolutions": [
+        {
+          "stage": 1,
+          "level": 4,
+          "jp": "武士",
+          "reading": "ぶし",
+          "name": "무사",
+          "damageMultiplier": 1.12,
+          "rangeMultiplier": 1.04,
+          "intervalMultiplier": 0.96
+        },
+        {
+          "stage": 2,
+          "level": 8,
+          "jp": "剣豪",
+          "reading": "けんごう",
+          "name": "검호",
+          "damageMultiplier": 1.3,
+          "rangeMultiplier": 1.08,
+          "intervalMultiplier": 0.92
+        }
+      ],
+      "skillUnlocks": [
+        {
+          "titleKo": "갑주 보강",
+          "level": 3,
+          "id": "samurai_armor",
+          "descriptionKo": "갑주를 보강하여 받는 피해를 줄입니다."
+        },
+        {
+          "titleKo": "창병 지원",
+          "level": 5,
+          "id": "samurai_spear_aura",
+          "descriptionKo": "가까운 아군 창병의 공격력을 높입니다."
+        },
+        {
+          "titleKo": "벽력일섬",
+          "level": 8,
+          "id": "samurai_flash",
+          "descriptionKo": "낮은 확률로 적 사무라이를 일섬으로 격파합니다. 역사 장수는 즉사하지 않습니다."
+        }
+      ],
+      "recruitSeconds": 2.975
+    },
+    {
+      "id": "gunner",
+      "name": "조총병",
+      "jp": "鉄砲兵",
+      "reading": "てっぽうへい",
+      "parts": [
+        {
+          "text": "鉄砲",
+          "reading": "てっぽう"
+        },
+        {
+          "text": "兵",
+          "reading": "へい"
+        }
+      ],
+      "unlockClears": 3,
+      "damage": 63.0,
+      "range": 0.14,
+      "interval": 1.55,
+      "cost": 115,
+      "color": "a8a7a0",
+      "weight": 12,
+      "role": "전선 배치·장갑 관통",
+      "description": "청록 전선에 배치해 제자리에서 화승총을 쏩니다. 느린 재장전 대신 강한 한 발로 중장갑을 관통합니다.",
+      "trait": "matchlock",
+      "evolutions": [
+        {
+          "stage": 1,
+          "level": 4,
+          "jp": "鉄砲足軽",
+          "reading": "てっぽうあしがる",
+          "name": "조총 아시가루",
+          "damageMultiplier": 1.12,
+          "rangeMultiplier": 1.04,
+          "intervalMultiplier": 0.96
+        },
+        {
+          "stage": 2,
+          "level": 8,
+          "jp": "鉄砲組頭",
+          "reading": "てっぽうくみがしら",
+          "name": "조총 조장",
+          "damageMultiplier": 1.3,
+          "rangeMultiplier": 1.08,
+          "intervalMultiplier": 0.92
+        }
+      ],
+      "skillUnlocks": [
+        {
+          "titleKo": "관통탄",
+          "level": 3,
+          "id": "gunner_pierce",
+          "descriptionKo": "직선상에 있는 뒤쪽 적까지 탄환이 관통합니다."
+        },
+        {
+          "titleKo": "장전 숙련",
+          "level": 5,
+          "id": "gunner_reload",
+          "descriptionKo": "재장전 시간을 조금 줄입니다."
+        },
+        {
+          "titleKo": "갑옷 약화탄",
+          "level": 8,
+          "id": "gunner_armor_break",
+          "descriptionKo": "명중한 적의 갑옷을 잠시 약화해 아군의 후속 공격을 돕습니다."
+        }
+      ],
+      "recruitSeconds": 4.025
+    },
+    {
+      "id": "naginata",
+      "name": "장도병",
+      "jp": "薙刀兵",
+      "reading": "なぎなたへい",
+      "parts": [
+        {
+          "text": "薙刀",
+          "reading": "なぎなた"
+        },
+        {
+          "text": "兵",
+          "reading": "へい"
+        }
+      ],
+      "unlockClears": 5,
+      "damage": 30.0,
+      "range": 0.17,
+      "interval": 1.02,
+      "cost": 100,
+      "color": "b0b08b",
+      "weight": 14,
+      "role": "성벽·사격 진지 호위",
+      "description": "청록 수비점에서 사격 진지를 지킵니다. 접근한 적을 장도로 쓸고 수비선으로 복귀합니다.",
+      "trait": "sweep",
+      "evolutions": [
+        {
+          "stage": 1,
+          "level": 4,
+          "jp": "薙刀武者",
+          "reading": "なぎなたむしゃ",
+          "name": "장도 무사",
+          "damageMultiplier": 1.12,
+          "rangeMultiplier": 1.04,
+          "intervalMultiplier": 0.96
+        },
+        {
+          "stage": 2,
+          "level": 8,
+          "jp": "薙刀達人",
+          "reading": "なぎなたたつじん",
+          "name": "장도 달인",
+          "damageMultiplier": 1.3,
+          "rangeMultiplier": 1.08,
+          "intervalMultiplier": 0.92
+        }
+      ],
+      "skillUnlocks": [
+        {
+          "titleKo": "넓은 쓸기",
+          "level": 3,
+          "id": "naginata_sweep",
+          "descriptionKo": "장도를 휘두르는 범위가 조금 넓어집니다."
+        },
+        {
+          "titleKo": "호위 돌진",
+          "level": 5,
+          "id": "naginata_guard_charge",
+          "descriptionKo": "전의가 차면 수비 구역의 적 군집에 돌진해 쓸어냅니다."
+        },
+        {
+          "titleKo": "돌진 방호",
+          "level": 8,
+          "id": "naginata_charge_guard",
+          "descriptionKo": "돌진 공격 뒤 잠시 무적이 되어 진지 앞 교전을 버팁니다."
+        }
+      ],
+      "recruitSeconds": 3.5
+    },
+    {
+      "id": "monk",
+      "name": "승병",
+      "jp": "僧兵",
+      "reading": "そうへい",
+      "parts": [
+        {
+          "text": "僧",
+          "reading": "そう"
+        },
+        {
+          "text": "兵",
+          "reading": "へい"
+        }
+      ],
+      "unlockClears": 8,
+      "damage": 0,
+      "range": 0.16,
+      "interval": 0.95,
+      "cost": 95,
+      "color": "a48d68",
+      "weight": 14,
+      "role": "치료·전의 지원",
+      "description": "고정 지원점에서 부상한 아군을 치료합니다. 강화하면 전진 병력의 회복과 전의를 돕습니다.",
+      "trait": "healer",
+      "evolutions": [
+        {
+          "stage": 1,
+          "level": 4,
+          "jp": "熟練僧兵",
+          "reading": "じゅくれんそうへい",
+          "name": "숙련 승병",
+          "damageMultiplier": 1.12,
+          "rangeMultiplier": 1.04,
+          "intervalMultiplier": 0.96
+        },
+        {
+          "stage": 2,
+          "level": 8,
+          "jp": "僧兵頭",
+          "reading": "そうへいがしら",
+          "name": "승병 대장",
+          "damageMultiplier": 1.3,
+          "rangeMultiplier": 1.08,
+          "intervalMultiplier": 0.92
+        }
+      ],
+      "skillUnlocks": [
+        {
+          "titleKo": "회복 부적",
+          "level": 3,
+          "id": "monk_talisman",
+          "descriptionKo": "치료받은 아군이 전진하여 범위를 벗어나도 잠시 회복합니다."
+        },
+        {
+          "titleKo": "전의 진언",
+          "level": 5,
+          "id": "monk_mantra",
+          "descriptionKo": "근처 장도병의 전의 충전과 기마장군의 돌진 준비를 돕습니다."
+        },
+        {
+          "titleKo": "승전 기도",
+          "level": 8,
+          "id": "monk_victory_prayer",
+          "descriptionKo": "주변 아군의 처치로 기도를 모아 범위 치료와 전의 회복을 일으킵니다."
+        }
+      ],
+      "recruitSeconds": 3.325
+    },
+    {
+      "id": "commander",
+      "name": "기마 무장",
+      "jp": "武将",
+      "reading": "ぶしょう",
+      "parts": [
+        {
+          "text": "武",
+          "reading": "ぶ"
+        },
+        {
+          "text": "将",
+          "reading": "しょう"
+        }
+      ],
+      "unlockClears": 10,
+      "damage": 26.0,
+      "range": 0.19,
+      "interval": 1.0,
+      "cost": 145,
+      "color": "d1b865",
+      "weight": 8,
+      "role": "기동 돌격·통솔",
+      "description": "기지에서 출진해 기동 돌격으로 적 전열을 돌파합니다. 교전 후에도 적 진입구를 향해 전진합니다.",
+      "trait": "command",
+      "evolutions": [
+        {
+          "stage": 1,
+          "level": 4,
+          "jp": "騎馬武者",
+          "reading": "きばむしゃ",
+          "name": "기마 무사",
+          "damageMultiplier": 1.12,
+          "rangeMultiplier": 1.04,
+          "intervalMultiplier": 0.96
+        },
+        {
+          "stage": 2,
+          "level": 8,
+          "jp": "騎馬大将",
+          "reading": "きばたいしょう",
+          "name": "기마 대장",
+          "damageMultiplier": 1.3,
+          "rangeMultiplier": 1.08,
+          "intervalMultiplier": 0.92
+        }
+      ],
+      "skillUnlocks": [
+        {
+          "titleKo": "기마 돌진",
+          "level": 3,
+          "id": "commander_charge",
+          "descriptionKo": "실제 기마 돌진으로 앞의 적을 타격합니다."
+        },
+        {
+          "titleKo": "전열 대형",
+          "level": 5,
+          "id": "commander_formation",
+          "descriptionKo": "같은 출진로의 아군과 대형을 유지할 때 추가 전투 능력을 받습니다."
+        },
+        {
+          "titleKo": "대형 붕괴",
+          "level": 8,
+          "id": "commander_break",
+          "descriptionKo": "돌진에 맞은 적 대형을 잠시 흩뜨립니다."
+        }
+      ],
+      "recruitSeconds": 5.075
+    },
+    {
+      "id": "ninja",
+      "name": "닌자",
+      "jp": "忍者",
+      "reading": "にんじゃ",
+      "parts": [
+        {
+          "text": "忍",
+          "reading": "にん"
+        },
+        {
+          "text": "者",
+          "reading": "じゃ"
+        }
+      ],
+      "unlockClears": 14,
+      "damage": 17.0,
+      "range": 0.15,
+      "interval": 0.46,
+      "cost": 110,
+      "color": "829197",
+      "weight": 10,
+      "role": "측면 기습·사격 진지 암살",
+      "description": "보라색 숲·측면 엄폐 지점에 특별 배치합니다. 가까운 적을 급습하거나 적 사격 진지를 암살한 뒤 엄폐 지점으로 복귀합니다.",
+      "trait": "execute",
+      "evolutions": [
+        {
+          "stage": 1,
+          "level": 4,
+          "jp": "上忍",
+          "reading": "じょうにん",
+          "name": "상급 닌자",
+          "damageMultiplier": 1.12,
+          "rangeMultiplier": 1.04,
+          "intervalMultiplier": 0.96
+        },
+        {
+          "stage": 2,
+          "level": 8,
+          "jp": "忍頭",
+          "reading": "しのびがしら",
+          "name": "닌자 대장",
+          "damageMultiplier": 1.3,
+          "rangeMultiplier": 1.08,
+          "intervalMultiplier": 0.92
+        }
+      ],
+      "skillUnlocks": [],
+      "recruitSeconds": 3.85
+    }
+  ]
+}

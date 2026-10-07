@@ -1,0 +1,258 @@
+{
+  "actualWins": 0,
+  "armyUsage": {},
+  "battleMinutes": 10,
+  "checks": 39,
+  "ended": true,
+  "failures": [],
+  "initialBarracksTraining": "archer",
+  "learningMode": "none",
+  "limitations": [
+    "Policy failure is not proof of player impossibility.",
+    "Known-answer assessment does not establish human learning or retention.",
+    "No actual Native renderer structure/collision binding is included.",
+    "Only first requested stages, zero repeated-clear farming, not whole campaign or a win-rate benchmark."
+  ],
+  "observedStages": 1,
+  "permanentArmy": {
+    "currency": 40,
+    "levels": {
+      "archer": 2,
+      "commander": 1,
+      "gunner": 1,
+      "monk": 1,
+      "naginata": 1,
+      "ninja": 1,
+      "samurai": 1,
+      "spear": 1
+    },
+    "selected": "archer",
+    "training": {}
+  },
+  "policySet": "trained_bound",
+  "requestedStages": 10,
+  "runs": [
+    {
+      "attempts": [
+        {
+          "answerAttempts": 0,
+          "casualties": {},
+          "composition": {
+            "archer": 14
+          },
+          "correct": 0,
+          "firstBirth": 2.1,
+          "gold": 2486,
+          "hp": 0,
+          "income": 3046,
+          "initialGold": 280,
+          "kills": 292,
+          "learningGold": 0,
+          "levelChangesInBattle": 0,
+          "mergeCalls": 0,
+          "objectiveLosses": [
+            {
+              "gold": 1631,
+              "hp": 25,
+              "living": 14,
+              "queue": 0,
+              "seconds": 257.873684210528
+            },
+            {
+              "gold": 1631,
+              "hp": 24,
+              "living": 14,
+              "queue": 0,
+              "seconds": 258.473684210528
+            },
+            {
+              "gold": 1660,
+              "hp": 21,
+              "living": 14,
+              "queue": 0,
+              "seconds": 260.773684210529
+            },
+            {
+              "gold": 1660,
+              "hp": 20,
+              "living": 14,
+              "queue": 0,
+              "seconds": 260.873684210529
+            },
+            {
+              "gold": 1681,
+              "hp": 19,
+              "living": 14,
+              "queue": 0,
+              "seconds": 261.573684210529
+            },
+            {
+              "gold": 1688,
+              "hp": 18,
+              "living": 14,
+              "queue": 0,
+              "seconds": 261.973684210529
+            },
+            {
+              "gold": 1688,
+              "hp": 15,
+              "living": 14,
+              "queue": 0,
+              "seconds": 262.173684210529
+            },
+            {
+              "gold": 1688,
+              "hp": 14,
+              "living": 14,
+              "queue": 0,
+              "seconds": 262.473684210529
+            },
+            {
+              "gold": 1695,
+              "hp": 13,
+              "living": 14,
+              "queue": 0,
+              "seconds": 262.673684210529
+            },
+            {
+              "gold": 1702,
+              "hp": 10,
+              "living": 14,
+              "queue": 0,
+              "seconds": 262.973684210529
+            },
+            {
+              "gold": 1702,
+              "hp": 9,
+              "living": 14,
+              "queue": 0,
+              "seconds": 263.173684210529
+            },
+            {
+              "gold": 1723,
+              "hp": 8,
+              "living": 14,
+              "queue": 0,
+              "seconds": 264.57368421053
+            },
+            {
+              "gold": 2350,
+              "hp": 7,
+              "living": 14,
+              "queue": 0,
+              "seconds": 314.994736842107
+            },
+            {
+              "gold": 2446,
+              "hp": 6,
+              "living": 14,
+              "queue": 0,
+              "seconds": 322.094736842109
+            },
+            {
+              "gold": 2446,
+              "hp": 4,
+              "living": 14,
+              "queue": 0,
+              "seconds": 322.394736842109
+            },
+            {
+              "gold": 2486,
+              "hp": 3,
+              "living": 14,
+              "queue": 0,
+              "seconds": 325.494736842109
+            },
+            {
+              "gold": 2486,
+              "hp": 1,
+              "living": 14,
+              "queue": 0,
+              "seconds": 326.39473684211
+            },
+            {
+              "gold": 2486,
+              "hp": 0,
+              "living": 14,
+              "queue": 0,
+              "seconds": 327.34473684211
+            }
+          ],
+          "objectives": [
+            {
+              "hp": 0,
+              "id": "main",
+              "maxHp": 26
+            }
+          ],
+          "peakArmy": 14,
+          "peakEnemies": 36,
+          "policy": "trained_full_bow_distributed",
+          "produced": {
+            "archer": 14
+          },
+          "refunds": 0,
+          "rendererBound": false,
+          "seconds": 327.34473684211,
+          "spent": 840,
+          "upgradeCalls": 0,
+          "victory": false,
+          "wave": 12
+        }
+      ],
+      "fundsBefore": 40,
+      "levelsBefore": {
+        "archer": 2,
+        "commander": 1,
+        "gunner": 1,
+        "monk": 1,
+        "naginata": 1,
+        "ninja": 1,
+        "samurai": 1,
+        "spear": 1
+      },
+      "stageId": "basic-forest",
+      "stageNumber": 1.0,
+      "unlockedBefore": [
+        "archer",
+        "spear"
+      ],
+      "won": false
+    }
+  ],
+  "savePath": "res://tests/profiles/permanent-growth-campaign-review-20261007/none-trained_bound-train-archer-progress.json",
+  "scope": "Actual CPU Game/Nav only, no renderer or GPU; genuine delayed paid production, deaths/replacements, native supplies, initial funds and clear-earned permanent growth. No in-battle merge/upgrade, forced win, artificial level/HP/gold or stat edits. Actual gate submissions are known-answer fixture only.",
+  "sourceHashesCurrent": {
+    "battle_duration.gd": "6256ee4e85fe39e9ea3674cf56e1c6cd7fbe0e725d28c28d20532e6959f48410",
+    "game.gd": "ea5ae3ac522ffb948f72adefa3cee80234b12decfa60d3747466321935d9623f",
+    "ground_combat.gd": "3d26a6e53eada4620d16e74706ed027fb44699a85f35e4bcd5bef59a5c1f4481",
+    "learning_gate.gd": "27253911486a4c8c7c375c66bae98bf2dca6924a5f66493f82c2a92b2b3d61f3",
+    "maps.json": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+    "progress.gd": "6de32aa553244cf1884e3d9be70daa3e6511f348ff9ac980c7021f44afa21893",
+    "unit_growth.gd": "83a335e0fd30b29fe9e0841e4b2f0a599de8dd4466b1bd7f690549b2d3ff03d9",
+    "unit_skills.gd": "e5cc9af19f87e6aeae044f33edb462f7ad7a31d1cae05dbbb221cee1afa78e68",
+    "units.json": "7873f37623288654c1251374e9e22d7905575a65054222c6e2b4d5bd9ae29c48"
+  },
+  "sourceHashesStart": {
+    "battle_duration.gd": "6256ee4e85fe39e9ea3674cf56e1c6cd7fbe0e725d28c28d20532e6959f48410",
+    "game.gd": "ea5ae3ac522ffb948f72adefa3cee80234b12decfa60d3747466321935d9623f",
+    "ground_combat.gd": "3d26a6e53eada4620d16e74706ed027fb44699a85f35e4bcd5bef59a5c1f4481",
+    "learning_gate.gd": "27253911486a4c8c7c375c66bae98bf2dca6924a5f66493f82c2a92b2b3d61f3",
+    "maps.json": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+    "progress.gd": "6de32aa553244cf1884e3d9be70daa3e6511f348ff9ac980c7021f44afa21893",
+    "unit_growth.gd": "83a335e0fd30b29fe9e0841e4b2f0a599de8dd4466b1bd7f690549b2d3ff03d9",
+    "unit_skills.gd": "e5cc9af19f87e6aeae044f33edb462f7ad7a31d1cae05dbbb221cee1afa78e68",
+    "units.json": "7873f37623288654c1251374e9e22d7905575a65054222c6e2b4d5bd9ae29c48"
+  },
+  "training": [
+    {
+      "afterStage": "before-first-stage",
+      "cost": 140,
+      "evolved": false,
+      "funds": 40,
+      "level": 2,
+      "type": "archer"
+    }
+  ],
+  "wallSeconds": 22.115
+}

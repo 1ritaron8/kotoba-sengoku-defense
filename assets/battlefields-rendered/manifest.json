@@ -1,0 +1,1415 @@
+{
+  "version": 1,
+  "camera": {
+    "elevation": 50.0,
+    "worldWidth": 18.5,
+    "aspectRatio": 1.7768331562167907
+  },
+  "sourceMapsSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+  "expectedStageCount": 40,
+  "complete": true,
+  "sourceGeometryPolicy": "High fidelity images rendered from 40 distinct authored gameplay-layout blueprints. Land height/navigation/placement remain physical and use native/maps.json. Art is a game interpretation, not a surveyed historical reconstruction.",
+  "stages": [
+    {
+      "stageId": "basic-forest",
+      "stageNumber": 1,
+      "path": "res://assets/battlefields-rendered/stage-01-basic-forest-casual-v6.png",
+      "sourceGeometryFingerprint": "82006a32e248703e68c7e8a43f8492c36f24a422108dd6db020fbea2327a9d8b",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "3ae69ed477ead938d1736906846968ee833565de97413e32953c65b367b71fbb",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#bdcbd6",
+        "keyTint": "#dfdfd9",
+        "keyEnergy": 0.78,
+        "ambientEnergy": 0.46,
+        "fillEnergy": 0.25,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "basic-farm",
+      "stageNumber": 2,
+      "path": "res://assets/battlefields-rendered/stage-02-basic-farm-casual-v6.png",
+      "sourceGeometryFingerprint": "d0a9e67950061793ca726b33589280862fd6e3dc615e51c72dee2c139b847eb9",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "7aea2ac081736de62fa92ef52dfb277100815843fb0ec1d4f19d82943f5d37d6",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "basic-town",
+      "stageNumber": 3,
+      "path": "res://assets/battlefields-rendered/stage-03-basic-town-casual-v6.png",
+      "sourceGeometryFingerprint": "3c25a5f052ad55a9f465db231a1f0fc7eb93a4080375c28dee6a4b055c78714a",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "fd9cee9f3c28fcd9240b19eb0a0d0e46ea9cba19119dc11ce85b5e5b43902ed8",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "basic-river",
+      "stageNumber": 4,
+      "path": "res://assets/battlefields-rendered/stage-04-basic-river-casual-v6.png",
+      "sourceGeometryFingerprint": "4dc34a111ebb8ed5069345c71e0ac1982b94fe0d97ae6c0758d85f388c202e22",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "2eebf00b515d42ec6356528e10f03e870a771b121a482333e921cf2f07076c62",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "basic-harbor",
+      "stageNumber": 5,
+      "path": "res://assets/battlefields-rendered/stage-05-basic-harbor-casual-v6.png",
+      "sourceGeometryFingerprint": "619acddba3861aa188fc6d94bca87c9e4054866f6ac25901bb8881f419641220",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "723f2909af77c77889c5e76dc589e150d1db671c05040d076a6b547e8de3d895",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#dac3b0",
+        "keyTint": "#ffddb4",
+        "keyEnergy": 0.95,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.2,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "basic-convoy",
+      "stageNumber": 6,
+      "path": "res://assets/battlefields-rendered/stage-06-basic-convoy-casual-v6.png",
+      "sourceGeometryFingerprint": "c48f60b53ef2c491fa157b0eb5ca4953e6f35329028da32046d6d57172f42d26",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "d78f2c6622b107e2619946119bb3174f43f42af4fdda9ab31960763674814a9e",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "basic-temple",
+      "stageNumber": 7,
+      "path": "res://assets/battlefields-rendered/stage-07-basic-temple-casual-v6.png",
+      "sourceGeometryFingerprint": "b3460c816a4c7ab37e91440f5bd54aeb6d1c2b7384036e21fb30fed200222ea7",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "1f6d5c2f63475347e054f437ec3536b3fd0e8db7867761a1aa4e1c9aa25887ee",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "basic-snow",
+      "stageNumber": 8,
+      "path": "res://assets/battlefields-rendered/stage-08-basic-snow-casual-v6.png",
+      "sourceGeometryFingerprint": "1b52da9f6be70ede5d75b7833547c74837a4702b30480990be2f6b7dc2327b64",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "b8977be405a2fdd7b45d1fb8796428c039adfa38cecabbbd8df80810246ca844",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "basic-night",
+      "stageNumber": 9,
+      "path": "res://assets/battlefields-rendered/stage-09-basic-night-casual-v6.png",
+      "sourceGeometryFingerprint": "37830eb56ca90d89c7311f24d9ed1550ba394d87d7fab1c1dfe77a3f3fc6cb89",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "f2c5b87e1f796d91169ae198f7916d590767bc3a90db9ed4bbdac7891ea5d516",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "basic-siege",
+      "stageNumber": 10,
+      "path": "res://assets/battlefields-rendered/stage-10-basic-siege-casual-v6.png",
+      "sourceGeometryFingerprint": "c093fda04667d1d1a43d8f7ab5e5e2d50aec72615fedb30aab296f4cb13ba80b",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "640f4ebec7ae380c33d13416dde2a3e3cfdb52c9f0cb8bcffe8a9fe8eb306590",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-forest",
+      "stageNumber": 11,
+      "path": "res://assets/battlefields-rendered/stage-11-beginner-forest-casual-v6.png",
+      "sourceGeometryFingerprint": "90f733775f7e906536b4a3cdce3578b702b2b9e0004153ac14f2ab1144b2cf46",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "8fc6c121438180caacca771833cba0354818cae9e4045f3b055ec7b803c47db3",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#dac3b0",
+        "keyTint": "#ffddb4",
+        "keyEnergy": 0.95,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.2,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-farm",
+      "stageNumber": 12,
+      "path": "res://assets/battlefields-rendered/stage-12-beginner-farm-casual-v6.png",
+      "sourceGeometryFingerprint": "38caf58b6a73eeca570e3d0d62088e9d7ecc8ab22336d6680b2d5a2b1f3234ae",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "75d8fca49c80bb5d8d40e96e0e1f3735b131124fa00eda4135d211c84f5ad84c",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-town",
+      "stageNumber": 13,
+      "path": "res://assets/battlefields-rendered/stage-13-beginner-town-casual-v6.png",
+      "sourceGeometryFingerprint": "7b636915808d707bec83e7429356655f3cf024c190afcc8c0dea24ad8b31a999",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "8827112a0688e7303e2b88be0811e8c87bb0eeb8f4a8c8f839a165e3f8a754a5",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-river",
+      "stageNumber": 14,
+      "path": "res://assets/battlefields-rendered/stage-14-beginner-river-casual-v6.png",
+      "sourceGeometryFingerprint": "9be44c83a5a5b9cf1b866d01d7912ef5623dc6be79f811e2034faa616a34216c",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "d644f23eef51aeb4a168f3c5f0c0cdf2cdcf6535ba2b00181fb72f5e97f8c8bf",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-harbor",
+      "stageNumber": 15,
+      "path": "res://assets/battlefields-rendered/stage-15-beginner-harbor-casual-v6.png",
+      "sourceGeometryFingerprint": "652cd73d92b70d2fcad50a85e4f82f2666dd1f082fd195e1684153d77e02f6f9",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "682df564d12719c3adb8c069377f13825c2d57198104a903e183a4f2b20bc165",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#bac8de",
+        "keyTint": "#c3d5ff",
+        "keyEnergy": 0.55,
+        "ambientEnergy": 0.35,
+        "fillEnergy": 0.32,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-convoy",
+      "stageNumber": 16,
+      "path": "res://assets/battlefields-rendered/stage-16-beginner-convoy-casual-v6.png",
+      "sourceGeometryFingerprint": "81160cdb5fc96c1b59f28f9c9e2a2c396fd7672360d47cd8a3f3e40a5650c314",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "9c405d4677674b2c77bb4bcba26d0c7f8b6fce9ae685a6fb9867d16e124d9649",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-temple",
+      "stageNumber": 17,
+      "path": "res://assets/battlefields-rendered/stage-17-beginner-temple-casual-v6.png",
+      "sourceGeometryFingerprint": "ae0475bb1b6902e10d43ee4f105ae8607e37f2ae3dd53e6c8f391c0bc270b0e4",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "ce79ef2b6316ab5fade76a473c407048ff93029cce34d37fb0349e88190e470d",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-snow",
+      "stageNumber": 18,
+      "path": "res://assets/battlefields-rendered/stage-18-beginner-snow-casual-v6.png",
+      "sourceGeometryFingerprint": "05fe2995964d81d332acaea395c30c64daf102ccaa97715b67817a919c72f4c0",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "3b734ff103e7a6b941dcb0a0ed88dbf292afb27bf5eec4160bd0b35215164638",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-night",
+      "stageNumber": 19,
+      "path": "res://assets/battlefields-rendered/stage-19-beginner-night-casual-v6.png",
+      "sourceGeometryFingerprint": "0ee7f7dca8f94c45e73c9e056306db5a7120e224d828f582c0e3898329e797d3",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "2e85232c1783a2bfdd288c6c2bf6b43132da7cf3a455cbeaf8dea68746501ec8",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "beginner-siege",
+      "stageNumber": 20,
+      "path": "res://assets/battlefields-rendered/stage-20-beginner-siege-casual-v6.png",
+      "sourceGeometryFingerprint": "3f75b2c356f18987922fa6418ec42330eb97b62d311341dbaef66d7ad57c47d9",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "71ebf852eb10baece29feffb7bad4cef83a32a8ebabd579b24921b246d2e1297",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#bac8de",
+        "keyTint": "#c3d5ff",
+        "keyEnergy": 0.55,
+        "ambientEnergy": 0.35,
+        "fillEnergy": 0.32,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-forest",
+      "stageNumber": 21,
+      "path": "res://assets/battlefields-rendered/stage-21-intermediate-forest-casual-v6.png",
+      "sourceGeometryFingerprint": "77a66ab772076a3f954a589109bc88a1c6b02bcbfba0d250a239ede600171f8b",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "7e495e394019fb22092f2075c9c06cba80ef4b7d21cf91e58a2adb2f1ce40d79",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-farm",
+      "stageNumber": 22,
+      "path": "res://assets/battlefields-rendered/stage-22-intermediate-farm-casual-v6.png",
+      "sourceGeometryFingerprint": "4e1839c794afe89d8c9c8335200f24458feaa767b95d74e5bc98bc6f76510dbf",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "871025e563219010c9848efd42d6615013d089cd6a7defee7ed8442df4539bb6",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-town",
+      "stageNumber": 23,
+      "path": "res://assets/battlefields-rendered/stage-23-intermediate-town-casual-v6.png",
+      "sourceGeometryFingerprint": "86f6e80a3fe895f41f5b48447641d7e0f515198590e59697dd853cb2bade9c33",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "f930c419cb1b71de91e3b3f81cd12e4daf1d35784bdd8e054cb275a996697255",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-river",
+      "stageNumber": 24,
+      "path": "res://assets/battlefields-rendered/stage-24-intermediate-river-casual-v6.png",
+      "sourceGeometryFingerprint": "e825ee54cec911de9ec751ae3e7b58a20851056863440d4b930f17bb9b7159a8",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "e5d9f7f7df939ae3d8145fc3b736650f6539e3587dba04d5e1c80f212ccfc800",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-harbor",
+      "stageNumber": 25,
+      "path": "res://assets/battlefields-rendered/stage-25-intermediate-harbor-casual-v6.png",
+      "sourceGeometryFingerprint": "841b18f17c75968a827d2bccde55d3ce6facc3bdd89c23d2b53fdbcfbd90540c",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "678ff6e577cbddec9d00c291c7806cbaf035aa5cbd11ba5809ecfc38f9f6e02b",
+      "width": 1672,
+      "height": 940,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-convoy",
+      "stageNumber": 26,
+      "path": "res://assets/battlefields-rendered/stage-26-intermediate-convoy-casual-v6.png",
+      "sourceGeometryFingerprint": "21c024e555f4623e0faf51ffd77f932e98c73062ae7fba27d3b3940a833fda7b",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "0f09d210ebed3c9866c1b1a4aed7926cbf7deb30faa915cbc8a53d20dfe5b475",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-temple",
+      "stageNumber": 27,
+      "path": "res://assets/battlefields-rendered/stage-27-intermediate-temple-casual-v6.png",
+      "sourceGeometryFingerprint": "1ed14afac2708be2e21197f74d8d8e430a2f0679f45038843f6f328b831d989e",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "6c11cc119d5fd926e1eb3ab750efea6886ee80023139a10d99482466bc2b5274",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-snow",
+      "stageNumber": 28,
+      "path": "res://assets/battlefields-rendered/stage-28-intermediate-snow-casual-v6.png",
+      "sourceGeometryFingerprint": "250813bba7af68c8375f68801fa1ed6ac3babb6a58de34c31b15be51103d05fe",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "e64c8858ecbf7ea137e1675725d35bd9213ab1011c5986710d76d8ff4ac12f27",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-night",
+      "stageNumber": 29,
+      "path": "res://assets/battlefields-rendered/stage-29-intermediate-night-casual-v6.png",
+      "sourceGeometryFingerprint": "bbeb7e8d40d19486561f3149da35550ca68ac3595a7aa5c8da6bd23b462366d3",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "1a1968c4d0ac6bed8be6f02c89c428cd3dcf931f445e0b8c94c82e60dbfbc8cb",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "intermediate-siege",
+      "stageNumber": 30,
+      "path": "res://assets/battlefields-rendered/stage-30-intermediate-siege-casual-v6.png",
+      "sourceGeometryFingerprint": "a1f47f181dfebe37e94761eea436c00b198ffaee7e8298b69fb051551578b1f4",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "a7b0ed675ff77e5244300f503d1dc87b1fe4211c9c6b61b1d74b45f9668ca056",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-forest",
+      "stageNumber": 31,
+      "path": "res://assets/battlefields-rendered/stage-31-advanced-forest-casual-v6.png",
+      "sourceGeometryFingerprint": "7efd0969e5406b424ce4ba866a221020b2e1b7f8b2dda2f4beb0c55ffc4dac0e",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "e58fae4e9e795929a470f77aae4916722190618ded765eba4ea1d9dfb505616b",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-farm",
+      "stageNumber": 32,
+      "path": "res://assets/battlefields-rendered/stage-32-advanced-farm-casual-v6.png",
+      "sourceGeometryFingerprint": "56102af2f7494940e99216d5be9105480a1bd4f635ce69796beff9b0fc39928f",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "8703f7e0d89f54362290fcb6691579d14500de43878a6929bf3f0bb44fca944d",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-town",
+      "stageNumber": 33,
+      "path": "res://assets/battlefields-rendered/stage-33-advanced-town-casual-v6.png",
+      "sourceGeometryFingerprint": "88f7c9daccac8dce787b3ad7e581004d2ac8e7bbf6a26dbd67a6afce6c78e476",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "715df2721fb4d5c3901899ea2bfe413b08872633efe3c7ec5213143d7a1f9bf6",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-river",
+      "stageNumber": 34,
+      "path": "res://assets/battlefields-rendered/stage-34-advanced-river-casual-v6.png",
+      "sourceGeometryFingerprint": "b3f1cee21e521b18989749466030bb5a218cb5b7ecb6bba311fe88989e395d25",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "ab4ca66f6062a1da1bcc271686c4988036aaec09ea34170901d99355636c3a63",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-harbor",
+      "stageNumber": 35,
+      "path": "res://assets/battlefields-rendered/stage-35-advanced-harbor-casual-v6.png",
+      "sourceGeometryFingerprint": "e69e1c259a980af925a8eac7b045feee04b8f5caacd7f86ef3e264d478e4b8ba",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "5a5cedb679e6e78dd12ce148eb76d6827f93b33fa07abcf9286cc24d8de1ff73",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-convoy",
+      "stageNumber": 36,
+      "path": "res://assets/battlefields-rendered/stage-36-advanced-convoy-casual-v6.png",
+      "sourceGeometryFingerprint": "8faf47cbb0cde77cb1073fc30c59820354639be2bfbd53ec92fdcbe652c50092",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "8893e11df38882de22f7b584223c18f656de4f670c3a962173ba2f8888d9bba5",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#bac8de",
+        "keyTint": "#c3d5ff",
+        "keyEnergy": 0.55,
+        "ambientEnergy": 0.35,
+        "fillEnergy": 0.32,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-temple",
+      "stageNumber": 37,
+      "path": "res://assets/battlefields-rendered/stage-37-advanced-temple-casual-v6.png",
+      "sourceGeometryFingerprint": "c9cdc38768d774f543cd939c5b48d8ee3ff070b34dbc07c90330d0418d82cd01",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "98579d89985702fb7526dcea650c3a5efb201f0bf6e0dc43e5f02c24dc6dd9d0",
+      "width": 1671,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-snow",
+      "stageNumber": 38,
+      "path": "res://assets/battlefields-rendered/stage-38-advanced-snow-casual-v6.png",
+      "sourceGeometryFingerprint": "697a03e548e7013a3868e5a4af68c4dd19d58181794eabc7669256d834b1160b",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "3a083bd347b7fb825a925fd5df063c8d26303b98858ff70496fd813381665b23",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-night",
+      "stageNumber": 39,
+      "path": "res://assets/battlefields-rendered/stage-39-advanced-night-casual-v6.png",
+      "sourceGeometryFingerprint": "724ba82d1cbd75f46dc5cd7a191ccd364c06dfd165276ba661d8c68f439109b1",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "01b7c16b39b2ccd65e8dbbd584bec38cf2c8c1ab2e28d80f2929575df613b7e7",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#c5d3d5",
+        "keyTint": "#e3ece7",
+        "keyEnergy": 0.85,
+        "ambientEnergy": 0.48,
+        "fillEnergy": 0.22,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    },
+    {
+      "stageId": "advanced-siege",
+      "stageNumber": 40,
+      "path": "res://assets/battlefields-rendered/stage-40-advanced-siege-casual-v6.png",
+      "sourceGeometryFingerprint": "0639319ce7ac0957ee2b01aee042ba5887771d62fd89def004ecc65afebb04db",
+      "sourceDataSha256": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+      "sha256": "0ba45ecb9aa4f013eccfc26cfce71937c6cd39dc2b0a1e4989ad07ea7fd6ec55",
+      "width": 1672,
+      "height": 941,
+      "normalizedBounds": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "lighting": {
+        "shadowStrength": 0.4,
+        "ambientTint": "#e8e5ce",
+        "keyTint": "#fff2d7",
+        "keyEnergy": 1.12,
+        "ambientEnergy": 0.4,
+        "fillEnergy": 0.16,
+        "shadowDirection": {
+          "x": -0.7,
+          "y": 0.45
+        }
+      },
+      "generatedBy": "OpenAI built-in image_gen",
+      "artDirection": "Approved option 1: clear casual sculpted/painted 3D",
+      "review": {
+        "assetInspected": true,
+        "inGameReviewed": false,
+        "status": "Actual game integration verification pending"
+      }
+    }
+  ],
+  "artDirection": "Approved option 1: clear casual sculpted/painted 3D"
+}

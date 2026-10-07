@@ -1,0 +1,1125 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "stageId": "basic-forest",
+      "ambientTint": "#f0efdb",
+      "actorTint": "#f0efdb",
+      "actorBrightness": 0.98,
+      "actorSaturation": 0.74,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.25,
+      "shadowDirection": {
+        "x": -0.7,
+        "y": 0.45
+      },
+      "shadowLength": 0.3,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.1,
+        "verticalCompression": 0.86
+      },
+      "roadOpacity": 0.16,
+      "grading": {
+        "tint": "#b3bca7",
+        "opacity": 0
+      },
+      "fogTint": "#b3bca7",
+      "fogStrength": 0.025,
+      "visualNoteKO": "흙빛 공터와 짙은 녹색 숲, 확산된 낮빛",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "basic-farm",
+      "ambientTint": "#f4efd9",
+      "actorTint": "#f4efd9",
+      "actorBrightness": 1,
+      "actorSaturation": 0.75,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.26,
+      "shadowDirection": {
+        "x": -0.6,
+        "y": 0.5
+      },
+      "shadowLength": 0.28,
+      "perspective": {
+        "farScale": 0.89,
+        "nearScale": 1.1,
+        "verticalCompression": 0.87
+      },
+      "roadOpacity": 0.15,
+      "grading": {
+        "tint": "#bec4a4",
+        "opacity": 0
+      },
+      "fogTint": "#bec4a4",
+      "fogStrength": 0.015,
+      "visualNoteKO": "연녹색 논의 반사광과 따뜻한 마른 흙길",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "basic-town",
+      "ambientTint": "#fff0d9",
+      "actorTint": "#fff0d9",
+      "actorBrightness": 0.98,
+      "actorSaturation": 0.72,
+      "shadowTint": "#34271c",
+      "shadowOpacity": 0.28,
+      "shadowDirection": {
+        "x": -0.65,
+        "y": 0.45
+      },
+      "shadowLength": 0.32,
+      "perspective": {
+        "farScale": 0.9,
+        "nearScale": 1.12,
+        "verticalCompression": 0.88
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#c4b7a2",
+        "opacity": 0
+      },
+      "fogTint": "#c4b7a2",
+      "fogStrength": 0.01,
+      "visualNoteKO": "밝은 베이지 석재 장터와 지붕의 중성 그늘",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "basic-river",
+      "ambientTint": "#edf3eb",
+      "actorTint": "#edf3eb",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.74,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.23,
+      "shadowDirection": {
+        "x": -0.65,
+        "y": 0.45
+      },
+      "shadowLength": 0.28,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.09,
+        "verticalCompression": 0.86
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#b8caca",
+        "opacity": 0
+      },
+      "fogTint": "#b8caca",
+      "fogStrength": 0.025,
+      "visualNoteKO": "녹청색 물빛과 둑의 회갈색 낮빛",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "basic-harbor",
+      "ambientTint": "#fff0dc",
+      "actorTint": "#fff0dc",
+      "actorBrightness": 1,
+      "actorSaturation": 0.73,
+      "shadowTint": "#34271c",
+      "shadowOpacity": 0.29,
+      "shadowDirection": {
+        "x": -0.7,
+        "y": 0.4
+      },
+      "shadowLength": 0.34,
+      "perspective": {
+        "farScale": 0.89,
+        "nearScale": 1.11,
+        "verticalCompression": 0.87
+      },
+      "roadOpacity": 0.14,
+      "grading": {
+        "tint": "#bad0cf",
+        "opacity": 0
+      },
+      "fogTint": "#bad0cf",
+      "fogStrength": 0.018,
+      "visualNoteKO": "강한 해안 햇빛, 따뜻한 부두와 청록색 바다",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "basic-convoy",
+      "ambientTint": "#f9efd4",
+      "actorTint": "#f9efd4",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.75,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.29,
+      "shadowDirection": {
+        "x": -0.72,
+        "y": 0.48
+      },
+      "shadowLength": 0.32,
+      "perspective": {
+        "farScale": 0.87,
+        "nearScale": 1.11,
+        "verticalCompression": 0.86
+      },
+      "roadOpacity": 0.14,
+      "grading": {
+        "tint": "#b9bda2",
+        "opacity": 0
+      },
+      "fogTint": "#b9bda2",
+      "fogStrength": 0.015,
+      "visualNoteKO": "황록색 계곡의 낮빛과 먼지 많은 보급로",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "basic-temple",
+      "ambientTint": "#f2eee2",
+      "actorTint": "#f2eee2",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.72,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.27,
+      "shadowDirection": {
+        "x": -0.62,
+        "y": 0.55
+      },
+      "shadowLength": 0.3,
+      "perspective": {
+        "farScale": 0.89,
+        "nearScale": 1.1,
+        "verticalCompression": 0.85
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#bdc8cb",
+        "opacity": 0
+      },
+      "fogTint": "#bdc8cb",
+      "fogStrength": 0.025,
+      "visualNoteKO": "회색 돌마당의 반사광과 단풍의 은은한 온기",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "basic-snow",
+      "ambientTint": "#dfebff",
+      "actorTint": "#dfebff",
+      "actorBrightness": 1.02,
+      "actorSaturation": 0.68,
+      "shadowTint": "#313d53",
+      "shadowOpacity": 0.22,
+      "shadowDirection": {
+        "x": -0.6,
+        "y": 0.45
+      },
+      "shadowLength": 0.23,
+      "perspective": {
+        "farScale": 0.9,
+        "nearScale": 1.12,
+        "verticalCompression": 0.87
+      },
+      "roadOpacity": 0.1,
+      "grading": {
+        "tint": "#d1deec",
+        "opacity": 0
+      },
+      "fogTint": "#d1deec",
+      "fogStrength": 0.045,
+      "visualNoteKO": "푸른 눈그늘과 밝은 눈의 하늘 반사광",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "basic-night",
+      "ambientTint": "#c8d6ee",
+      "actorTint": "#c8d6ee",
+      "actorBrightness": 0.93,
+      "actorSaturation": 0.69,
+      "shadowTint": "#101621",
+      "shadowOpacity": 0.2,
+      "shadowDirection": {
+        "x": -0.3,
+        "y": 0.7
+      },
+      "shadowLength": 0.2,
+      "perspective": {
+        "farScale": 0.91,
+        "nearScale": 1.12,
+        "verticalCompression": 0.88
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#9eabc5",
+        "opacity": 0
+      },
+      "fogTint": "#9eabc5",
+      "fogStrength": 0.035,
+      "visualNoteKO": "푸른 달빛과 주황 횃불 웅덩이",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "basic-siege",
+      "ambientTint": "#ffe5bf",
+      "actorTint": "#ffe5bf",
+      "actorBrightness": 0.98,
+      "actorSaturation": 0.74,
+      "shadowTint": "#34271c",
+      "shadowOpacity": 0.3,
+      "shadowDirection": {
+        "x": -0.75,
+        "y": 0.43
+      },
+      "shadowLength": 0.36,
+      "perspective": {
+        "farScale": 0.89,
+        "nearScale": 1.1,
+        "verticalCompression": 0.87
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#c2ad91",
+        "opacity": 0
+      },
+      "fogTint": "#c2ad91",
+      "fogStrength": 0.015,
+      "visualNoteKO": "황금빛 늦은 낮, 가을 흙마당과 긴 성문 그늘",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-forest",
+      "ambientTint": "#eff0d9",
+      "actorTint": "#eff0d9",
+      "actorBrightness": 0.96,
+      "actorSaturation": 0.72,
+      "shadowTint": "#34271c",
+      "shadowOpacity": 0.26,
+      "shadowDirection": {
+        "x": -0.65,
+        "y": 0.5
+      },
+      "shadowLength": 0.29,
+      "perspective": {
+        "farScale": 0.87,
+        "nearScale": 1.09,
+        "verticalCompression": 0.85
+      },
+      "roadOpacity": 0.15,
+      "grading": {
+        "tint": "#aec0ab",
+        "opacity": 0
+      },
+      "fogTint": "#aec0ab",
+      "fogStrength": 0.03,
+      "visualNoteKO": "대나무의 황록색 간접광과 협곡의 짙은 그늘",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-farm",
+      "ambientTint": "#f4eed5",
+      "actorTint": "#f4eed5",
+      "actorBrightness": 1,
+      "actorSaturation": 0.74,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.27,
+      "shadowDirection": {
+        "x": -0.55,
+        "y": 0.55
+      },
+      "shadowLength": 0.3,
+      "perspective": {
+        "farScale": 0.86,
+        "nearScale": 1.1,
+        "verticalCompression": 0.84
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#bcc2a6",
+        "opacity": 0
+      },
+      "fogTint": "#bcc2a6",
+      "fogStrength": 0.018,
+      "visualNoteKO": "계단식 논의 녹회색 반사와 햇빛 받은 수차 마당",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-town",
+      "ambientTint": "#ffe5cf",
+      "actorTint": "#ffe5cf",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.72,
+      "shadowTint": "#34271c",
+      "shadowOpacity": 0.28,
+      "shadowDirection": {
+        "x": -0.6,
+        "y": 0.45
+      },
+      "shadowLength": 0.31,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.11,
+        "verticalCompression": 0.86
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#c8b19d",
+        "opacity": 0
+      },
+      "fogTint": "#c8b19d",
+      "fogStrength": 0.018,
+      "visualNoteKO": "황토 가마터와 적갈색 흙의 따뜻한 반사광",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-river",
+      "ambientTint": "#ecf0df",
+      "actorTint": "#ecf0df",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.73,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.23,
+      "shadowDirection": {
+        "x": -0.62,
+        "y": 0.48
+      },
+      "shadowLength": 0.27,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.1,
+        "verticalCompression": 0.85
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#b8cacc",
+        "opacity": 0
+      },
+      "fogTint": "#b8cacc",
+      "fogStrength": 0.03,
+      "visualNoteKO": "폭포 물안개의 중성 빛과 연갈색 둑",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-harbor",
+      "ambientTint": "#f5f0df",
+      "actorTint": "#f5f0df",
+      "actorBrightness": 1.01,
+      "actorSaturation": 0.75,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.29,
+      "shadowDirection": {
+        "x": -0.75,
+        "y": 0.4
+      },
+      "shadowLength": 0.32,
+      "perspective": {
+        "farScale": 0.87,
+        "nearScale": 1.1,
+        "verticalCompression": 0.84
+      },
+      "roadOpacity": 0.14,
+      "grading": {
+        "tint": "#b8d1cf",
+        "opacity": 0
+      },
+      "fogTint": "#b8d1cf",
+      "fogStrength": 0.024,
+      "visualNoteKO": "청록색 얕은 바다와 밝은 암초의 반사광",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-convoy",
+      "ambientTint": "#f3f0d4",
+      "actorTint": "#f3f0d4",
+      "actorBrightness": 1,
+      "actorSaturation": 0.74,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.28,
+      "shadowDirection": {
+        "x": -0.7,
+        "y": 0.44
+      },
+      "shadowLength": 0.31,
+      "perspective": {
+        "farScale": 0.87,
+        "nearScale": 1.11,
+        "verticalCompression": 0.85
+      },
+      "roadOpacity": 0.14,
+      "grading": {
+        "tint": "#b6c0a3",
+        "opacity": 0
+      },
+      "fogTint": "#b6c0a3",
+      "fogStrength": 0.016,
+      "visualNoteKO": "차밭의 녹색 간접광과 따뜻한 계단 흙길",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-temple",
+      "ambientTint": "#f5ede0",
+      "actorTint": "#f5ede0",
+      "actorBrightness": 0.98,
+      "actorSaturation": 0.71,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.28,
+      "shadowDirection": {
+        "x": -0.65,
+        "y": 0.5
+      },
+      "shadowLength": 0.3,
+      "perspective": {
+        "farScale": 0.89,
+        "nearScale": 1.12,
+        "verticalCompression": 0.86
+      },
+      "roadOpacity": 0.11,
+      "grading": {
+        "tint": "#b5c1b8",
+        "opacity": 0
+      },
+      "fogTint": "#b5c1b8",
+      "fogStrength": 0.02,
+      "visualNoteKO": "석등 정원의 회갈색 자갈과 잉어 연못 반사",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-snow",
+      "ambientTint": "#e2ebfa",
+      "actorTint": "#e2ebfa",
+      "actorBrightness": 1,
+      "actorSaturation": 0.67,
+      "shadowTint": "#313d53",
+      "shadowOpacity": 0.2,
+      "shadowDirection": {
+        "x": -0.55,
+        "y": 0.45
+      },
+      "shadowLength": 0.22,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.1,
+        "verticalCompression": 0.86
+      },
+      "roadOpacity": 0.1,
+      "grading": {
+        "tint": "#cbdbea",
+        "opacity": 0
+      },
+      "fogTint": "#cbdbea",
+      "fogStrength": 0.048,
+      "visualNoteKO": "얼음 호수의 회청색 빛과 부드러운 설원 그림자",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-night",
+      "ambientTint": "#d6dcec",
+      "actorTint": "#d6dcec",
+      "actorBrightness": 0.94,
+      "actorSaturation": 0.72,
+      "shadowTint": "#101621",
+      "shadowOpacity": 0.18,
+      "shadowDirection": {
+        "x": -0.28,
+        "y": 0.65
+      },
+      "shadowLength": 0.2,
+      "perspective": {
+        "farScale": 0.91,
+        "nearScale": 1.13,
+        "verticalCompression": 0.89
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#afaec0",
+        "opacity": 0
+      },
+      "fogTint": "#afaec0",
+      "fogStrength": 0.028,
+      "visualNoteKO": "축제 등불의 따뜻한 간접광, 청보라 밤 그늘",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "beginner-siege",
+      "ambientTint": "#ecebd8",
+      "actorTint": "#ecebd8",
+      "actorBrightness": 0.98,
+      "actorSaturation": 0.72,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.25,
+      "shadowDirection": {
+        "x": -0.7,
+        "y": 0.45
+      },
+      "shadowLength": 0.28,
+      "perspective": {
+        "farScale": 0.87,
+        "nearScale": 1.09,
+        "verticalCompression": 0.84
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#bbc1b5",
+        "opacity": 0
+      },
+      "fogTint": "#bbc1b5",
+      "fogStrength": 0.026,
+      "visualNoteKO": "마른 해자의 중성 확산광과 회갈색 산성 바위",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-forest",
+      "ambientTint": "#e8efdb",
+      "actorTint": "#e8efdb",
+      "actorBrightness": 0.98,
+      "actorSaturation": 0.71,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.26,
+      "shadowDirection": {
+        "x": -0.6,
+        "y": 0.52
+      },
+      "shadowLength": 0.29,
+      "perspective": {
+        "farScale": 0.86,
+        "nearScale": 1.1,
+        "verticalCompression": 0.83
+      },
+      "roadOpacity": 0.14,
+      "grading": {
+        "tint": "#b5c7c0",
+        "opacity": 0
+      },
+      "fogTint": "#b5c7c0",
+      "fogStrength": 0.034,
+      "visualNoteKO": "거목 그늘의 녹색빛과 깊은 협곡 물안개",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-farm",
+      "ambientTint": "#f0edda",
+      "actorTint": "#f0edda",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.73,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.25,
+      "shadowDirection": {
+        "x": -0.62,
+        "y": 0.48
+      },
+      "shadowLength": 0.29,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.11,
+        "verticalCompression": 0.85
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#b8c6b2",
+        "opacity": 0
+      },
+      "fogTint": "#b8c6b2",
+      "fogStrength": 0.02,
+      "visualNoteKO": "수로 제방의 회녹색 반사와 건조한 삼각주 길",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-town",
+      "ambientTint": "#f4f0e2",
+      "actorTint": "#f4f0e2",
+      "actorBrightness": 1,
+      "actorSaturation": 0.7,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.27,
+      "shadowDirection": {
+        "x": -0.7,
+        "y": 0.44
+      },
+      "shadowLength": 0.3,
+      "perspective": {
+        "farScale": 0.9,
+        "nearScale": 1.11,
+        "verticalCompression": 0.87
+      },
+      "roadOpacity": 0.1,
+      "grading": {
+        "tint": "#c4c8bd",
+        "opacity": 0
+      },
+      "fogTint": "#c4c8bd",
+      "fogStrength": 0.01,
+      "visualNoteKO": "흰 회벽의 밝은 반사광, 무사 저택의 차가운 지붕 그늘",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-river",
+      "ambientTint": "#eef0df",
+      "actorTint": "#eef0df",
+      "actorBrightness": 1,
+      "actorSaturation": 0.73,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.23,
+      "shadowDirection": {
+        "x": -0.65,
+        "y": 0.43
+      },
+      "shadowLength": 0.25,
+      "perspective": {
+        "farScale": 0.86,
+        "nearScale": 1.08,
+        "verticalCompression": 0.84
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#bfd0cb",
+        "opacity": 0
+      },
+      "fogTint": "#bfd0cb",
+      "fogStrength": 0.03,
+      "visualNoteKO": "넓은 모래톱의 밝은 베이지와 얕은 강의 청회색",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-harbor",
+      "ambientTint": "#f0eee0",
+      "actorTint": "#f0eee0",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.72,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.27,
+      "shadowDirection": {
+        "x": -0.72,
+        "y": 0.42
+      },
+      "shadowLength": 0.29,
+      "perspective": {
+        "farScale": 0.87,
+        "nearScale": 1.1,
+        "verticalCompression": 0.84
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#b4c9cc",
+        "opacity": 0
+      },
+      "fogTint": "#b4c9cc",
+      "fogStrength": 0.026,
+      "visualNoteKO": "해안 돌계단의 중성 햇빛과 절벽의 푸른 바다 반사",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-convoy",
+      "ambientTint": "#f8e3d2",
+      "actorTint": "#f8e3d2",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.71,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.26,
+      "shadowDirection": {
+        "x": -0.65,
+        "y": 0.48
+      },
+      "shadowLength": 0.31,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.12,
+        "verticalCompression": 0.86
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#c5b3a7",
+        "opacity": 0
+      },
+      "fogTint": "#c5b3a7",
+      "fogStrength": 0.022,
+      "visualNoteKO": "적갈색 바위 협곡의 온기와 역참의 잔먼지",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-temple",
+      "ambientTint": "#f8e9d7",
+      "actorTint": "#f8e9d7",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.72,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.28,
+      "shadowDirection": {
+        "x": -0.7,
+        "y": 0.48
+      },
+      "shadowLength": 0.31,
+      "perspective": {
+        "farScale": 0.87,
+        "nearScale": 1.1,
+        "verticalCompression": 0.84
+      },
+      "roadOpacity": 0.11,
+      "grading": {
+        "tint": "#c4bdb5",
+        "opacity": 0
+      },
+      "fogTint": "#c4bdb5",
+      "fogStrength": 0.025,
+      "visualNoteKO": "붉은 단풍, 회갈색 탑 마당과 긴 돌계단의 낮빛",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-snow",
+      "ambientTint": "#e9eef7",
+      "actorTint": "#e9eef7",
+      "actorBrightness": 1,
+      "actorSaturation": 0.69,
+      "shadowTint": "#313d53",
+      "shadowOpacity": 0.21,
+      "shadowDirection": {
+        "x": -0.5,
+        "y": 0.5
+      },
+      "shadowLength": 0.22,
+      "perspective": {
+        "farScale": 0.89,
+        "nearScale": 1.12,
+        "verticalCompression": 0.87
+      },
+      "roadOpacity": 0.1,
+      "grading": {
+        "tint": "#dae2e8",
+        "opacity": 0
+      },
+      "fogTint": "#dae2e8",
+      "fogStrength": 0.052,
+      "visualNoteKO": "온천 김의 중성 확산광과 눈길의 연한 청회색",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-night",
+      "ambientTint": "#bfcee9",
+      "actorTint": "#bfcee9",
+      "actorBrightness": 0.94,
+      "actorSaturation": 0.68,
+      "shadowTint": "#101621",
+      "shadowOpacity": 0.19,
+      "shadowDirection": {
+        "x": -0.25,
+        "y": 0.65
+      },
+      "shadowLength": 0.2,
+      "perspective": {
+        "farScale": 0.9,
+        "nearScale": 1.12,
+        "verticalCompression": 0.87
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#92a9c9",
+        "opacity": 0
+      },
+      "fogTint": "#92a9c9",
+      "fogStrength": 0.055,
+      "visualNoteKO": "갈대 습지의 차가운 달빛, 물 반사와 좁은 횃불빛",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "intermediate-siege",
+      "ambientTint": "#f0ecda",
+      "actorTint": "#f0ecda",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.71,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.26,
+      "shadowDirection": {
+        "x": -0.67,
+        "y": 0.49
+      },
+      "shadowLength": 0.29,
+      "perspective": {
+        "farScale": 0.86,
+        "nearScale": 1.08,
+        "verticalCompression": 0.84
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#bdc4bc",
+        "opacity": 0
+      },
+      "fogTint": "#bdc4bc",
+      "fogStrength": 0.024,
+      "visualNoteKO": "두 성문 사이의 낮빛, 중성 돌벽과 회갈색 흙",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-forest",
+      "ambientTint": "#e8ecd5",
+      "actorTint": "#e8ecd5",
+      "actorBrightness": 0.98,
+      "actorSaturation": 0.72,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.27,
+      "shadowDirection": {
+        "x": -0.63,
+        "y": 0.51
+      },
+      "shadowLength": 0.3,
+      "perspective": {
+        "farScale": 0.86,
+        "nearScale": 1.09,
+        "verticalCompression": 0.83
+      },
+      "roadOpacity": 0.14,
+      "grading": {
+        "tint": "#b1beb1",
+        "opacity": 0
+      },
+      "fogTint": "#b1beb1",
+      "fogStrength": 0.03,
+      "visualNoteKO": "삼나무의 짙은 녹색과 능선의 탁한 황토색",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-farm",
+      "ambientTint": "#ffefd0",
+      "actorTint": "#ffefd0",
+      "actorBrightness": 1,
+      "actorSaturation": 0.73,
+      "shadowTint": "#34271c",
+      "shadowOpacity": 0.28,
+      "shadowDirection": {
+        "x": -0.7,
+        "y": 0.44
+      },
+      "shadowLength": 0.31,
+      "perspective": {
+        "farScale": 0.85,
+        "nearScale": 1.09,
+        "verticalCompression": 0.83
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#c3bda5",
+        "opacity": 0
+      },
+      "fogTint": "#c3bda5",
+      "fogStrength": 0.02,
+      "visualNoteKO": "황금 벼의 따뜻한 반사광과 범람 수로의 청회색",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-town",
+      "ambientTint": "#f4eee0",
+      "actorTint": "#f4eee0",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.7,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.27,
+      "shadowDirection": {
+        "x": -0.67,
+        "y": 0.45
+      },
+      "shadowLength": 0.3,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.1,
+        "verticalCompression": 0.85
+      },
+      "roadOpacity": 0.11,
+      "grading": {
+        "tint": "#bbccc8",
+        "opacity": 0
+      },
+      "fogTint": "#bbccc8",
+      "fogStrength": 0.02,
+      "visualNoteKO": "밝은 돌다리와 청록색 성하 수로의 간접광",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-river",
+      "ambientTint": "#f0edda",
+      "actorTint": "#f0edda",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.71,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.24,
+      "shadowDirection": {
+        "x": -0.65,
+        "y": 0.44
+      },
+      "shadowLength": 0.27,
+      "perspective": {
+        "farScale": 0.85,
+        "nearScale": 1.08,
+        "verticalCompression": 0.83
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#b8cbc9",
+        "opacity": 0
+      },
+      "fogTint": "#b8cbc9",
+      "fogStrength": 0.034,
+      "visualNoteKO": "대하 수면의 청록 반사와 넓은 황토 둑",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-harbor",
+      "ambientTint": "#dce5e7",
+      "actorTint": "#dce5e7",
+      "actorBrightness": 0.97,
+      "actorSaturation": 0.67,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.18,
+      "shadowDirection": {
+        "x": -0.45,
+        "y": 0.58
+      },
+      "shadowLength": 0.2,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.1,
+        "verticalCompression": 0.85
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#aebfc6",
+        "opacity": 0
+      },
+      "fogTint": "#aebfc6",
+      "fogStrength": 0.048,
+      "visualNoteKO": "폭풍 전의 흐린 회청색 빛, 차가운 바닷바람",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-convoy",
+      "ambientTint": "#f0e7d7",
+      "actorTint": "#f0e7d7",
+      "actorBrightness": 0.99,
+      "actorSaturation": 0.71,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.26,
+      "shadowDirection": {
+        "x": -0.65,
+        "y": 0.5
+      },
+      "shadowLength": 0.3,
+      "perspective": {
+        "farScale": 0.85,
+        "nearScale": 1.1,
+        "verticalCompression": 0.82
+      },
+      "roadOpacity": 0.13,
+      "grading": {
+        "tint": "#b5c4c7",
+        "opacity": 0
+      },
+      "fogTint": "#b5c4c7",
+      "fogStrength": 0.032,
+      "visualNoteKO": "절벽 잔도의 옅은 먼지와 깊은 계곡의 푸른 원경",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-temple",
+      "ambientTint": "#ffeacf",
+      "actorTint": "#ffeacf",
+      "actorBrightness": 1,
+      "actorSaturation": 0.73,
+      "shadowTint": "#34271c",
+      "shadowOpacity": 0.29,
+      "shadowDirection": {
+        "x": -0.68,
+        "y": 0.45
+      },
+      "shadowLength": 0.31,
+      "perspective": {
+        "farScale": 0.88,
+        "nearScale": 1.12,
+        "verticalCompression": 0.86
+      },
+      "roadOpacity": 0.11,
+      "grading": {
+        "tint": "#c8bca6",
+        "opacity": 0
+      },
+      "fogTint": "#c8bca6",
+      "fogStrength": 0.018,
+      "visualNoteKO": "붉고 노란 단풍의 따뜻한 반사, 사찰 돌마당의 낮빛",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-snow",
+      "ambientTint": "#dae0ff",
+      "actorTint": "#dae0ff",
+      "actorBrightness": 0.98,
+      "actorSaturation": 0.67,
+      "shadowTint": "#313d53",
+      "shadowOpacity": 0.24,
+      "shadowDirection": {
+        "x": -0.72,
+        "y": 0.38
+      },
+      "shadowLength": 0.28,
+      "perspective": {
+        "farScale": 0.87,
+        "nearScale": 1.1,
+        "verticalCompression": 0.84
+      },
+      "roadOpacity": 0.1,
+      "grading": {
+        "tint": "#bdcce4",
+        "opacity": 0
+      },
+      "fogTint": "#bdcce4",
+      "fogStrength": 0.052,
+      "visualNoteKO": "푸른 눈그늘과 분홍빛 해질녘 반사광",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-night",
+      "ambientTint": "#c9d5e3",
+      "actorTint": "#c9d5e3",
+      "actorBrightness": 0.93,
+      "actorSaturation": 0.67,
+      "shadowTint": "#101621",
+      "shadowOpacity": 0.18,
+      "shadowDirection": {
+        "x": -0.2,
+        "y": 0.7
+      },
+      "shadowLength": 0.2,
+      "perspective": {
+        "farScale": 0.9,
+        "nearScale": 1.12,
+        "verticalCompression": 0.87
+      },
+      "roadOpacity": 0.11,
+      "grading": {
+        "tint": "#a6b4bf",
+        "opacity": 0
+      },
+      "fogTint": "#a6b4bf",
+      "fogStrength": 0.065,
+      "visualNoteKO": "대저택의 짙은 청회색 안개와 국소적인 주황 등불",
+      "backgroundInspected": true
+    },
+    {
+      "stageId": "advanced-siege",
+      "ambientTint": "#eceee2",
+      "actorTint": "#eceee2",
+      "actorBrightness": 0.98,
+      "actorSaturation": 0.7,
+      "shadowTint": "#19231e",
+      "shadowOpacity": 0.22,
+      "shadowDirection": {
+        "x": -0.55,
+        "y": 0.5
+      },
+      "shadowLength": 0.24,
+      "perspective": {
+        "farScale": 0.86,
+        "nearScale": 1.09,
+        "verticalCompression": 0.84
+      },
+      "roadOpacity": 0.12,
+      "grading": {
+        "tint": "#b8c6c2",
+        "opacity": 0
+      },
+      "fogTint": "#b8c6c2",
+      "fogStrength": 0.03,
+      "visualNoteKO": "흐린 낮의 천수각, 중성 흰벽과 연회색 긴 성곽",
+      "backgroundInspected": true
+    }
+  ]
+}

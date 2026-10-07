@@ -1,0 +1,25 @@
+일본어 오프라인 학습 읽기 및 전장 임무 브리핑
+音声生成: VOICEVOX Nemo
+
+이 음성은 실제 남녀 나레이션 성우 녹음과 별개의 합성 일본어 읽기입니다.
+학습: VOICEVOX Nemo 女声1 / normal / style 10005
+임무 브리핑: VOICEVOX Nemo 男声1 / normal / style 10001
+원음 음높이를 유지하며 특정 성우의 목소리를 복제하지 않았습니다.
+
+Generated locally with VOICEVOX CORE 0.17.0, its official CPU ONNX Runtime
+1.23.2, official n0.vvm 0.17.0 and Open JTalk dictionary 1.11.
+These portable build tools are not required or distributed by the game.
+Only the generated original game/learning phrases and metadata are embedded.
+
+Generated audio terms (credit required; commercial use permitted):
+https://voicevox.hiroshiba.jp/nemo/term/
+Model terms:
+https://github.com/VOICEVOX/voicevox_vvm/releases/download/0.17.0/TERMS.txt
+ONNX Runtime terms (exact approved release):
+https://github.com/VOICEVOX/onnxruntime-builder/releases/tag/voicevox_onnxruntime-1.23.2
+Core and downloader official source:
+https://github.com/VOICEVOX/voicevox_core/releases/tag/0.17.0
+
+Use generated audio in accordance with the official VOICEVOX Nemo terms,
+including credit and the restrictions on machine-learning reuse and rights
+infringement. The complete official documents are preserved in sources/.

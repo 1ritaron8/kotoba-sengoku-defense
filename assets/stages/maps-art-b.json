@@ -1,0 +1,3915 @@
+[
+  {
+    "id": "intermediate-convoy",
+    "title": "바위 협곡의 역참",
+    "shortName": "호위",
+    "japanese": "荷車の護衛・激戦",
+    "reading": "にぐるまのごえい",
+    "description": "바위 협곡의 역참 · 움직이는 보급 수레의 이동 경로를 따라 방어합니다.",
+    "mode": "escort",
+    "color": "#625437",
+    "accent": "#d1b77a",
+    "words": "앞뒤 · 속도 · 멈추다",
+    "icon": "車",
+    "paths": [
+      {
+        "id": "western-relay",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.76
+          },
+          {
+            "x": 0.12,
+            "y": 0.59
+          },
+          {
+            "x": 0.22,
+            "y": 0.51
+          },
+          {
+            "x": 0.3,
+            "y": 0.6
+          },
+          {
+            "x": 0.44,
+            "y": 0.61
+          }
+        ],
+        "objectiveId": "cart"
+      },
+      {
+        "id": "eastern-hairpin",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.9
+          },
+          {
+            "x": 0.87,
+            "y": 0.78
+          },
+          {
+            "x": 0.76,
+            "y": 0.67
+          },
+          {
+            "x": 0.67,
+            "y": 0.53
+          },
+          {
+            "x": 0.58,
+            "y": 0.58
+          },
+          {
+            "x": 0.44,
+            "y": 0.61
+          }
+        ],
+        "objectiveId": "cart"
+      },
+      {
+        "id": "upper-bridge",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.27
+          },
+          {
+            "x": 0.17,
+            "y": 0.29
+          },
+          {
+            "x": 0.29,
+            "y": 0.26
+          },
+          {
+            "x": 0.37,
+            "y": 0.35
+          },
+          {
+            "x": 0.42,
+            "y": 0.5
+          },
+          {
+            "x": 0.44,
+            "y": 0.61
+          }
+        ],
+        "objectiveId": "cart"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "cart",
+        "x": 0.26,
+        "y": 0.55,
+        "label": "荷車",
+        "hp": 32,
+        "mobile": true
+      }
+    ],
+    "escortRoute": [
+      {
+        "x": 0.26,
+        "y": 0.55
+      },
+      {
+        "x": 0.43,
+        "y": 0.62
+      },
+      {
+        "x": 0.61,
+        "y": 0.56
+      },
+      {
+        "x": 0.74,
+        "y": 0.33
+      },
+      {
+        "x": 0.61,
+        "y": 0.56
+      },
+      {
+        "x": 0.43,
+        "y": 0.62
+      },
+      {
+        "x": 0.26,
+        "y": 0.55
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.24,
+        "y": 0.41,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.31,
+        "y": 0.53,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.38,
+        "y": 0.67,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.43,
+        "y": 0.52,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.55,
+        "y": 0.7,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.64,
+        "y": 0.47,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.72,
+        "y": 0.62,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.7,
+        "y": 0.26,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.47,
+        "y": 0.3,
+        "r": 0.07,
+        "elevation": 0
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.53,
+        "y": 0.37,
+        "r": 0.12
+      },
+      {
+        "x": 0.77,
+        "y": 0.52,
+        "r": 0.1
+      }
+    ],
+    "theme": "convoy",
+    "tier": "intermediate",
+    "tierIndex": 2,
+    "level": 6,
+    "difficulty": 1.6094999999999997,
+    "totalWaves": 11,
+    "initialGold": 350,
+    "recruitCost": 60,
+    "unitLimit": 18,
+    "recommendedWords": 25,
+    "reviewWords": 25,
+    "unlocked": true,
+    "background": "res://assets/stages/intermediate-convoy.png",
+    "water": {
+      "x": 0,
+      "y": 0,
+      "w": 0.13,
+      "h": 0.53
+    },
+    "stageNumber": 26,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "intermediate-temple",
+    "title": "절벽 위의 오층탑",
+    "shortName": "산사",
+    "japanese": "山寺の階段・激戦",
+    "reading": "やまでらのかいだん",
+    "description": "절벽 위의 오층탑 · 높은 지대의 병력은 더 멀리 공격합니다.",
+    "mode": "elevation",
+    "color": "#464c3a",
+    "accent": "#a7b490",
+    "words": "위아래 · 거리 · 장소",
+    "icon": "寺",
+    "paths": [
+      {
+        "id": "long-stairs",
+        "points": [
+          {
+            "x": 0.03,
+            "y": 0.94
+          },
+          {
+            "x": 0.19,
+            "y": 0.73
+          },
+          {
+            "x": 0.33,
+            "y": 0.63
+          },
+          {
+            "x": 0.48,
+            "y": 0.46
+          },
+          {
+            "x": 0.61,
+            "y": 0.39
+          },
+          {
+            "x": 0.69,
+            "y": 0.48
+          },
+          {
+            "x": 0.78,
+            "y": 0.34
+          },
+          {
+            "x": 0.85,
+            "y": 0.24
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "ravine-lane",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.17
+          },
+          {
+            "x": 0.21,
+            "y": 0.07
+          },
+          {
+            "x": 0.39,
+            "y": 0.2
+          },
+          {
+            "x": 0.53,
+            "y": 0.31
+          },
+          {
+            "x": 0.61,
+            "y": 0.39
+          },
+          {
+            "x": 0.69,
+            "y": 0.48
+          },
+          {
+            "x": 0.78,
+            "y": 0.34
+          },
+          {
+            "x": 0.85,
+            "y": 0.24
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "lower-causeway",
+        "points": [
+          {
+            "x": 0.85,
+            "y": 0.98
+          },
+          {
+            "x": 0.75,
+            "y": 0.78
+          },
+          {
+            "x": 0.62,
+            "y": 0.64
+          },
+          {
+            "x": 0.55,
+            "y": 0.53
+          },
+          {
+            "x": 0.61,
+            "y": 0.39
+          },
+          {
+            "x": 0.69,
+            "y": 0.48
+          },
+          {
+            "x": 0.78,
+            "y": 0.34
+          },
+          {
+            "x": 0.85,
+            "y": 0.24
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.85,
+        "y": 0.24,
+        "label": "本堂",
+        "hp": 27
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.29,
+        "y": 0.42,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.36,
+        "y": 0.74,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.45,
+        "y": 0.31,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.46,
+        "y": 0.58,
+        "r": 0.075,
+        "elevation": 1
+      },
+      {
+        "x": 0.61,
+        "y": 0.49,
+        "r": 0.065,
+        "elevation": 1
+      },
+      {
+        "x": 0.64,
+        "y": 0.32,
+        "r": 0.065,
+        "elevation": 1
+      },
+      {
+        "x": 0.71,
+        "y": 0.29,
+        "r": 0.06,
+        "elevation": 2
+      },
+      {
+        "x": 0.82,
+        "y": 0.26,
+        "r": 0.055,
+        "elevation": 2
+      },
+      {
+        "x": 0.68,
+        "y": 0.71,
+        "r": 0.065,
+        "elevation": 0
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.46,
+        "y": 0.81,
+        "r": 0.1
+      },
+      {
+        "x": 0.74,
+        "y": 0.1,
+        "r": 0.09
+      },
+      {
+        "x": 0.91,
+        "y": 0.51,
+        "r": 0.08
+      }
+    ],
+    "terraces": [
+      {
+        "x": 0.62,
+        "y": 0.32,
+        "w": 0.15,
+        "h": 0.16
+      },
+      {
+        "x": 0.76,
+        "y": 0.14,
+        "w": 0.18,
+        "h": 0.16
+      }
+    ],
+    "theme": "temple",
+    "tier": "intermediate",
+    "tierIndex": 2,
+    "level": 7,
+    "difficulty": 1.6414000000000002,
+    "totalWaves": 11,
+    "initialGold": 350,
+    "recruitCost": 60,
+    "unitLimit": 18,
+    "recommendedWords": 25,
+    "reviewWords": 25,
+    "unlocked": true,
+    "background": "res://assets/stages/intermediate-temple.png",
+    "stageNumber": 27,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "intermediate-snow",
+    "title": "폭설 속의 온천 마을",
+    "shortName": "설산",
+    "japanese": "雪の峠・激戦",
+    "reading": "ゆきのとうげ",
+    "description": "폭설 속의 온천 마을 · 눈보라가 길을 막고 양쪽 병력의 움직임을 늦춥니다.",
+    "mode": "weather",
+    "color": "#4d6674",
+    "accent": "#cee0e9",
+    "words": "날씨 · 계절 · 상태",
+    "icon": "雪",
+    "paths": [
+      {
+        "id": "onsen-west",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.38
+          },
+          {
+            "x": 0.18,
+            "y": 0.39
+          },
+          {
+            "x": 0.31,
+            "y": 0.33
+          },
+          {
+            "x": 0.43,
+            "y": 0.17
+          },
+          {
+            "x": 0.55,
+            "y": 0.26
+          },
+          {
+            "x": 0.64,
+            "y": 0.41
+          },
+          {
+            "x": 0.57,
+            "y": 0.58
+          },
+          {
+            "x": 0.51,
+            "y": 0.72
+          },
+          {
+            "x": 0.5,
+            "y": 0.82
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "onsen-east",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.28
+          },
+          {
+            "x": 0.86,
+            "y": 0.4
+          },
+          {
+            "x": 0.72,
+            "y": 0.45
+          },
+          {
+            "x": 0.64,
+            "y": 0.41
+          },
+          {
+            "x": 0.57,
+            "y": 0.58
+          },
+          {
+            "x": 0.51,
+            "y": 0.72
+          },
+          {
+            "x": 0.5,
+            "y": 0.82
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "outer-snow-road",
+        "points": [
+          {
+            "x": 0.6,
+            "y": 0.02
+          },
+          {
+            "x": 0.54,
+            "y": 0.12
+          },
+          {
+            "x": 0.68,
+            "y": 0.24
+          },
+          {
+            "x": 0.78,
+            "y": 0.34
+          },
+          {
+            "x": 0.8,
+            "y": 0.55
+          },
+          {
+            "x": 0.64,
+            "y": 0.63
+          },
+          {
+            "x": 0.51,
+            "y": 0.72
+          },
+          {
+            "x": 0.5,
+            "y": 0.82
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.5,
+        "y": 0.82,
+        "label": "峠の関所",
+        "hp": 29
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.25,
+        "y": 0.46,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.34,
+        "y": 0.29,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.48,
+        "y": 0.23,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.6,
+        "y": 0.31,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.7,
+        "y": 0.52,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.59,
+        "y": 0.65,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.41,
+        "y": 0.66,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.49,
+        "y": 0.74,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.75,
+        "y": 0.22,
+        "r": 0.06,
+        "elevation": 0
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.51,
+        "y": 0.44,
+        "r": 0.11
+      },
+      {
+        "x": 0.15,
+        "y": 0.15,
+        "r": 0.1
+      },
+      {
+        "x": 0.9,
+        "y": 0.7,
+        "r": 0.09
+      }
+    ],
+    "stormZone": {
+      "x": 0.52,
+      "y": 0.68,
+      "r": 0.095
+    },
+    "theme": "snow",
+    "tier": "intermediate",
+    "tierIndex": 2,
+    "level": 8,
+    "difficulty": 1.6732999999999998,
+    "totalWaves": 11,
+    "initialGold": 350,
+    "recruitCost": 60,
+    "unitLimit": 18,
+    "recommendedWords": 25,
+    "reviewWords": 25,
+    "unlocked": true,
+    "background": "res://assets/stages/intermediate-snow.png",
+    "stageNumber": 28,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "intermediate-night",
+    "title": "갈대 습지의 달빛",
+    "shortName": "야간",
+    "japanese": "夜の村・激戦",
+    "reading": "よるのむら",
+    "description": "갈대 습지의 달빛 · 병력과 봉화 주변의 시야에서만 적을 조준할 수 있습니다.",
+    "mode": "visibility",
+    "color": "#182632",
+    "accent": "#d9a34b",
+    "words": "듣기 · 방향 · 경고",
+    "icon": "夜",
+    "paths": [
+      {
+        "id": "west-island",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.65
+          },
+          {
+            "x": 0.2,
+            "y": 0.56
+          },
+          {
+            "x": 0.24,
+            "y": 0.44
+          },
+          {
+            "x": 0.36,
+            "y": 0.38
+          },
+          {
+            "x": 0.49,
+            "y": 0.3
+          },
+          {
+            "x": 0.56,
+            "y": 0.3
+          },
+          {
+            "x": 0.7,
+            "y": 0.32
+          },
+          {
+            "x": 0.8,
+            "y": 0.34
+          },
+          {
+            "x": 0.85,
+            "y": 0.22
+          },
+          {
+            "x": 0.88,
+            "y": 0.13
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "south-boardwalk",
+        "points": [
+          {
+            "x": 0.56,
+            "y": 0.98
+          },
+          {
+            "x": 0.56,
+            "y": 0.81
+          },
+          {
+            "x": 0.55,
+            "y": 0.61
+          },
+          {
+            "x": 0.55,
+            "y": 0.42
+          },
+          {
+            "x": 0.56,
+            "y": 0.3
+          },
+          {
+            "x": 0.7,
+            "y": 0.32
+          },
+          {
+            "x": 0.8,
+            "y": 0.34
+          },
+          {
+            "x": 0.85,
+            "y": 0.22
+          },
+          {
+            "x": 0.88,
+            "y": 0.13
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "north-island",
+        "points": [
+          {
+            "x": 0.41,
+            "y": 0.02
+          },
+          {
+            "x": 0.4,
+            "y": 0.13
+          },
+          {
+            "x": 0.46,
+            "y": 0.19
+          },
+          {
+            "x": 0.54,
+            "y": 0.29
+          },
+          {
+            "x": 0.56,
+            "y": 0.3
+          },
+          {
+            "x": 0.7,
+            "y": 0.32
+          },
+          {
+            "x": 0.8,
+            "y": 0.34
+          },
+          {
+            "x": 0.85,
+            "y": 0.22
+          },
+          {
+            "x": 0.88,
+            "y": 0.13
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.88,
+        "y": 0.13,
+        "label": "村の門",
+        "hp": 28
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.2,
+        "y": 0.48,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.24,
+        "y": 0.2,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.44,
+        "y": 0.16,
+        "r": 0.045,
+        "elevation": 0
+      },
+      {
+        "x": 0.53,
+        "y": 0.29,
+        "r": 0.04,
+        "elevation": 0
+      },
+      {
+        "x": 0.57,
+        "y": 0.7,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.77,
+        "y": 0.39,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.86,
+        "y": 0.24,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.5,
+        "y": 0.78,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.7,
+        "y": 0.74,
+        "r": 0.055,
+        "elevation": 0
+      }
+    ],
+    "torches": [
+      {
+        "x": 0.24,
+        "y": 0.38
+      },
+      {
+        "x": 0.54,
+        "y": 0.32
+      },
+      {
+        "x": 0.55,
+        "y": 0.6
+      },
+      {
+        "x": 0.8,
+        "y": 0.34
+      },
+      {
+        "x": 0.85,
+        "y": 0.22
+      },
+      {
+        "x": 0.53,
+        "y": 0.81
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.42,
+        "y": 0.72,
+        "r": 0.09
+      },
+      {
+        "x": 0.68,
+        "y": 0.57,
+        "r": 0.1
+      },
+      {
+        "x": 0.3,
+        "y": 0.37,
+        "r": 0.07
+      }
+    ],
+    "theme": "night",
+    "tier": "intermediate",
+    "tierIndex": 2,
+    "level": 9,
+    "difficulty": 1.7051999999999998,
+    "totalWaves": 11,
+    "initialGold": 350,
+    "recruitCost": 60,
+    "unitLimit": 18,
+    "recommendedWords": 25,
+    "reviewWords": 25,
+    "unlocked": true,
+    "background": "res://assets/stages/intermediate-night.png",
+    "stageNumber": 29,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "intermediate-siege",
+    "title": "성곽 이중 문루",
+    "shortName": "공성",
+    "japanese": "城門の戦い・激戦",
+    "reading": "じょうもんのたたかい",
+    "description": "성곽 이중 문루 · 갑옷을 입은 적과 대장을 막고 성문을 지킵니다.",
+    "mode": "siege",
+    "color": "#564b48",
+    "accent": "#c8a18b",
+    "words": "무기 · 방어 · 명령",
+    "icon": "城",
+    "paths": [
+      {
+        "id": "south-gate",
+        "points": [
+          {
+            "x": 0.69,
+            "y": 0.98
+          },
+          {
+            "x": 0.65,
+            "y": 0.82
+          },
+          {
+            "x": 0.6,
+            "y": 0.65
+          },
+          {
+            "x": 0.59,
+            "y": 0.46
+          },
+          {
+            "x": 0.7,
+            "y": 0.31
+          },
+          {
+            "x": 0.74,
+            "y": 0.16
+          },
+          {
+            "x": 0.52,
+            "y": 0.12
+          },
+          {
+            "x": 0.52,
+            "y": 0.07
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "western-gate",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.96
+          },
+          {
+            "x": 0.18,
+            "y": 0.78
+          },
+          {
+            "x": 0.34,
+            "y": 0.65
+          },
+          {
+            "x": 0.47,
+            "y": 0.63
+          },
+          {
+            "x": 0.45,
+            "y": 0.47
+          },
+          {
+            "x": 0.31,
+            "y": 0.29
+          },
+          {
+            "x": 0.28,
+            "y": 0.17
+          },
+          {
+            "x": 0.32,
+            "y": 0.12
+          },
+          {
+            "x": 0.52,
+            "y": 0.12
+          },
+          {
+            "x": 0.52,
+            "y": 0.07
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "eastern-bridge",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.54
+          },
+          {
+            "x": 0.91,
+            "y": 0.48
+          },
+          {
+            "x": 0.85,
+            "y": 0.38
+          },
+          {
+            "x": 0.74,
+            "y": 0.43
+          },
+          {
+            "x": 0.7,
+            "y": 0.31
+          },
+          {
+            "x": 0.74,
+            "y": 0.16
+          },
+          {
+            "x": 0.52,
+            "y": 0.12
+          },
+          {
+            "x": 0.52,
+            "y": 0.07
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.52,
+        "y": 0.07,
+        "label": "城門",
+        "hp": 34
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.23,
+        "y": 0.4,
+        "r": 0.09,
+        "elevation": 0
+      },
+      {
+        "x": 0.37,
+        "y": 0.52,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.42,
+        "y": 0.73,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.51,
+        "y": 0.46,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.65,
+        "y": 0.52,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.73,
+        "y": 0.64,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.75,
+        "y": 0.36,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.39,
+        "y": 0.19,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.61,
+        "y": 0.18,
+        "r": 0.06,
+        "elevation": 0
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.2,
+        "y": 0.11,
+        "r": 0.06
+      },
+      {
+        "x": 0.51,
+        "y": 0.21,
+        "r": 0.08
+      },
+      {
+        "x": 0.84,
+        "y": 0.13,
+        "r": 0.08
+      }
+    ],
+    "walls": [
+      {
+        "x": 0.33,
+        "y": 0.16,
+        "w": 0.12,
+        "h": 0.1
+      },
+      {
+        "x": 0.62,
+        "y": 0.16,
+        "w": 0.11,
+        "h": 0.1
+      }
+    ],
+    "theme": "siege",
+    "tier": "intermediate",
+    "tierIndex": 2,
+    "level": 10,
+    "difficulty": 1.7370999999999999,
+    "totalWaves": 11,
+    "initialGold": 350,
+    "recruitCost": 60,
+    "unitLimit": 18,
+    "recommendedWords": 25,
+    "reviewWords": 25,
+    "unlocked": true,
+    "background": "res://assets/stages/intermediate-siege.png",
+    "stageNumber": 30,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-forest",
+    "title": "삼나무 절벽의 포위",
+    "shortName": "숲",
+    "japanese": "森の待ち伏せ・決戦",
+    "reading": "もりのまちぶせ",
+    "description": "삼나무 절벽의 포위 · 숲의 두 갈림길에 병력을 나누어 배치합니다.",
+    "mode": "ambush",
+    "color": "#27413a",
+    "accent": "#86a783",
+    "words": "방향 · 위치 · 이동",
+    "icon": "森",
+    "paths": [
+      {
+        "id": "cedar-upper",
+        "points": [
+          {
+            "x": 0.17,
+            "y": 0.02
+          },
+          {
+            "x": 0.25,
+            "y": 0.16
+          },
+          {
+            "x": 0.39,
+            "y": 0.24
+          },
+          {
+            "x": 0.54,
+            "y": 0.26
+          },
+          {
+            "x": 0.62,
+            "y": 0.29
+          },
+          {
+            "x": 0.68,
+            "y": 0.38
+          },
+          {
+            "x": 0.7,
+            "y": 0.35
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "root-terrace",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.96
+          },
+          {
+            "x": 0.17,
+            "y": 0.81
+          },
+          {
+            "x": 0.24,
+            "y": 0.65
+          },
+          {
+            "x": 0.34,
+            "y": 0.57
+          },
+          {
+            "x": 0.48,
+            "y": 0.58
+          },
+          {
+            "x": 0.59,
+            "y": 0.54
+          },
+          {
+            "x": 0.64,
+            "y": 0.44
+          },
+          {
+            "x": 0.7,
+            "y": 0.35
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "cliff-bridge",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.96
+          },
+          {
+            "x": 0.86,
+            "y": 0.82
+          },
+          {
+            "x": 0.77,
+            "y": 0.72
+          },
+          {
+            "x": 0.67,
+            "y": 0.62
+          },
+          {
+            "x": 0.61,
+            "y": 0.52
+          },
+          {
+            "x": 0.64,
+            "y": 0.44
+          },
+          {
+            "x": 0.7,
+            "y": 0.35
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.7,
+        "y": 0.35,
+        "label": "山の砦",
+        "hp": 26
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.31,
+        "y": 0.37,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.43,
+        "y": 0.36,
+        "r": 0.09,
+        "elevation": 0
+      },
+      {
+        "x": 0.51,
+        "y": 0.42,
+        "r": 0.09,
+        "elevation": 0
+      },
+      {
+        "x": 0.59,
+        "y": 0.33,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.66,
+        "y": 0.43,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.32,
+        "y": 0.66,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.43,
+        "y": 0.74,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.58,
+        "y": 0.68,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.74,
+        "y": 0.56,
+        "r": 0.07,
+        "elevation": 0
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.46,
+        "y": 0.29,
+        "r": 0.06
+      },
+      {
+        "x": 0.23,
+        "y": 0.52,
+        "r": 0.075
+      },
+      {
+        "x": 0.62,
+        "y": 0.15,
+        "r": 0.06
+      }
+    ],
+    "theme": "forest",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 1,
+    "difficulty": 1.7,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-forest.png",
+    "stageNumber": 31,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-farm",
+    "title": "무너진 둑의 황금 들녘",
+    "shortName": "농촌",
+    "japanese": "村の収穫・決戦",
+    "reading": "むらのしゅうかく",
+    "description": "무너진 둑의 황금 들녘 · 흩어진 곡물 창고를 모두 지켜야 합니다.",
+    "mode": "multi-objective",
+    "color": "#5a5c32",
+    "accent": "#c1bc70",
+    "words": "음식 · 수량 · 사람",
+    "icon": "米",
+    "paths": [
+      {
+        "id": "golden-grain-road",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.94
+          },
+          {
+            "x": 0.86,
+            "y": 0.84
+          },
+          {
+            "x": 0.72,
+            "y": 0.73
+          },
+          {
+            "x": 0.68,
+            "y": 0.64
+          },
+          {
+            "x": 0.61,
+            "y": 0.57
+          },
+          {
+            "x": 0.49,
+            "y": 0.57
+          },
+          {
+            "x": 0.38,
+            "y": 0.63
+          },
+          {
+            "x": 0.3,
+            "y": 0.64
+          }
+        ],
+        "objectiveId": "grain"
+      },
+      {
+        "id": "upper-levee",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.14
+          },
+          {
+            "x": 0.92,
+            "y": 0.13
+          },
+          {
+            "x": 0.86,
+            "y": 0.08
+          },
+          {
+            "x": 0.83,
+            "y": 0.1
+          }
+        ],
+        "objectiveId": "rice"
+      },
+      {
+        "id": "hill-harvest",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.33
+          },
+          {
+            "x": 0.23,
+            "y": 0.24
+          },
+          {
+            "x": 0.32,
+            "y": 0.2
+          },
+          {
+            "x": 0.3,
+            "y": 0.14
+          },
+          {
+            "x": 0.22,
+            "y": 0.13
+          },
+          {
+            "x": 0.15,
+            "y": 0.18
+          }
+        ],
+        "objectiveId": "village"
+      },
+      {
+        "id": "central-zigzag",
+        "points": [
+          {
+            "x": 0.55,
+            "y": 0.02
+          },
+          {
+            "x": 0.49,
+            "y": 0.16
+          },
+          {
+            "x": 0.37,
+            "y": 0.26
+          },
+          {
+            "x": 0.36,
+            "y": 0.32
+          },
+          {
+            "x": 0.54,
+            "y": 0.4
+          },
+          {
+            "x": 0.5,
+            "y": 0.55
+          },
+          {
+            "x": 0.38,
+            "y": 0.63
+          },
+          {
+            "x": 0.3,
+            "y": 0.64
+          }
+        ],
+        "objectiveId": "grain"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "grain",
+        "x": 0.3,
+        "y": 0.64,
+        "label": "蔵",
+        "hp": 16
+      },
+      {
+        "id": "rice",
+        "x": 0.83,
+        "y": 0.1,
+        "label": "米蔵",
+        "hp": 16
+      },
+      {
+        "id": "village",
+        "x": 0.15,
+        "y": 0.18,
+        "label": "村",
+        "hp": 16
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.4,
+        "y": 0.59,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.48,
+        "y": 0.63,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.57,
+        "y": 0.55,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.72,
+        "y": 0.8,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.68,
+        "y": 0.63,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.86,
+        "y": 0.2,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.75,
+        "y": 0.09,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.32,
+        "y": 0.16,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.23,
+        "y": 0.25,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.49,
+        "y": 0.39,
+        "r": 0.065,
+        "elevation": 0
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.68,
+        "y": 0.24,
+        "r": 0.11
+      },
+      {
+        "x": 0.19,
+        "y": 0.61,
+        "r": 0.12
+      }
+    ],
+    "theme": "farm",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 2,
+    "difficulty": 1.7374,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-farm.png",
+    "water": {
+      "x": 0.64,
+      "y": 0,
+      "w": 0.24,
+      "h": 0.31
+    },
+    "stageNumber": 32,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-town",
+    "title": "성하 수로와 돌다리",
+    "shortName": "장터",
+    "japanese": "城下の市場・決戦",
+    "reading": "じょうかのいちば",
+    "description": "성하 수로와 돌다리 · 골목마다 다른 길로 적이 보급소를 노립니다.",
+    "mode": "alleys",
+    "color": "#62482e",
+    "accent": "#cfab70",
+    "words": "물건 · 가격 · 요청",
+    "icon": "市",
+    "paths": [
+      {
+        "id": "lower-stone-bridge",
+        "points": [
+          {
+            "x": 0.57,
+            "y": 0.98
+          },
+          {
+            "x": 0.55,
+            "y": 0.9
+          },
+          {
+            "x": 0.42,
+            "y": 0.85
+          },
+          {
+            "x": 0.24,
+            "y": 0.6
+          },
+          {
+            "x": 0.17,
+            "y": 0.48
+          },
+          {
+            "x": 0.26,
+            "y": 0.44
+          },
+          {
+            "x": 0.38,
+            "y": 0.41
+          },
+          {
+            "x": 0.45,
+            "y": 0.35
+          },
+          {
+            "x": 0.47,
+            "y": 0.24
+          },
+          {
+            "x": 0.43,
+            "y": 0.17
+          },
+          {
+            "x": 0.38,
+            "y": 0.15
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "east-canal-bridge",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.68
+          },
+          {
+            "x": 0.85,
+            "y": 0.62
+          },
+          {
+            "x": 0.64,
+            "y": 0.54
+          },
+          {
+            "x": 0.61,
+            "y": 0.43
+          },
+          {
+            "x": 0.62,
+            "y": 0.34
+          },
+          {
+            "x": 0.75,
+            "y": 0.33
+          },
+          {
+            "x": 0.84,
+            "y": 0.28
+          },
+          {
+            "x": 0.83,
+            "y": 0.24
+          },
+          {
+            "x": 0.75,
+            "y": 0.33
+          },
+          {
+            "x": 0.62,
+            "y": 0.34
+          },
+          {
+            "x": 0.6,
+            "y": 0.22
+          },
+          {
+            "x": 0.47,
+            "y": 0.24
+          },
+          {
+            "x": 0.43,
+            "y": 0.17
+          },
+          {
+            "x": 0.38,
+            "y": 0.15
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "north-wharf",
+        "points": [
+          {
+            "x": 0.72,
+            "y": 0.02
+          },
+          {
+            "x": 0.63,
+            "y": 0.12
+          },
+          {
+            "x": 0.6,
+            "y": 0.21
+          },
+          {
+            "x": 0.54,
+            "y": 0.25
+          },
+          {
+            "x": 0.47,
+            "y": 0.24
+          },
+          {
+            "x": 0.43,
+            "y": 0.17
+          },
+          {
+            "x": 0.38,
+            "y": 0.15
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "town-central",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.52
+          },
+          {
+            "x": 0.15,
+            "y": 0.48
+          },
+          {
+            "x": 0.26,
+            "y": 0.44
+          },
+          {
+            "x": 0.38,
+            "y": 0.41
+          },
+          {
+            "x": 0.51,
+            "y": 0.47
+          },
+          {
+            "x": 0.61,
+            "y": 0.43
+          },
+          {
+            "x": 0.62,
+            "y": 0.34
+          },
+          {
+            "x": 0.75,
+            "y": 0.33
+          },
+          {
+            "x": 0.84,
+            "y": 0.28
+          },
+          {
+            "x": 0.83,
+            "y": 0.24
+          },
+          {
+            "x": 0.75,
+            "y": 0.33
+          },
+          {
+            "x": 0.62,
+            "y": 0.34
+          },
+          {
+            "x": 0.6,
+            "y": 0.22
+          },
+          {
+            "x": 0.47,
+            "y": 0.24
+          },
+          {
+            "x": 0.43,
+            "y": 0.17
+          },
+          {
+            "x": 0.38,
+            "y": 0.15
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.38,
+        "y": 0.15,
+        "label": "兵糧所",
+        "hp": 27
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.24,
+        "y": 0.39,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.36,
+        "y": 0.34,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.48,
+        "y": 0.31,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.56,
+        "y": 0.23,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.61,
+        "y": 0.39,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.57,
+        "y": 0.55,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.72,
+        "y": 0.68,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.82,
+        "y": 0.3,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.32,
+        "y": 0.64,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.58,
+        "y": 0.78,
+        "r": 0.065,
+        "elevation": 0
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.52,
+        "y": 0.37,
+        "r": 0.075
+      },
+      {
+        "x": 0.44,
+        "y": 0.65,
+        "r": 0.13
+      },
+      {
+        "x": 0.76,
+        "y": 0.45,
+        "r": 0.09
+      }
+    ],
+    "theme": "town",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 3,
+    "difficulty": 1.7748,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-town.png",
+    "water": {
+      "x": 0.66,
+      "y": 0.38,
+      "w": 0.25,
+      "h": 0.17
+    },
+    "secondaryLandmarks": [
+      {
+        "id": "eastern-storehouse",
+        "x": 0.83,
+        "y": 0.24,
+        "label": "蔵"
+      }
+    ],
+    "stageNumber": 33,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-river",
+    "title": "대하 합류점의 성채",
+    "shortName": "강",
+    "japanese": "二つの橋・決戦",
+    "reading": "ふたつのはし",
+    "description": "대하 합류점의 성채 · 다리를 전환하면 새로 오는 적의 진입로가 바뀝니다.",
+    "mode": "bridges",
+    "color": "#2b4c5b",
+    "accent": "#8db9c4",
+    "words": "건너다 · 열다 · 닫다",
+    "icon": "橋",
+    "paths": [
+      {
+        "id": "left-confluence",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.19
+          },
+          {
+            "x": 0.15,
+            "y": 0.15
+          },
+          {
+            "x": 0.25,
+            "y": 0.18
+          },
+          {
+            "x": 0.32,
+            "y": 0.15
+          },
+          {
+            "x": 0.39,
+            "y": 0.12
+          },
+          {
+            "x": 0.43,
+            "y": 0.21
+          },
+          {
+            "x": 0.45,
+            "y": 0.28
+          },
+          {
+            "x": 0.5,
+            "y": 0.3
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "right-confluence",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.15
+          },
+          {
+            "x": 0.84,
+            "y": 0.22
+          },
+          {
+            "x": 0.74,
+            "y": 0.18
+          },
+          {
+            "x": 0.63,
+            "y": 0.14
+          },
+          {
+            "x": 0.57,
+            "y": 0.12
+          },
+          {
+            "x": 0.56,
+            "y": 0.21
+          },
+          {
+            "x": 0.54,
+            "y": 0.28
+          },
+          {
+            "x": 0.5,
+            "y": 0.3
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.5,
+        "y": 0.3,
+        "label": "川辺の砦",
+        "hp": 27
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.23,
+        "y": 0.29,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.32,
+        "y": 0.23,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.4,
+        "y": 0.16,
+        "r": 0.045,
+        "elevation": 0
+      },
+      {
+        "x": 0.46,
+        "y": 0.23,
+        "r": 0.045,
+        "elevation": 0
+      },
+      {
+        "x": 0.55,
+        "y": 0.23,
+        "r": 0.04,
+        "elevation": 0
+      },
+      {
+        "x": 0.65,
+        "y": 0.2,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.79,
+        "y": 0.29,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.73,
+        "y": 0.43,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.47,
+        "y": 0.55,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.34,
+        "y": 0.54,
+        "r": 0.075,
+        "elevation": 0
+      }
+    ],
+    "water": {
+      "x": 0.37,
+      "y": 0.3,
+      "w": 0.29,
+      "h": 0.18
+    },
+    "bridges": [
+      {
+        "x": 0.23,
+        "y": 0.115,
+        "w": 0.16,
+        "h": 0.08
+      },
+      {
+        "x": 0.6,
+        "y": 0.11,
+        "w": 0.18,
+        "h": 0.1
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.5,
+        "y": 0.17,
+        "r": 0.065
+      }
+    ],
+    "theme": "river",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 4,
+    "difficulty": 1.8122,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-river.png",
+    "walls": [
+      {
+        "x": 0.41,
+        "y": 0.24,
+        "w": 0.045,
+        "h": 0.07
+      },
+      {
+        "x": 0.56,
+        "y": 0.24,
+        "w": 0.045,
+        "h": 0.07
+      }
+    ],
+    "stageNumber": 34,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-harbor",
+    "title": "폭풍 앞의 해상 요새",
+    "shortName": "항구",
+    "japanese": "港の防衛・決戦",
+    "reading": "みなとのぼうえい",
+    "description": "폭풍 앞의 해상 요새 · 선박이 서로 다른 부두로 상륙합니다.",
+    "mode": "landing",
+    "color": "#2a5058",
+    "accent": "#7fc2bd",
+    "words": "배 · 도착 · 시간",
+    "icon": "港",
+    "paths": [
+      {
+        "id": "west-fortified-pier",
+        "points": [
+          {
+            "x": 0.05,
+            "y": 0.98
+          },
+          {
+            "x": 0.16,
+            "y": 0.77
+          },
+          {
+            "x": 0.22,
+            "y": 0.54
+          },
+          {
+            "x": 0.38,
+            "y": 0.52
+          },
+          {
+            "x": 0.51,
+            "y": 0.56
+          },
+          {
+            "x": 0.56,
+            "y": 0.45
+          },
+          {
+            "x": 0.58,
+            "y": 0.31
+          },
+          {
+            "x": 0.46,
+            "y": 0.28
+          },
+          {
+            "x": 0.43,
+            "y": 0.17
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "east-breakwater",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.92
+          },
+          {
+            "x": 0.87,
+            "y": 0.75
+          },
+          {
+            "x": 0.77,
+            "y": 0.57
+          },
+          {
+            "x": 0.66,
+            "y": 0.54
+          },
+          {
+            "x": 0.56,
+            "y": 0.45
+          },
+          {
+            "x": 0.58,
+            "y": 0.31
+          },
+          {
+            "x": 0.46,
+            "y": 0.28
+          },
+          {
+            "x": 0.43,
+            "y": 0.17
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "warehouse-wharf",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.27
+          },
+          {
+            "x": 0.88,
+            "y": 0.26
+          },
+          {
+            "x": 0.83,
+            "y": 0.36
+          },
+          {
+            "x": 0.75,
+            "y": 0.47
+          },
+          {
+            "x": 0.63,
+            "y": 0.39
+          },
+          {
+            "x": 0.64,
+            "y": 0.3
+          },
+          {
+            "x": 0.64,
+            "y": 0.17
+          },
+          {
+            "x": 0.5,
+            "y": 0.15
+          },
+          {
+            "x": 0.43,
+            "y": 0.17
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.43,
+        "y": 0.17,
+        "label": "港の倉庫",
+        "hp": 29
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.3,
+        "y": 0.43,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.42,
+        "y": 0.4,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.48,
+        "y": 0.48,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.61,
+        "y": 0.47,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.66,
+        "y": 0.4,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.7,
+        "y": 0.72,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.38,
+        "y": 0.69,
+        "r": 0.09,
+        "elevation": 0
+      },
+      {
+        "x": 0.45,
+        "y": 0.24,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.73,
+        "y": 0.29,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.56,
+        "y": 0.29,
+        "r": 0.065,
+        "elevation": 0
+      }
+    ],
+    "water": {
+      "x": 0,
+      "y": 0,
+      "w": 1,
+      "h": 0.06
+    },
+    "obstacles": [
+      {
+        "x": 0.19,
+        "y": 0.3,
+        "r": 0.1
+      },
+      {
+        "x": 0.56,
+        "y": 0.64,
+        "r": 0.08
+      }
+    ],
+    "landingIndex": 2,
+    "theme": "harbor",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 5,
+    "difficulty": 1.8496000000000001,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-harbor.png",
+    "stageNumber": 35,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-convoy",
+    "title": "고산 절벽의 잔도",
+    "shortName": "호위",
+    "japanese": "荷車の護衛・決戦",
+    "reading": "にぐるまのごえい",
+    "description": "고산 절벽의 잔도 · 움직이는 보급 수레의 이동 경로를 따라 방어합니다.",
+    "mode": "escort",
+    "color": "#625437",
+    "accent": "#d1b77a",
+    "words": "앞뒤 · 속도 · 멈추다",
+    "icon": "車",
+    "paths": [
+      {
+        "id": "lower-caravan",
+        "points": [
+          {
+            "x": 0.9,
+            "y": 0.98
+          },
+          {
+            "x": 0.88,
+            "y": 0.85
+          },
+          {
+            "x": 0.84,
+            "y": 0.73
+          },
+          {
+            "x": 0.77,
+            "y": 0.68
+          },
+          {
+            "x": 0.64,
+            "y": 0.6
+          },
+          {
+            "x": 0.54,
+            "y": 0.57
+          },
+          {
+            "x": 0.42,
+            "y": 0.53
+          }
+        ],
+        "objectiveId": "cart"
+      },
+      {
+        "id": "western-terrace",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.58
+          },
+          {
+            "x": 0.22,
+            "y": 0.51
+          },
+          {
+            "x": 0.36,
+            "y": 0.49
+          },
+          {
+            "x": 0.42,
+            "y": 0.53
+          }
+        ],
+        "objectiveId": "cart"
+      },
+      {
+        "id": "upper-gallery",
+        "points": [
+          {
+            "x": 0.6,
+            "y": 0.02
+          },
+          {
+            "x": 0.47,
+            "y": 0.07
+          },
+          {
+            "x": 0.37,
+            "y": 0.12
+          },
+          {
+            "x": 0.32,
+            "y": 0.21
+          },
+          {
+            "x": 0.36,
+            "y": 0.33
+          },
+          {
+            "x": 0.44,
+            "y": 0.41
+          },
+          {
+            "x": 0.42,
+            "y": 0.53
+          }
+        ],
+        "objectiveId": "cart"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "cart",
+        "x": 0.28,
+        "y": 0.51,
+        "label": "荷車",
+        "hp": 32,
+        "mobile": true
+      }
+    ],
+    "escortRoute": [
+      {
+        "x": 0.28,
+        "y": 0.51
+      },
+      {
+        "x": 0.45,
+        "y": 0.58
+      },
+      {
+        "x": 0.62,
+        "y": 0.59
+      },
+      {
+        "x": 0.77,
+        "y": 0.48
+      },
+      {
+        "x": 0.76,
+        "y": 0.37
+      },
+      {
+        "x": 0.67,
+        "y": 0.27
+      },
+      {
+        "x": 0.56,
+        "y": 0.28
+      },
+      {
+        "x": 0.5,
+        "y": 0.37
+      },
+      {
+        "x": 0.42,
+        "y": 0.43
+      },
+      {
+        "x": 0.28,
+        "y": 0.51
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.26,
+        "y": 0.24,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.34,
+        "y": 0.32,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.38,
+        "y": 0.45,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.5,
+        "y": 0.47,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.6,
+        "y": 0.64,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.66,
+        "y": 0.29,
+        "r": 0.045,
+        "elevation": 0
+      },
+      {
+        "x": 0.74,
+        "y": 0.41,
+        "r": 0.04,
+        "elevation": 0
+      },
+      {
+        "x": 0.29,
+        "y": 0.71,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.48,
+        "y": 0.75,
+        "r": 0.09,
+        "elevation": 0
+      },
+      {
+        "x": 0.67,
+        "y": 0.72,
+        "r": 0.07,
+        "elevation": 0
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.39,
+        "y": 0.28,
+        "r": 0.1
+      },
+      {
+        "x": 0.57,
+        "y": 0.5,
+        "r": 0.11
+      },
+      {
+        "x": 0.69,
+        "y": 0.62,
+        "r": 0.07
+      }
+    ],
+    "theme": "convoy",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 6,
+    "difficulty": 1.8869999999999998,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-convoy.png",
+    "water": {
+      "x": 0.88,
+      "y": 0,
+      "w": 0.12,
+      "h": 1
+    },
+    "stageNumber": 36,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-temple",
+    "title": "붉은 산문의 대사찰",
+    "shortName": "산사",
+    "japanese": "山寺の階段・決戦",
+    "reading": "やまでらのかいだん",
+    "description": "붉은 산문의 대사찰 · 높은 지대의 병력은 더 멀리 공격합니다.",
+    "mode": "elevation",
+    "color": "#464c3a",
+    "accent": "#a7b490",
+    "words": "위아래 · 거리 · 장소",
+    "icon": "寺",
+    "paths": [
+      {
+        "id": "great-central-stairs",
+        "points": [
+          {
+            "x": 0.47,
+            "y": 0.98
+          },
+          {
+            "x": 0.51,
+            "y": 0.8
+          },
+          {
+            "x": 0.55,
+            "y": 0.66
+          },
+          {
+            "x": 0.59,
+            "y": 0.55
+          },
+          {
+            "x": 0.52,
+            "y": 0.48
+          },
+          {
+            "x": 0.51,
+            "y": 0.34
+          },
+          {
+            "x": 0.51,
+            "y": 0.16
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "eastern-courtyard",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.63
+          },
+          {
+            "x": 0.84,
+            "y": 0.49
+          },
+          {
+            "x": 0.75,
+            "y": 0.44
+          },
+          {
+            "x": 0.66,
+            "y": 0.51
+          },
+          {
+            "x": 0.56,
+            "y": 0.59
+          },
+          {
+            "x": 0.52,
+            "y": 0.48
+          },
+          {
+            "x": 0.51,
+            "y": 0.34
+          },
+          {
+            "x": 0.51,
+            "y": 0.16
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "western-courtyard",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.47
+          },
+          {
+            "x": 0.19,
+            "y": 0.47
+          },
+          {
+            "x": 0.34,
+            "y": 0.48
+          },
+          {
+            "x": 0.45,
+            "y": 0.6
+          },
+          {
+            "x": 0.49,
+            "y": 0.66
+          },
+          {
+            "x": 0.56,
+            "y": 0.59
+          },
+          {
+            "x": 0.52,
+            "y": 0.48
+          },
+          {
+            "x": 0.51,
+            "y": 0.34
+          },
+          {
+            "x": 0.51,
+            "y": 0.16
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.51,
+        "y": 0.16,
+        "label": "本堂",
+        "hp": 27
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.31,
+        "y": 0.32,
+        "r": 0.08,
+        "elevation": 1
+      },
+      {
+        "x": 0.43,
+        "y": 0.41,
+        "r": 0.075,
+        "elevation": 1
+      },
+      {
+        "x": 0.59,
+        "y": 0.4,
+        "r": 0.075,
+        "elevation": 1
+      },
+      {
+        "x": 0.72,
+        "y": 0.32,
+        "r": 0.08,
+        "elevation": 1
+      },
+      {
+        "x": 0.43,
+        "y": 0.6,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.65,
+        "y": 0.62,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.4,
+        "y": 0.77,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.63,
+        "y": 0.77,
+        "r": 0.09,
+        "elevation": 0
+      },
+      {
+        "x": 0.59,
+        "y": 0.3,
+        "r": 0.065,
+        "elevation": 2
+      },
+      {
+        "x": 0.67,
+        "y": 0.22,
+        "r": 0.055,
+        "elevation": 2
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.51,
+        "y": 0.56,
+        "r": 0.06
+      },
+      {
+        "x": 0.27,
+        "y": 0.61,
+        "r": 0.1
+      },
+      {
+        "x": 0.74,
+        "y": 0.62,
+        "r": 0.11
+      }
+    ],
+    "terraces": [
+      {
+        "x": 0.45,
+        "y": 0.16,
+        "w": 0.12,
+        "h": 0.17
+      },
+      {
+        "x": 0.25,
+        "y": 0.22,
+        "w": 0.17,
+        "h": 0.2
+      },
+      {
+        "x": 0.65,
+        "y": 0.22,
+        "w": 0.17,
+        "h": 0.2
+      }
+    ],
+    "theme": "temple",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 7,
+    "difficulty": 1.9244,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-temple.png",
+    "stageNumber": 37,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-snow",
+    "title": "설산 능선의 최후 관문",
+    "shortName": "설산",
+    "japanese": "雪の峠・決戦",
+    "reading": "ゆきのとうげ",
+    "description": "설산 능선의 최후 관문 · 눈보라가 길을 막고 양쪽 병력의 움직임을 늦춥니다.",
+    "mode": "weather",
+    "color": "#4d6674",
+    "accent": "#cee0e9",
+    "words": "날씨 · 계절 · 상태",
+    "icon": "雪",
+    "paths": [
+      {
+        "id": "western-ridge",
+        "points": [
+          {
+            "x": 0.13,
+            "y": 0.98
+          },
+          {
+            "x": 0.24,
+            "y": 0.79
+          },
+          {
+            "x": 0.4,
+            "y": 0.64
+          },
+          {
+            "x": 0.52,
+            "y": 0.52
+          },
+          {
+            "x": 0.54,
+            "y": 0.47
+          },
+          {
+            "x": 0.51,
+            "y": 0.36
+          },
+          {
+            "x": 0.51,
+            "y": 0.27
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "eastern-ridge",
+        "points": [
+          {
+            "x": 0.79,
+            "y": 0.98
+          },
+          {
+            "x": 0.78,
+            "y": 0.82
+          },
+          {
+            "x": 0.74,
+            "y": 0.69
+          },
+          {
+            "x": 0.63,
+            "y": 0.53
+          },
+          {
+            "x": 0.54,
+            "y": 0.47
+          },
+          {
+            "x": 0.51,
+            "y": 0.36
+          },
+          {
+            "x": 0.51,
+            "y": 0.27
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "upper-snow-traverse",
+        "points": [
+          {
+            "x": 0.22,
+            "y": 0.02
+          },
+          {
+            "x": 0.21,
+            "y": 0.15
+          },
+          {
+            "x": 0.21,
+            "y": 0.26
+          },
+          {
+            "x": 0.26,
+            "y": 0.34
+          },
+          {
+            "x": 0.36,
+            "y": 0.37
+          },
+          {
+            "x": 0.45,
+            "y": 0.33
+          },
+          {
+            "x": 0.51,
+            "y": 0.27
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.51,
+        "y": 0.27,
+        "label": "峠の関所",
+        "hp": 29
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.15,
+        "y": 0.24,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.32,
+        "y": 0.27,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.37,
+        "y": 0.42,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.47,
+        "y": 0.38,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.59,
+        "y": 0.34,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.71,
+        "y": 0.33,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.45,
+        "y": 0.62,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.6,
+        "y": 0.64,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.38,
+        "y": 0.82,
+        "r": 0.085,
+        "elevation": 0
+      },
+      {
+        "x": 0.65,
+        "y": 0.83,
+        "r": 0.08,
+        "elevation": 0
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.59,
+        "y": 0.64,
+        "r": 0.09
+      },
+      {
+        "x": 0.33,
+        "y": 0.1,
+        "r": 0.11
+      },
+      {
+        "x": 0.31,
+        "y": 0.85,
+        "r": 0.08
+      }
+    ],
+    "stormZone": {
+      "x": 0.54,
+      "y": 0.47,
+      "r": 0.095
+    },
+    "theme": "snow",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 8,
+    "difficulty": 1.9617999999999998,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-snow.png",
+    "stageNumber": 38,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-night",
+    "title": "안개 낀 대저택의 잠입로",
+    "shortName": "야간",
+    "japanese": "夜の村・決戦",
+    "reading": "よるのむら",
+    "description": "안개 낀 대저택의 잠입로 · 병력과 봉화 주변의 시야에서만 적을 조준할 수 있습니다.",
+    "mode": "visibility",
+    "color": "#182632",
+    "accent": "#d9a34b",
+    "words": "듣기 · 방향 · 경고",
+    "icon": "夜",
+    "paths": [
+      {
+        "id": "southern-mansion-gate",
+        "points": [
+          {
+            "x": 0.43,
+            "y": 0.98
+          },
+          {
+            "x": 0.4,
+            "y": 0.88
+          },
+          {
+            "x": 0.4,
+            "y": 0.77
+          },
+          {
+            "x": 0.44,
+            "y": 0.61
+          },
+          {
+            "x": 0.48,
+            "y": 0.48
+          },
+          {
+            "x": 0.57,
+            "y": 0.44
+          },
+          {
+            "x": 0.66,
+            "y": 0.42
+          },
+          {
+            "x": 0.67,
+            "y": 0.33
+          },
+          {
+            "x": 0.68,
+            "y": 0.24
+          },
+          {
+            "x": 0.7,
+            "y": 0.18
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "western-moat-lane",
+        "points": [
+          {
+            "x": 0.02,
+            "y": 0.47
+          },
+          {
+            "x": 0.18,
+            "y": 0.39
+          },
+          {
+            "x": 0.25,
+            "y": 0.3
+          },
+          {
+            "x": 0.37,
+            "y": 0.34
+          },
+          {
+            "x": 0.47,
+            "y": 0.42
+          },
+          {
+            "x": 0.57,
+            "y": 0.44
+          },
+          {
+            "x": 0.66,
+            "y": 0.42
+          },
+          {
+            "x": 0.67,
+            "y": 0.33
+          },
+          {
+            "x": 0.68,
+            "y": 0.24
+          },
+          {
+            "x": 0.7,
+            "y": 0.18
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "eastern-garden-wall",
+        "points": [
+          {
+            "x": 0.98,
+            "y": 0.76
+          },
+          {
+            "x": 0.89,
+            "y": 0.63
+          },
+          {
+            "x": 0.79,
+            "y": 0.58
+          },
+          {
+            "x": 0.68,
+            "y": 0.59
+          },
+          {
+            "x": 0.59,
+            "y": 0.54
+          },
+          {
+            "x": 0.57,
+            "y": 0.44
+          },
+          {
+            "x": 0.66,
+            "y": 0.42
+          },
+          {
+            "x": 0.67,
+            "y": 0.33
+          },
+          {
+            "x": 0.68,
+            "y": 0.24
+          },
+          {
+            "x": 0.7,
+            "y": 0.18
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.7,
+        "y": 0.18,
+        "label": "村の門",
+        "hp": 28
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.3,
+        "y": 0.36,
+        "r": 0.07,
+        "elevation": 0
+      },
+      {
+        "x": 0.43,
+        "y": 0.33,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.51,
+        "y": 0.45,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.57,
+        "y": 0.38,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.64,
+        "y": 0.44,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.65,
+        "y": 0.56,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.73,
+        "y": 0.55,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.53,
+        "y": 0.66,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.39,
+        "y": 0.66,
+        "r": 0.075,
+        "elevation": 0
+      },
+      {
+        "x": 0.64,
+        "y": 0.21,
+        "r": 0.05,
+        "elevation": 0
+      }
+    ],
+    "torches": [
+      {
+        "x": 0.23,
+        "y": 0.3
+      },
+      {
+        "x": 0.39,
+        "y": 0.81
+      },
+      {
+        "x": 0.47,
+        "y": 0.48
+      },
+      {
+        "x": 0.58,
+        "y": 0.45
+      },
+      {
+        "x": 0.65,
+        "y": 0.41
+      },
+      {
+        "x": 0.67,
+        "y": 0.3
+      },
+      {
+        "x": 0.7,
+        "y": 0.2
+      },
+      {
+        "x": 0.82,
+        "y": 0.56
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.24,
+        "y": 0.51,
+        "r": 0.1
+      },
+      {
+        "x": 0.85,
+        "y": 0.34,
+        "r": 0.09
+      },
+      {
+        "x": 0.4,
+        "y": 0.13,
+        "r": 0.1
+      }
+    ],
+    "theme": "night",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 9,
+    "difficulty": 1.9991999999999999,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-night.png",
+    "stageNumber": 39,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  },
+  {
+    "id": "advanced-siege",
+    "title": "천수각 삼중 방어선",
+    "shortName": "공성",
+    "japanese": "城門の戦い・決戦",
+    "reading": "じょうもんのたたかい",
+    "description": "천수각 삼중 방어선 · 갑옷을 입은 적과 대장을 막고 성문을 지킵니다.",
+    "mode": "siege",
+    "color": "#564b48",
+    "accent": "#c8a18b",
+    "words": "무기 · 방어 · 명령",
+    "icon": "城",
+    "paths": [
+      {
+        "id": "outer-north-court",
+        "points": [
+          {
+            "x": 0.3,
+            "y": 0.02
+          },
+          {
+            "x": 0.36,
+            "y": 0.1
+          },
+          {
+            "x": 0.38,
+            "y": 0.23
+          },
+          {
+            "x": 0.4,
+            "y": 0.34
+          },
+          {
+            "x": 0.49,
+            "y": 0.4
+          },
+          {
+            "x": 0.56,
+            "y": 0.36
+          },
+          {
+            "x": 0.62,
+            "y": 0.29
+          },
+          {
+            "x": 0.67,
+            "y": 0.25
+          },
+          {
+            "x": 0.67,
+            "y": 0.2
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "southern-defense-line",
+        "points": [
+          {
+            "x": 0.28,
+            "y": 0.98
+          },
+          {
+            "x": 0.36,
+            "y": 0.78
+          },
+          {
+            "x": 0.43,
+            "y": 0.63
+          },
+          {
+            "x": 0.51,
+            "y": 0.45
+          },
+          {
+            "x": 0.56,
+            "y": 0.36
+          },
+          {
+            "x": 0.62,
+            "y": 0.29
+          },
+          {
+            "x": 0.67,
+            "y": 0.25
+          },
+          {
+            "x": 0.67,
+            "y": 0.2
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "eastern-dogleg",
+        "points": [
+          {
+            "x": 0.97,
+            "y": 0.63
+          },
+          {
+            "x": 0.91,
+            "y": 0.6
+          },
+          {
+            "x": 0.86,
+            "y": 0.47
+          },
+          {
+            "x": 0.82,
+            "y": 0.42
+          },
+          {
+            "x": 0.74,
+            "y": 0.4
+          },
+          {
+            "x": 0.71,
+            "y": 0.46
+          },
+          {
+            "x": 0.59,
+            "y": 0.44
+          },
+          {
+            "x": 0.56,
+            "y": 0.36
+          },
+          {
+            "x": 0.62,
+            "y": 0.29
+          },
+          {
+            "x": 0.67,
+            "y": 0.25
+          },
+          {
+            "x": 0.67,
+            "y": 0.2
+          }
+        ],
+        "objectiveId": "main"
+      },
+      {
+        "id": "western-court",
+        "points": [
+          {
+            "x": 0.03,
+            "y": 0.34
+          },
+          {
+            "x": 0.18,
+            "y": 0.42
+          },
+          {
+            "x": 0.29,
+            "y": 0.49
+          },
+          {
+            "x": 0.42,
+            "y": 0.54
+          },
+          {
+            "x": 0.51,
+            "y": 0.45
+          },
+          {
+            "x": 0.56,
+            "y": 0.36
+          },
+          {
+            "x": 0.62,
+            "y": 0.29
+          },
+          {
+            "x": 0.67,
+            "y": 0.25
+          },
+          {
+            "x": 0.67,
+            "y": 0.2
+          }
+        ],
+        "objectiveId": "main"
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "x": 0.67,
+        "y": 0.2,
+        "label": "城門",
+        "hp": 34
+      }
+    ],
+    "buildZones": [
+      {
+        "x": 0.3,
+        "y": 0.34,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.42,
+        "y": 0.26,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.47,
+        "y": 0.37,
+        "r": 0.065,
+        "elevation": 0
+      },
+      {
+        "x": 0.54,
+        "y": 0.49,
+        "r": 0.06,
+        "elevation": 0
+      },
+      {
+        "x": 0.61,
+        "y": 0.39,
+        "r": 0.055,
+        "elevation": 0
+      },
+      {
+        "x": 0.63,
+        "y": 0.27,
+        "r": 0.045,
+        "elevation": 1
+      },
+      {
+        "x": 0.64,
+        "y": 0.57,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.39,
+        "y": 0.67,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.54,
+        "y": 0.7,
+        "r": 0.09,
+        "elevation": 0
+      },
+      {
+        "x": 0.79,
+        "y": 0.58,
+        "r": 0.08,
+        "elevation": 0
+      },
+      {
+        "x": 0.8,
+        "y": 0.41,
+        "r": 0.05,
+        "elevation": 1
+      }
+    ],
+    "obstacles": [
+      {
+        "x": 0.48,
+        "y": 0.15,
+        "r": 0.11
+      },
+      {
+        "x": 0.79,
+        "y": 0.27,
+        "r": 0.16
+      },
+      {
+        "x": 0.51,
+        "y": 0.58,
+        "r": 0.04
+      }
+    ],
+    "walls": [
+      {
+        "x": 0.63,
+        "y": 0.24,
+        "w": 0.03,
+        "h": 0.08
+      },
+      {
+        "x": 0.72,
+        "y": 0.25,
+        "w": 0.1,
+        "h": 0.05
+      }
+    ],
+    "theme": "siege",
+    "tier": "advanced",
+    "tierIndex": 3,
+    "level": 10,
+    "difficulty": 2.0366,
+    "totalWaves": 12,
+    "initialGold": 385,
+    "recruitCost": 60,
+    "unitLimit": 20,
+    "recommendedWords": 30,
+    "reviewWords": 30,
+    "unlocked": true,
+    "background": "res://assets/stages/advanced-siege.png",
+    "stageNumber": 40,
+    "artReview": {
+      "tool": "built-in image_gen",
+      "unique": true,
+      "viewed": true,
+      "layout": "independently aligned to generated image"
+    }
+  }
+]

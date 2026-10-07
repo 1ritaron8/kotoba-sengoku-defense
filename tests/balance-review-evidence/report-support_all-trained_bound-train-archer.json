@@ -1,0 +1,395 @@
+{
+  "actualWins": 0,
+  "armyUsage": {},
+  "battleMinutes": 10,
+  "checks": 62,
+  "ended": true,
+  "failures": [],
+  "initialBarracksTraining": "archer",
+  "learningMode": "support_all",
+  "limitations": [
+    "Policy failure is not proof of player impossibility.",
+    "Known-answer assessment does not establish human learning or retention.",
+    "No actual Native renderer structure/collision binding is included.",
+    "Only first requested stages, zero repeated-clear farming, not whole campaign or a win-rate benchmark."
+  ],
+  "observedStages": 1,
+  "permanentArmy": {
+    "currency": 40,
+    "levels": {
+      "archer": 2,
+      "commander": 1,
+      "gunner": 1,
+      "monk": 1,
+      "naginata": 1,
+      "ninja": 1,
+      "samurai": 1,
+      "spear": 1
+    },
+    "selected": "archer",
+    "training": {}
+  },
+  "policySet": "trained_bound",
+  "requestedStages": 10,
+  "runs": [
+    {
+      "attempts": [
+        {
+          "answerAttempts": 11,
+          "casualties": {},
+          "checkpoints": [
+            {
+              "enemies": 9,
+              "gold": 153,
+              "hp": 26,
+              "living": 14,
+              "queue": 0,
+              "seconds": 120.021052631578,
+              "supportClaims": 4,
+              "theoreticalLivingDps": 297.908470588235
+            },
+            {
+              "enemies": 26,
+              "gold": 1421,
+              "hp": 26,
+              "living": 14,
+              "queue": 0,
+              "seconds": 240.063157894741,
+              "supportClaims": 8,
+              "theoreticalLivingDps": 297.908470588235
+            }
+          ],
+          "composition": {
+            "archer": 14
+          },
+          "correct": 11,
+          "firstBirth": 2.1,
+          "gold": 2455,
+          "hp": 0,
+          "income": 3015,
+          "initialGold": 280,
+          "kills": 293,
+          "learningGold": 0,
+          "levelChangesInBattle": 0,
+          "mergeCalls": 0,
+          "objectiveLosses": [
+            {
+              "gold": 1681,
+              "hp": 25,
+              "living": 14,
+              "queue": 0,
+              "seconds": 262.573684210529
+            },
+            {
+              "gold": 1681,
+              "hp": 23,
+              "living": 14,
+              "queue": 0,
+              "seconds": 262.673684210529
+            },
+            {
+              "gold": 1681,
+              "hp": 22,
+              "living": 14,
+              "queue": 0,
+              "seconds": 262.773684210529
+            },
+            {
+              "gold": 1688,
+              "hp": 21,
+              "living": 14,
+              "queue": 0,
+              "seconds": 263.47368421053
+            },
+            {
+              "gold": 1688,
+              "hp": 18,
+              "living": 14,
+              "queue": 0,
+              "seconds": 264.07368421053
+            },
+            {
+              "gold": 1688,
+              "hp": 16,
+              "living": 14,
+              "queue": 0,
+              "seconds": 264.37368421053
+            },
+            {
+              "gold": 1695,
+              "hp": 13,
+              "living": 14,
+              "queue": 0,
+              "seconds": 264.87368421053
+            },
+            {
+              "gold": 1695,
+              "hp": 12,
+              "living": 14,
+              "queue": 0,
+              "seconds": 264.97368421053
+            },
+            {
+              "gold": 1702,
+              "hp": 11,
+              "living": 14,
+              "queue": 0,
+              "seconds": 265.07368421053
+            },
+            {
+              "gold": 1723,
+              "hp": 10,
+              "living": 14,
+              "queue": 0,
+              "seconds": 266.47368421053
+            },
+            {
+              "gold": 2351,
+              "hp": 9,
+              "living": 14,
+              "queue": 0,
+              "seconds": 318.094736842108
+            },
+            {
+              "gold": 2358,
+              "hp": 4,
+              "living": 14,
+              "queue": 0,
+              "seconds": 318.994736842108
+            },
+            {
+              "gold": 2401,
+              "hp": 3,
+              "living": 14,
+              "queue": 0,
+              "seconds": 322.094736842109
+            },
+            {
+              "gold": 2401,
+              "hp": 1,
+              "living": 14,
+              "queue": 0,
+              "seconds": 322.394736842109
+            },
+            {
+              "gold": 2455,
+              "hp": 0,
+              "living": 14,
+              "queue": 0,
+              "seconds": 326.39473684211
+            }
+          ],
+          "objectives": [
+            {
+              "hp": 0,
+              "id": "main",
+              "maxHp": 26
+            }
+          ],
+          "peakArmy": 14,
+          "peakEnemies": 36,
+          "policy": "trained_full_bow_distributed",
+          "produced": {
+            "archer": 14
+          },
+          "randomSupportReceipts": [
+            {
+              "attemptId": "basic-forest:support_all:wave:1",
+              "effectKo": "산비탈의 돌 세 개가 가까운 적 전선으로 굴러옵니다.",
+              "hinted": false,
+              "kind": "rockfall",
+              "nameKo": "낙석 지원",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 1,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:2",
+              "effectKo": "적이 나타나면 지원 화살 세 발로 선택 전선을 엄호합니다.",
+              "hinted": false,
+              "kind": "archer_cover",
+              "nameKo": "궁병 일제 엄호",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 2,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:3",
+              "effectKo": "적이 나타나면 지원 화살 세 발로 선택 전선을 엄호합니다.",
+              "hinted": false,
+              "kind": "archer_cover",
+              "nameKo": "궁병 일제 엄호",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 3,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:4",
+              "effectKo": "적이 나타나면 지원 화살 세 발로 선택 전선을 엄호합니다.",
+              "hinted": false,
+              "kind": "archer_cover",
+              "nameKo": "궁병 일제 엄호",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 4,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:5",
+              "effectKo": "전진 병력의 보폭을 잠시 재촉합니다.",
+              "hinted": false,
+              "kind": "march_drum",
+              "nameKo": "진군 북소리",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 5,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:6",
+              "effectKo": "산비탈의 돌 세 개가 가까운 적 전선으로 굴러옵니다.",
+              "hinted": false,
+              "kind": "rockfall",
+              "nameKo": "낙석 지원",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 6,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:7",
+              "effectKo": "산비탈의 돌 세 개가 가까운 적 전선으로 굴러옵니다.",
+              "hinted": false,
+              "kind": "rockfall",
+              "nameKo": "낙석 지원",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 7,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:8",
+              "effectKo": "아직 출발하지 않은 적 공세를 잠시 늦춥니다.",
+              "hinted": false,
+              "kind": "supply_disruption",
+              "nameKo": "적 보급선 교란",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 8,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:9",
+              "effectKo": "아직 출발하지 않은 적 공세를 잠시 늦춥니다.",
+              "hinted": false,
+              "kind": "supply_disruption",
+              "nameKo": "적 보급선 교란",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 9,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:10",
+              "effectKo": "산비탈의 돌 세 개가 가까운 적 전선으로 굴러옵니다.",
+              "hinted": false,
+              "kind": "rockfall",
+              "nameKo": "낙석 지원",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 10,
+              "state": "queued",
+              "strength": 1.003125
+            },
+            {
+              "attemptId": "basic-forest:support_all:wave:11",
+              "effectKo": "전진 병력의 보폭을 잠시 재촉합니다.",
+              "hinted": false,
+              "kind": "march_drum",
+              "nameKo": "진군 북소리",
+              "ok": true,
+              "pathIndex": 0,
+              "serial": 11,
+              "state": "queued",
+              "strength": 1.003125
+            }
+          ],
+          "refunds": 0,
+          "rendererBound": false,
+          "seconds": 326.39473684211,
+          "spent": 840,
+          "upgradeCalls": 0,
+          "victory": false,
+          "wave": 12
+        }
+      ],
+      "fundsBefore": 40,
+      "levelsBefore": {
+        "archer": 2,
+        "commander": 1,
+        "gunner": 1,
+        "monk": 1,
+        "naginata": 1,
+        "ninja": 1,
+        "samurai": 1,
+        "spear": 1
+      },
+      "stageId": "basic-forest",
+      "stageNumber": 1.0,
+      "unlockedBefore": [
+        "archer",
+        "spear"
+      ],
+      "won": false
+    }
+  ],
+  "savePath": "res://tests/profiles/permanent-growth-campaign-review-20261007/support_all-trained_bound-train-archer-progress.json",
+  "scope": "Actual CPU Game/Nav only, no renderer or GPU; genuine delayed paid production, deaths/replacements, native supplies, initial funds and clear-earned permanent growth. No in-battle merge/upgrade, forced win, artificial level/HP/gold or stat edits. Actual gate submissions are known-answer fixture only.",
+  "sourceHashesCurrent": {
+    "battle_duration.gd": "6256ee4e85fe39e9ea3674cf56e1c6cd7fbe0e725d28c28d20532e6959f48410",
+    "battle_support.gd": "4a7bdd9e96bb40c6c8ab9f55e520189867920a8f463f4ff7b23136b4c1d963e0",
+    "game.gd": "ea5ae3ac522ffb948f72adefa3cee80234b12decfa60d3747466321935d9623f",
+    "ground_combat.gd": "3d26a6e53eada4620d16e74706ed027fb44699a85f35e4bcd5bef59a5c1f4481",
+    "learning_gate.gd": "27253911486a4c8c7c375c66bae98bf2dca6924a5f66493f82c2a92b2b3d61f3",
+    "maps.json": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+    "progress.gd": "6de32aa553244cf1884e3d9be70daa3e6511f348ff9ac980c7021f44afa21893",
+    "unit_growth.gd": "83a335e0fd30b29fe9e0841e4b2f0a599de8dd4466b1bd7f690549b2d3ff03d9",
+    "unit_skills.gd": "e5cc9af19f87e6aeae044f33edb462f7ad7a31d1cae05dbbb221cee1afa78e68",
+    "units.json": "7873f37623288654c1251374e9e22d7905575a65054222c6e2b4d5bd9ae29c48"
+  },
+  "sourceHashesStart": {
+    "battle_duration.gd": "6256ee4e85fe39e9ea3674cf56e1c6cd7fbe0e725d28c28d20532e6959f48410",
+    "battle_support.gd": "4a7bdd9e96bb40c6c8ab9f55e520189867920a8f463f4ff7b23136b4c1d963e0",
+    "game.gd": "ea5ae3ac522ffb948f72adefa3cee80234b12decfa60d3747466321935d9623f",
+    "ground_combat.gd": "3d26a6e53eada4620d16e74706ed027fb44699a85f35e4bcd5bef59a5c1f4481",
+    "learning_gate.gd": "27253911486a4c8c7c375c66bae98bf2dca6924a5f66493f82c2a92b2b3d61f3",
+    "maps.json": "10657c46e8506e8cefeb692632c91394155f83a2b9bfd0debde5e731cace8994",
+    "progress.gd": "6de32aa553244cf1884e3d9be70daa3e6511f348ff9ac980c7021f44afa21893",
+    "unit_growth.gd": "83a335e0fd30b29fe9e0841e4b2f0a599de8dd4466b1bd7f690549b2d3ff03d9",
+    "unit_skills.gd": "e5cc9af19f87e6aeae044f33edb462f7ad7a31d1cae05dbbb221cee1afa78e68",
+    "units.json": "7873f37623288654c1251374e9e22d7905575a65054222c6e2b4d5bd9ae29c48"
+  },
+  "training": [
+    {
+      "afterStage": "before-first-stage",
+      "cost": 140,
+      "evolved": false,
+      "funds": 40,
+      "level": 2,
+      "type": "archer"
+    }
+  ],
+  "wallSeconds": 18.257
+}

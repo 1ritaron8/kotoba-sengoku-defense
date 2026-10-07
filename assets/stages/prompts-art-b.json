@@ -1,0 +1,167 @@
+[
+  {
+    "id": "intermediate-convoy",
+    "stageNumber": 26,
+    "title": "바위 협곡의 역참",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Layered red-gray rock canyon, central horse-post relay courtyard and road hairpins threading left-bottom to right-top, supply depot near center-right. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/intermediate-convoy.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-da58bc02-46f2-4703-a96e-62641a1cfd88.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "intermediate-temple",
+    "stageNumber": 27,
+    "title": "절벽 위의 오층탑",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: A five-story pagoda on a cliff-top terrace, long diagonal staircase and two stone-courtyard access lanes, red autumn foliage at perimeter. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/intermediate-temple.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-c2e7b8ef-eba4-4e93-9c4b-5ab1839f51cc.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "intermediate-snow",
+    "stageNumber": 28,
+    "title": "폭설 속의 온천 마을",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Snow-covered hot-spring village, steaming pools and thatched inns at perimeter, two packed-snow street loops, protected gate at lower center. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/intermediate-snow.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-bc701af9-0bbd-45e8-9ac2-fbac0820a1a1.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "intermediate-night",
+    "stageNumber": 29,
+    "title": "갈대 습지의 달빛",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Moonlit reed marsh, wooden causeways crossing black reflective pools, broad dry islands with torch posts, watch hut at upper right. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/intermediate-night.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-39c419d1-ee66-43dd-83e0-981357a4ae8b.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "intermediate-siege",
+    "stageNumber": 30,
+    "title": "성곽 이중 문루",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Double fortress gatehouses, offset dogleg courtyards and tall stone embankments, two broad enemy approaches ending at inner gate upper center. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/intermediate-siege.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-9eec816d-265a-4504-88f5-5e7d9b74c8e7.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-forest",
+    "stageNumber": 31,
+    "title": "삼나무 절벽의 포위",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Cedar cliffs encircle a broad elevated ridge clearing, exposed root terraces, three asymmetric winding approach lanes converge on palisade gate at right-center. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-forest.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-d24957f5-7116-4a51-bed4-f0892b086be5.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-farm",
+    "stageNumber": 32,
+    "title": "무너진 둑의 황금 들녘",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Golden mature rice plain with a visibly breached levee and flood channel, dry raised zigzag roads, grain stronghold lower left and levee post upper right. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-farm.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-2db1e330-9cf8-4af7-b11b-efed07a1db7c.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-town",
+    "stageNumber": 33,
+    "title": "성하 수로와 돌다리",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Large castle-town canal quarter, blue-water channels with stone arched bridges, wide winding streets and separate plaza terraces, two defended storehouses. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-town.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-ba6a04ef-a032-49a4-a842-49957f8f933b.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-river",
+    "stageNumber": 34,
+    "title": "대하 합류점의 성채",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Two great rivers join into a Y-shaped waterway around a triangular fortress island, two widely separated timber crossing choices and broad banks. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-river.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-b0fe6270-e84c-4234-a51c-4bc8418c3995.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-harbor",
+    "stageNumber": 35,
+    "title": "폭풍 앞의 해상 요새",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Coastal stone-and-timber island sea fort under approaching storm clouds, empty fortified piers and broad breakwater lanes, harbor storehouse at upper center. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-harbor.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-35d97221-015b-4f8c-aa9f-1a480e427eb4.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-convoy",
+    "stageNumber": 36,
+    "title": "고산 절벽의 잔도",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: High mountain sheer cliff road with ancient wooden gallery sections, broad safe switchback terraces and valley below, caravan camp at lower right. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-convoy.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-e691cde8-3053-451f-b5d5-a3dff55eeb5b.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-temple",
+    "stageNumber": 37,
+    "title": "붉은 산문의 대사찰",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Grand vermilion temple gate and sprawling Buddhist compound, massive broad stone stair and three open courtyard routes, autumn mountains around the edge. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-temple.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-8aa360dc-103d-4e10-ae5f-fbebcb52b3c5.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-snow",
+    "stageNumber": 38,
+    "title": "설산 능선의 최후 관문",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: A snowy high mountain ridge, three long packed-snow approaches and open staging plateaus around a narrow timber final gate, blue sunset on snow. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-snow.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-00ded592-968c-41b0-af26-d560c024de41.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-night",
+    "stageNumber": 39,
+    "title": "안개 낀 대저택의 잠입로",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Fog-filled daimyo mansion grounds at night, moat gardens, broad winding lanes around large halls, torch-lit courtyards and perimeter entrances. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-night.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-b9b8da61-b63a-4e89-8a0f-63ef9bc57a5a.png",
+    "geometryReviewed": true
+  },
+  {
+    "id": "advanced-siege",
+    "stageNumber": 40,
+    "title": "천수각 삼중 방어선",
+    "prompt": "Use case: historical-scene. Asset type: standalone game battlefield background. Make exactly ONE complete new 16:9 landscape image, never a collage, montage, split view, grid or alternate version. Realistic premium 3D strategy videogame terrain set in late-16th-century Sengoku Japan. High overhead camera tilted 65 degrees downward, whole playable field seen clearly, NO horizon. Detailed believable natural materials, realistic architecture and natural scale. Scene: Large realistic Japanese castle keep at upper right, three concentric stone defensive courts with offset massive gates and spacious approaches, dramatic cloudy daylight. Gameplay composition: wide unobstructed approach roads and large empty flat shoulders and staging courtyards distributed through the field for tower defense placement; road junctions and defensive landmark readable from above. Terrain only, no characters or animals or vehicles or soldiers, no game units, no HUD, no captions, no writing, no text, no interface, no logo, no watermark. No cartoon or chibi. Keep roofs, trees and cliffs mostly toward edges; at least half the image is usable roads and empty dry flat ground. This is a unique new location with its own terrain silhouette and road layout.",
+    "tool": "built-in image_gen",
+    "status": "complete",
+    "output": "assets/stages/advanced-siege.png",
+    "source": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-7d2c-7043-b800-cfe97ee4bc30\\exec-120e59dc-bbc0-45d8-b4ef-ee5469f48ad2.png",
+    "geometryReviewed": true
+  }
+]

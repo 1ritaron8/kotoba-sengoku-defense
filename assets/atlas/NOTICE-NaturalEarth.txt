@@ -1,0 +1,6 @@
+Natural Earth 1:50m Admin 0 Countries v5.1.1
+Public Domain
+https://www.naturalearthdata.com/about/terms-of-use/
+https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson
+
+Japan exterior coastline rings extracted for an original game atlas. Natural Earth is a modern geographic reference, not a reconstruction of historical territories.

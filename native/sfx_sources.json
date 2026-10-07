@@ -1,0 +1,725 @@
+{
+  "version": 1,
+  "checkedDate": "2026-10-04",
+  "format": "44.1kHz mono PCM16 WAV, non-looping",
+  "recordedOnly": true,
+  "sources": [
+    {
+      "id": "artisticdude-battle",
+      "title": "Battle Sound Effects",
+      "author": "artisticdude (submitted by Ogrebane)",
+      "source": "https://opengameart.org/content/battle-sound-effects",
+      "download": "https://opengameart.org/sites/default/files/battle_sound_effects_0.zip",
+      "archive": "battle-sound-effects.zip",
+      "published": "2010-05-20",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenseEvidence": "tools/sfx/pages/battle-sound-effects.html",
+      "archiveSha256": "44e3d26b2378d2eb3a4f28b4c5cbc71908ad13c7389038348dbe9b8cde4f4c05"
+    },
+    {
+      "id": "vehicle-tinysized",
+      "title": "Tinysized SFX Library",
+      "author": "Jan Schupke / Vehicle",
+      "source": "https://opengameart.org/content/fantasy-sound-effects-tinysized-sfx",
+      "download": "https://opengameart.org/sites/default/files/tinysized.zip",
+      "archive": "tinysized.zip",
+      "published": "2015-08-12",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenseEvidence": "tinysized.zip::readme.txt and tools/sfx/pages/fantasy-sound-effects-tinysized-sfx.html",
+      "archiveSha256": "7f00e2b1dae15e68db0e1d6096767f03755e9e7c247128afc3e935e63774d7db"
+    },
+    {
+      "id": "vincent-sevedge-gunshots",
+      "title": "Gunshot Sounds",
+      "author": "Vincent Sevedge (archive copyright); submitted by Tabasco",
+      "source": "https://opengameart.org/content/gunshot-sounds",
+      "download": "https://opengameart.org/sites/default/files/sounds.zip",
+      "archive": "gunshot-sounds.zip",
+      "published": "2010-07-02",
+      "copyright": "Copyright (c) 2009 Vincent Sevedge",
+      "license": "CC BY 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "licenseEvidence": "gunshot-sounds.zip::sounds/creativecommons.txt",
+      "licenseNote": "Source webpage lists CC0; included original copyright/license says CC BY 3.0. Attribution 3.0 terms are retained conservatively.",
+      "archiveSha256": "5b3960083a94e18ee47bc84376615a476debc884b18f25b93ea4b6ab3f278e4f"
+    },
+    {
+      "id": "brandon-song-adventurer",
+      "title": "Voice Clip Pack - Male Adventurer RPG",
+      "author": "Brandon Song (wolfwoot)",
+      "source": "https://opengameart.org/content/voice-clip-pack-male-adventurer-rpg",
+      "download": "https://opengameart.org/sites/default/files/RPG%20Male%20Adventurer.zip",
+      "archive": "male-adventurer.zip",
+      "published": "2020-02-09",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "creditText": "Voice performance: Brandon Song (wolfwoot), Voice Clip Pack - Male Adventurer RPG, CC0 1.0.",
+      "licenseEvidence": "tools/sfx/pages/male-adventurer.html (author's CC0 release and requested credit name)",
+      "use": "Short nonverbal hurt/death performances only; no dialogue, synthetic/TTS voices or nationality/language claims.",
+      "archiveSha256": "eb874f027758ccf9eca0449d09dc3220dc44eb4095e8b0da93351d276e176f7f"
+    },
+    {
+      "id": "xinematix-taiko-491278",
+      "title": "Taiko Drumloop",
+      "author": "Xinematix",
+      "source": "https://freesound.org/people/Xinematix/sounds/491278/",
+      "download": "https://cdn.freesound.org/previews/491/491278_4882128-hq.mp3",
+      "archive": "taiko-drumloop-xinematix-491278.mp3",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenseEvidence": "tools/sfx/pages/taiko-drumloop-002.html",
+      "archiveSha256": "cc4803c47164fe8fcee7e18e89926427d65cb4fb1fccfde9ae4884ff7914ec7a"
+    }
+  ],
+  "clips": [
+    {
+      "id": "bow_release_a",
+      "path": "res://assets/sfx/bow_release_a.wav",
+      "sourceIds": [
+        "artisticdude-battle"
+      ],
+      "purposeKo": "활시위 발사",
+      "originalFiles": [
+        "Bow.wav"
+      ],
+      "changes": "Single string transient; trimmed, mono 44.1 kHz, soft EQ and edge fades.",
+      "sha256": "f584f97cc56cb31fb860690ee02b2e250b846852e5ed23da74daffdbe3b2510b",
+      "seconds": 0.34,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.05955,
+      "nonzeroSamples": 13632
+    },
+    {
+      "id": "bow_release_b",
+      "path": "res://assets/sfx/bow_release_b.wav",
+      "sourceIds": [
+        "artisticdude-battle"
+      ],
+      "purposeKo": "활시위 발사 변주",
+      "originalFiles": [
+        "Bow.wav"
+      ],
+      "changes": "Release variant with 6% lower pitch; same short-tail mastering.",
+      "sha256": "1aece026a3d42e321d0c2f7c830b77e3292f244d98c079aa811b9b497518c8ac",
+      "seconds": 0.3617,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.059282,
+      "nonzeroSamples": 14501
+    },
+    {
+      "id": "sword_swing_a",
+      "path": "res://assets/sfx/sword_swing_a.wav",
+      "sourceIds": [
+        "artisticdude-battle"
+      ],
+      "purposeKo": "검·창의 실제 공격 휘두름",
+      "originalFiles": [
+        "swish_2.wav"
+      ],
+      "changes": "Trimmed air/weapon swish, subdued high-frequency roll-off, mono and fades.",
+      "sha256": "831c505b31a68e3ed415d54f90bc232d6a4e205a47f6070d553585aa4a169d5e",
+      "seconds": 0.32,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.06206,
+      "nonzeroSamples": 12454
+    },
+    {
+      "id": "sword_swing_b",
+      "path": "res://assets/sfx/sword_swing_b.wav",
+      "sourceIds": [
+        "artisticdude-battle"
+      ],
+      "purposeKo": "검·창의 실제 공격 휘두름",
+      "originalFiles": [
+        "swish_3.wav"
+      ],
+      "changes": "Trimmed air/weapon swish, subdued high-frequency roll-off, mono and fades.",
+      "sha256": "df5ada2b699e5dea5298836d10ec5bed436aaec6141776e1e6ace046c4626edc",
+      "seconds": 0.32,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.112333,
+      "nonzeroSamples": 14092
+    },
+    {
+      "id": "matchlock_a",
+      "path": "res://assets/sfx/matchlock_a.wav",
+      "sourceIds": [
+        "vincent-sevedge-gunshots"
+      ],
+      "purposeKo": "화승총 발사 게임 효과",
+      "originalFiles": [
+        "sounds/mosin.wav"
+      ],
+      "changes": "Adapted modern rifle recording: isolated one shot, room noise/tail shortened, lowered pitch, soft 5.5 kHz EQ, mono/fades; not an authentic historical musket recording.",
+      "sha256": "62b49f021a4aaa547623a1fd05b6117ddbf9ce84a2c6351497dae6605aee1cbb",
+      "seconds": 0.6593,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.13289,
+      "nonzeroSamples": 29039
+    },
+    {
+      "id": "matchlock_b",
+      "path": "res://assets/sfx/matchlock_b.wav",
+      "sourceIds": [
+        "vincent-sevedge-gunshots"
+      ],
+      "purposeKo": "화승총 발사 게임 효과",
+      "originalFiles": [
+        "sounds/mosin.wav"
+      ],
+      "changes": "Adapted modern rifle recording: isolated one shot, room noise/tail shortened, lowered pitch, soft 5.5 kHz EQ, mono/fades; not an authentic historical musket recording.",
+      "sha256": "fdbaf04e603b90b47fb777793c0ff09be6b1907c20f50725be294fc56197fa15",
+      "seconds": 0.6185,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.133434,
+      "nonzeroSamples": 27236
+    },
+    {
+      "id": "metal_hit_a",
+      "path": "res://assets/sfx/metal_hit_a.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "검·갑옷 금속 피격",
+      "originalFiles": [
+        "sword-clash-01.wav"
+      ],
+      "changes": "Single recorded metal clash, trimmed ringing tail, mono and fades.",
+      "sha256": "0a8d758f650eef6cb2e1e4910f34fcc0963917d2321ed32c11c158c4feabe191",
+      "seconds": 0.42,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.04013,
+      "nonzeroSamples": 18334
+    },
+    {
+      "id": "metal_hit_b",
+      "path": "res://assets/sfx/metal_hit_b.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "검·갑옷 금속 피격",
+      "originalFiles": [
+        "sword-clash-02.wav"
+      ],
+      "changes": "Single recorded metal clash, trimmed ringing tail, mono and fades.",
+      "sha256": "e4012dcc9d3650dc4c6c45f645390d31da0ce93772b7c97b1f4501ec151f43cb",
+      "seconds": 0.42,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.069555,
+      "nonzeroSamples": 18487
+    },
+    {
+      "id": "wood_hit_a",
+      "path": "res://assets/sfx/wood_hit_a.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "창·봉의 둔한 나무 충격",
+      "originalFiles": [
+        "wood-bowl-spoon-01.wav",
+        "boots-leather-jump-01.wav"
+      ],
+      "changes": "Recorded wood contact and real leather landing only; mono/fades, no synthesized thud.",
+      "sha256": "4d396c622bb50e7dd5ee4013062a60d3b34164c97e3328666e318e27f15c820c",
+      "seconds": 0.24,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.072787,
+      "nonzeroSamples": 10574
+    },
+    {
+      "id": "wood_hit_b",
+      "path": "res://assets/sfx/wood_hit_b.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "창·봉의 둔한 나무 충격",
+      "originalFiles": [
+        "wood-bowl-spoon-02.wav",
+        "boots-leather-jump-01.wav"
+      ],
+      "changes": "Recorded wood contact and real leather landing only; mono/fades, no synthesized thud.",
+      "sha256": "242b10f0fde455ff7b47265952969d0837a6c90695bf508652399ad477557754",
+      "seconds": 0.25,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.100022,
+      "nonzeroSamples": 11008
+    },
+    {
+      "id": "body_hit_a",
+      "path": "res://assets/sfx/body_hit_a.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "갑옷 없는 몸·천 피격",
+      "originalFiles": [
+        "boots-leather-jump-01.wav",
+        "cloth-pouch-shake-01.wav"
+      ],
+      "changes": "Real leather/body-weight and cloth Foley only; no synthesized sound or gore.",
+      "sha256": "4e5992bd145a02cb5b08a662dafc77cf44a10179bf21f86830f40859a84c00aa",
+      "seconds": 0.285,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.084733,
+      "nonzeroSamples": 12480
+    },
+    {
+      "id": "body_hit_b",
+      "path": "res://assets/sfx/body_hit_b.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "몸·천 피격 변주",
+      "originalFiles": [
+        "soil-steps-01.wav",
+        "cloth-pouch-shake-01.wav"
+      ],
+      "changes": "Short soil and cloth Foley layered, mono/fades.",
+      "sha256": "b1199da2c7edc3763c4d542cf748d8d7cd48e32ce364deed9318d1d7b20f3191",
+      "seconds": 0.288,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.065488,
+      "nonzeroSamples": 12511
+    },
+    {
+      "id": "footstep_a",
+      "path": "res://assets/sfx/footstep_a.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "이동하는 보병의 발 접지",
+      "originalFiles": [
+        "boots-leather-step-01.wav"
+      ],
+      "changes": "One leather/earth foot contact, trimmed, mono and edge fades.",
+      "sha256": "2bd3248804e90a3cf8ae218636aa50376de25db2d320047d79be29a1867ce0e2",
+      "seconds": 0.25,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.087033,
+      "nonzeroSamples": 10964
+    },
+    {
+      "id": "footstep_b",
+      "path": "res://assets/sfx/footstep_b.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "이동하는 보병의 발 접지",
+      "originalFiles": [
+        "soil-steps-01.wav"
+      ],
+      "changes": "One leather/earth foot contact, trimmed, mono and edge fades.",
+      "sha256": "c3593477a4b6d9e662ad3f44f86a1a447f51b59dd8c8b8198864a4c74f2ab14a",
+      "seconds": 0.28,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.061063,
+      "nonzeroSamples": 12077
+    },
+    {
+      "id": "hoof_step",
+      "path": "res://assets/sfx/hoof_step.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "기마 한 보폭의 발굽 접지",
+      "originalFiles": [
+        "wood-bowl-spoon-01.wav",
+        "wood-bowl-spoon-02.wav"
+      ],
+      "changes": "Wooden Foley performed as a paired hoof clop; constructed horse Foley, not a horse field recording.",
+      "sha256": "69e70790ed2aeb9d6d764617569accd97362ab4bcd12b0dd037add34e19415a7",
+      "seconds": 0.295,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.074908,
+      "nonzeroSamples": 12975
+    },
+    {
+      "id": "horse_charge",
+      "path": "res://assets/sfx/horse_charge.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "기마 돌격의 발굽·몸무게 충돌",
+      "originalFiles": [
+        "wood-bowl-spoon-01.wav",
+        "wood-bowl-spoon-02.wav",
+        "boots-leather-jump-01.wav"
+      ],
+      "changes": "Paired wooden hoof Foley and real leather landing only; no synthesized impact.",
+      "sha256": "03e2b8d0eaed2f855c7af74420a2bebb0a4ed431146956d2b41b262a5ec56e21",
+      "seconds": 0.7071,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.0781,
+      "nonzeroSamples": 30621
+    },
+    {
+      "id": "recruit",
+      "path": "res://assets/sfx/recruit.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "성공한 소집의 금화·장비 준비",
+      "originalFiles": [
+        "coins-shake-01.wav",
+        "quiver-leather-squeeze-01.wav"
+      ],
+      "changes": "Coin and leather equipment Foley; no electronic UI beep.",
+      "sha256": "77ac799200c65bb75f1d75c5085a09eccad015c6191465c2370c93cdccf552c0",
+      "seconds": 0.28,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.053882,
+      "nonzeroSamples": 11356
+    },
+    {
+      "id": "deploy",
+      "path": "res://assets/sfx/deploy.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "성공한 병력 배치의 접지·장비 체결",
+      "originalFiles": [
+        "boots-leather-step-01.wav",
+        "handcuffs-metal-lock-01.wav"
+      ],
+      "changes": "Leather foot plant with quiet mechanical latch; mono and fades.",
+      "sha256": "a8db7959650911b6d144563dcc42d0d9a23e591865a522e5cbe93040ba94f2d3",
+      "seconds": 0.25,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.087577,
+      "nonzeroSamples": 10969
+    },
+    {
+      "id": "ui_click",
+      "path": "res://assets/sfx/ui_click.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "작은 나무 조작음",
+      "originalFiles": [
+        "wood-bowl-spoon-02.wav"
+      ],
+      "changes": "Very short muted wooden contact; no tone oscillator.",
+      "sha256": "4152903cf2d5054d1df67cf61a62fe6a8dfe7cdcd18b1e7b311e7cc30e1d4c85",
+      "seconds": 0.085,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.741417,
+      "rms": 0.109865,
+      "nonzeroSamples": 3743
+    },
+    {
+      "id": "kill",
+      "path": "res://assets/sfx/kill.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "적의 사망·갑옷 바닥 착지",
+      "originalFiles": [
+        "boots-leather-jump-01.wav",
+        "cloth-pouch-shake-01.wav",
+        "handcuffs-metal-lock-01.wav"
+      ],
+      "changes": "A single body landing with equipment/cloth fall; no screaming or duplicated kill rewards.",
+      "sha256": "3989455f826f3a596cbde2d3ab1fe43166370788e8ba78cfdb9029e65e135e17",
+      "seconds": 0.38,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.073353,
+      "nonzeroSamples": 16571
+    },
+    {
+      "id": "ally_down",
+      "path": "res://assets/sfx/ally_down.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "아군 전투 불능 착지",
+      "originalFiles": [
+        "boots-leather-jump-01.wav",
+        "cloth-pouch-shake-01.wav"
+      ],
+      "changes": "Lower leather landing and cloth Foley, mono/fades.",
+      "sha256": "80a535c9dcc1f0bee12674a29f3d31372e8373a58f77ccc6d30ab4781bb2227a",
+      "seconds": 0.4634,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.072372,
+      "nonzeroSamples": 20077
+    },
+    {
+      "id": "objective_hit",
+      "path": "res://assets/sfx/objective_hit.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "본진·목표의 피해 경고",
+      "originalFiles": [
+        "metal-hammer-hit-01.wav",
+        "wood-bowl-spoon-02.wav"
+      ],
+      "changes": "Real recorded metal/wood impact with lowered playback pitch; no oscillator/alarm beep.",
+      "sha256": "490c9e241c4fea19eb33a1e8eb8c19811f589c5cf93e849c11cf757f42a3d1c8",
+      "seconds": 0.56,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.101849,
+      "nonzeroSamples": 24571
+    },
+    {
+      "id": "wave_start",
+      "path": "res://assets/sfx/wave_start.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "적 공세 시작의 나무 신호",
+      "originalFiles": [
+        "wood-bowl-spoon-01.wav",
+        "wood-bowl-spoon-02.wav"
+      ],
+      "changes": "Short sequence of real recorded wooden/metal/equipment contacts; DSP edit only, no synthesis or TTS.",
+      "sha256": "f894dc5dba574f4a803bf9a4cf7eddadee2f176004c2e8b3a4ff2517bf0c7f36",
+      "seconds": 0.43,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.083668,
+      "nonzeroSamples": 18943
+    },
+    {
+      "id": "wave_clear",
+      "path": "res://assets/sfx/wave_clear.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "파상 공격 종료의 나무·금속 신호",
+      "originalFiles": [
+        "wood-bowl-spoon-02.wav",
+        "metal-hammer-hit-01.wav"
+      ],
+      "changes": "Short sequence of real recorded wooden/metal/equipment contacts; DSP edit only, no synthesis or TTS.",
+      "sha256": "114e2de5665c36b5b2a61db839ba9ae8b4a22353a301b2b909914c29ffb1035f",
+      "seconds": 0.62,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.087646,
+      "nonzeroSamples": 27318
+    },
+    {
+      "id": "victory",
+      "path": "res://assets/sfx/victory.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "승리의 짧은 나무·금속 신호",
+      "originalFiles": [
+        "wood-bowl-spoon-01.wav",
+        "wood-bowl-spoon-02.wav",
+        "metal-hammer-hit-01.wav"
+      ],
+      "changes": "Short sequence of real recorded wooden/metal/equipment contacts; DSP edit only, no synthesis or TTS.",
+      "sha256": "626c00bedc00609d5a44ea5b22c6252716bf132cfa1f59bba70b3679a5c98cd9",
+      "seconds": 0.82,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.077887,
+      "nonzeroSamples": 36131
+    },
+    {
+      "id": "defeat",
+      "path": "res://assets/sfx/defeat.wav",
+      "sourceIds": [
+        "vehicle-tinysized"
+      ],
+      "purposeKo": "패배의 낮은 장비 착지 신호",
+      "originalFiles": [
+        "metal-hammer-hit-01.wav",
+        "boots-leather-jump-01.wav"
+      ],
+      "changes": "Short sequence of real recorded wooden/metal/equipment contacts; DSP edit only, no synthesis or TTS.",
+      "sha256": "213ea9a2cb881bce635cfbe45b3c64e034401c5640df2d6d9b4df4b7025f1214",
+      "seconds": 0.7834,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.081379,
+      "nonzeroSamples": 33958
+    },
+    {
+      "id": "pain_reaction_a",
+      "path": "res://assets/sfx/pain_reaction_a.wav",
+      "sourceIds": [
+        "brandon-song-adventurer"
+      ],
+      "purposeKo": "실제 배우의 짧은 비언어 전투 반응",
+      "originalFiles": [
+        "RPG Male Adventurer/hurt1.wav"
+      ],
+      "changes": "Human vocal performance by Brandon Song; nonverbal hurt/death clip only, silence/tail trimmed, mono/EQ/fades. No TTS, generated voice, dialogue or nationality claim.",
+      "sha256": "a66839a9e7d5fb87db5c198a9624bc92a89d884efb4b3f78daacacc593cb87e1",
+      "seconds": 0.7,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.099225,
+      "nonzeroSamples": 30152
+    },
+    {
+      "id": "pain_reaction_b",
+      "path": "res://assets/sfx/pain_reaction_b.wav",
+      "sourceIds": [
+        "brandon-song-adventurer"
+      ],
+      "purposeKo": "실제 배우의 짧은 비언어 전투 반응",
+      "originalFiles": [
+        "RPG Male Adventurer/hurt4.wav"
+      ],
+      "changes": "Human vocal performance by Brandon Song; nonverbal hurt/death clip only, silence/tail trimmed, mono/EQ/fades. No TTS, generated voice, dialogue or nationality claim.",
+      "sha256": "32ed4ca19d5aa23ceb2e03995e98f1fc35cac993dd654befd5e1f06da471a040",
+      "seconds": 0.4944,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.085479,
+      "nonzeroSamples": 21725
+    },
+    {
+      "id": "death_reaction_a",
+      "path": "res://assets/sfx/death_reaction_a.wav",
+      "sourceIds": [
+        "brandon-song-adventurer"
+      ],
+      "purposeKo": "실제 배우의 짧은 비언어 전투 반응",
+      "originalFiles": [
+        "RPG Male Adventurer/death0.wav"
+      ],
+      "changes": "Human vocal performance by Brandon Song; nonverbal hurt/death clip only, silence/tail trimmed, mono/EQ/fades. No TTS, generated voice, dialogue or nationality claim.",
+      "sha256": "7f6773c1741b2d539a4f1ebfdfd8661537ca962212194ac025086447b6515200",
+      "seconds": 1.05,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.138297,
+      "nonzeroSamples": 46275
+    },
+    {
+      "id": "death_reaction_b",
+      "path": "res://assets/sfx/death_reaction_b.wav",
+      "sourceIds": [
+        "brandon-song-adventurer"
+      ],
+      "purposeKo": "실제 배우의 짧은 비언어 전투 반응",
+      "originalFiles": [
+        "RPG Male Adventurer/death1.wav"
+      ],
+      "changes": "Human vocal performance by Brandon Song; nonverbal hurt/death clip only, silence/tail trimmed, mono/EQ/fades. No TTS, generated voice, dialogue or nationality claim.",
+      "sha256": "fb32d610e3910f7e882d727c0c081a3b95e9062f473c5950825789dcb963f950",
+      "seconds": 1.05,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "peak": 0.78,
+      "rms": 0.151163,
+      "nonzeroSamples": 46285
+    },
+    {
+      "id": "taiko_march",
+      "path": "res://assets/sfx/taiko_march.wav",
+      "sourceIds": [
+        "xinematix-taiko-491278"
+      ],
+      "purposeKo": "진군 북소리 지원의 외부 태고 음원",
+      "originalFiles": [
+        "taiko-drumloop-xinematix-491278.mp3"
+      ],
+      "changes": "First 2 seconds; Godot MP3 decode, mono PCM16, level and 12ms/80ms fades only. No synthesis or historical authenticity claim.",
+      "bits": 16,
+      "channels": 1,
+      "nonzeroSamples": 88151,
+      "peak": 0.551552923803039,
+      "rms": 0.0919605071625808,
+      "sampleRate": 44100,
+      "seconds": 2.0,
+      "sha256": "ba74314598133493428eaf3a48a1159dd66eaff283cee4f78c85a20adc26af4f"
+    }
+  ],
+  "licenseFiles": [
+    "res://assets/sfx/gunshot-original-notice.txt",
+    "res://assets/sfx/tinysized-original-notice.txt",
+    "res://assets/sfx/voice-original-notice.txt",
+    "res://assets/sfx/CC0-1.0.txt",
+    "res://assets/sfx/CC-BY-3.0.txt",
+    "res://assets/sfx/taiko-original-notice.txt"
+  ],
+  "mastering": "Every effect is adapted from free licensed real recordings: organic Foley, wooden/metal signals and restrained human nonverbal reactions. Editing/EQ/fades only, no synthesis, generated percussion, beeps or TTS. The recorded modern rifle is not represented as an authentic historical matchlock recording."
+}

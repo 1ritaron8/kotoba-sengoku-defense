@@ -1,0 +1,8 @@
+Noto Serif CJK JP Medium
+Official upstream: https://github.com/notofonts/noto-cjk
+Font source: https://github.com/notofonts/noto-cjk/blob/main/Serif/OTF/Japanese/NotoSerifCJKjp-Medium.otf
+License source: https://github.com/notofonts/noto-cjk/blob/main/Serif/LICENSE
+Bundled file: NotoSerifCJKjp-Medium.otf
+SHA-256: 362C6A30210C0607288B4BCA98E20B8F01998E2779585899737503BCAD779478
+License: SIL Open Font License 1.1, reproduced in OFL-NotoSerifCJK.txt.
+The upstream font is bundled unchanged. No system font installation is required.

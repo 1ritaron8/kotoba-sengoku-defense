@@ -1,0 +1,11 @@
+{
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "artist": "PeriTune / Sei Mutsuki",
+  "terms_checked": "2026-10-03",
+  "terms_url": "https://peritune.com/about/",
+  "tracks": [
+    {"title":"Sakuya2","file":"sakuya2.ogg","context":"preparation","published":"2016-01-01","source":"https://peritune.com/blog/2016/01/01/sakuya2/","download":"https://peritune.com/loop/PerituneMaterial_Sakuya2_loop.zip"},
+    {"title":"Amenoshita","file":"amenoshita.mp3","context":"battle","published":"2015-07-03","source":"https://peritune.com/blog/2015/07/03/amenoshita/","download":"https://peritune.com/music/PerituneMaterial_Amenoshita_loop.mp3"}
+  ]
+}

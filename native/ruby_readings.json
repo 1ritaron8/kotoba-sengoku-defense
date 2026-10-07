@@ -1,0 +1,9455 @@
+{
+  "version": 1,
+  "source": "文化庁 常用漢字表の音訓索引（平成22年内閣告示）",
+  "sourceUrl": "https://www.bunka.go.jp/kokugo_nihongo/sisaku/joho/joho/kijun/naikaku/kanji/joyokanjisakuin/index.html",
+  "policy": "Display-only reading alignment. Full authored Japanese/readings, curriculum IDs and unlock assessment hashes are unchanged. Whole-word irregular readings retain their actual word boundary.",
+  "segments": {
+    "天気\tてんき": [
+      {
+        "text": "天",
+        "reading": "てん"
+      },
+      {
+        "text": "気",
+        "reading": "き"
+      }
+    ],
+    "兵士\tへいし": [
+      {
+        "text": "兵",
+        "reading": "へい"
+      },
+      {
+        "text": "士",
+        "reading": "し"
+      }
+    ],
+    "味方\tみかた": [
+      {
+        "text": "味",
+        "reading": "み"
+      },
+      {
+        "text": "方",
+        "reading": "かた"
+      }
+    ],
+    "用意\tようい": [
+      {
+        "text": "用",
+        "reading": "よう"
+      },
+      {
+        "text": "意",
+        "reading": "い"
+      }
+    ],
+    "屋根\tやね": [
+      {
+        "text": "屋",
+        "reading": "や"
+      },
+      {
+        "text": "根",
+        "reading": "ね"
+      }
+    ],
+    "階段\tかいだん": [
+      {
+        "text": "階",
+        "reading": "かい"
+      },
+      {
+        "text": "段",
+        "reading": "だん"
+      }
+    ],
+    "野菜\tやさい": [
+      {
+        "text": "野",
+        "reading": "や"
+      },
+      {
+        "text": "菜",
+        "reading": "さい"
+      }
+    ],
+    "牛乳\tぎゅうにゅう": [
+      {
+        "text": "牛",
+        "reading": "ぎゅう"
+      },
+      {
+        "text": "乳",
+        "reading": "にゅう"
+      }
+    ],
+    "砂糖\tさとう": [
+      {
+        "text": "砂",
+        "reading": "さ"
+      },
+      {
+        "text": "糖",
+        "reading": "とう"
+      }
+    ],
+    "半分\tはんぶん": [
+      {
+        "text": "半",
+        "reading": "はん"
+      },
+      {
+        "text": "分",
+        "reading": "ぶん"
+      }
+    ],
+    "全部\tぜんぶ": [
+      {
+        "text": "全",
+        "reading": "ぜん"
+      },
+      {
+        "text": "部",
+        "reading": "ぶ"
+      }
+    ],
+    "毎日\tまいにち": [
+      {
+        "text": "毎",
+        "reading": "まい"
+      },
+      {
+        "text": "日",
+        "reading": "にち"
+      }
+    ],
+    "時間\tじかん": [
+      {
+        "text": "時",
+        "reading": "じ"
+      },
+      {
+        "text": "間",
+        "reading": "かん"
+      }
+    ],
+    "二分\tにふん": [
+      {
+        "text": "二",
+        "reading": "に"
+      },
+      {
+        "text": "分",
+        "reading": "ふん"
+      }
+    ],
+    "一分\tいっぷん": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "分",
+        "reading": "ぷん"
+      }
+    ],
+    "一秒\tいちびょう": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "秒",
+        "reading": "びょう"
+      }
+    ],
+    "三秒\tさんびょう": [
+      {
+        "text": "三",
+        "reading": "さん"
+      },
+      {
+        "text": "秒",
+        "reading": "びょう"
+      }
+    ],
+    "一週\tいっしゅう": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "週",
+        "reading": "しゅう"
+      }
+    ],
+    "二週\tにしゅう": [
+      {
+        "text": "二",
+        "reading": "に"
+      },
+      {
+        "text": "週",
+        "reading": "しゅう"
+      }
+    ],
+    "一年\tいちねん": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "年",
+        "reading": "ねん"
+      }
+    ],
+    "夕方\tゆうがた": [
+      {
+        "text": "夕",
+        "reading": "ゆう"
+      },
+      {
+        "text": "方",
+        "reading": "がた"
+      }
+    ],
+    "五分待\tごふんま": [
+      {
+        "text": "五",
+        "reading": "ご"
+      },
+      {
+        "text": "分",
+        "reading": "ふん"
+      },
+      {
+        "text": "待",
+        "reading": "ま"
+      }
+    ],
+    "背中\tせなか": [
+      {
+        "text": "背",
+        "reading": "せ"
+      },
+      {
+        "text": "中",
+        "reading": "なか"
+      }
+    ],
+    "日本語\tにほんご": [
+      {
+        "text": "日",
+        "reading": "に"
+      },
+      {
+        "text": "本",
+        "reading": "ほん"
+      },
+      {
+        "text": "語",
+        "reading": "ご"
+      }
+    ],
+    "地図\tちず": [
+      {
+        "text": "地",
+        "reading": "ち"
+      },
+      {
+        "text": "図",
+        "reading": "ず"
+      }
+    ],
+    "名前\tなまえ": [
+      {
+        "text": "名",
+        "reading": "な"
+      },
+      {
+        "text": "前",
+        "reading": "まえ"
+      }
+    ],
+    "道路\tどうろ": [
+      {
+        "text": "道",
+        "reading": "どう"
+      },
+      {
+        "text": "路",
+        "reading": "ろ"
+      }
+    ],
+    "出口\tでぐち": [
+      {
+        "text": "出",
+        "reading": "で"
+      },
+      {
+        "text": "口",
+        "reading": "ぐち"
+      }
+    ],
+    "田植\tたう": [
+      {
+        "text": "田",
+        "reading": "た"
+      },
+      {
+        "text": "植",
+        "reading": "う"
+      }
+    ],
+    "収穫\tしゅうかく": [
+      {
+        "text": "収",
+        "reading": "しゅう"
+      },
+      {
+        "text": "穫",
+        "reading": "かく"
+      }
+    ],
+    "大根\tだいこん": [
+      {
+        "text": "大",
+        "reading": "だい"
+      },
+      {
+        "text": "根",
+        "reading": "こん"
+      }
+    ],
+    "倉庫\tそうこ": [
+      {
+        "text": "倉",
+        "reading": "そう"
+      },
+      {
+        "text": "庫",
+        "reading": "こ"
+      }
+    ],
+    "市場\tいちば": [
+      {
+        "text": "市",
+        "reading": "いち"
+      },
+      {
+        "text": "場",
+        "reading": "ば"
+      }
+    ],
+    "財布\tさいふ": [
+      {
+        "text": "財",
+        "reading": "さい"
+      },
+      {
+        "text": "布",
+        "reading": "ふ"
+      }
+    ],
+    "値段\tねだん": [
+      {
+        "text": "値",
+        "reading": "ね"
+      },
+      {
+        "text": "段",
+        "reading": "だん"
+      }
+    ],
+    "商品\tしょうひん": [
+      {
+        "text": "商",
+        "reading": "しょう"
+      },
+      {
+        "text": "品",
+        "reading": "ひん"
+      }
+    ],
+    "包丁\tほうちょう": [
+      {
+        "text": "包",
+        "reading": "ほう"
+      },
+      {
+        "text": "丁",
+        "reading": "ちょう"
+      }
+    ],
+    "玄関\tげんかん": [
+      {
+        "text": "玄",
+        "reading": "げん"
+      },
+      {
+        "text": "関",
+        "reading": "かん"
+      }
+    ],
+    "台所\tだいどころ": [
+      {
+        "text": "台",
+        "reading": "だい"
+      },
+      {
+        "text": "所",
+        "reading": "どころ"
+      }
+    ],
+    "寝室\tしんしつ": [
+      {
+        "text": "寝",
+        "reading": "しん"
+      },
+      {
+        "text": "室",
+        "reading": "しつ"
+      }
+    ],
+    "浴室\tよくしつ": [
+      {
+        "text": "浴",
+        "reading": "よく"
+      },
+      {
+        "text": "室",
+        "reading": "しつ"
+      }
+    ],
+    "井戸\tいど": [
+      {
+        "text": "井",
+        "reading": "い"
+      },
+      {
+        "text": "戸",
+        "reading": "ど"
+      }
+    ],
+    "布団\tふとん": [
+      {
+        "text": "布",
+        "reading": "ふ"
+      },
+      {
+        "text": "団",
+        "reading": "とん"
+      }
+    ],
+    "毛布\tもうふ": [
+      {
+        "text": "毛",
+        "reading": "もう"
+      },
+      {
+        "text": "布",
+        "reading": "ふ"
+      }
+    ],
+    "椅子\tいす": [
+      {
+        "text": "椅",
+        "reading": "い"
+      },
+      {
+        "text": "子",
+        "reading": "す"
+      }
+    ],
+    "障子\tしょうじ": [
+      {
+        "text": "障",
+        "reading": "しょう"
+      },
+      {
+        "text": "子",
+        "reading": "じ"
+      }
+    ],
+    "風呂\tふろ": [
+      {
+        "text": "風",
+        "reading": "ふ"
+      },
+      {
+        "text": "呂",
+        "reading": "ろ"
+      }
+    ],
+    "気温\tきおん": [
+      {
+        "text": "気",
+        "reading": "き"
+      },
+      {
+        "text": "温",
+        "reading": "おん"
+      }
+    ],
+    "季節\tきせつ": [
+      {
+        "text": "季",
+        "reading": "き"
+      },
+      {
+        "text": "節",
+        "reading": "せつ"
+      }
+    ],
+    "台風\tたいふう": [
+      {
+        "text": "台",
+        "reading": "たい"
+      },
+      {
+        "text": "風",
+        "reading": "ふう"
+      }
+    ],
+    "荷物\tにもつ": [
+      {
+        "text": "荷",
+        "reading": "に"
+      },
+      {
+        "text": "物",
+        "reading": "もつ"
+      }
+    ],
+    "荷車\tにぐるま": [
+      {
+        "text": "荷",
+        "reading": "に"
+      },
+      {
+        "text": "車",
+        "reading": "ぐるま"
+      }
+    ],
+    "出発\tしゅっぱつ": [
+      {
+        "text": "出",
+        "reading": "しゅっ"
+      },
+      {
+        "text": "発",
+        "reading": "ぱつ"
+      }
+    ],
+    "到着\tとうちゃく": [
+      {
+        "text": "到",
+        "reading": "とう"
+      },
+      {
+        "text": "着",
+        "reading": "ちゃく"
+      }
+    ],
+    "目的地\tもくてきち": [
+      {
+        "text": "目",
+        "reading": "もく"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      },
+      {
+        "text": "地",
+        "reading": "ち"
+      }
+    ],
+    "住所\tじゅうしょ": [
+      {
+        "text": "住",
+        "reading": "じゅう"
+      },
+      {
+        "text": "所",
+        "reading": "しょ"
+      }
+    ],
+    "旅人\tたびびと": [
+      {
+        "text": "旅",
+        "reading": "たび"
+      },
+      {
+        "text": "人",
+        "reading": "びと"
+      }
+    ],
+    "交差点\tこうさてん": [
+      {
+        "text": "交",
+        "reading": "こう"
+      },
+      {
+        "text": "差",
+        "reading": "さ"
+      },
+      {
+        "text": "点",
+        "reading": "てん"
+      }
+    ],
+    "確認\tかくにん": [
+      {
+        "text": "確",
+        "reading": "かく"
+      },
+      {
+        "text": "認",
+        "reading": "にん"
+      }
+    ],
+    "練習\tれんしゅう": [
+      {
+        "text": "練",
+        "reading": "れん"
+      },
+      {
+        "text": "習",
+        "reading": "しゅう"
+      }
+    ],
+    "仕事\tしごと": [
+      {
+        "text": "仕",
+        "reading": "し"
+      },
+      {
+        "text": "事",
+        "reading": "ごと"
+      }
+    ],
+    "作戦\tさくせん": [
+      {
+        "text": "作",
+        "reading": "さく"
+      },
+      {
+        "text": "戦",
+        "reading": "せん"
+      }
+    ],
+    "言葉\tことば": [
+      {
+        "text": "言",
+        "reading": "こと"
+      },
+      {
+        "text": "葉",
+        "reading": "ば"
+      }
+    ],
+    "韓国語\tかんこくご": [
+      {
+        "text": "韓",
+        "reading": "かん"
+      },
+      {
+        "text": "国",
+        "reading": "こく"
+      },
+      {
+        "text": "語",
+        "reading": "ご"
+      }
+    ],
+    "学校\tがっこう": [
+      {
+        "text": "学",
+        "reading": "がっ"
+      },
+      {
+        "text": "校",
+        "reading": "こう"
+      }
+    ],
+    "先生\tせんせい": [
+      {
+        "text": "先",
+        "reading": "せん"
+      },
+      {
+        "text": "生",
+        "reading": "せい"
+      }
+    ],
+    "学生\tがくせい": [
+      {
+        "text": "学",
+        "reading": "がく"
+      },
+      {
+        "text": "生",
+        "reading": "せい"
+      }
+    ],
+    "家族\tかぞく": [
+      {
+        "text": "家",
+        "reading": "か"
+      },
+      {
+        "text": "族",
+        "reading": "ぞく"
+      }
+    ],
+    "約束\tやくそく": [
+      {
+        "text": "約",
+        "reading": "やく"
+      },
+      {
+        "text": "束",
+        "reading": "そく"
+      }
+    ],
+    "質問\tしつもん": [
+      {
+        "text": "質",
+        "reading": "しつ"
+      },
+      {
+        "text": "問",
+        "reading": "もん"
+      }
+    ],
+    "一緒\tいっしょ": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "緒",
+        "reading": "しょ"
+      }
+    ],
+    "命令\tめいれい": [
+      {
+        "text": "命",
+        "reading": "めい"
+      },
+      {
+        "text": "令",
+        "reading": "れい"
+      }
+    ],
+    "指示\tしじ": [
+      {
+        "text": "指",
+        "reading": "し"
+      },
+      {
+        "text": "示",
+        "reading": "じ"
+      }
+    ],
+    "作業\tさぎょう": [
+      {
+        "text": "作",
+        "reading": "さ"
+      },
+      {
+        "text": "業",
+        "reading": "ぎょう"
+      }
+    ],
+    "報告\tほうこく": [
+      {
+        "text": "報",
+        "reading": "ほう"
+      },
+      {
+        "text": "告",
+        "reading": "こく"
+      }
+    ],
+    "連絡\tれんらく": [
+      {
+        "text": "連",
+        "reading": "れん"
+      },
+      {
+        "text": "絡",
+        "reading": "らく"
+      }
+    ],
+    "返事\tへんじ": [
+      {
+        "text": "返",
+        "reading": "へん"
+      },
+      {
+        "text": "事",
+        "reading": "じ"
+      }
+    ],
+    "相談\tそうだん": [
+      {
+        "text": "相",
+        "reading": "そう"
+      },
+      {
+        "text": "談",
+        "reading": "だん"
+      }
+    ],
+    "説明\tせつめい": [
+      {
+        "text": "説",
+        "reading": "せつ"
+      },
+      {
+        "text": "明",
+        "reading": "めい"
+      }
+    ],
+    "一度\tいちど": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "度",
+        "reading": "ど"
+      }
+    ],
+    "必要\tひつよう": [
+      {
+        "text": "必",
+        "reading": "ひつ"
+      },
+      {
+        "text": "要",
+        "reading": "よう"
+      }
+    ],
+    "注意\tちゅうい": [
+      {
+        "text": "注",
+        "reading": "ちゅう"
+      },
+      {
+        "text": "意",
+        "reading": "い"
+      }
+    ],
+    "情報\tじょうほう": [
+      {
+        "text": "情",
+        "reading": "じょう"
+      },
+      {
+        "text": "報",
+        "reading": "ほう"
+      }
+    ],
+    "伝言\tでんごん": [
+      {
+        "text": "伝",
+        "reading": "でん"
+      },
+      {
+        "text": "言",
+        "reading": "ごん"
+      }
+    ],
+    "信号\tしんごう": [
+      {
+        "text": "信",
+        "reading": "しん"
+      },
+      {
+        "text": "号",
+        "reading": "ごう"
+      }
+    ],
+    "会話\tかいわ": [
+      {
+        "text": "会",
+        "reading": "かい"
+      },
+      {
+        "text": "話",
+        "reading": "わ"
+      }
+    ],
+    "発音\tはつおん": [
+      {
+        "text": "発",
+        "reading": "はつ"
+      },
+      {
+        "text": "音",
+        "reading": "おん"
+      }
+    ],
+    "意味\tいみ": [
+      {
+        "text": "意",
+        "reading": "い"
+      },
+      {
+        "text": "味",
+        "reading": "み"
+      }
+    ],
+    "文字\tもじ": [
+      {
+        "text": "文",
+        "reading": "も"
+      },
+      {
+        "text": "字",
+        "reading": "じ"
+      }
+    ],
+    "漢字\tかんじ": [
+      {
+        "text": "漢",
+        "reading": "かん"
+      },
+      {
+        "text": "字",
+        "reading": "じ"
+      }
+    ],
+    "外国\tがいこく": [
+      {
+        "text": "外",
+        "reading": "がい"
+      },
+      {
+        "text": "国",
+        "reading": "こく"
+      }
+    ],
+    "文章\tぶんしょう": [
+      {
+        "text": "文",
+        "reading": "ぶん"
+      },
+      {
+        "text": "章",
+        "reading": "しょう"
+      }
+    ],
+    "音読\tおんどく": [
+      {
+        "text": "音",
+        "reading": "おん"
+      },
+      {
+        "text": "読",
+        "reading": "どく"
+      }
+    ],
+    "具体的\tぐたいてき": [
+      {
+        "text": "具",
+        "reading": "ぐ"
+      },
+      {
+        "text": "体",
+        "reading": "たい"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "理由\tりゆう": [
+      {
+        "text": "理",
+        "reading": "り"
+      },
+      {
+        "text": "由",
+        "reading": "ゆう"
+      }
+    ],
+    "結果\tけっか": [
+      {
+        "text": "結",
+        "reading": "けっ"
+      },
+      {
+        "text": "果",
+        "reading": "か"
+      }
+    ],
+    "試験\tしけん": [
+      {
+        "text": "試",
+        "reading": "し"
+      },
+      {
+        "text": "験",
+        "reading": "けん"
+      }
+    ],
+    "内容\tないよう": [
+      {
+        "text": "内",
+        "reading": "ない"
+      },
+      {
+        "text": "容",
+        "reading": "よう"
+      }
+    ],
+    "城門\tじょうもん": [
+      {
+        "text": "城",
+        "reading": "じょう"
+      },
+      {
+        "text": "門",
+        "reading": "もん"
+      }
+    ],
+    "城壁\tじょうへき": [
+      {
+        "text": "城",
+        "reading": "じょう"
+      },
+      {
+        "text": "壁",
+        "reading": "へき"
+      }
+    ],
+    "点検\tてんけん": [
+      {
+        "text": "点",
+        "reading": "てん"
+      },
+      {
+        "text": "検",
+        "reading": "けん"
+      }
+    ],
+    "城下町\tじょうかまち": [
+      {
+        "text": "城",
+        "reading": "じょう"
+      },
+      {
+        "text": "下",
+        "reading": "か"
+      },
+      {
+        "text": "町",
+        "reading": "まち"
+      }
+    ],
+    "本陣\tほんじん": [
+      {
+        "text": "本",
+        "reading": "ほん"
+      },
+      {
+        "text": "陣",
+        "reading": "じん"
+      }
+    ],
+    "隊長\tたいちょう": [
+      {
+        "text": "隊",
+        "reading": "たい"
+      },
+      {
+        "text": "長",
+        "reading": "ちょう"
+      }
+    ],
+    "見張\tみは": [
+      {
+        "text": "見",
+        "reading": "み"
+      },
+      {
+        "text": "張",
+        "reading": "は"
+      }
+    ],
+    "交代\tこうたい": [
+      {
+        "text": "交",
+        "reading": "こう"
+      },
+      {
+        "text": "代",
+        "reading": "たい"
+      }
+    ],
+    "木柵\tもくさく": [
+      {
+        "text": "木",
+        "reading": "もく"
+      },
+      {
+        "text": "柵",
+        "reading": "さく"
+      }
+    ],
+    "隊列\tたいれつ": [
+      {
+        "text": "隊",
+        "reading": "たい"
+      },
+      {
+        "text": "列",
+        "reading": "れつ"
+      }
+    ],
+    "部隊\tぶたい": [
+      {
+        "text": "部",
+        "reading": "ぶ"
+      },
+      {
+        "text": "隊",
+        "reading": "たい"
+      }
+    ],
+    "合流\tごうりゅう": [
+      {
+        "text": "合",
+        "reading": "ごう"
+      },
+      {
+        "text": "流",
+        "reading": "りゅう"
+      }
+    ],
+    "歴史\tれきし": [
+      {
+        "text": "歴",
+        "reading": "れき"
+      },
+      {
+        "text": "史",
+        "reading": "し"
+      }
+    ],
+    "将軍\tしょうぐん": [
+      {
+        "text": "将",
+        "reading": "しょう"
+      },
+      {
+        "text": "軍",
+        "reading": "ぐん"
+      }
+    ],
+    "博物館\tはくぶつかん": [
+      {
+        "text": "博",
+        "reading": "はく"
+      },
+      {
+        "text": "物",
+        "reading": "ぶつ"
+      },
+      {
+        "text": "館",
+        "reading": "かん"
+      }
+    ],
+    "援軍\tえんぐん": [
+      {
+        "text": "援",
+        "reading": "えん"
+      },
+      {
+        "text": "軍",
+        "reading": "ぐん"
+      }
+    ],
+    "補給\tほきゅう": [
+      {
+        "text": "補",
+        "reading": "ほ"
+      },
+      {
+        "text": "給",
+        "reading": "きゅう"
+      }
+    ],
+    "保管\tほかん": [
+      {
+        "text": "保",
+        "reading": "ほ"
+      },
+      {
+        "text": "管",
+        "reading": "かん"
+      }
+    ],
+    "陣地\tじんち": [
+      {
+        "text": "陣",
+        "reading": "じん"
+      },
+      {
+        "text": "地",
+        "reading": "ち"
+      }
+    ],
+    "戦場\tせんじょう": [
+      {
+        "text": "戦",
+        "reading": "せん"
+      },
+      {
+        "text": "場",
+        "reading": "じょう"
+      }
+    ],
+    "勝利\tしょうり": [
+      {
+        "text": "勝",
+        "reading": "しょう"
+      },
+      {
+        "text": "利",
+        "reading": "り"
+      }
+    ],
+    "敗北\tはいぼく": [
+      {
+        "text": "敗",
+        "reading": "はい"
+      },
+      {
+        "text": "北",
+        "reading": "ぼく"
+      }
+    ],
+    "原因\tげんいん": [
+      {
+        "text": "原",
+        "reading": "げん"
+      },
+      {
+        "text": "因",
+        "reading": "いん"
+      }
+    ],
+    "戦術\tせんじゅつ": [
+      {
+        "text": "戦",
+        "reading": "せん"
+      },
+      {
+        "text": "術",
+        "reading": "じゅつ"
+      }
+    ],
+    "地形\tちけい": [
+      {
+        "text": "地",
+        "reading": "ち"
+      },
+      {
+        "text": "形",
+        "reading": "けい"
+      }
+    ],
+    "撤退\tてったい": [
+      {
+        "text": "撤",
+        "reading": "てっ"
+      },
+      {
+        "text": "退",
+        "reading": "たい"
+      }
+    ],
+    "安全\tあんぜん": [
+      {
+        "text": "安",
+        "reading": "あん"
+      },
+      {
+        "text": "全",
+        "reading": "ぜん"
+      }
+    ],
+    "通行\tつうこう": [
+      {
+        "text": "通",
+        "reading": "つう"
+      },
+      {
+        "text": "行",
+        "reading": "こう"
+      }
+    ],
+    "工事\tこうじ": [
+      {
+        "text": "工",
+        "reading": "こう"
+      },
+      {
+        "text": "事",
+        "reading": "じ"
+      }
+    ],
+    "通路\tつうろ": [
+      {
+        "text": "通",
+        "reading": "つう"
+      },
+      {
+        "text": "路",
+        "reading": "ろ"
+      }
+    ],
+    "水路\tすいろ": [
+      {
+        "text": "水",
+        "reading": "すい"
+      },
+      {
+        "text": "路",
+        "reading": "ろ"
+      }
+    ],
+    "掃除\tそうじ": [
+      {
+        "text": "掃",
+        "reading": "そう"
+      },
+      {
+        "text": "除",
+        "reading": "じ"
+      }
+    ],
+    "河口\tかこう": [
+      {
+        "text": "河",
+        "reading": "か"
+      },
+      {
+        "text": "口",
+        "reading": "こう"
+      }
+    ],
+    "上流\tじょうりゅう": [
+      {
+        "text": "上",
+        "reading": "じょう"
+      },
+      {
+        "text": "流",
+        "reading": "りゅう"
+      }
+    ],
+    "下流\tかりゅう": [
+      {
+        "text": "下",
+        "reading": "か"
+      },
+      {
+        "text": "流",
+        "reading": "りゅう"
+      }
+    ],
+    "川辺\tかわべ": [
+      {
+        "text": "川",
+        "reading": "かわ"
+      },
+      {
+        "text": "辺",
+        "reading": "べ"
+      }
+    ],
+    "船着\tふなつ": [
+      {
+        "text": "船",
+        "reading": "ふな"
+      },
+      {
+        "text": "着",
+        "reading": "つ"
+      }
+    ],
+    "桟橋\tさんばし": [
+      {
+        "text": "桟",
+        "reading": "さん"
+      },
+      {
+        "text": "橋",
+        "reading": "ばし"
+      }
+    ],
+    "足元\tあしもと": [
+      {
+        "text": "足",
+        "reading": "あし"
+      },
+      {
+        "text": "元",
+        "reading": "もと"
+      }
+    ],
+    "道具\tどうぐ": [
+      {
+        "text": "道",
+        "reading": "どう"
+      },
+      {
+        "text": "具",
+        "reading": "ぐ"
+      }
+    ],
+    "水位\tすいい": [
+      {
+        "text": "水",
+        "reading": "すい"
+      },
+      {
+        "text": "位",
+        "reading": "い"
+      }
+    ],
+    "浸水\tしんすい": [
+      {
+        "text": "浸",
+        "reading": "しん"
+      },
+      {
+        "text": "水",
+        "reading": "すい"
+      }
+    ],
+    "洪水\tこうずい": [
+      {
+        "text": "洪",
+        "reading": "こう"
+      },
+      {
+        "text": "水",
+        "reading": "ずい"
+      }
+    ],
+    "修理\tしゅうり": [
+      {
+        "text": "修",
+        "reading": "しゅう"
+      },
+      {
+        "text": "理",
+        "reading": "り"
+      }
+    ],
+    "建設\tけんせつ": [
+      {
+        "text": "建",
+        "reading": "けん"
+      },
+      {
+        "text": "設",
+        "reading": "せつ"
+      }
+    ],
+    "運搬\tうんぱん": [
+      {
+        "text": "運",
+        "reading": "うん"
+      },
+      {
+        "text": "搬",
+        "reading": "ぱん"
+      }
+    ],
+    "物資\tぶっし": [
+      {
+        "text": "物",
+        "reading": "ぶっ"
+      },
+      {
+        "text": "資",
+        "reading": "し"
+      }
+    ],
+    "場所\tばしょ": [
+      {
+        "text": "場",
+        "reading": "ば"
+      },
+      {
+        "text": "所",
+        "reading": "しょ"
+      }
+    ],
+    "材料\tざいりょう": [
+      {
+        "text": "材",
+        "reading": "ざい"
+      },
+      {
+        "text": "料",
+        "reading": "りょう"
+      }
+    ],
+    "木材\tもくざい": [
+      {
+        "text": "木",
+        "reading": "もく"
+      },
+      {
+        "text": "材",
+        "reading": "ざい"
+      }
+    ],
+    "商人\tしょうにん": [
+      {
+        "text": "商",
+        "reading": "しょう"
+      },
+      {
+        "text": "人",
+        "reading": "にん"
+      }
+    ],
+    "商売\tしょうばい": [
+      {
+        "text": "商",
+        "reading": "しょう"
+      },
+      {
+        "text": "売",
+        "reading": "ばい"
+      }
+    ],
+    "条件\tじょうけん": [
+      {
+        "text": "条",
+        "reading": "じょう"
+      },
+      {
+        "text": "件",
+        "reading": "けん"
+      }
+    ],
+    "代金\tだいきん": [
+      {
+        "text": "代",
+        "reading": "だい"
+      },
+      {
+        "text": "金",
+        "reading": "きん"
+      }
+    ],
+    "支払\tしはら": [
+      {
+        "text": "支",
+        "reading": "し"
+      },
+      {
+        "text": "払",
+        "reading": "はら"
+      }
+    ],
+    "小銭\tこぜに": [
+      {
+        "text": "小",
+        "reading": "こ"
+      },
+      {
+        "text": "銭",
+        "reading": "ぜに"
+      }
+    ],
+    "紙幣\tしへい": [
+      {
+        "text": "紙",
+        "reading": "し"
+      },
+      {
+        "text": "幣",
+        "reading": "へい"
+      }
+    ],
+    "硬貨\tこうか": [
+      {
+        "text": "硬",
+        "reading": "こう"
+      },
+      {
+        "text": "貨",
+        "reading": "か"
+      }
+    ],
+    "一枚\tいちまい": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "枚",
+        "reading": "まい"
+      }
+    ],
+    "料金\tりょうきん": [
+      {
+        "text": "料",
+        "reading": "りょう"
+      },
+      {
+        "text": "金",
+        "reading": "きん"
+      }
+    ],
+    "税金\tぜいきん": [
+      {
+        "text": "税",
+        "reading": "ぜい"
+      },
+      {
+        "text": "金",
+        "reading": "きん"
+      }
+    ],
+    "収入\tしゅうにゅう": [
+      {
+        "text": "収",
+        "reading": "しゅう"
+      },
+      {
+        "text": "入",
+        "reading": "にゅう"
+      }
+    ],
+    "毎月\tまいつき": [
+      {
+        "text": "毎",
+        "reading": "まい"
+      },
+      {
+        "text": "月",
+        "reading": "つき"
+      }
+    ],
+    "支出\tししゅつ": [
+      {
+        "text": "支",
+        "reading": "し"
+      },
+      {
+        "text": "出",
+        "reading": "しゅつ"
+      }
+    ],
+    "今月\tこんげつ": [
+      {
+        "text": "今",
+        "reading": "こん"
+      },
+      {
+        "text": "月",
+        "reading": "げつ"
+      }
+    ],
+    "利益\tりえき": [
+      {
+        "text": "利",
+        "reading": "り"
+      },
+      {
+        "text": "益",
+        "reading": "えき"
+      }
+    ],
+    "費用\tひよう": [
+      {
+        "text": "費",
+        "reading": "ひ"
+      },
+      {
+        "text": "用",
+        "reading": "よう"
+      }
+    ],
+    "損失\tそんしつ": [
+      {
+        "text": "損",
+        "reading": "そん"
+      },
+      {
+        "text": "失",
+        "reading": "しつ"
+      }
+    ],
+    "方法\tほうほう": [
+      {
+        "text": "方",
+        "reading": "ほう"
+      },
+      {
+        "text": "法",
+        "reading": "ほう"
+      }
+    ],
+    "在庫\tざいこ": [
+      {
+        "text": "在",
+        "reading": "ざい"
+      },
+      {
+        "text": "庫",
+        "reading": "こ"
+      }
+    ],
+    "注文\tちゅうもん": [
+      {
+        "text": "注",
+        "reading": "ちゅう"
+      },
+      {
+        "text": "文",
+        "reading": "もん"
+      }
+    ],
+    "予約\tよやく": [
+      {
+        "text": "予",
+        "reading": "よ"
+      },
+      {
+        "text": "約",
+        "reading": "やく"
+      }
+    ],
+    "変更\tへんこう": [
+      {
+        "text": "変",
+        "reading": "へん"
+      },
+      {
+        "text": "更",
+        "reading": "こう"
+      }
+    ],
+    "領収書\tりょうしゅうしょ": [
+      {
+        "text": "領",
+        "reading": "りょう"
+      },
+      {
+        "text": "収",
+        "reading": "しゅう"
+      },
+      {
+        "text": "書",
+        "reading": "しょ"
+      }
+    ],
+    "予算\tよさん": [
+      {
+        "text": "予",
+        "reading": "よ"
+      },
+      {
+        "text": "算",
+        "reading": "さん"
+      }
+    ],
+    "範囲\tはんい": [
+      {
+        "text": "範",
+        "reading": "はん"
+      },
+      {
+        "text": "囲",
+        "reading": "い"
+      }
+    ],
+    "交換\tこうかん": [
+      {
+        "text": "交",
+        "reading": "こう"
+      },
+      {
+        "text": "換",
+        "reading": "かん"
+      }
+    ],
+    "記録\tきろく": [
+      {
+        "text": "記",
+        "reading": "き"
+      },
+      {
+        "text": "録",
+        "reading": "ろく"
+      }
+    ],
+    "貯金\tちょきん": [
+      {
+        "text": "貯",
+        "reading": "ちょ"
+      },
+      {
+        "text": "金",
+        "reading": "きん"
+      }
+    ],
+    "病気\tびょうき": [
+      {
+        "text": "病",
+        "reading": "びょう"
+      },
+      {
+        "text": "気",
+        "reading": "き"
+      }
+    ],
+    "無理\tむり": [
+      {
+        "text": "無",
+        "reading": "む"
+      },
+      {
+        "text": "理",
+        "reading": "り"
+      }
+    ],
+    "医者\tいしゃ": [
+      {
+        "text": "医",
+        "reading": "い"
+      },
+      {
+        "text": "者",
+        "reading": "しゃ"
+      }
+    ],
+    "治療\tちりょう": [
+      {
+        "text": "治",
+        "reading": "ち"
+      },
+      {
+        "text": "療",
+        "reading": "りょう"
+      }
+    ],
+    "予定\tよてい": [
+      {
+        "text": "予",
+        "reading": "よ"
+      },
+      {
+        "text": "定",
+        "reading": "てい"
+      }
+    ],
+    "健康\tけんこう": [
+      {
+        "text": "健",
+        "reading": "けん"
+      },
+      {
+        "text": "康",
+        "reading": "こう"
+      }
+    ],
+    "危険\tきけん": [
+      {
+        "text": "危",
+        "reading": "き"
+      },
+      {
+        "text": "険",
+        "reading": "けん"
+      }
+    ],
+    "体力\tたいりょく": [
+      {
+        "text": "体",
+        "reading": "たい"
+      },
+      {
+        "text": "力",
+        "reading": "りょく"
+      }
+    ],
+    "眠気\tねむけ": [
+      {
+        "text": "眠",
+        "reading": "ねむ"
+      },
+      {
+        "text": "気",
+        "reading": "け"
+      }
+    ],
+    "呼吸\tこきゅう": [
+      {
+        "text": "呼",
+        "reading": "こ"
+      },
+      {
+        "text": "吸",
+        "reading": "きゅう"
+      }
+    ],
+    "着替\tきが": [
+      {
+        "text": "着",
+        "reading": "き"
+      },
+      {
+        "text": "替",
+        "reading": "が"
+      }
+    ],
+    "皮膚\tひふ": [
+      {
+        "text": "皮",
+        "reading": "ひ"
+      },
+      {
+        "text": "膚",
+        "reading": "ふ"
+      }
+    ],
+    "筋肉\tきんにく": [
+      {
+        "text": "筋",
+        "reading": "きん"
+      },
+      {
+        "text": "肉",
+        "reading": "にく"
+      }
+    ],
+    "状態\tじょうたい": [
+      {
+        "text": "状",
+        "reading": "じょう"
+      },
+      {
+        "text": "態",
+        "reading": "たい"
+      }
+    ],
+    "心臓\tしんぞう": [
+      {
+        "text": "心",
+        "reading": "しん"
+      },
+      {
+        "text": "臓",
+        "reading": "ぞう"
+      }
+    ],
+    "運動\tうんどう": [
+      {
+        "text": "運",
+        "reading": "うん"
+      },
+      {
+        "text": "動",
+        "reading": "どう"
+      }
+    ],
+    "食後\tしょくご": [
+      {
+        "text": "食",
+        "reading": "しょく"
+      },
+      {
+        "text": "後",
+        "reading": "ご"
+      }
+    ],
+    "気持\tきも": [
+      {
+        "text": "気",
+        "reading": "き"
+      },
+      {
+        "text": "持",
+        "reading": "も"
+      }
+    ],
+    "自分\tじぶん": [
+      {
+        "text": "自",
+        "reading": "じ"
+      },
+      {
+        "text": "分",
+        "reading": "ぶん"
+      }
+    ],
+    "成功\tせいこう": [
+      {
+        "text": "成",
+        "reading": "せい"
+      },
+      {
+        "text": "功",
+        "reading": "こう"
+      }
+    ],
+    "不安\tふあん": [
+      {
+        "text": "不",
+        "reading": "ふ"
+      },
+      {
+        "text": "安",
+        "reading": "あん"
+      }
+    ],
+    "安心\tあんしん": [
+      {
+        "text": "安",
+        "reading": "あん"
+      },
+      {
+        "text": "心",
+        "reading": "しん"
+      }
+    ],
+    "恐怖\tきょうふ": [
+      {
+        "text": "恐",
+        "reading": "きょう"
+      },
+      {
+        "text": "怖",
+        "reading": "ふ"
+      }
+    ],
+    "勇気\tゆうき": [
+      {
+        "text": "勇",
+        "reading": "ゆう"
+      },
+      {
+        "text": "気",
+        "reading": "き"
+      }
+    ],
+    "間違\tまちが": [
+      {
+        "text": "間",
+        "reading": "ま"
+      },
+      {
+        "text": "違",
+        "reading": "ちが"
+      }
+    ],
+    "希望\tきぼう": [
+      {
+        "text": "希",
+        "reading": "き"
+      },
+      {
+        "text": "望",
+        "reading": "ぼう"
+      }
+    ],
+    "自信\tじしん": [
+      {
+        "text": "自",
+        "reading": "じ"
+      },
+      {
+        "text": "信",
+        "reading": "しん"
+      }
+    ],
+    "心配\tしんぱい": [
+      {
+        "text": "心",
+        "reading": "しん"
+      },
+      {
+        "text": "配",
+        "reading": "ぱい"
+      }
+    ],
+    "我慢\tがまん": [
+      {
+        "text": "我",
+        "reading": "が"
+      },
+      {
+        "text": "慢",
+        "reading": "まん"
+      }
+    ],
+    "感謝\tかんしゃ": [
+      {
+        "text": "感",
+        "reading": "かん"
+      },
+      {
+        "text": "謝",
+        "reading": "しゃ"
+      }
+    ],
+    "信頼\tしんらい": [
+      {
+        "text": "信",
+        "reading": "しん"
+      },
+      {
+        "text": "頼",
+        "reading": "らい"
+      }
+    ],
+    "親切\tしんせつ": [
+      {
+        "text": "親",
+        "reading": "しん"
+      },
+      {
+        "text": "切",
+        "reading": "せつ"
+      }
+    ],
+    "正直\tしょうじき": [
+      {
+        "text": "正",
+        "reading": "しょう"
+      },
+      {
+        "text": "直",
+        "reading": "じき"
+      }
+    ],
+    "丁寧\tていねい": [
+      {
+        "text": "丁",
+        "reading": "てい"
+      },
+      {
+        "text": "寧",
+        "reading": "ねい"
+      }
+    ],
+    "手紙\tてがみ": [
+      {
+        "text": "手",
+        "reading": "て"
+      },
+      {
+        "text": "紙",
+        "reading": "がみ"
+      }
+    ],
+    "復習\tふくしゅう": [
+      {
+        "text": "復",
+        "reading": "ふく"
+      },
+      {
+        "text": "習",
+        "reading": "しゅう"
+      }
+    ],
+    "仲間\tなかま": [
+      {
+        "text": "仲",
+        "reading": "なか"
+      },
+      {
+        "text": "間",
+        "reading": "ま"
+      }
+    ],
+    "状況\tじょうきょう": [
+      {
+        "text": "状",
+        "reading": "じょう"
+      },
+      {
+        "text": "況",
+        "reading": "きょう"
+      }
+    ],
+    "全員\tぜんいん": [
+      {
+        "text": "全",
+        "reading": "ぜん"
+      },
+      {
+        "text": "員",
+        "reading": "いん"
+      }
+    ],
+    "再挑戦\tさいちょうせん": [
+      {
+        "text": "再",
+        "reading": "さい"
+      },
+      {
+        "text": "挑",
+        "reading": "ちょう"
+      },
+      {
+        "text": "戦",
+        "reading": "せん"
+      }
+    ],
+    "努力\tどりょく": [
+      {
+        "text": "努",
+        "reading": "ど"
+      },
+      {
+        "text": "力",
+        "reading": "りょく"
+      }
+    ],
+    "失敗\tしっぱい": [
+      {
+        "text": "失",
+        "reading": "しっ"
+      },
+      {
+        "text": "敗",
+        "reading": "ぱい"
+      }
+    ],
+    "写真\tしゃしん": [
+      {
+        "text": "写",
+        "reading": "しゃ"
+      },
+      {
+        "text": "真",
+        "reading": "しん"
+      }
+    ],
+    "丈夫\tじょうぶ": [
+      {
+        "text": "丈",
+        "reading": "じょう"
+      },
+      {
+        "text": "夫",
+        "reading": "ぶ"
+      }
+    ],
+    "複雑\tふくざつ": [
+      {
+        "text": "複",
+        "reading": "ふく"
+      },
+      {
+        "text": "雑",
+        "reading": "ざつ"
+      }
+    ],
+    "簡単\tかんたん": [
+      {
+        "text": "簡",
+        "reading": "かん"
+      },
+      {
+        "text": "単",
+        "reading": "たん"
+      }
+    ],
+    "便利\tべんり": [
+      {
+        "text": "便",
+        "reading": "べん"
+      },
+      {
+        "text": "利",
+        "reading": "り"
+      }
+    ],
+    "不便\tふべん": [
+      {
+        "text": "不",
+        "reading": "ふ"
+      },
+      {
+        "text": "便",
+        "reading": "べん"
+      }
+    ],
+    "大切\tたいせつ": [
+      {
+        "text": "大",
+        "reading": "たい"
+      },
+      {
+        "text": "切",
+        "reading": "せつ"
+      }
+    ],
+    "十分\tじゅうぶん": [
+      {
+        "text": "十",
+        "reading": "じゅう"
+      },
+      {
+        "text": "分",
+        "reading": "ぶん"
+      }
+    ],
+    "不足\tふそく": [
+      {
+        "text": "不",
+        "reading": "ふ"
+      },
+      {
+        "text": "足",
+        "reading": "そく"
+      }
+    ],
+    "無駄\tむだ": [
+      {
+        "text": "無",
+        "reading": "む"
+      },
+      {
+        "text": "駄",
+        "reading": "だ"
+      }
+    ],
+    "正確\tせいかく": [
+      {
+        "text": "正",
+        "reading": "せい"
+      },
+      {
+        "text": "確",
+        "reading": "かく"
+      }
+    ],
+    "曖昧\tあいまい": [
+      {
+        "text": "曖",
+        "reading": "あい"
+      },
+      {
+        "text": "昧",
+        "reading": "まい"
+      }
+    ],
+    "清潔\tせいけつ": [
+      {
+        "text": "清",
+        "reading": "せい"
+      },
+      {
+        "text": "潔",
+        "reading": "けつ"
+      }
+    ],
+    "将来\tしょうらい": [
+      {
+        "text": "将",
+        "reading": "しょう"
+      },
+      {
+        "text": "来",
+        "reading": "らい"
+      }
+    ],
+    "職人\tしょくにん": [
+      {
+        "text": "職",
+        "reading": "しょく"
+      },
+      {
+        "text": "人",
+        "reading": "にん"
+      }
+    ],
+    "現在\tげんざい": [
+      {
+        "text": "現",
+        "reading": "げん"
+      },
+      {
+        "text": "在",
+        "reading": "ざい"
+      }
+    ],
+    "過去\tかこ": [
+      {
+        "text": "過",
+        "reading": "か"
+      },
+      {
+        "text": "去",
+        "reading": "こ"
+      }
+    ],
+    "未来\tみらい": [
+      {
+        "text": "未",
+        "reading": "み"
+      },
+      {
+        "text": "来",
+        "reading": "らい"
+      }
+    ],
+    "今晩\tこんばん": [
+      {
+        "text": "今",
+        "reading": "こん"
+      },
+      {
+        "text": "晩",
+        "reading": "ばん"
+      }
+    ],
+    "来週\tらいしゅう": [
+      {
+        "text": "来",
+        "reading": "らい"
+      },
+      {
+        "text": "週",
+        "reading": "しゅう"
+      }
+    ],
+    "先週\tせんしゅう": [
+      {
+        "text": "先",
+        "reading": "せん"
+      },
+      {
+        "text": "週",
+        "reading": "しゅう"
+      }
+    ],
+    "来月\tらいげつ": [
+      {
+        "text": "来",
+        "reading": "らい"
+      },
+      {
+        "text": "月",
+        "reading": "げつ"
+      }
+    ],
+    "先月\tせんげつ": [
+      {
+        "text": "先",
+        "reading": "せん"
+      },
+      {
+        "text": "月",
+        "reading": "げつ"
+      }
+    ],
+    "来年\tらいねん": [
+      {
+        "text": "来",
+        "reading": "らい"
+      },
+      {
+        "text": "年",
+        "reading": "ねん"
+      }
+    ],
+    "去年\tきょねん": [
+      {
+        "text": "去",
+        "reading": "きょ"
+      },
+      {
+        "text": "年",
+        "reading": "ねん"
+      }
+    ],
+    "計画\tけいかく": [
+      {
+        "text": "計",
+        "reading": "けい"
+      },
+      {
+        "text": "画",
+        "reading": "かく"
+      }
+    ],
+    "準備\tじゅんび": [
+      {
+        "text": "準",
+        "reading": "じゅん"
+      },
+      {
+        "text": "備",
+        "reading": "び"
+      }
+    ],
+    "順番\tじゅんばん": [
+      {
+        "text": "順",
+        "reading": "じゅん"
+      },
+      {
+        "text": "番",
+        "reading": "ばん"
+      }
+    ],
+    "期限\tきげん": [
+      {
+        "text": "期",
+        "reading": "き"
+      },
+      {
+        "text": "限",
+        "reading": "げん"
+      }
+    ],
+    "期間\tきかん": [
+      {
+        "text": "期",
+        "reading": "き"
+      },
+      {
+        "text": "間",
+        "reading": "かん"
+      }
+    ],
+    "一週間\tいっしゅうかん": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "週",
+        "reading": "しゅう"
+      },
+      {
+        "text": "間",
+        "reading": "かん"
+      }
+    ],
+    "機会\tきかい": [
+      {
+        "text": "機",
+        "reading": "き"
+      },
+      {
+        "text": "会",
+        "reading": "かい"
+      }
+    ],
+    "経験\tけいけん": [
+      {
+        "text": "経",
+        "reading": "けい"
+      },
+      {
+        "text": "験",
+        "reading": "けん"
+      }
+    ],
+    "習慣\tしゅうかん": [
+      {
+        "text": "習",
+        "reading": "しゅう"
+      },
+      {
+        "text": "慣",
+        "reading": "かん"
+      }
+    ],
+    "目標\tもくひょう": [
+      {
+        "text": "目",
+        "reading": "もく"
+      },
+      {
+        "text": "標",
+        "reading": "ひょう"
+      }
+    ],
+    "達成\tたっせい": [
+      {
+        "text": "達",
+        "reading": "たっ"
+      },
+      {
+        "text": "成",
+        "reading": "せい"
+      }
+    ],
+    "神社\tじんじゃ": [
+      {
+        "text": "神",
+        "reading": "じん"
+      },
+      {
+        "text": "社",
+        "reading": "じゃ"
+      }
+    ],
+    "正月\tしょうがつ": [
+      {
+        "text": "正",
+        "reading": "しょう"
+      },
+      {
+        "text": "月",
+        "reading": "がつ"
+      }
+    ],
+    "太鼓\tたいこ": [
+      {
+        "text": "太",
+        "reading": "たい"
+      },
+      {
+        "text": "鼓",
+        "reading": "こ"
+      }
+    ],
+    "参道\tさんどう": [
+      {
+        "text": "参",
+        "reading": "さん"
+      },
+      {
+        "text": "道",
+        "reading": "どう"
+      }
+    ],
+    "境内\tけいだい": [
+      {
+        "text": "境",
+        "reading": "けい"
+      },
+      {
+        "text": "内",
+        "reading": "だい"
+      }
+    ],
+    "案内\tあんない": [
+      {
+        "text": "案",
+        "reading": "あん"
+      },
+      {
+        "text": "内",
+        "reading": "ない"
+      }
+    ],
+    "祖父\tそふ": [
+      {
+        "text": "祖",
+        "reading": "そ"
+      },
+      {
+        "text": "父",
+        "reading": "ふ"
+      }
+    ],
+    "扇子\tせんす": [
+      {
+        "text": "扇",
+        "reading": "せん"
+      },
+      {
+        "text": "子",
+        "reading": "す"
+      }
+    ],
+    "着物\tきもの": [
+      {
+        "text": "着",
+        "reading": "き"
+      },
+      {
+        "text": "物",
+        "reading": "もの"
+      }
+    ],
+    "茶道\tさどう": [
+      {
+        "text": "茶",
+        "reading": "さ"
+      },
+      {
+        "text": "道",
+        "reading": "どう"
+      }
+    ],
+    "華道\tかどう": [
+      {
+        "text": "華",
+        "reading": "か"
+      },
+      {
+        "text": "道",
+        "reading": "どう"
+      }
+    ],
+    "書道\tしょどう": [
+      {
+        "text": "書",
+        "reading": "しょ"
+      },
+      {
+        "text": "道",
+        "reading": "どう"
+      }
+    ],
+    "作品\tさくひん": [
+      {
+        "text": "作",
+        "reading": "さく"
+      },
+      {
+        "text": "品",
+        "reading": "ひん"
+      }
+    ],
+    "農民\tのうみん": [
+      {
+        "text": "農",
+        "reading": "のう"
+      },
+      {
+        "text": "民",
+        "reading": "みん"
+      }
+    ],
+    "漁師\tりょうし": [
+      {
+        "text": "漁",
+        "reading": "りょう"
+      },
+      {
+        "text": "師",
+        "reading": "し"
+      }
+    ],
+    "大工\tだいく": [
+      {
+        "text": "大",
+        "reading": "だい"
+      },
+      {
+        "text": "工",
+        "reading": "く"
+      }
+    ],
+    "役人\tやくにん": [
+      {
+        "text": "役",
+        "reading": "やく"
+      },
+      {
+        "text": "人",
+        "reading": "にん"
+      }
+    ],
+    "書類\tしょるい": [
+      {
+        "text": "書",
+        "reading": "しょ"
+      },
+      {
+        "text": "類",
+        "reading": "るい"
+      }
+    ],
+    "旅館\tりょかん": [
+      {
+        "text": "旅",
+        "reading": "りょ"
+      },
+      {
+        "text": "館",
+        "reading": "かん"
+      }
+    ],
+    "温泉\tおんせん": [
+      {
+        "text": "温",
+        "reading": "おん"
+      },
+      {
+        "text": "泉",
+        "reading": "せん"
+      }
+    ],
+    "政治\tせいじ": [
+      {
+        "text": "政",
+        "reading": "せい"
+      },
+      {
+        "text": "治",
+        "reading": "じ"
+      }
+    ],
+    "仕組\tしく": [
+      {
+        "text": "仕",
+        "reading": "し"
+      },
+      {
+        "text": "組",
+        "reading": "く"
+      }
+    ],
+    "政策\tせいさく": [
+      {
+        "text": "政",
+        "reading": "せい"
+      },
+      {
+        "text": "策",
+        "reading": "さく"
+      }
+    ],
+    "経済\tけいざい": [
+      {
+        "text": "経",
+        "reading": "けい"
+      },
+      {
+        "text": "済",
+        "reading": "ざい"
+      }
+    ],
+    "発展\tはってん": [
+      {
+        "text": "発",
+        "reading": "はっ"
+      },
+      {
+        "text": "展",
+        "reading": "てん"
+      }
+    ],
+    "社会\tしゃかい": [
+      {
+        "text": "社",
+        "reading": "しゃ"
+      },
+      {
+        "text": "会",
+        "reading": "かい"
+      }
+    ],
+    "制度\tせいど": [
+      {
+        "text": "制",
+        "reading": "せい"
+      },
+      {
+        "text": "度",
+        "reading": "ど"
+      }
+    ],
+    "文化\tぶんか": [
+      {
+        "text": "文",
+        "reading": "ぶん"
+      },
+      {
+        "text": "化",
+        "reading": "か"
+      }
+    ],
+    "理解\tりかい": [
+      {
+        "text": "理",
+        "reading": "り"
+      },
+      {
+        "text": "解",
+        "reading": "かい"
+      }
+    ],
+    "相手\tあいて": [
+      {
+        "text": "相",
+        "reading": "あい"
+      },
+      {
+        "text": "手",
+        "reading": "て"
+      }
+    ],
+    "資料\tしりょう": [
+      {
+        "text": "資",
+        "reading": "し"
+      },
+      {
+        "text": "料",
+        "reading": "りょう"
+      }
+    ],
+    "伝統\tでんとう": [
+      {
+        "text": "伝",
+        "reading": "でん"
+      },
+      {
+        "text": "統",
+        "reading": "とう"
+      }
+    ],
+    "法律\tほうりつ": [
+      {
+        "text": "法",
+        "reading": "ほう"
+      },
+      {
+        "text": "律",
+        "reading": "りつ"
+      }
+    ],
+    "規則\tきそく": [
+      {
+        "text": "規",
+        "reading": "き"
+      },
+      {
+        "text": "則",
+        "reading": "そく"
+      }
+    ],
+    "条例\tじょうれい": [
+      {
+        "text": "条",
+        "reading": "じょう"
+      },
+      {
+        "text": "例",
+        "reading": "れい"
+      }
+    ],
+    "地域\tちいき": [
+      {
+        "text": "地",
+        "reading": "ち"
+      },
+      {
+        "text": "域",
+        "reading": "いき"
+      }
+    ],
+    "権利\tけんり": [
+      {
+        "text": "権",
+        "reading": "けん"
+      },
+      {
+        "text": "利",
+        "reading": "り"
+      }
+    ],
+    "他人\tたにん": [
+      {
+        "text": "他",
+        "reading": "た"
+      },
+      {
+        "text": "人",
+        "reading": "にん"
+      }
+    ],
+    "義務\tぎむ": [
+      {
+        "text": "義",
+        "reading": "ぎ"
+      },
+      {
+        "text": "務",
+        "reading": "む"
+      }
+    ],
+    "契約\tけいやく": [
+      {
+        "text": "契",
+        "reading": "けい"
+      },
+      {
+        "text": "約",
+        "reading": "やく"
+      }
+    ],
+    "責任\tせきにん": [
+      {
+        "text": "責",
+        "reading": "せき"
+      },
+      {
+        "text": "任",
+        "reading": "にん"
+      }
+    ],
+    "判断\tはんだん": [
+      {
+        "text": "判",
+        "reading": "はん"
+      },
+      {
+        "text": "断",
+        "reading": "だん"
+      }
+    ],
+    "権限\tけんげん": [
+      {
+        "text": "権",
+        "reading": "けん"
+      },
+      {
+        "text": "限",
+        "reading": "げん"
+      }
+    ],
+    "管理者\tかんりしゃ": [
+      {
+        "text": "管",
+        "reading": "かん"
+      },
+      {
+        "text": "理",
+        "reading": "り"
+      },
+      {
+        "text": "者",
+        "reading": "しゃ"
+      }
+    ],
+    "公平\tこうへい": [
+      {
+        "text": "公",
+        "reading": "こう"
+      },
+      {
+        "text": "平",
+        "reading": "へい"
+      }
+    ],
+    "基準\tきじゅん": [
+      {
+        "text": "基",
+        "reading": "き"
+      },
+      {
+        "text": "準",
+        "reading": "じゅん"
+      }
+    ],
+    "評価\tひょうか": [
+      {
+        "text": "評",
+        "reading": "ひょう"
+      },
+      {
+        "text": "価",
+        "reading": "か"
+      }
+    ],
+    "平等\tびょうどう": [
+      {
+        "text": "平",
+        "reading": "びょう"
+      },
+      {
+        "text": "等",
+        "reading": "どう"
+      }
+    ],
+    "正義\tせいぎ": [
+      {
+        "text": "正",
+        "reading": "せい"
+      },
+      {
+        "text": "義",
+        "reading": "ぎ"
+      }
+    ],
+    "一方\tいっぽう": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "方",
+        "reading": "ぽう"
+      }
+    ],
+    "意見\tいけん": [
+      {
+        "text": "意",
+        "reading": "い"
+      },
+      {
+        "text": "見",
+        "reading": "けん"
+      }
+    ],
+    "秩序\tちつじょ": [
+      {
+        "text": "秩",
+        "reading": "ちつ"
+      },
+      {
+        "text": "序",
+        "reading": "じょ"
+      }
+    ],
+    "自由\tじゆう": [
+      {
+        "text": "自",
+        "reading": "じ"
+      },
+      {
+        "text": "由",
+        "reading": "ゆう"
+      }
+    ],
+    "改革\tかいかく": [
+      {
+        "text": "改",
+        "reading": "かい"
+      },
+      {
+        "text": "革",
+        "reading": "かく"
+      }
+    ],
+    "問題\tもんだい": [
+      {
+        "text": "問",
+        "reading": "もん"
+      },
+      {
+        "text": "題",
+        "reading": "だい"
+      }
+    ],
+    "生活\tせいかつ": [
+      {
+        "text": "生",
+        "reading": "せい"
+      },
+      {
+        "text": "活",
+        "reading": "かつ"
+      }
+    ],
+    "影響\tえいきょう": [
+      {
+        "text": "影",
+        "reading": "えい"
+      },
+      {
+        "text": "響",
+        "reading": "きょう"
+      }
+    ],
+    "統治\tとうち": [
+      {
+        "text": "統",
+        "reading": "とう"
+      },
+      {
+        "text": "治",
+        "reading": "ち"
+      }
+    ],
+    "授業\tじゅぎょう": [
+      {
+        "text": "授",
+        "reading": "じゅ"
+      },
+      {
+        "text": "業",
+        "reading": "ぎょう"
+      }
+    ],
+    "支配\tしはい": [
+      {
+        "text": "支",
+        "reading": "し"
+      },
+      {
+        "text": "配",
+        "reading": "はい"
+      }
+    ],
+    "土地\tとち": [
+      {
+        "text": "土",
+        "reading": "と"
+      },
+      {
+        "text": "地",
+        "reading": "ち"
+      }
+    ],
+    "領土\tりょうど": [
+      {
+        "text": "領",
+        "reading": "りょう"
+      },
+      {
+        "text": "土",
+        "reading": "ど"
+      }
+    ],
+    "変化\tへんか": [
+      {
+        "text": "変",
+        "reading": "へん"
+      },
+      {
+        "text": "化",
+        "reading": "か"
+      }
+    ],
+    "領地\tりょうち": [
+      {
+        "text": "領",
+        "reading": "りょう"
+      },
+      {
+        "text": "地",
+        "reading": "ち"
+      }
+    ],
+    "領主\tりょうしゅ": [
+      {
+        "text": "領",
+        "reading": "りょう"
+      },
+      {
+        "text": "主",
+        "reading": "しゅ"
+      }
+    ],
+    "史料\tしりょう": [
+      {
+        "text": "史",
+        "reading": "し"
+      },
+      {
+        "text": "料",
+        "reading": "りょう"
+      }
+    ],
+    "家臣\tかしん": [
+      {
+        "text": "家",
+        "reading": "か"
+      },
+      {
+        "text": "臣",
+        "reading": "しん"
+      }
+    ],
+    "役割\tやくわり": [
+      {
+        "text": "役",
+        "reading": "やく"
+      },
+      {
+        "text": "割",
+        "reading": "わり"
+      }
+    ],
+    "時代\tじだい": [
+      {
+        "text": "時",
+        "reading": "じ"
+      },
+      {
+        "text": "代",
+        "reading": "だい"
+      }
+    ],
+    "合意\tごうい": [
+      {
+        "text": "合",
+        "reading": "ごう"
+      },
+      {
+        "text": "意",
+        "reading": "い"
+      }
+    ],
+    "両者\tりょうしゃ": [
+      {
+        "text": "両",
+        "reading": "りょう"
+      },
+      {
+        "text": "者",
+        "reading": "しゃ"
+      }
+    ],
+    "交渉\tこうしょう": [
+      {
+        "text": "交",
+        "reading": "こう"
+      },
+      {
+        "text": "渉",
+        "reading": "しょう"
+      }
+    ],
+    "同盟\tどうめい": [
+      {
+        "text": "同",
+        "reading": "どう"
+      },
+      {
+        "text": "盟",
+        "reading": "めい"
+      }
+    ],
+    "双方\tそうほう": [
+      {
+        "text": "双",
+        "reading": "そう"
+      },
+      {
+        "text": "方",
+        "reading": "ほう"
+      }
+    ],
+    "行政\tぎょうせい": [
+      {
+        "text": "行",
+        "reading": "ぎょう"
+      },
+      {
+        "text": "政",
+        "reading": "せい"
+      }
+    ],
+    "住民\tじゅうみん": [
+      {
+        "text": "住",
+        "reading": "じゅう"
+      },
+      {
+        "text": "民",
+        "reading": "みん"
+      }
+    ],
+    "組織\tそしき": [
+      {
+        "text": "組",
+        "reading": "そ"
+      },
+      {
+        "text": "織",
+        "reading": "しき"
+      }
+    ],
+    "重要\tじゅうよう": [
+      {
+        "text": "重",
+        "reading": "じゅう"
+      },
+      {
+        "text": "要",
+        "reading": "よう"
+      }
+    ],
+    "運営\tうんえい": [
+      {
+        "text": "運",
+        "reading": "うん"
+      },
+      {
+        "text": "営",
+        "reading": "えい"
+      }
+    ],
+    "人手\tひとで": [
+      {
+        "text": "人",
+        "reading": "ひと"
+      },
+      {
+        "text": "手",
+        "reading": "で"
+      }
+    ],
+    "資金\tしきん": [
+      {
+        "text": "資",
+        "reading": "し"
+      },
+      {
+        "text": "金",
+        "reading": "きん"
+      }
+    ],
+    "管理\tかんり": [
+      {
+        "text": "管",
+        "reading": "かん"
+      },
+      {
+        "text": "理",
+        "reading": "り"
+      }
+    ],
+    "監督\tかんとく": [
+      {
+        "text": "監",
+        "reading": "かん"
+      },
+      {
+        "text": "督",
+        "reading": "とく"
+      }
+    ],
+    "現場\tげんば": [
+      {
+        "text": "現",
+        "reading": "げん"
+      },
+      {
+        "text": "場",
+        "reading": "ば"
+      }
+    ],
+    "過程\tかてい": [
+      {
+        "text": "過",
+        "reading": "か"
+      },
+      {
+        "text": "程",
+        "reading": "てい"
+      }
+    ],
+    "対象\tたいしょう": [
+      {
+        "text": "対",
+        "reading": "たい"
+      },
+      {
+        "text": "象",
+        "reading": "しょう"
+      }
+    ],
+    "保留\tほりゅう": [
+      {
+        "text": "保",
+        "reading": "ほ"
+      },
+      {
+        "text": "留",
+        "reading": "りゅう"
+      }
+    ],
+    "方針\tほうしん": [
+      {
+        "text": "方",
+        "reading": "ほう"
+      },
+      {
+        "text": "針",
+        "reading": "しん"
+      }
+    ],
+    "見直\tみなお": [
+      {
+        "text": "見",
+        "reading": "み"
+      },
+      {
+        "text": "直",
+        "reading": "なお"
+      }
+    ],
+    "手続\tてつづ": [
+      {
+        "text": "手",
+        "reading": "て"
+      },
+      {
+        "text": "続",
+        "reading": "つづ"
+      }
+    ],
+    "申請\tしんせい": [
+      {
+        "text": "申",
+        "reading": "しん"
+      },
+      {
+        "text": "請",
+        "reading": "せい"
+      }
+    ],
+    "承認\tしょうにん": [
+      {
+        "text": "承",
+        "reading": "しょう"
+      },
+      {
+        "text": "認",
+        "reading": "にん"
+      }
+    ],
+    "実行\tじっこう": [
+      {
+        "text": "実",
+        "reading": "じっ"
+      },
+      {
+        "text": "行",
+        "reading": "こう"
+      }
+    ],
+    "許可\tきょか": [
+      {
+        "text": "許",
+        "reading": "きょ"
+      },
+      {
+        "text": "可",
+        "reading": "か"
+      }
+    ],
+    "禁止\tきんし": [
+      {
+        "text": "禁",
+        "reading": "きん"
+      },
+      {
+        "text": "止",
+        "reading": "し"
+      }
+    ],
+    "使用\tしよう": [
+      {
+        "text": "使",
+        "reading": "し"
+      },
+      {
+        "text": "用",
+        "reading": "よう"
+      }
+    ],
+    "違反\tいはん": [
+      {
+        "text": "違",
+        "reading": "い"
+      },
+      {
+        "text": "反",
+        "reading": "はん"
+      }
+    ],
+    "担当者\tたんとうしゃ": [
+      {
+        "text": "担",
+        "reading": "たん"
+      },
+      {
+        "text": "当",
+        "reading": "とう"
+      },
+      {
+        "text": "者",
+        "reading": "しゃ"
+      }
+    ],
+    "事実\tじじつ": [
+      {
+        "text": "事",
+        "reading": "じ"
+      },
+      {
+        "text": "実",
+        "reading": "じつ"
+      }
+    ],
+    "処分\tしょぶん": [
+      {
+        "text": "処",
+        "reading": "しょ"
+      },
+      {
+        "text": "分",
+        "reading": "ぶん"
+      }
+    ],
+    "本人\tほんにん": [
+      {
+        "text": "本",
+        "reading": "ほん"
+      },
+      {
+        "text": "人",
+        "reading": "にん"
+      }
+    ],
+    "裁判\tさいばん": [
+      {
+        "text": "裁",
+        "reading": "さい"
+      },
+      {
+        "text": "判",
+        "reading": "ばん"
+      }
+    ],
+    "証拠\tしょうこ": [
+      {
+        "text": "証",
+        "reading": "しょう"
+      },
+      {
+        "text": "拠",
+        "reading": "こ"
+      }
+    ],
+    "証言\tしょうげん": [
+      {
+        "text": "証",
+        "reading": "しょう"
+      },
+      {
+        "text": "言",
+        "reading": "げん"
+      }
+    ],
+    "一致\tいっち": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "致",
+        "reading": "ち"
+      }
+    ],
+    "事情\tじじょう": [
+      {
+        "text": "事",
+        "reading": "じ"
+      },
+      {
+        "text": "情",
+        "reading": "じょう"
+      }
+    ],
+    "対応\tたいおう": [
+      {
+        "text": "対",
+        "reading": "たい"
+      },
+      {
+        "text": "応",
+        "reading": "おう"
+      }
+    ],
+    "課題\tかだい": [
+      {
+        "text": "課",
+        "reading": "か"
+      },
+      {
+        "text": "題",
+        "reading": "だい"
+      }
+    ],
+    "提出\tていしゅつ": [
+      {
+        "text": "提",
+        "reading": "てい"
+      },
+      {
+        "text": "出",
+        "reading": "しゅつ"
+      }
+    ],
+    "部分\tぶぶん": [
+      {
+        "text": "部",
+        "reading": "ぶ"
+      },
+      {
+        "text": "分",
+        "reading": "ぶん"
+      }
+    ],
+    "解決\tかいけつ": [
+      {
+        "text": "解",
+        "reading": "かい"
+      },
+      {
+        "text": "決",
+        "reading": "けつ"
+      }
+    ],
+    "対策\tたいさく": [
+      {
+        "text": "対",
+        "reading": "たい"
+      },
+      {
+        "text": "策",
+        "reading": "さく"
+      }
+    ],
+    "改善\tかいぜん": [
+      {
+        "text": "改",
+        "reading": "かい"
+      },
+      {
+        "text": "善",
+        "reading": "ぜん"
+      }
+    ],
+    "提案\tていあん": [
+      {
+        "text": "提",
+        "reading": "てい"
+      },
+      {
+        "text": "案",
+        "reading": "あん"
+      }
+    ],
+    "採用\tさいよう": [
+      {
+        "text": "採",
+        "reading": "さい"
+      },
+      {
+        "text": "用",
+        "reading": "よう"
+      }
+    ],
+    "議論\tぎろん": [
+      {
+        "text": "議",
+        "reading": "ぎ"
+      },
+      {
+        "text": "論",
+        "reading": "ろん"
+      }
+    ],
+    "途中\tとちゅう": [
+      {
+        "text": "途",
+        "reading": "と"
+      },
+      {
+        "text": "中",
+        "reading": "ちゅう"
+      }
+    ],
+    "論点\tろんてん": [
+      {
+        "text": "論",
+        "reading": "ろん"
+      },
+      {
+        "text": "点",
+        "reading": "てん"
+      }
+    ],
+    "反対\tはんたい": [
+      {
+        "text": "反",
+        "reading": "はん"
+      },
+      {
+        "text": "対",
+        "reading": "たい"
+      }
+    ],
+    "結論\tけつろん": [
+      {
+        "text": "結",
+        "reading": "けつ"
+      },
+      {
+        "text": "論",
+        "reading": "ろん"
+      }
+    ],
+    "資源\tしげん": [
+      {
+        "text": "資",
+        "reading": "し"
+      },
+      {
+        "text": "源",
+        "reading": "げん"
+      }
+    ],
+    "人材\tじんざい": [
+      {
+        "text": "人",
+        "reading": "じん"
+      },
+      {
+        "text": "材",
+        "reading": "ざい"
+      }
+    ],
+    "確保\tかくほ": [
+      {
+        "text": "確",
+        "reading": "かく"
+      },
+      {
+        "text": "保",
+        "reading": "ほ"
+      }
+    ],
+    "設備\tせつび": [
+      {
+        "text": "設",
+        "reading": "せつ"
+      },
+      {
+        "text": "備",
+        "reading": "び"
+      }
+    ],
+    "計算\tけいさん": [
+      {
+        "text": "計",
+        "reading": "けい"
+      },
+      {
+        "text": "算",
+        "reading": "さん"
+      }
+    ],
+    "生産\tせいさん": [
+      {
+        "text": "生",
+        "reading": "せい"
+      },
+      {
+        "text": "産",
+        "reading": "さん"
+      }
+    ],
+    "消費\tしょうひ": [
+      {
+        "text": "消",
+        "reading": "しょう"
+      },
+      {
+        "text": "費",
+        "reading": "ひ"
+      }
+    ],
+    "流通\tりゅうつう": [
+      {
+        "text": "流",
+        "reading": "りゅう"
+      },
+      {
+        "text": "通",
+        "reading": "つう"
+      }
+    ],
+    "需要\tじゅよう": [
+      {
+        "text": "需",
+        "reading": "じゅ"
+      },
+      {
+        "text": "要",
+        "reading": "よう"
+      }
+    ],
+    "供給\tきょうきゅう": [
+      {
+        "text": "供",
+        "reading": "きょう"
+      },
+      {
+        "text": "給",
+        "reading": "きゅう"
+      }
+    ],
+    "調整\tちょうせい": [
+      {
+        "text": "調",
+        "reading": "ちょう"
+      },
+      {
+        "text": "整",
+        "reading": "せい"
+      }
+    ],
+    "相場\tそうば": [
+      {
+        "text": "相",
+        "reading": "そう"
+      },
+      {
+        "text": "場",
+        "reading": "ば"
+      }
+    ],
+    "原価\tげんか": [
+      {
+        "text": "原",
+        "reading": "げん"
+      },
+      {
+        "text": "価",
+        "reading": "か"
+      }
+    ],
+    "投資\tとうし": [
+      {
+        "text": "投",
+        "reading": "とう"
+      },
+      {
+        "text": "資",
+        "reading": "し"
+      }
+    ],
+    "可能性\tかのうせい": [
+      {
+        "text": "可",
+        "reading": "か"
+      },
+      {
+        "text": "能",
+        "reading": "のう"
+      },
+      {
+        "text": "性",
+        "reading": "せい"
+      }
+    ],
+    "融資\tゆうし": [
+      {
+        "text": "融",
+        "reading": "ゆう"
+      },
+      {
+        "text": "資",
+        "reading": "し"
+      }
+    ],
+    "返済\tへんさい": [
+      {
+        "text": "返",
+        "reading": "へん"
+      },
+      {
+        "text": "済",
+        "reading": "さい"
+      }
+    ],
+    "財産\tざいさん": [
+      {
+        "text": "財",
+        "reading": "ざい"
+      },
+      {
+        "text": "産",
+        "reading": "さん"
+      }
+    ],
+    "資産\tしさん": [
+      {
+        "text": "資",
+        "reading": "し"
+      },
+      {
+        "text": "産",
+        "reading": "さん"
+      }
+    ],
+    "会社\tかいしゃ": [
+      {
+        "text": "会",
+        "reading": "かい"
+      },
+      {
+        "text": "社",
+        "reading": "しゃ"
+      }
+    ],
+    "一覧\tいちらん": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "覧",
+        "reading": "らん"
+      }
+    ],
+    "負債\tふさい": [
+      {
+        "text": "負",
+        "reading": "ふ"
+      },
+      {
+        "text": "債",
+        "reading": "さい"
+      }
+    ],
+    "収支\tしゅうし": [
+      {
+        "text": "収",
+        "reading": "しゅう"
+      },
+      {
+        "text": "支",
+        "reading": "し"
+      }
+    ],
+    "債務\tさいむ": [
+      {
+        "text": "債",
+        "reading": "さい"
+      },
+      {
+        "text": "務",
+        "reading": "む"
+      }
+    ],
+    "決算\tけっさん": [
+      {
+        "text": "決",
+        "reading": "けっ"
+      },
+      {
+        "text": "算",
+        "reading": "さん"
+      }
+    ],
+    "雇用\tこよう": [
+      {
+        "text": "雇",
+        "reading": "こ"
+      },
+      {
+        "text": "用",
+        "reading": "よう"
+      }
+    ],
+    "賃金\tちんぎん": [
+      {
+        "text": "賃",
+        "reading": "ちん"
+      },
+      {
+        "text": "金",
+        "reading": "ぎん"
+      }
+    ],
+    "労働\tろうどう": [
+      {
+        "text": "労",
+        "reading": "ろう"
+      },
+      {
+        "text": "働",
+        "reading": "どう"
+      }
+    ],
+    "休憩\tきゅうけい": [
+      {
+        "text": "休",
+        "reading": "きゅう"
+      },
+      {
+        "text": "憩",
+        "reading": "けい"
+      }
+    ],
+    "分担\tぶんたん": [
+      {
+        "text": "分",
+        "reading": "ぶん"
+      },
+      {
+        "text": "担",
+        "reading": "たん"
+      }
+    ],
+    "分業\tぶんぎょう": [
+      {
+        "text": "分",
+        "reading": "ぶん"
+      },
+      {
+        "text": "業",
+        "reading": "ぎょう"
+      }
+    ],
+    "得意\tとくい": [
+      {
+        "text": "得",
+        "reading": "とく"
+      },
+      {
+        "text": "意",
+        "reading": "い"
+      }
+    ],
+    "集中\tしゅうちゅう": [
+      {
+        "text": "集",
+        "reading": "しゅう"
+      },
+      {
+        "text": "中",
+        "reading": "ちゅう"
+      }
+    ],
+    "効率\tこうりつ": [
+      {
+        "text": "効",
+        "reading": "こう"
+      },
+      {
+        "text": "率",
+        "reading": "りつ"
+      }
+    ],
+    "能率\tのうりつ": [
+      {
+        "text": "能",
+        "reading": "のう"
+      },
+      {
+        "text": "率",
+        "reading": "りつ"
+      }
+    ],
+    "整理\tせいり": [
+      {
+        "text": "整",
+        "reading": "せい"
+      },
+      {
+        "text": "理",
+        "reading": "り"
+      }
+    ],
+    "競争\tきょうそう": [
+      {
+        "text": "競",
+        "reading": "きょう"
+      },
+      {
+        "text": "争",
+        "reading": "そう"
+      }
+    ],
+    "独占\tどくせん": [
+      {
+        "text": "独",
+        "reading": "どく"
+      },
+      {
+        "text": "占",
+        "reading": "せん"
+      }
+    ],
+    "一社\tいっしゃ": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "社",
+        "reading": "しゃ"
+      }
+    ],
+    "選択肢\tせんたくし": [
+      {
+        "text": "選",
+        "reading": "せん"
+      },
+      {
+        "text": "択",
+        "reading": "たく"
+      },
+      {
+        "text": "肢",
+        "reading": "し"
+      }
+    ],
+    "品質\tひんしつ": [
+      {
+        "text": "品",
+        "reading": "ひん"
+      },
+      {
+        "text": "質",
+        "reading": "しつ"
+      }
+    ],
+    "数量\tすうりょう": [
+      {
+        "text": "数",
+        "reading": "すう"
+      },
+      {
+        "text": "量",
+        "reading": "りょう"
+      }
+    ],
+    "両方\tりょうほう": [
+      {
+        "text": "両",
+        "reading": "りょう"
+      },
+      {
+        "text": "方",
+        "reading": "ほう"
+      }
+    ],
+    "関係\tかんけい": [
+      {
+        "text": "関",
+        "reading": "かん"
+      },
+      {
+        "text": "係",
+        "reading": "けい"
+      }
+    ],
+    "協力\tきょうりょく": [
+      {
+        "text": "協",
+        "reading": "きょう"
+      },
+      {
+        "text": "力",
+        "reading": "りょく"
+      }
+    ],
+    "協調\tきょうちょう": [
+      {
+        "text": "協",
+        "reading": "きょう"
+      },
+      {
+        "text": "調",
+        "reading": "ちょう"
+      }
+    ],
+    "全体\tぜんたい": [
+      {
+        "text": "全",
+        "reading": "ぜん"
+      },
+      {
+        "text": "体",
+        "reading": "たい"
+      }
+    ],
+    "団結\tだんけつ": [
+      {
+        "text": "団",
+        "reading": "だん"
+      },
+      {
+        "text": "結",
+        "reading": "けつ"
+      }
+    ],
+    "困難\tこんなん": [
+      {
+        "text": "困",
+        "reading": "こん"
+      },
+      {
+        "text": "難",
+        "reading": "なん"
+      }
+    ],
+    "連携\tれんけい": [
+      {
+        "text": "連",
+        "reading": "れん"
+      },
+      {
+        "text": "携",
+        "reading": "けい"
+      }
+    ],
+    "同士\tどうし": [
+      {
+        "text": "同",
+        "reading": "どう"
+      },
+      {
+        "text": "士",
+        "reading": "し"
+      }
+    ],
+    "支援\tしえん": [
+      {
+        "text": "支",
+        "reading": "し"
+      },
+      {
+        "text": "援",
+        "reading": "えん"
+      }
+    ],
+    "対立\tたいりつ": [
+      {
+        "text": "対",
+        "reading": "たい"
+      },
+      {
+        "text": "立",
+        "reading": "りつ"
+      }
+    ],
+    "衝突\tしょうとつ": [
+      {
+        "text": "衝",
+        "reading": "しょう"
+      },
+      {
+        "text": "突",
+        "reading": "とつ"
+      }
+    ],
+    "間隔\tかんかく": [
+      {
+        "text": "間",
+        "reading": "かん"
+      },
+      {
+        "text": "隔",
+        "reading": "かく"
+      }
+    ],
+    "紛争\tふんそう": [
+      {
+        "text": "紛",
+        "reading": "ふん"
+      },
+      {
+        "text": "争",
+        "reading": "そう"
+      }
+    ],
+    "仲裁\tちゅうさい": [
+      {
+        "text": "仲",
+        "reading": "ちゅう"
+      },
+      {
+        "text": "裁",
+        "reading": "さい"
+      }
+    ],
+    "第三者\tだいさんしゃ": [
+      {
+        "text": "第",
+        "reading": "だい"
+      },
+      {
+        "text": "三",
+        "reading": "さん"
+      },
+      {
+        "text": "者",
+        "reading": "しゃ"
+      }
+    ],
+    "和解\tわかい": [
+      {
+        "text": "和",
+        "reading": "わ"
+      },
+      {
+        "text": "解",
+        "reading": "かい"
+      }
+    ],
+    "妥協\tだきょう": [
+      {
+        "text": "妥",
+        "reading": "だ"
+      },
+      {
+        "text": "協",
+        "reading": "きょう"
+      }
+    ],
+    "区別\tくべつ": [
+      {
+        "text": "区",
+        "reading": "く"
+      },
+      {
+        "text": "別",
+        "reading": "べつ"
+      }
+    ],
+    "譲歩\tじょうほ": [
+      {
+        "text": "譲",
+        "reading": "じょう"
+      },
+      {
+        "text": "歩",
+        "reading": "ほ"
+      }
+    ],
+    "説得\tせっとく": [
+      {
+        "text": "説",
+        "reading": "せっ"
+      },
+      {
+        "text": "得",
+        "reading": "とく"
+      }
+    ],
+    "根拠\tこんきょ": [
+      {
+        "text": "根",
+        "reading": "こん"
+      },
+      {
+        "text": "拠",
+        "reading": "きょ"
+      }
+    ],
+    "第一歩\tだいいっぽ": [
+      {
+        "text": "第",
+        "reading": "だい"
+      },
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "歩",
+        "reading": "ぽ"
+      }
+    ],
+    "共感\tきょうかん": [
+      {
+        "text": "共",
+        "reading": "きょう"
+      },
+      {
+        "text": "感",
+        "reading": "かん"
+      }
+    ],
+    "尊敬\tそんけい": [
+      {
+        "text": "尊",
+        "reading": "そん"
+      },
+      {
+        "text": "敬",
+        "reading": "けい"
+      }
+    ],
+    "敬意\tけいい": [
+      {
+        "text": "敬",
+        "reading": "けい"
+      },
+      {
+        "text": "意",
+        "reading": "い"
+      }
+    ],
+    "配慮\tはいりょ": [
+      {
+        "text": "配",
+        "reading": "はい"
+      },
+      {
+        "text": "慮",
+        "reading": "りょ"
+      }
+    ],
+    "遠慮\tえんりょ": [
+      {
+        "text": "遠",
+        "reading": "えん"
+      },
+      {
+        "text": "慮",
+        "reading": "りょ"
+      }
+    ],
+    "礼儀\tれいぎ": [
+      {
+        "text": "礼",
+        "reading": "れい"
+      },
+      {
+        "text": "儀",
+        "reading": "ぎ"
+      }
+    ],
+    "挨拶\tあいさつ": [
+      {
+        "text": "挨",
+        "reading": "あい"
+      },
+      {
+        "text": "拶",
+        "reading": "さつ"
+      }
+    ],
+    "誠実\tせいじつ": [
+      {
+        "text": "誠",
+        "reading": "せい"
+      },
+      {
+        "text": "実",
+        "reading": "じつ"
+      }
+    ],
+    "行動\tこうどう": [
+      {
+        "text": "行",
+        "reading": "こう"
+      },
+      {
+        "text": "動",
+        "reading": "どう"
+      }
+    ],
+    "忠実\tちゅうじつ": [
+      {
+        "text": "忠",
+        "reading": "ちゅう"
+      },
+      {
+        "text": "実",
+        "reading": "じつ"
+      }
+    ],
+    "原文\tげんぶん": [
+      {
+        "text": "原",
+        "reading": "げん"
+      },
+      {
+        "text": "文",
+        "reading": "ぶん"
+      }
+    ],
+    "裏切\tうらぎ": [
+      {
+        "text": "裏",
+        "reading": "うら"
+      },
+      {
+        "text": "切",
+        "reading": "ぎ"
+      }
+    ],
+    "誤解\tごかい": [
+      {
+        "text": "誤",
+        "reading": "ご"
+      },
+      {
+        "text": "解",
+        "reading": "かい"
+      }
+    ],
+    "偏見\tへんけん": [
+      {
+        "text": "偏",
+        "reading": "へん"
+      },
+      {
+        "text": "見",
+        "reading": "けん"
+      }
+    ],
+    "差別\tさべつ": [
+      {
+        "text": "差",
+        "reading": "さ"
+      },
+      {
+        "text": "別",
+        "reading": "べつ"
+      }
+    ],
+    "秘密\tひみつ": [
+      {
+        "text": "秘",
+        "reading": "ひ"
+      },
+      {
+        "text": "密",
+        "reading": "みつ"
+      }
+    ],
+    "勝手\tかって": [
+      {
+        "text": "勝",
+        "reading": "かっ"
+      },
+      {
+        "text": "手",
+        "reading": "て"
+      }
+    ],
+    "信用\tしんよう": [
+      {
+        "text": "信",
+        "reading": "しん"
+      },
+      {
+        "text": "用",
+        "reading": "よう"
+      }
+    ],
+    "環境\tかんきょう": [
+      {
+        "text": "環",
+        "reading": "かん"
+      },
+      {
+        "text": "境",
+        "reading": "きょう"
+      }
+    ],
+    "開発\tかいはつ": [
+      {
+        "text": "開",
+        "reading": "かい"
+      },
+      {
+        "text": "発",
+        "reading": "はつ"
+      }
+    ],
+    "自然\tしぜん": [
+      {
+        "text": "自",
+        "reading": "し"
+      },
+      {
+        "text": "然",
+        "reading": "ぜん"
+      }
+    ],
+    "生態系\tせいたいけい": [
+      {
+        "text": "生",
+        "reading": "せい"
+      },
+      {
+        "text": "態",
+        "reading": "たい"
+      },
+      {
+        "text": "系",
+        "reading": "けい"
+      }
+    ],
+    "一種類\tいっしゅるい": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "種",
+        "reading": "しゅ"
+      },
+      {
+        "text": "類",
+        "reading": "るい"
+      }
+    ],
+    "地質\tちしつ": [
+      {
+        "text": "地",
+        "reading": "ち"
+      },
+      {
+        "text": "質",
+        "reading": "しつ"
+      }
+    ],
+    "気候\tきこう": [
+      {
+        "text": "気",
+        "reading": "き"
+      },
+      {
+        "text": "候",
+        "reading": "こう"
+      }
+    ],
+    "植物\tしょくぶつ": [
+      {
+        "text": "植",
+        "reading": "しょく"
+      },
+      {
+        "text": "物",
+        "reading": "ぶつ"
+      }
+    ],
+    "降水量\tこうすいりょう": [
+      {
+        "text": "降",
+        "reading": "こう"
+      },
+      {
+        "text": "水",
+        "reading": "すい"
+      },
+      {
+        "text": "量",
+        "reading": "りょう"
+      }
+    ],
+    "例年\tれいねん": [
+      {
+        "text": "例",
+        "reading": "れい"
+      },
+      {
+        "text": "年",
+        "reading": "ねん"
+      }
+    ],
+    "湿度\tしつど": [
+      {
+        "text": "湿",
+        "reading": "しつ"
+      },
+      {
+        "text": "度",
+        "reading": "ど"
+      }
+    ],
+    "洗濯物\tせんたくもの": [
+      {
+        "text": "洗",
+        "reading": "せん"
+      },
+      {
+        "text": "濯",
+        "reading": "たく"
+      },
+      {
+        "text": "物",
+        "reading": "もの"
+      }
+    ],
+    "乾燥\tかんそう": [
+      {
+        "text": "乾",
+        "reading": "かん"
+      },
+      {
+        "text": "燥",
+        "reading": "そう"
+      }
+    ],
+    "空気\tくうき": [
+      {
+        "text": "空",
+        "reading": "くう"
+      },
+      {
+        "text": "気",
+        "reading": "き"
+      }
+    ],
+    "日照\tにっしょう": [
+      {
+        "text": "日",
+        "reading": "にっ"
+      },
+      {
+        "text": "照",
+        "reading": "しょう"
+      }
+    ],
+    "日陰\tひかげ": [
+      {
+        "text": "日",
+        "reading": "ひ"
+      },
+      {
+        "text": "陰",
+        "reading": "かげ"
+      }
+    ],
+    "地震\tじしん": [
+      {
+        "text": "地",
+        "reading": "じ"
+      },
+      {
+        "text": "震",
+        "reading": "しん"
+      }
+    ],
+    "家具\tかぐ": [
+      {
+        "text": "家",
+        "reading": "か"
+      },
+      {
+        "text": "具",
+        "reading": "ぐ"
+      }
+    ],
+    "固定\tこてい": [
+      {
+        "text": "固",
+        "reading": "こ"
+      },
+      {
+        "text": "定",
+        "reading": "てい"
+      }
+    ],
+    "津波\tつなみ": [
+      {
+        "text": "津",
+        "reading": "つ"
+      },
+      {
+        "text": "波",
+        "reading": "なみ"
+      }
+    ],
+    "避難先\tひなんさき": [
+      {
+        "text": "避",
+        "reading": "ひ"
+      },
+      {
+        "text": "難",
+        "reading": "なん"
+      },
+      {
+        "text": "先",
+        "reading": "さき"
+      }
+    ],
+    "事前\tじぜん": [
+      {
+        "text": "事",
+        "reading": "じ"
+      },
+      {
+        "text": "前",
+        "reading": "ぜん"
+      }
+    ],
+    "噴火\tふんか": [
+      {
+        "text": "噴",
+        "reading": "ふん"
+      },
+      {
+        "text": "火",
+        "reading": "か"
+      }
+    ],
+    "土砂\tどしゃ": [
+      {
+        "text": "土",
+        "reading": "ど"
+      },
+      {
+        "text": "砂",
+        "reading": "しゃ"
+      }
+    ],
+    "災害\tさいがい": [
+      {
+        "text": "災",
+        "reading": "さい"
+      },
+      {
+        "text": "害",
+        "reading": "がい"
+      }
+    ],
+    "被害\tひがい": [
+      {
+        "text": "被",
+        "reading": "ひ"
+      },
+      {
+        "text": "害",
+        "reading": "がい"
+      }
+    ],
+    "復旧\tふっきゅう": [
+      {
+        "text": "復",
+        "reading": "ふっ"
+      },
+      {
+        "text": "旧",
+        "reading": "きゅう"
+      }
+    ],
+    "復興\tふっこう": [
+      {
+        "text": "復",
+        "reading": "ふっ"
+      },
+      {
+        "text": "興",
+        "reading": "こう"
+      }
+    ],
+    "避難\tひなん": [
+      {
+        "text": "避",
+        "reading": "ひ"
+      },
+      {
+        "text": "難",
+        "reading": "なん"
+      }
+    ],
+    "経路\tけいろ": [
+      {
+        "text": "経",
+        "reading": "けい"
+      },
+      {
+        "text": "路",
+        "reading": "ろ"
+      }
+    ],
+    "救助\tきゅうじょ": [
+      {
+        "text": "救",
+        "reading": "きゅう"
+      },
+      {
+        "text": "助",
+        "reading": "じょ"
+      }
+    ],
+    "救援\tきゅうえん": [
+      {
+        "text": "救",
+        "reading": "きゅう"
+      },
+      {
+        "text": "援",
+        "reading": "えん"
+      }
+    ],
+    "現地\tげんち": [
+      {
+        "text": "現",
+        "reading": "げん"
+      },
+      {
+        "text": "地",
+        "reading": "ち"
+      }
+    ],
+    "備蓄\tびちく": [
+      {
+        "text": "備",
+        "reading": "び"
+      },
+      {
+        "text": "蓄",
+        "reading": "ちく"
+      }
+    ],
+    "食品\tしょくひん": [
+      {
+        "text": "食",
+        "reading": "しょく"
+      },
+      {
+        "text": "品",
+        "reading": "ひん"
+      }
+    ],
+    "定期的\tていきてき": [
+      {
+        "text": "定",
+        "reading": "てい"
+      },
+      {
+        "text": "期",
+        "reading": "き"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "保存\tほぞん": [
+      {
+        "text": "保",
+        "reading": "ほ"
+      },
+      {
+        "text": "存",
+        "reading": "ぞん"
+      }
+    ],
+    "衛生\tえいせい": [
+      {
+        "text": "衛",
+        "reading": "えい"
+      },
+      {
+        "text": "生",
+        "reading": "せい"
+      }
+    ],
+    "共同\tきょうどう": [
+      {
+        "text": "共",
+        "reading": "きょう"
+      },
+      {
+        "text": "同",
+        "reading": "どう"
+      }
+    ],
+    "汚染\tおせん": [
+      {
+        "text": "汚",
+        "reading": "お"
+      },
+      {
+        "text": "染",
+        "reading": "せん"
+      }
+    ],
+    "排水\tはいすい": [
+      {
+        "text": "排",
+        "reading": "はい"
+      },
+      {
+        "text": "水",
+        "reading": "すい"
+      }
+    ],
+    "廃棄\tはいき": [
+      {
+        "text": "廃",
+        "reading": "はい"
+      },
+      {
+        "text": "棄",
+        "reading": "き"
+      }
+    ],
+    "再利用\tさいりよう": [
+      {
+        "text": "再",
+        "reading": "さい"
+      },
+      {
+        "text": "利",
+        "reading": "り"
+      },
+      {
+        "text": "用",
+        "reading": "よう"
+      }
+    ],
+    "保護\tほご": [
+      {
+        "text": "保",
+        "reading": "ほ"
+      },
+      {
+        "text": "護",
+        "reading": "ご"
+      }
+    ],
+    "野生\tやせい": [
+      {
+        "text": "野",
+        "reading": "や"
+      },
+      {
+        "text": "生",
+        "reading": "せい"
+      }
+    ],
+    "動物\tどうぶつ": [
+      {
+        "text": "動",
+        "reading": "どう"
+      },
+      {
+        "text": "物",
+        "reading": "ぶつ"
+      }
+    ],
+    "食料\tしょくりょう": [
+      {
+        "text": "食",
+        "reading": "しょく"
+      },
+      {
+        "text": "料",
+        "reading": "りょう"
+      }
+    ],
+    "知識\tちしき": [
+      {
+        "text": "知",
+        "reading": "ち"
+      },
+      {
+        "text": "識",
+        "reading": "しき"
+      }
+    ],
+    "実際\tじっさい": [
+      {
+        "text": "実",
+        "reading": "じっ"
+      },
+      {
+        "text": "際",
+        "reading": "さい"
+      }
+    ],
+    "知恵\tちえ": [
+      {
+        "text": "知",
+        "reading": "ち"
+      },
+      {
+        "text": "恵",
+        "reading": "え"
+      }
+    ],
+    "世代\tせだい": [
+      {
+        "text": "世",
+        "reading": "せ"
+      },
+      {
+        "text": "代",
+        "reading": "だい"
+      }
+    ],
+    "技術\tぎじゅつ": [
+      {
+        "text": "技",
+        "reading": "ぎ"
+      },
+      {
+        "text": "術",
+        "reading": "じゅつ"
+      }
+    ],
+    "能力\tのうりょく": [
+      {
+        "text": "能",
+        "reading": "のう"
+      },
+      {
+        "text": "力",
+        "reading": "りょく"
+      }
+    ],
+    "才能\tさいのう": [
+      {
+        "text": "才",
+        "reading": "さい"
+      },
+      {
+        "text": "能",
+        "reading": "のう"
+      }
+    ],
+    "資格\tしかく": [
+      {
+        "text": "資",
+        "reading": "し"
+      },
+      {
+        "text": "格",
+        "reading": "かく"
+      }
+    ],
+    "特定\tとくてい": [
+      {
+        "text": "特",
+        "reading": "とく"
+      },
+      {
+        "text": "定",
+        "reading": "てい"
+      }
+    ],
+    "専門\tせんもん": [
+      {
+        "text": "専",
+        "reading": "せん"
+      },
+      {
+        "text": "門",
+        "reading": "もん"
+      }
+    ],
+    "以外\tいがい": [
+      {
+        "text": "以",
+        "reading": "い"
+      },
+      {
+        "text": "外",
+        "reading": "がい"
+      }
+    ],
+    "基礎\tきそ": [
+      {
+        "text": "基",
+        "reading": "き"
+      },
+      {
+        "text": "礎",
+        "reading": "そ"
+      }
+    ],
+    "応用\tおうよう": [
+      {
+        "text": "応",
+        "reading": "おう"
+      },
+      {
+        "text": "用",
+        "reading": "よう"
+      }
+    ],
+    "原理\tげんり": [
+      {
+        "text": "原",
+        "reading": "げん"
+      },
+      {
+        "text": "理",
+        "reading": "り"
+      }
+    ],
+    "構造\tこうぞう": [
+      {
+        "text": "構",
+        "reading": "こう"
+      },
+      {
+        "text": "造",
+        "reading": "ぞう"
+      }
+    ],
+    "模型\tもけい": [
+      {
+        "text": "模",
+        "reading": "も"
+      },
+      {
+        "text": "型",
+        "reading": "けい"
+      }
+    ],
+    "水車\tすいしゃ": [
+      {
+        "text": "水",
+        "reading": "すい"
+      },
+      {
+        "text": "車",
+        "reading": "しゃ"
+      }
+    ],
+    "機能\tきのう": [
+      {
+        "text": "機",
+        "reading": "き"
+      },
+      {
+        "text": "能",
+        "reading": "のう"
+      }
+    ],
+    "不要\tふよう": [
+      {
+        "text": "不",
+        "reading": "ふ"
+      },
+      {
+        "text": "要",
+        "reading": "よう"
+      }
+    ],
+    "性質\tせいしつ": [
+      {
+        "text": "性",
+        "reading": "せい"
+      },
+      {
+        "text": "質",
+        "reading": "しつ"
+      }
+    ],
+    "加工\tかこう": [
+      {
+        "text": "加",
+        "reading": "か"
+      },
+      {
+        "text": "工",
+        "reading": "こう"
+      }
+    ],
+    "特徴\tとくちょう": [
+      {
+        "text": "特",
+        "reading": "とく"
+      },
+      {
+        "text": "徴",
+        "reading": "ちょう"
+      }
+    ],
+    "共通\tきょうつう": [
+      {
+        "text": "共",
+        "reading": "きょう"
+      },
+      {
+        "text": "通",
+        "reading": "つう"
+      }
+    ],
+    "相違\tそうい": [
+      {
+        "text": "相",
+        "reading": "そう"
+      },
+      {
+        "text": "違",
+        "reading": "い"
+      }
+    ],
+    "比較\tひかく": [
+      {
+        "text": "比",
+        "reading": "ひ"
+      },
+      {
+        "text": "較",
+        "reading": "かく"
+      }
+    ],
+    "分析\tぶんせき": [
+      {
+        "text": "分",
+        "reading": "ぶん"
+      },
+      {
+        "text": "析",
+        "reading": "せき"
+      }
+    ],
+    "傾向\tけいこう": [
+      {
+        "text": "傾",
+        "reading": "けい"
+      },
+      {
+        "text": "向",
+        "reading": "こう"
+      }
+    ],
+    "調査\tちょうさ": [
+      {
+        "text": "調",
+        "reading": "ちょう"
+      },
+      {
+        "text": "査",
+        "reading": "さ"
+      }
+    ],
+    "研究\tけんきゅう": [
+      {
+        "text": "研",
+        "reading": "けん"
+      },
+      {
+        "text": "究",
+        "reading": "きゅう"
+      }
+    ],
+    "目的\tもくてき": [
+      {
+        "text": "目",
+        "reading": "もく"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "最初\tさいしょ": [
+      {
+        "text": "最",
+        "reading": "さい"
+      },
+      {
+        "text": "初",
+        "reading": "しょ"
+      }
+    ],
+    "観察\tかんさつ": [
+      {
+        "text": "観",
+        "reading": "かん"
+      },
+      {
+        "text": "察",
+        "reading": "さつ"
+      }
+    ],
+    "仮説\tかせつ": [
+      {
+        "text": "仮",
+        "reading": "か"
+      },
+      {
+        "text": "説",
+        "reading": "せつ"
+      }
+    ],
+    "検証\tけんしょう": [
+      {
+        "text": "検",
+        "reading": "けん"
+      },
+      {
+        "text": "証",
+        "reading": "しょう"
+      }
+    ],
+    "修正\tしゅうせい": [
+      {
+        "text": "修",
+        "reading": "しゅう"
+      },
+      {
+        "text": "正",
+        "reading": "せい"
+      }
+    ],
+    "証明\tしょうめい": [
+      {
+        "text": "証",
+        "reading": "しょう"
+      },
+      {
+        "text": "明",
+        "reading": "めい"
+      }
+    ],
+    "推測\tすいそく": [
+      {
+        "text": "推",
+        "reading": "すい"
+      },
+      {
+        "text": "測",
+        "reading": "そく"
+      }
+    ],
+    "段階\tだんかい": [
+      {
+        "text": "段",
+        "reading": "だん"
+      },
+      {
+        "text": "階",
+        "reading": "かい"
+      }
+    ],
+    "予測\tよそく": [
+      {
+        "text": "予",
+        "reading": "よ"
+      },
+      {
+        "text": "測",
+        "reading": "そく"
+      }
+    ],
+    "確率\tかくりつ": [
+      {
+        "text": "確",
+        "reading": "かく"
+      },
+      {
+        "text": "率",
+        "reading": "りつ"
+      }
+    ],
+    "教育\tきょういく": [
+      {
+        "text": "教",
+        "reading": "きょう"
+      },
+      {
+        "text": "育",
+        "reading": "いく"
+      }
+    ],
+    "学習\tがくしゅう": [
+      {
+        "text": "学",
+        "reading": "がく"
+      },
+      {
+        "text": "習",
+        "reading": "しゅう"
+      }
+    ],
+    "指導\tしどう": [
+      {
+        "text": "指",
+        "reading": "し"
+      },
+      {
+        "text": "導",
+        "reading": "どう"
+      }
+    ],
+    "訓練\tくんれん": [
+      {
+        "text": "訓",
+        "reading": "くん"
+      },
+      {
+        "text": "練",
+        "reading": "れん"
+      }
+    ],
+    "成長\tせいちょう": [
+      {
+        "text": "成",
+        "reading": "せい"
+      },
+      {
+        "text": "長",
+        "reading": "ちょう"
+      }
+    ],
+    "発達\tはったつ": [
+      {
+        "text": "発",
+        "reading": "はっ"
+      },
+      {
+        "text": "達",
+        "reading": "たつ"
+      }
+    ],
+    "個人差\tこじんさ": [
+      {
+        "text": "個",
+        "reading": "こ"
+      },
+      {
+        "text": "人",
+        "reading": "じん"
+      },
+      {
+        "text": "差",
+        "reading": "さ"
+      }
+    ],
+    "自立\tじりつ": [
+      {
+        "text": "自",
+        "reading": "じ"
+      },
+      {
+        "text": "立",
+        "reading": "りつ"
+      }
+    ],
+    "自覚\tじかく": [
+      {
+        "text": "自",
+        "reading": "じ"
+      },
+      {
+        "text": "覚",
+        "reading": "かく"
+      }
+    ],
+    "意識\tいしき": [
+      {
+        "text": "意",
+        "reading": "い"
+      },
+      {
+        "text": "識",
+        "reading": "しき"
+      }
+    ],
+    "忍耐\tにんたい": [
+      {
+        "text": "忍",
+        "reading": "にん"
+      },
+      {
+        "text": "耐",
+        "reading": "たい"
+      }
+    ],
+    "挑戦\tちょうせん": [
+      {
+        "text": "挑",
+        "reading": "ちょう"
+      },
+      {
+        "text": "戦",
+        "reading": "せん"
+      }
+    ],
+    "応援\tおうえん": [
+      {
+        "text": "応",
+        "reading": "おう"
+      },
+      {
+        "text": "援",
+        "reading": "えん"
+      }
+    ],
+    "反省\tはんせい": [
+      {
+        "text": "反",
+        "reading": "はん"
+      },
+      {
+        "text": "省",
+        "reading": "せい"
+      }
+    ],
+    "反映\tはんえい": [
+      {
+        "text": "反",
+        "reading": "はん"
+      },
+      {
+        "text": "映",
+        "reading": "えい"
+      }
+    ],
+    "記憶\tきおく": [
+      {
+        "text": "記",
+        "reading": "き"
+      },
+      {
+        "text": "憶",
+        "reading": "おく"
+      }
+    ],
+    "学力\tがくりょく": [
+      {
+        "text": "学",
+        "reading": "がく"
+      },
+      {
+        "text": "力",
+        "reading": "りょく"
+      }
+    ],
+    "個性\tこせい": [
+      {
+        "text": "個",
+        "reading": "こ"
+      },
+      {
+        "text": "性",
+        "reading": "せい"
+      }
+    ],
+    "強制\tきょうせい": [
+      {
+        "text": "強",
+        "reading": "きょう"
+      },
+      {
+        "text": "制",
+        "reading": "せい"
+      }
+    ],
+    "性格\tせいかく": [
+      {
+        "text": "性",
+        "reading": "せい"
+      },
+      {
+        "text": "格",
+        "reading": "かく"
+      }
+    ],
+    "態度\tたいど": [
+      {
+        "text": "態",
+        "reading": "たい"
+      },
+      {
+        "text": "度",
+        "reading": "ど"
+      }
+    ],
+    "動機\tどうき": [
+      {
+        "text": "動",
+        "reading": "どう"
+      },
+      {
+        "text": "機",
+        "reading": "き"
+      }
+    ],
+    "感情\tかんじょう": [
+      {
+        "text": "感",
+        "reading": "かん"
+      },
+      {
+        "text": "情",
+        "reading": "じょう"
+      }
+    ],
+    "精神\tせいしん": [
+      {
+        "text": "精",
+        "reading": "せい"
+      },
+      {
+        "text": "神",
+        "reading": "しん"
+      }
+    ],
+    "心理\tしんり": [
+      {
+        "text": "心",
+        "reading": "しん"
+      },
+      {
+        "text": "理",
+        "reading": "り"
+      }
+    ],
+    "判断力\tはんだんりょく": [
+      {
+        "text": "判",
+        "reading": "はん"
+      },
+      {
+        "text": "断",
+        "reading": "だん"
+      },
+      {
+        "text": "力",
+        "reading": "りょく"
+      }
+    ],
+    "定着\tていちゃく": [
+      {
+        "text": "定",
+        "reading": "てい"
+      },
+      {
+        "text": "着",
+        "reading": "ちゃく"
+      }
+    ],
+    "役立\tやくだ": [
+      {
+        "text": "役",
+        "reading": "やく"
+      },
+      {
+        "text": "立",
+        "reading": "だ"
+      }
+    ],
+    "温度\tおんど": [
+      {
+        "text": "温",
+        "reading": "おん"
+      },
+      {
+        "text": "度",
+        "reading": "ど"
+      }
+    ],
+    "一定\tいってい": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "定",
+        "reading": "てい"
+      }
+    ],
+    "三人\tさんにん": [
+      {
+        "text": "三",
+        "reading": "さん"
+      },
+      {
+        "text": "人",
+        "reading": "にん"
+      }
+    ],
+    "場面\tばめん": [
+      {
+        "text": "場",
+        "reading": "ば"
+      },
+      {
+        "text": "面",
+        "reading": "めん"
+      }
+    ],
+    "部品\tぶひん": [
+      {
+        "text": "部",
+        "reading": "ぶ"
+      },
+      {
+        "text": "品",
+        "reading": "ひん"
+      }
+    ],
+    "人数\tにんずう": [
+      {
+        "text": "人",
+        "reading": "にん"
+      },
+      {
+        "text": "数",
+        "reading": "ずう"
+      }
+    ],
+    "説明書\tせつめいしょ": [
+      {
+        "text": "説",
+        "reading": "せつ"
+      },
+      {
+        "text": "明",
+        "reading": "めい"
+      },
+      {
+        "text": "書",
+        "reading": "しょ"
+      }
+    ],
+    "危機\tきき": [
+      {
+        "text": "危",
+        "reading": "き"
+      },
+      {
+        "text": "機",
+        "reading": "き"
+      }
+    ],
+    "大雨\tおおあめ": [
+      {
+        "text": "大",
+        "reading": "おお"
+      },
+      {
+        "text": "雨",
+        "reading": "あめ"
+      }
+    ],
+    "調子\tちょうし": [
+      {
+        "text": "調",
+        "reading": "ちょう"
+      },
+      {
+        "text": "子",
+        "reading": "し"
+      }
+    ],
+    "重大\tじゅうだい": [
+      {
+        "text": "重",
+        "reading": "じゅう"
+      },
+      {
+        "text": "大",
+        "reading": "だい"
+      }
+    ],
+    "抽象的\tちゅうしょうてき": [
+      {
+        "text": "抽",
+        "reading": "ちゅう"
+      },
+      {
+        "text": "象",
+        "reading": "しょう"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "客観的\tきゃっかんてき": [
+      {
+        "text": "客",
+        "reading": "きゃっ"
+      },
+      {
+        "text": "観",
+        "reading": "かん"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "感想\tかんそう": [
+      {
+        "text": "感",
+        "reading": "かん"
+      },
+      {
+        "text": "想",
+        "reading": "そう"
+      }
+    ],
+    "主観的\tしゅかんてき": [
+      {
+        "text": "主",
+        "reading": "しゅ"
+      },
+      {
+        "text": "観",
+        "reading": "かん"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "消極的\tしょうきょくてき": [
+      {
+        "text": "消",
+        "reading": "しょう"
+      },
+      {
+        "text": "極",
+        "reading": "きょく"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "合理的\tごうりてき": [
+      {
+        "text": "合",
+        "reading": "ごう"
+      },
+      {
+        "text": "理",
+        "reading": "り"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "効果的\tこうかてき": [
+      {
+        "text": "効",
+        "reading": "こう"
+      },
+      {
+        "text": "果",
+        "reading": "か"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "基本的\tきほんてき": [
+      {
+        "text": "基",
+        "reading": "き"
+      },
+      {
+        "text": "本",
+        "reading": "ほん"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "一般的\tいっぱんてき": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "般",
+        "reading": "ぱん"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "専門的\tせんもんてき": [
+      {
+        "text": "専",
+        "reading": "せん"
+      },
+      {
+        "text": "門",
+        "reading": "もん"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "独自\tどくじ": [
+      {
+        "text": "独",
+        "reading": "どく"
+      },
+      {
+        "text": "自",
+        "reading": "じ"
+      }
+    ],
+    "適切\tてきせつ": [
+      {
+        "text": "適",
+        "reading": "てき"
+      },
+      {
+        "text": "切",
+        "reading": "せつ"
+      }
+    ],
+    "不適切\tふてきせつ": [
+      {
+        "text": "不",
+        "reading": "ふ"
+      },
+      {
+        "text": "適",
+        "reading": "てき"
+      },
+      {
+        "text": "切",
+        "reading": "せつ"
+      }
+    ],
+    "表現\tひょうげん": [
+      {
+        "text": "表",
+        "reading": "ひょう"
+      },
+      {
+        "text": "現",
+        "reading": "げん"
+      }
+    ],
+    "明確\tめいかく": [
+      {
+        "text": "明",
+        "reading": "めい"
+      },
+      {
+        "text": "確",
+        "reading": "かく"
+      }
+    ],
+    "確実\tかくじつ": [
+      {
+        "text": "確",
+        "reading": "かく"
+      },
+      {
+        "text": "実",
+        "reading": "じつ"
+      }
+    ],
+    "不確実\tふかくじつ": [
+      {
+        "text": "不",
+        "reading": "ふ"
+      },
+      {
+        "text": "確",
+        "reading": "かく"
+      },
+      {
+        "text": "実",
+        "reading": "じつ"
+      }
+    ],
+    "有効\tゆうこう": [
+      {
+        "text": "有",
+        "reading": "ゆう"
+      },
+      {
+        "text": "効",
+        "reading": "こう"
+      }
+    ],
+    "無効\tむこう": [
+      {
+        "text": "無",
+        "reading": "む"
+      },
+      {
+        "text": "効",
+        "reading": "こう"
+      }
+    ],
+    "有利\tゆうり": [
+      {
+        "text": "有",
+        "reading": "ゆう"
+      },
+      {
+        "text": "利",
+        "reading": "り"
+      }
+    ],
+    "不利\tふり": [
+      {
+        "text": "不",
+        "reading": "ふ"
+      },
+      {
+        "text": "利",
+        "reading": "り"
+      }
+    ],
+    "平凡\tへいぼん": [
+      {
+        "text": "平",
+        "reading": "へい"
+      },
+      {
+        "text": "凡",
+        "reading": "ぼん"
+      }
+    ],
+    "一日\tいちにち": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "日",
+        "reading": "にち"
+      }
+    ],
+    "優秀\tゆうしゅう": [
+      {
+        "text": "優",
+        "reading": "ゆう"
+      },
+      {
+        "text": "秀",
+        "reading": "しゅう"
+      }
+    ],
+    "慎重\tしんちょう": [
+      {
+        "text": "慎",
+        "reading": "しん"
+      },
+      {
+        "text": "重",
+        "reading": "ちょう"
+      }
+    ],
+    "冷静\tれいせい": [
+      {
+        "text": "冷",
+        "reading": "れい"
+      },
+      {
+        "text": "静",
+        "reading": "せい"
+      }
+    ],
+    "柔軟\tじゅうなん": [
+      {
+        "text": "柔",
+        "reading": "じゅう"
+      },
+      {
+        "text": "軟",
+        "reading": "なん"
+      }
+    ],
+    "頑固\tがんこ": [
+      {
+        "text": "頑",
+        "reading": "がん"
+      },
+      {
+        "text": "固",
+        "reading": "こ"
+      }
+    ],
+    "素直\tすなお": [
+      {
+        "text": "素",
+        "reading": "す"
+      },
+      {
+        "text": "直",
+        "reading": "なお"
+      }
+    ],
+    "把握\tはあく": [
+      {
+        "text": "把",
+        "reading": "は"
+      },
+      {
+        "text": "握",
+        "reading": "あく"
+      }
+    ],
+    "認識\tにんしき": [
+      {
+        "text": "認",
+        "reading": "にん"
+      },
+      {
+        "text": "識",
+        "reading": "しき"
+      }
+    ],
+    "限界\tげんかい": [
+      {
+        "text": "限",
+        "reading": "げん"
+      },
+      {
+        "text": "界",
+        "reading": "かい"
+      }
+    ],
+    "解釈\tかいしゃく": [
+      {
+        "text": "解",
+        "reading": "かい"
+      },
+      {
+        "text": "釈",
+        "reading": "しゃく"
+      }
+    ],
+    "尊重\tそんちょう": [
+      {
+        "text": "尊",
+        "reading": "そん"
+      },
+      {
+        "text": "重",
+        "reading": "ちょう"
+      }
+    ],
+    "伝承\tでんしょう": [
+      {
+        "text": "伝",
+        "reading": "でん"
+      },
+      {
+        "text": "承",
+        "reading": "しょう"
+      }
+    ],
+    "前任者\tぜんにんしゃ": [
+      {
+        "text": "前",
+        "reading": "ぜん"
+      },
+      {
+        "text": "任",
+        "reading": "にん"
+      },
+      {
+        "text": "者",
+        "reading": "しゃ"
+      }
+    ],
+    "日程\tにってい": [
+      {
+        "text": "日",
+        "reading": "にっ"
+      },
+      {
+        "text": "程",
+        "reading": "てい"
+      }
+    ],
+    "断念\tだんねん": [
+      {
+        "text": "断",
+        "reading": "だん"
+      },
+      {
+        "text": "念",
+        "reading": "ねん"
+      }
+    ],
+    "今回\tこんかい": [
+      {
+        "text": "今",
+        "reading": "こん"
+      },
+      {
+        "text": "回",
+        "reading": "かい"
+      }
+    ],
+    "見守\tみまも": [
+      {
+        "text": "見",
+        "reading": "み"
+      },
+      {
+        "text": "守",
+        "reading": "まも"
+      }
+    ],
+    "見極\tみきわ": [
+      {
+        "text": "見",
+        "reading": "み"
+      },
+      {
+        "text": "極",
+        "reading": "きわ"
+      }
+    ],
+    "見落\tみお": [
+      {
+        "text": "見",
+        "reading": "み"
+      },
+      {
+        "text": "落",
+        "reading": "お"
+      }
+    ],
+    "矛盾\tむじゅん": [
+      {
+        "text": "矛",
+        "reading": "む"
+      },
+      {
+        "text": "盾",
+        "reading": "じゅん"
+      }
+    ],
+    "見積\tみつ": [
+      {
+        "text": "見",
+        "reading": "み"
+      },
+      {
+        "text": "積",
+        "reading": "つ"
+      }
+    ],
+    "見込\tみこ": [
+      {
+        "text": "見",
+        "reading": "み"
+      },
+      {
+        "text": "込",
+        "reading": "こ"
+      }
+    ],
+    "支援点\tしえんてん": [
+      {
+        "text": "支",
+        "reading": "し"
+      },
+      {
+        "text": "援",
+        "reading": "えん"
+      },
+      {
+        "text": "点",
+        "reading": "てん"
+      }
+    ],
+    "中央\tちゅうおう": [
+      {
+        "text": "中",
+        "reading": "ちゅう"
+      },
+      {
+        "text": "央",
+        "reading": "おう"
+      }
+    ],
+    "援護\tえんご": [
+      {
+        "text": "援",
+        "reading": "えん"
+      },
+      {
+        "text": "護",
+        "reading": "ご"
+      }
+    ],
+    "追加\tついか": [
+      {
+        "text": "追",
+        "reading": "つい"
+      },
+      {
+        "text": "加",
+        "reading": "か"
+      }
+    ],
+    "輸送\tゆそう": [
+      {
+        "text": "輸",
+        "reading": "ゆ"
+      },
+      {
+        "text": "送",
+        "reading": "そう"
+      }
+    ],
+    "配置\tはいち": [
+      {
+        "text": "配",
+        "reading": "はい"
+      },
+      {
+        "text": "置",
+        "reading": "ち"
+      }
+    ],
+    "以前\tいぜん": [
+      {
+        "text": "以",
+        "reading": "い"
+      },
+      {
+        "text": "前",
+        "reading": "ぜん"
+      }
+    ],
+    "最後\tさいご": [
+      {
+        "text": "最",
+        "reading": "さい"
+      },
+      {
+        "text": "後",
+        "reading": "ご"
+      }
+    ],
+    "再開\tさいかい": [
+      {
+        "text": "再",
+        "reading": "さい"
+      },
+      {
+        "text": "開",
+        "reading": "かい"
+      }
+    ],
+    "行列\tぎょうれつ": [
+      {
+        "text": "行",
+        "reading": "ぎょう"
+      },
+      {
+        "text": "列",
+        "reading": "れつ"
+      }
+    ],
+    "本堂\tほんどう": [
+      {
+        "text": "本",
+        "reading": "ほん"
+      },
+      {
+        "text": "堂",
+        "reading": "どう"
+      }
+    ],
+    "優先\tゆうせん": [
+      {
+        "text": "優",
+        "reading": "ゆう"
+      },
+      {
+        "text": "先",
+        "reading": "せん"
+      }
+    ],
+    "今度\tこんど": [
+      {
+        "text": "今",
+        "reading": "こん"
+      },
+      {
+        "text": "度",
+        "reading": "ど"
+      }
+    ],
+    "維持\tいじ": [
+      {
+        "text": "維",
+        "reading": "い"
+      },
+      {
+        "text": "持",
+        "reading": "じ"
+      }
+    ],
+    "最優先\tさいゆうせん": [
+      {
+        "text": "最",
+        "reading": "さい"
+      },
+      {
+        "text": "優",
+        "reading": "ゆう"
+      },
+      {
+        "text": "先",
+        "reading": "せん"
+      }
+    ],
+    "支援先\tしえんさき": [
+      {
+        "text": "支",
+        "reading": "し"
+      },
+      {
+        "text": "援",
+        "reading": "えん"
+      },
+      {
+        "text": "先",
+        "reading": "さき"
+      }
+    ],
+    "前提\tぜんてい": [
+      {
+        "text": "前",
+        "reading": "ぜん"
+      },
+      {
+        "text": "提",
+        "reading": "てい"
+      }
+    ],
+    "順序\tじゅんじょ": [
+      {
+        "text": "順",
+        "reading": "じゅん"
+      },
+      {
+        "text": "序",
+        "reading": "じょ"
+      }
+    ],
+    "例外\tれいがい": [
+      {
+        "text": "例",
+        "reading": "れい"
+      },
+      {
+        "text": "外",
+        "reading": "がい"
+      }
+    ],
+    "継続\tけいぞく": [
+      {
+        "text": "継",
+        "reading": "けい"
+      },
+      {
+        "text": "続",
+        "reading": "ぞく"
+      }
+    ],
+    "考慮\tこうりょ": [
+      {
+        "text": "考",
+        "reading": "こう"
+      },
+      {
+        "text": "慮",
+        "reading": "りょ"
+      }
+    ],
+    "選択\tせんたく": [
+      {
+        "text": "選",
+        "reading": "せん"
+      },
+      {
+        "text": "択",
+        "reading": "たく"
+      }
+    ],
+    "候補\tこうほ": [
+      {
+        "text": "候",
+        "reading": "こう"
+      },
+      {
+        "text": "補",
+        "reading": "ほ"
+      }
+    ],
+    "放棄\tほうき": [
+      {
+        "text": "放",
+        "reading": "ほう"
+      },
+      {
+        "text": "棄",
+        "reading": "き"
+      }
+    ],
+    "原則\tげんそく": [
+      {
+        "text": "原",
+        "reading": "げん"
+      },
+      {
+        "text": "則",
+        "reading": "そく"
+      }
+    ],
+    "毎回\tまいかい": [
+      {
+        "text": "毎",
+        "reading": "まい"
+      },
+      {
+        "text": "回",
+        "reading": "かい"
+      }
+    ],
+    "丸根砦\tまるねとりで": [
+      {
+        "text": "丸",
+        "reading": "まる"
+      },
+      {
+        "text": "根",
+        "reading": "ね"
+      },
+      {
+        "text": "砦",
+        "reading": "とりで"
+      }
+    ],
+    "稲葉山城\tいなばやまじょう": [
+      {
+        "text": "稲",
+        "reading": "いな"
+      },
+      {
+        "text": "葉",
+        "reading": "ば"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "城下\tじょうか": [
+      {
+        "text": "城",
+        "reading": "じょう"
+      },
+      {
+        "text": "下",
+        "reading": "か"
+      }
+    ],
+    "繖山\tきぬがさやま": [
+      {
+        "text": "繖",
+        "reading": "きぬがさ"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      }
+    ],
+    "石垣\tいしがき": [
+      {
+        "text": "石",
+        "reading": "いし"
+      },
+      {
+        "text": "垣",
+        "reading": "がき"
+      }
+    ],
+    "姉川\tあねがわ": [
+      {
+        "text": "姉",
+        "reading": "あね"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "野村\tのむら": [
+      {
+        "text": "野",
+        "reading": "の"
+      },
+      {
+        "text": "村",
+        "reading": "むら"
+      }
+    ],
+    "浅瀬\tあさせ": [
+      {
+        "text": "浅",
+        "reading": "あさ"
+      },
+      {
+        "text": "瀬",
+        "reading": "せ"
+      }
+    ],
+    "宇佐山城\tうさやまじょう": [
+      {
+        "text": "宇",
+        "reading": "う"
+      },
+      {
+        "text": "佐",
+        "reading": "さ"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "大津\tおおつ": [
+      {
+        "text": "大",
+        "reading": "おお"
+      },
+      {
+        "text": "津",
+        "reading": "つ"
+      }
+    ],
+    "宇治川\tうじがわ": [
+      {
+        "text": "宇",
+        "reading": "う"
+      },
+      {
+        "text": "治",
+        "reading": "じ"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "一乗谷川\tいちじょうだにがわ": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "乗",
+        "reading": "じょう"
+      },
+      {
+        "text": "谷",
+        "reading": "だに"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "一乗谷\tいちじょうだに": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "乗",
+        "reading": "じょう"
+      },
+      {
+        "text": "谷",
+        "reading": "だに"
+      }
+    ],
+    "小谷城\tおだにじょう": [
+      {
+        "text": "小",
+        "reading": "お"
+      },
+      {
+        "text": "谷",
+        "reading": "だに"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "馬防柵\tばぼうさく": [
+      {
+        "text": "馬",
+        "reading": "ば"
+      },
+      {
+        "text": "防",
+        "reading": "ぼう"
+      },
+      {
+        "text": "柵",
+        "reading": "さく"
+      }
+    ],
+    "岩村城\tいわむらじょう": [
+      {
+        "text": "岩",
+        "reading": "いわ"
+      },
+      {
+        "text": "村",
+        "reading": "むら"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "三木城\tみきじょう": [
+      {
+        "text": "三",
+        "reading": "み"
+      },
+      {
+        "text": "木",
+        "reading": "き"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "土塁\tどるい": [
+      {
+        "text": "土",
+        "reading": "ど"
+      },
+      {
+        "text": "塁",
+        "reading": "るい"
+      }
+    ],
+    "石山本願寺\tいしやまほんがんじ": [
+      {
+        "text": "石",
+        "reading": "いし"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "本",
+        "reading": "ほん"
+      },
+      {
+        "text": "願",
+        "reading": "がん"
+      },
+      {
+        "text": "寺",
+        "reading": "じ"
+      }
+    ],
+    "上町\tうえまち": [
+      {
+        "text": "上",
+        "reading": "うえ"
+      },
+      {
+        "text": "町",
+        "reading": "まち"
+      }
+    ],
+    "千代川\tせんだいがわ": [
+      {
+        "text": "千",
+        "reading": "せん"
+      },
+      {
+        "text": "代",
+        "reading": "だい"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "高松城\tたかまつじょう": [
+      {
+        "text": "高",
+        "reading": "たか"
+      },
+      {
+        "text": "松",
+        "reading": "まつ"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "足守川\tあしもりがわ": [
+      {
+        "text": "足",
+        "reading": "あし"
+      },
+      {
+        "text": "守",
+        "reading": "もり"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "山崎\tやまざき": [
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "崎",
+        "reading": "ざき"
+      }
+    ],
+    "円明寺川\tえんみょうじがわ": [
+      {
+        "text": "円",
+        "reading": "えん"
+      },
+      {
+        "text": "明",
+        "reading": "みょう"
+      },
+      {
+        "text": "寺",
+        "reading": "じ"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "余呉湖\tよごこ": [
+      {
+        "text": "余",
+        "reading": "よ"
+      },
+      {
+        "text": "呉",
+        "reading": "ご"
+      },
+      {
+        "text": "湖",
+        "reading": "こ"
+      }
+    ],
+    "小牧山\tこまきやま": [
+      {
+        "text": "小",
+        "reading": "こ"
+      },
+      {
+        "text": "牧",
+        "reading": "まき"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      }
+    ],
+    "長久手\tながくて": [
+      {
+        "text": "長",
+        "reading": "なが"
+      },
+      {
+        "text": "久",
+        "reading": "く"
+      },
+      {
+        "text": "手",
+        "reading": "て"
+      }
+    ],
+    "鮎喰川\tあくいがわ": [
+      {
+        "text": "鮎",
+        "reading": "あ"
+      },
+      {
+        "text": "喰",
+        "reading": "くい"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "戸次川\tへつぎがわ": [
+      {
+        "text": "戸",
+        "reading": "へ"
+      },
+      {
+        "text": "次",
+        "reading": "つぎ"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "山中城\tやまなかじょう": [
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "中",
+        "reading": "なか"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "障子堀\tしょうじぼり": [
+      {
+        "text": "障",
+        "reading": "しょう"
+      },
+      {
+        "text": "子",
+        "reading": "じ"
+      },
+      {
+        "text": "堀",
+        "reading": "ぼり"
+      }
+    ],
+    "畝堀\tうねぼり": [
+      {
+        "text": "畝",
+        "reading": "うね"
+      },
+      {
+        "text": "堀",
+        "reading": "ぼり"
+      }
+    ],
+    "田方\tたがた": [
+      {
+        "text": "田",
+        "reading": "た"
+      },
+      {
+        "text": "方",
+        "reading": "がた"
+      }
+    ],
+    "弓侍\tゆみざむらい": [
+      {
+        "text": "弓",
+        "reading": "ゆみ"
+      },
+      {
+        "text": "侍",
+        "reading": "ざむらい"
+      }
+    ],
+    "槍奉行\tやりぶぎょう": [
+      {
+        "text": "槍",
+        "reading": "やり"
+      },
+      {
+        "text": "奉",
+        "reading": "ぶ"
+      },
+      {
+        "text": "行",
+        "reading": "ぎょう"
+      }
+    ],
+    "武士\tぶし": [
+      {
+        "text": "武",
+        "reading": "ぶ"
+      },
+      {
+        "text": "士",
+        "reading": "し"
+      }
+    ],
+    "剣豪\tけんごう": [
+      {
+        "text": "剣",
+        "reading": "けん"
+      },
+      {
+        "text": "豪",
+        "reading": "ごう"
+      }
+    ],
+    "鉄砲\tてっぽう": [
+      {
+        "text": "鉄",
+        "reading": "てっ"
+      },
+      {
+        "text": "砲",
+        "reading": "ぽう"
+      }
+    ],
+    "鉄砲足軽\tてっぽうあしがる": [
+      {
+        "text": "鉄",
+        "reading": "てっ"
+      },
+      {
+        "text": "砲",
+        "reading": "ぽう"
+      },
+      {
+        "text": "足",
+        "reading": "あし"
+      },
+      {
+        "text": "軽",
+        "reading": "がる"
+      }
+    ],
+    "鉄砲組頭\tてっぽうくみがしら": [
+      {
+        "text": "鉄",
+        "reading": "てっ"
+      },
+      {
+        "text": "砲",
+        "reading": "ぽう"
+      },
+      {
+        "text": "組",
+        "reading": "くみ"
+      },
+      {
+        "text": "頭",
+        "reading": "がしら"
+      }
+    ],
+    "薙刀\tなぎなた": [
+      {
+        "text": "薙",
+        "reading": "なぎ"
+      },
+      {
+        "text": "刀",
+        "reading": "なた"
+      }
+    ],
+    "僧兵頭\tそうへいがしら": [
+      {
+        "text": "僧",
+        "reading": "そう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      },
+      {
+        "text": "頭",
+        "reading": "がしら"
+      }
+    ],
+    "騎馬武者\tきばむしゃ": [
+      {
+        "text": "騎",
+        "reading": "き"
+      },
+      {
+        "text": "馬",
+        "reading": "ば"
+      },
+      {
+        "text": "武",
+        "reading": "む"
+      },
+      {
+        "text": "者",
+        "reading": "しゃ"
+      }
+    ],
+    "上忍\tじょうにん": [
+      {
+        "text": "上",
+        "reading": "じょう"
+      },
+      {
+        "text": "忍",
+        "reading": "にん"
+      }
+    ],
+    "目印\tめじるし": [
+      {
+        "text": "目",
+        "reading": "め"
+      },
+      {
+        "text": "印",
+        "reading": "じるし"
+      }
+    ],
+    "地面\tじめん": [
+      {
+        "text": "地",
+        "reading": "じ"
+      },
+      {
+        "text": "面",
+        "reading": "めん"
+      }
+    ],
+    "手加減\tてかげん": [
+      {
+        "text": "手",
+        "reading": "て"
+      },
+      {
+        "text": "加",
+        "reading": "か"
+      },
+      {
+        "text": "減",
+        "reading": "げん"
+      }
+    ],
+    "出陣\tしゅつじん": [
+      {
+        "text": "出",
+        "reading": "しゅつ"
+      },
+      {
+        "text": "陣",
+        "reading": "じん"
+      }
+    ],
+    "全国地図\tぜんこくちず": [
+      {
+        "text": "全",
+        "reading": "ぜん"
+      },
+      {
+        "text": "国",
+        "reading": "こく"
+      },
+      {
+        "text": "地",
+        "reading": "ち"
+      },
+      {
+        "text": "図",
+        "reading": "ず"
+      }
+    ],
+    "一斉射撃\tいっせいしゃげき": [
+      {
+        "text": "一",
+        "reading": "いっ"
+      },
+      {
+        "text": "斉",
+        "reading": "せい"
+      },
+      {
+        "text": "射",
+        "reading": "しゃ"
+      },
+      {
+        "text": "撃",
+        "reading": "げき"
+      }
+    ],
+    "火矢\tひや": [
+      {
+        "text": "火",
+        "reading": "ひ"
+      },
+      {
+        "text": "矢",
+        "reading": "や"
+      }
+    ],
+    "不屈\tふくつ": [
+      {
+        "text": "不",
+        "reading": "ふ"
+      },
+      {
+        "text": "屈",
+        "reading": "くつ"
+      }
+    ],
+    "合図\tあいず": [
+      {
+        "text": "合",
+        "reading": "あい"
+      },
+      {
+        "text": "図",
+        "reading": "ず"
+      }
+    ],
+    "味噌\tみそ": [
+      {
+        "text": "味",
+        "reading": "み"
+      },
+      {
+        "text": "噌",
+        "reading": "そ"
+      }
+    ],
+    "十本\tじゅっぽん": [
+      {
+        "text": "十",
+        "reading": "じゅっ"
+      },
+      {
+        "text": "本",
+        "reading": "ぽん"
+      }
+    ],
+    "入口\tいりぐち": [
+      {
+        "text": "入",
+        "reading": "いり"
+      },
+      {
+        "text": "口",
+        "reading": "ぐち"
+      }
+    ],
+    "林檎\tりんご": [
+      {
+        "text": "林",
+        "reading": "りん"
+      },
+      {
+        "text": "檎",
+        "reading": "ご"
+      }
+    ],
+    "茶碗\tちゃわん": [
+      {
+        "text": "茶",
+        "reading": "ちゃ"
+      },
+      {
+        "text": "碗",
+        "reading": "わん"
+      }
+    ],
+    "切符\tきっぷ": [
+      {
+        "text": "切",
+        "reading": "きっ"
+      },
+      {
+        "text": "符",
+        "reading": "ぷ"
+      }
+    ],
+    "友達\tともだち": [
+      {
+        "text": "友",
+        "reading": "とも"
+      },
+      {
+        "text": "達",
+        "reading": "だち"
+      }
+    ],
+    "手伝\tてつだ": [
+      {
+        "text": "手",
+        "reading": "て"
+      },
+      {
+        "text": "伝",
+        "reading": "つだ"
+      }
+    ],
+    "取引\tとりひき": [
+      {
+        "text": "取",
+        "reading": "とり"
+      },
+      {
+        "text": "引",
+        "reading": "ひき"
+      }
+    ],
+    "割引\tわりびき": [
+      {
+        "text": "割",
+        "reading": "わり"
+      },
+      {
+        "text": "引",
+        "reading": "びき"
+      }
+    ],
+    "怪我\tけが": [
+      {
+        "text": "怪",
+        "reading": "け"
+      },
+      {
+        "text": "我",
+        "reading": "が"
+      }
+    ],
+    "具合\tぐあい": [
+      {
+        "text": "具",
+        "reading": "ぐ"
+      },
+      {
+        "text": "合",
+        "reading": "あい"
+      }
+    ],
+    "立場\tたちば": [
+      {
+        "text": "立",
+        "reading": "たち"
+      },
+      {
+        "text": "場",
+        "reading": "ば"
+      }
+    ],
+    "場合\tばあい": [
+      {
+        "text": "場",
+        "reading": "ば"
+      },
+      {
+        "text": "合",
+        "reading": "あい"
+      }
+    ],
+    "積極的\tせっきょくてき": [
+      {
+        "text": "積",
+        "reading": "せっ"
+      },
+      {
+        "text": "極",
+        "reading": "きょく"
+      },
+      {
+        "text": "的",
+        "reading": "てき"
+      }
+    ],
+    "浅野長政\tあさのながまさ": [
+      {
+        "text": "浅",
+        "reading": "あさ"
+      },
+      {
+        "text": "野",
+        "reading": "の"
+      },
+      {
+        "text": "長",
+        "reading": "なが"
+      },
+      {
+        "text": "政",
+        "reading": "まさ"
+      }
+    ],
+    "浅野長政\tあさの ながまさ": [
+      {
+        "text": "浅",
+        "reading": "あさ"
+      },
+      {
+        "text": "野",
+        "reading": "の"
+      },
+      {
+        "text": "長",
+        "reading": "なが"
+      },
+      {
+        "text": "政",
+        "reading": "まさ"
+      }
+    ],
+    "加藤清正\tかとうきよまさ": [
+      {
+        "text": "加",
+        "reading": "か"
+      },
+      {
+        "text": "藤",
+        "reading": "とう"
+      },
+      {
+        "text": "清",
+        "reading": "きよ"
+      },
+      {
+        "text": "正",
+        "reading": "まさ"
+      }
+    ],
+    "加藤清正\tかとう きよまさ": [
+      {
+        "text": "加",
+        "reading": "か"
+      },
+      {
+        "text": "藤",
+        "reading": "とう"
+      },
+      {
+        "text": "清",
+        "reading": "きよ"
+      },
+      {
+        "text": "正",
+        "reading": "まさ"
+      }
+    ],
+    "福島正則\tふくしままさのり": [
+      {
+        "text": "福",
+        "reading": "ふく"
+      },
+      {
+        "text": "島",
+        "reading": "しま"
+      },
+      {
+        "text": "正",
+        "reading": "まさ"
+      },
+      {
+        "text": "則",
+        "reading": "のり"
+      }
+    ],
+    "福島正則\tふくしま まさのり": [
+      {
+        "text": "福",
+        "reading": "ふく"
+      },
+      {
+        "text": "島",
+        "reading": "しま"
+      },
+      {
+        "text": "正",
+        "reading": "まさ"
+      },
+      {
+        "text": "則",
+        "reading": "のり"
+      }
+    ],
+    "石田三成\tいしだみつなり": [
+      {
+        "text": "石",
+        "reading": "いし"
+      },
+      {
+        "text": "田",
+        "reading": "だ"
+      },
+      {
+        "text": "三",
+        "reading": "みつ"
+      },
+      {
+        "text": "成",
+        "reading": "なり"
+      }
+    ],
+    "石田三成\tいしだ みつなり": [
+      {
+        "text": "石",
+        "reading": "いし"
+      },
+      {
+        "text": "田",
+        "reading": "だ"
+      },
+      {
+        "text": "三",
+        "reading": "みつ"
+      },
+      {
+        "text": "成",
+        "reading": "なり"
+      }
+    ],
+    "加藤嘉明\tかとうよしあき": [
+      {
+        "text": "加",
+        "reading": "か"
+      },
+      {
+        "text": "藤",
+        "reading": "とう"
+      },
+      {
+        "text": "嘉",
+        "reading": "よし"
+      },
+      {
+        "text": "明",
+        "reading": "あき"
+      }
+    ],
+    "加藤嘉明\tかとう よしあき": [
+      {
+        "text": "加",
+        "reading": "か"
+      },
+      {
+        "text": "藤",
+        "reading": "とう"
+      },
+      {
+        "text": "嘉",
+        "reading": "よし"
+      },
+      {
+        "text": "明",
+        "reading": "あき"
+      }
+    ],
+    "安国寺恵瓊\tあんこくじえけい": [
+      {
+        "text": "安",
+        "reading": "あん"
+      },
+      {
+        "text": "国",
+        "reading": "こく"
+      },
+      {
+        "text": "寺",
+        "reading": "じ"
+      },
+      {
+        "text": "恵",
+        "reading": "え"
+      },
+      {
+        "text": "瓊",
+        "reading": "けい"
+      }
+    ],
+    "安国寺恵瓊\tあんこくじ えけい": [
+      {
+        "text": "安",
+        "reading": "あん"
+      },
+      {
+        "text": "国",
+        "reading": "こく"
+      },
+      {
+        "text": "寺",
+        "reading": "じ"
+      },
+      {
+        "text": "恵",
+        "reading": "え"
+      },
+      {
+        "text": "瓊",
+        "reading": "けい"
+      }
+    ],
+    "黒田官兵衛\tくろだかんべえ": [
+      {
+        "text": "黒",
+        "reading": "くろ"
+      },
+      {
+        "text": "田",
+        "reading": "だ"
+      },
+      {
+        "text": "官",
+        "reading": "かん"
+      },
+      {
+        "text": "兵",
+        "reading": "べ"
+      },
+      {
+        "text": "衛",
+        "reading": "え"
+      }
+    ],
+    "黒田官兵衛\tくろだ かんべえ": [
+      {
+        "text": "黒",
+        "reading": "くろ"
+      },
+      {
+        "text": "田",
+        "reading": "だ"
+      },
+      {
+        "text": "官",
+        "reading": "かん"
+      },
+      {
+        "text": "兵",
+        "reading": "べ"
+      },
+      {
+        "text": "衛",
+        "reading": "え"
+      }
+    ],
+    "蜂須賀正勝\tはちすかまさかつ": [
+      {
+        "text": "蜂",
+        "reading": "はち"
+      },
+      {
+        "text": "須",
+        "reading": "す"
+      },
+      {
+        "text": "賀",
+        "reading": "か"
+      },
+      {
+        "text": "正",
+        "reading": "まさ"
+      },
+      {
+        "text": "勝",
+        "reading": "かつ"
+      }
+    ],
+    "蜂須賀正勝\tはちすか まさかつ": [
+      {
+        "text": "蜂",
+        "reading": "はち"
+      },
+      {
+        "text": "須",
+        "reading": "す"
+      },
+      {
+        "text": "賀",
+        "reading": "か"
+      },
+      {
+        "text": "正",
+        "reading": "まさ"
+      },
+      {
+        "text": "勝",
+        "reading": "かつ"
+      }
+    ],
+    "蜂須賀家政\tはちすかいえまさ": [
+      {
+        "text": "蜂",
+        "reading": "はち"
+      },
+      {
+        "text": "須",
+        "reading": "す"
+      },
+      {
+        "text": "賀",
+        "reading": "か"
+      },
+      {
+        "text": "家",
+        "reading": "いえ"
+      },
+      {
+        "text": "政",
+        "reading": "まさ"
+      }
+    ],
+    "蜂須賀家政\tはちすか いえまさ": [
+      {
+        "text": "蜂",
+        "reading": "はち"
+      },
+      {
+        "text": "須",
+        "reading": "す"
+      },
+      {
+        "text": "賀",
+        "reading": "か"
+      },
+      {
+        "text": "家",
+        "reading": "いえ"
+      },
+      {
+        "text": "政",
+        "reading": "まさ"
+      }
+    ],
+    "桶狭間\tおけはざま": [
+      {
+        "text": "桶",
+        "reading": "おけ"
+      },
+      {
+        "text": "狭",
+        "reading": "はざ"
+      },
+      {
+        "text": "間",
+        "reading": "ま"
+      }
+    ],
+    "長良川\tながらがわ": [
+      {
+        "text": "長",
+        "reading": "なが"
+      },
+      {
+        "text": "良",
+        "reading": "ら"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "観音寺城\tかんのんじじょう": [
+      {
+        "text": "観",
+        "reading": "かん"
+      },
+      {
+        "text": "音",
+        "reading": "のん"
+      },
+      {
+        "text": "寺",
+        "reading": "じ"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "勝龍寺城\tしょうりゅうじじょう": [
+      {
+        "text": "勝",
+        "reading": "しょう"
+      },
+      {
+        "text": "龍",
+        "reading": "りゅう"
+      },
+      {
+        "text": "寺",
+        "reading": "じ"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "大河内城\tおかわちじょう": [
+      {
+        "text": "大",
+        "reading": "お"
+      },
+      {
+        "text": "河",
+        "reading": "か"
+      },
+      {
+        "text": "内",
+        "reading": "わち"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "敦賀湾\tつるがわん": [
+      {
+        "text": "敦",
+        "reading": "つる"
+      },
+      {
+        "text": "賀",
+        "reading": "が"
+      },
+      {
+        "text": "湾",
+        "reading": "わん"
+      }
+    ],
+    "若狭道\tわかさみち": [
+      {
+        "text": "若",
+        "reading": "わか"
+      },
+      {
+        "text": "狭",
+        "reading": "さ"
+      },
+      {
+        "text": "道",
+        "reading": "みち"
+      }
+    ],
+    "琵琶湖\tびわこ": [
+      {
+        "text": "琵",
+        "reading": "び"
+      },
+      {
+        "text": "琶",
+        "reading": "わ"
+      },
+      {
+        "text": "湖",
+        "reading": "こ"
+      }
+    ],
+    "槇島城\tまきのしまじょう": [
+      {
+        "text": "槇",
+        "reading": "まき"
+      },
+      {
+        "text": "島",
+        "reading": "のしま"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "巨椋池\tおぐらいけ": [
+      {
+        "text": "巨",
+        "reading": "お"
+      },
+      {
+        "text": "椋",
+        "reading": "ぐら"
+      },
+      {
+        "text": "池",
+        "reading": "いけ"
+      }
+    ],
+    "疋田\tひきだ": [
+      {
+        "text": "疋",
+        "reading": "ひき"
+      },
+      {
+        "text": "田",
+        "reading": "だ"
+      }
+    ],
+    "長篠城\tながしのじょう": [
+      {
+        "text": "長",
+        "reading": "なが"
+      },
+      {
+        "text": "篠",
+        "reading": "しの"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "設楽原\tしたらがはら": [
+      {
+        "text": "設",
+        "reading": "したら"
+      },
+      {
+        "text": "楽",
+        "reading": "が"
+      },
+      {
+        "text": "原",
+        "reading": "はら"
+      }
+    ],
+    "連吾川\tれんごがわ": [
+      {
+        "text": "連",
+        "reading": "れん"
+      },
+      {
+        "text": "吾",
+        "reading": "ご"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "手取川\tてどりがわ": [
+      {
+        "text": "手",
+        "reading": "て"
+      },
+      {
+        "text": "取",
+        "reading": "どり"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "有岡城\tありおかじょう": [
+      {
+        "text": "有",
+        "reading": "あり"
+      },
+      {
+        "text": "岡",
+        "reading": "おか"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "伊丹\tいたみ": [
+      {
+        "text": "伊",
+        "reading": "い"
+      },
+      {
+        "text": "丹",
+        "reading": "たみ"
+      }
+    ],
+    "鳥取城\tとっとりじょう": [
+      {
+        "text": "鳥",
+        "reading": "とっ"
+      },
+      {
+        "text": "取",
+        "reading": "とり"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "天王山\tてんのうざん": [
+      {
+        "text": "天",
+        "reading": "てん"
+      },
+      {
+        "text": "王",
+        "reading": "のう"
+      },
+      {
+        "text": "山",
+        "reading": "ざん"
+      }
+    ],
+    "淀川\tよどがわ": [
+      {
+        "text": "淀",
+        "reading": "よど"
+      },
+      {
+        "text": "川",
+        "reading": "がわ"
+      }
+    ],
+    "一宮城\tいちのみやじょう": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "宮",
+        "reading": "のみや"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "韮山城\tにらやまじょう": [
+      {
+        "text": "韮",
+        "reading": "にら"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "忍城\tおしじょう": [
+      {
+        "text": "忍",
+        "reading": "おし"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "小田原城\tおだわらじょう": [
+      {
+        "text": "小",
+        "reading": "お"
+      },
+      {
+        "text": "田",
+        "reading": "だ"
+      },
+      {
+        "text": "原",
+        "reading": "わら"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "総構\tそうがまえ": [
+      {
+        "text": "総",
+        "reading": "そう"
+      },
+      {
+        "text": "構",
+        "reading": "がまえ"
+      }
+    ],
+    "忍頭\tしのびがしら": [
+      {
+        "text": "忍",
+        "reading": "しのび"
+      },
+      {
+        "text": "頭",
+        "reading": "がしら"
+      }
+    ],
+    "薙刀兵\tなぎなたへい": [
+      {
+        "text": "薙",
+        "reading": "なぎ"
+      },
+      {
+        "text": "刀",
+        "reading": "なた"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "薙刀武者\tなぎなたむしゃ": [
+      {
+        "text": "薙",
+        "reading": "なぎ"
+      },
+      {
+        "text": "刀",
+        "reading": "なた"
+      },
+      {
+        "text": "武",
+        "reading": "む"
+      },
+      {
+        "text": "者",
+        "reading": "しゃ"
+      }
+    ],
+    "薙刀達人\tなぎなたたつじん": [
+      {
+        "text": "薙",
+        "reading": "なぎ"
+      },
+      {
+        "text": "刀",
+        "reading": "なた"
+      },
+      {
+        "text": "達",
+        "reading": "たつ"
+      },
+      {
+        "text": "人",
+        "reading": "じん"
+      }
+    ],
+    "僧兵\tそうへい": [
+      {
+        "text": "僧",
+        "reading": "そう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "槍兵\tそうへい": [
+      {
+        "text": "槍",
+        "reading": "そう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "弓兵\tきゅうへい": [
+      {
+        "text": "弓",
+        "reading": "きゅう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "鉄砲兵\tてっぽうへい": [
+      {
+        "text": "鉄",
+        "reading": "てっ"
+      },
+      {
+        "text": "砲",
+        "reading": "ぽう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "武将\tぶしょう": [
+      {
+        "text": "武",
+        "reading": "ぶ"
+      },
+      {
+        "text": "将",
+        "reading": "しょう"
+      }
+    ],
+    "忍者\tにんじゃ": [
+      {
+        "text": "忍",
+        "reading": "にん"
+      },
+      {
+        "text": "者",
+        "reading": "じゃ"
+      }
+    ],
+    "騎馬大将\tきばたいしょう": [
+      {
+        "text": "騎",
+        "reading": "き"
+      },
+      {
+        "text": "馬",
+        "reading": "ば"
+      },
+      {
+        "text": "大",
+        "reading": "たい"
+      },
+      {
+        "text": "将",
+        "reading": "しょう"
+      }
+    ],
+    "熟練弓兵\tじゅくれんきゅうへい": [
+      {
+        "text": "熟",
+        "reading": "じゅく"
+      },
+      {
+        "text": "練",
+        "reading": "れん"
+      },
+      {
+        "text": "弓",
+        "reading": "きゅう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "熟練槍兵\tじゅくれんそうへい": [
+      {
+        "text": "熟",
+        "reading": "じゅく"
+      },
+      {
+        "text": "練",
+        "reading": "れん"
+      },
+      {
+        "text": "槍",
+        "reading": "そう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "熟練僧兵\tじゅくれんそうへい": [
+      {
+        "text": "熟",
+        "reading": "じゅく"
+      },
+      {
+        "text": "練",
+        "reading": "れん"
+      },
+      {
+        "text": "僧",
+        "reading": "そう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "兵糧\tひょうろう": [
+      {
+        "text": "兵",
+        "reading": "ひょう"
+      },
+      {
+        "text": "糧",
+        "reading": "ろう"
+      }
+    ],
+    "根白坂\tねじろざか": [
+      {
+        "text": "根",
+        "reading": "ね"
+      },
+      {
+        "text": "白",
+        "reading": "じろ"
+      },
+      {
+        "text": "坂",
+        "reading": "ざか"
+      }
+    ],
+    "刀根坂\tとねざか": [
+      {
+        "text": "刀",
+        "reading": "と"
+      },
+      {
+        "text": "根",
+        "reading": "ね"
+      },
+      {
+        "text": "坂",
+        "reading": "ざか"
+      }
+    ],
+    "信貴山城\tしぎさんじょう": [
+      {
+        "text": "信",
+        "reading": "し"
+      },
+      {
+        "text": "貴",
+        "reading": "ぎ"
+      },
+      {
+        "text": "山",
+        "reading": "さん"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "富山城\tとやまじょう": [
+      {
+        "text": "富",
+        "reading": "と"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "城",
+        "reading": "じょう"
+      }
+    ],
+    "平仮名\tひらがな": [
+      {
+        "text": "平",
+        "reading": "ひら"
+      },
+      {
+        "text": "仮",
+        "reading": "が"
+      },
+      {
+        "text": "名",
+        "reading": "な"
+      }
+    ],
+    "片仮名\tかたかな": [
+      {
+        "text": "片",
+        "reading": "かた"
+      },
+      {
+        "text": "仮",
+        "reading": "か"
+      },
+      {
+        "text": "名",
+        "reading": "な"
+      }
+    ],
+    "蜜柑\tみかん": [
+      {
+        "text": "蜜",
+        "reading": "み"
+      },
+      {
+        "text": "柑",
+        "reading": "かん"
+      }
+    ],
+    "葡萄\tぶどう": [
+      {
+        "text": "葡",
+        "reading": "ぶ"
+      },
+      {
+        "text": "萄",
+        "reading": "どう"
+      }
+    ],
+    "人参\tにんじん": [
+      {
+        "text": "人",
+        "reading": "にん"
+      },
+      {
+        "text": "参",
+        "reading": "じん"
+      }
+    ],
+    "子供\tこども": [
+      {
+        "text": "子",
+        "reading": "こ"
+      },
+      {
+        "text": "供",
+        "reading": "ども"
+      }
+    ],
+    "景色\tけしき": [
+      {
+        "text": "景",
+        "reading": "け"
+      },
+      {
+        "text": "色",
+        "reading": "しき"
+      }
+    ],
+    "品物\tしなもの": [
+      {
+        "text": "品",
+        "reading": "しな"
+      },
+      {
+        "text": "物",
+        "reading": "もの"
+      }
+    ],
+    "足袋\tたび": [
+      {
+        "text": "足袋",
+        "reading": "たび",
+        "wholeWordReading": true
+      }
+    ],
+    "草履\tぞうり": [
+      {
+        "text": "草",
+        "reading": "ぞう"
+      },
+      {
+        "text": "履",
+        "reading": "り"
+      }
+    ],
+    "鍛冶屋\tかじや": [
+      {
+        "text": "鍛冶",
+        "reading": "かじ",
+        "wholeWordReading": true
+      },
+      {
+        "text": "屋",
+        "reading": "や"
+      }
+    ],
+    "一人\tひとり": [
+      {
+        "text": "一人",
+        "reading": "ひとり",
+        "wholeWordReading": true
+      }
+    ],
+    "二人\tふたり": [
+      {
+        "text": "二人",
+        "reading": "ふたり",
+        "wholeWordReading": true
+      }
+    ],
+    "大人\tおとな": [
+      {
+        "text": "大人",
+        "reading": "おとな",
+        "wholeWordReading": true
+      }
+    ],
+    "今日\tきょう": [
+      {
+        "text": "今日",
+        "reading": "きょう",
+        "wholeWordReading": true
+      }
+    ],
+    "明日\tあした": [
+      {
+        "text": "明日",
+        "reading": "あした",
+        "wholeWordReading": true
+      }
+    ],
+    "昨日\tきのう": [
+      {
+        "text": "昨日",
+        "reading": "きのう",
+        "wholeWordReading": true
+      }
+    ],
+    "今年\tことし": [
+      {
+        "text": "今年",
+        "reading": "ことし",
+        "wholeWordReading": true
+      }
+    ],
+    "今朝\tけさ": [
+      {
+        "text": "今朝",
+        "reading": "けさ",
+        "wholeWordReading": true
+      }
+    ],
+    "時計\tとけい": [
+      {
+        "text": "時計",
+        "reading": "とけい",
+        "wholeWordReading": true
+      }
+    ],
+    "風邪\tかぜ": [
+      {
+        "text": "風邪",
+        "reading": "かぜ",
+        "wholeWordReading": true
+      }
+    ],
+    "西瓜\tすいか": [
+      {
+        "text": "西瓜",
+        "reading": "すいか",
+        "wholeWordReading": true
+      }
+    ],
+    "小豆\tあずき": [
+      {
+        "text": "小豆",
+        "reading": "あずき",
+        "wholeWordReading": true
+      }
+    ],
+    "眼鏡\tめがね": [
+      {
+        "text": "眼鏡",
+        "reading": "めがね",
+        "wholeWordReading": true
+      }
+    ],
+    "梅雨\tつゆ": [
+      {
+        "text": "梅雨",
+        "reading": "つゆ",
+        "wholeWordReading": true
+      }
+    ],
+    "五月雨\tさみだれ": [
+      {
+        "text": "五月雨",
+        "reading": "さみだれ",
+        "wholeWordReading": true
+      }
+    ],
+    "囲炉裏\tいろり": [
+      {
+        "text": "囲炉裏",
+        "reading": "いろり",
+        "wholeWordReading": true
+      }
+    ],
+    "真面目\tまじめ": [
+      {
+        "text": "真面目",
+        "reading": "まじめ",
+        "wholeWordReading": true
+      }
+    ],
+    "果物\tくだもの": [
+      {
+        "text": "果物",
+        "reading": "くだもの",
+        "wholeWordReading": true
+      }
+    ],
+    "部屋\tへや": [
+      {
+        "text": "部屋",
+        "reading": "へや",
+        "wholeWordReading": true
+      }
+    ],
+    "海老\tえび": [
+      {
+        "text": "海老",
+        "reading": "えび",
+        "wholeWordReading": true
+      }
+    ],
+    "紅葉\tもみじ": [
+      {
+        "text": "紅葉",
+        "reading": "もみじ",
+        "wholeWordReading": true
+      }
+    ],
+    "大和\tやまと": [
+      {
+        "text": "大和",
+        "reading": "やまと",
+        "wholeWordReading": true
+      }
+    ],
+    "値段\tのねだん": [
+      {
+        "text": "値",
+        "reading": "ね"
+      },
+      {
+        "text": "段",
+        "reading": "だん"
+      }
+    ],
+    "品物\tしなも": [
+      {
+        "text": "品",
+        "reading": "しな"
+      },
+      {
+        "text": "物",
+        "reading": "もの"
+      }
+    ],
+    "丸根\tまるね": [
+      {
+        "text": "丸",
+        "reading": "まる"
+      },
+      {
+        "text": "根",
+        "reading": "ね"
+      }
+    ],
+    "追手\tおって": [
+      {
+        "text": "追",
+        "reading": "おっ"
+      },
+      {
+        "text": "手",
+        "reading": "て"
+      }
+    ],
+    "無事\tぶじ": [
+      {
+        "text": "無",
+        "reading": "ぶ"
+      },
+      {
+        "text": "事",
+        "reading": "じ"
+      }
+    ],
+    "本隊\tほんたい": [
+      {
+        "text": "本",
+        "reading": "ほん"
+      },
+      {
+        "text": "隊",
+        "reading": "たい"
+      }
+    ],
+    "稲葉山\tいなばやま": [
+      {
+        "text": "稲",
+        "reading": "いな"
+      },
+      {
+        "text": "葉",
+        "reading": "ば"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      }
+    ],
+    "拠点\tきょてん": [
+      {
+        "text": "拠",
+        "reading": "きょ"
+      },
+      {
+        "text": "点",
+        "reading": "てん"
+      }
+    ],
+    "観音寺\tかんのんじ": [
+      {
+        "text": "観",
+        "reading": "かん"
+      },
+      {
+        "text": "音",
+        "reading": "のん"
+      },
+      {
+        "text": "寺",
+        "reading": "じ"
+      }
+    ],
+    "進軍\tしんぐん": [
+      {
+        "text": "進",
+        "reading": "しん"
+      },
+      {
+        "text": "軍",
+        "reading": "ぐん"
+      }
+    ],
+    "山道\tやまみち": [
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "道",
+        "reading": "みち"
+      }
+    ],
+    "勝竜寺\tしょうりゅうじ": [
+      {
+        "text": "勝",
+        "reading": "しょう"
+      },
+      {
+        "text": "竜",
+        "reading": "りゅう"
+      },
+      {
+        "text": "寺",
+        "reading": "じ"
+      }
+    ],
+    "抵抗\tていこう": [
+      {
+        "text": "抵",
+        "reading": "てい"
+      },
+      {
+        "text": "抗",
+        "reading": "こう"
+      }
+    ],
+    "長引\tながび": [
+      {
+        "text": "長",
+        "reading": "なが"
+      },
+      {
+        "text": "引",
+        "reading": "び"
+      }
+    ],
+    "反撃\tはんげき": [
+      {
+        "text": "反",
+        "reading": "はん"
+      },
+      {
+        "text": "撃",
+        "reading": "げき"
+      }
+    ],
+    "分断\tぶんだん": [
+      {
+        "text": "分",
+        "reading": "ぶん"
+      },
+      {
+        "text": "断",
+        "reading": "だん"
+      }
+    ],
+    "若狭\tわかさ": [
+      {
+        "text": "若",
+        "reading": "わか"
+      },
+      {
+        "text": "狭",
+        "reading": "さ"
+      }
+    ],
+    "両岸\tりょうがん": [
+      {
+        "text": "両",
+        "reading": "りょう"
+      },
+      {
+        "text": "岸",
+        "reading": "がん"
+      }
+    ],
+    "伝令\tでんれい": [
+      {
+        "text": "伝",
+        "reading": "でん"
+      },
+      {
+        "text": "令",
+        "reading": "れい"
+      }
+    ],
+    "川沿\tかわぞ": [
+      {
+        "text": "川",
+        "reading": "かわ"
+      },
+      {
+        "text": "沿",
+        "reading": "ぞ"
+      }
+    ],
+    "途切\tとぎ": [
+      {
+        "text": "途",
+        "reading": "と"
+      },
+      {
+        "text": "切",
+        "reading": "ぎ"
+      }
+    ],
+    "宇佐山\tうさやま": [
+      {
+        "text": "宇",
+        "reading": "う"
+      },
+      {
+        "text": "佐",
+        "reading": "さ"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      }
+    ],
+    "和議\tわぎ": [
+      {
+        "text": "和",
+        "reading": "わ"
+      },
+      {
+        "text": "議",
+        "reading": "ぎ"
+      }
+    ],
+    "台地\tだいち": [
+      {
+        "text": "台",
+        "reading": "だい"
+      },
+      {
+        "text": "地",
+        "reading": "ち"
+      }
+    ],
+    "退却\tたいきゃく": [
+      {
+        "text": "退",
+        "reading": "たい"
+      },
+      {
+        "text": "却",
+        "reading": "きゃく"
+      }
+    ],
+    "槇島\tまきしま": [
+      {
+        "text": "槇",
+        "reading": "まき"
+      },
+      {
+        "text": "島",
+        "reading": "しま"
+      }
+    ],
+    "後続\tこうぞく": [
+      {
+        "text": "後",
+        "reading": "こう"
+      },
+      {
+        "text": "続",
+        "reading": "ぞく"
+      }
+    ],
+    "人々\tひとびと": [
+      {
+        "text": "人",
+        "reading": "ひと"
+      },
+      {
+        "text": "々",
+        "reading": "びと"
+      }
+    ],
+    "小谷\tおだに": [
+      {
+        "text": "小",
+        "reading": "お"
+      },
+      {
+        "text": "谷",
+        "reading": "だに"
+      }
+    ],
+    "山城\tやまじろ": [
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "城",
+        "reading": "じろ"
+      }
+    ],
+    "長篠\tながしの": [
+      {
+        "text": "長",
+        "reading": "なが"
+      },
+      {
+        "text": "篠",
+        "reading": "しの"
+      }
+    ],
+    "岩村\tいわむら": [
+      {
+        "text": "岩",
+        "reading": "いわ"
+      },
+      {
+        "text": "村",
+        "reading": "むら"
+      }
+    ],
+    "坂道\tさかみち": [
+      {
+        "text": "坂",
+        "reading": "さか"
+      },
+      {
+        "text": "道",
+        "reading": "みち"
+      }
+    ],
+    "退路\tたいろ": [
+      {
+        "text": "退",
+        "reading": "たい"
+      },
+      {
+        "text": "路",
+        "reading": "ろ"
+      }
+    ],
+    "信貴山\tしぎさん": [
+      {
+        "text": "信",
+        "reading": "し"
+      },
+      {
+        "text": "貴",
+        "reading": "ぎ"
+      },
+      {
+        "text": "山",
+        "reading": "さん"
+      }
+    ],
+    "足場\tあしば": [
+      {
+        "text": "足",
+        "reading": "あし"
+      },
+      {
+        "text": "場",
+        "reading": "ば"
+      }
+    ],
+    "三木\tみき": [
+      {
+        "text": "三",
+        "reading": "み"
+      },
+      {
+        "text": "木",
+        "reading": "き"
+      }
+    ],
+    "有岡\tありおか": [
+      {
+        "text": "有",
+        "reading": "あり"
+      },
+      {
+        "text": "岡",
+        "reading": "おか"
+      }
+    ],
+    "局面\tきょくめん": [
+      {
+        "text": "局",
+        "reading": "きょく"
+      },
+      {
+        "text": "面",
+        "reading": "めん"
+      }
+    ],
+    "石山\tいしやま": [
+      {
+        "text": "石",
+        "reading": "いし"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      }
+    ],
+    "使者\tししゃ": [
+      {
+        "text": "使",
+        "reading": "し"
+      },
+      {
+        "text": "者",
+        "reading": "しゃ"
+      }
+    ],
+    "鳥取\tとっとり": [
+      {
+        "text": "鳥",
+        "reading": "とっ"
+      },
+      {
+        "text": "取",
+        "reading": "とり"
+      }
+    ],
+    "高松\tたかまつ": [
+      {
+        "text": "高",
+        "reading": "たか"
+      },
+      {
+        "text": "松",
+        "reading": "まつ"
+      }
+    ],
+    "低地\tていち": [
+      {
+        "text": "低",
+        "reading": "てい"
+      },
+      {
+        "text": "地",
+        "reading": "ち"
+      }
+    ],
+    "本能寺\tほんのうじ": [
+      {
+        "text": "本",
+        "reading": "ほん"
+      },
+      {
+        "text": "能",
+        "reading": "のう"
+      },
+      {
+        "text": "寺",
+        "reading": "じ"
+      }
+    ],
+    "急報\tきゅうほう": [
+      {
+        "text": "急",
+        "reading": "きゅう"
+      },
+      {
+        "text": "報",
+        "reading": "ほう"
+      }
+    ],
+    "負傷\tふしょう": [
+      {
+        "text": "負",
+        "reading": "ふ"
+      },
+      {
+        "text": "傷",
+        "reading": "しょう"
+      }
+    ],
+    "支度\tしたく": [
+      {
+        "text": "支",
+        "reading": "し"
+      },
+      {
+        "text": "度",
+        "reading": "たく"
+      }
+    ],
+    "決戦\tけっせん": [
+      {
+        "text": "決",
+        "reading": "けっ"
+      },
+      {
+        "text": "戦",
+        "reading": "せん"
+      }
+    ],
+    "湿地\tしっち": [
+      {
+        "text": "湿",
+        "reading": "しっ"
+      },
+      {
+        "text": "地",
+        "reading": "ち"
+      }
+    ],
+    "尾根\tおね": [
+      {
+        "text": "尾",
+        "reading": "お"
+      },
+      {
+        "text": "根",
+        "reading": "ね"
+      }
+    ],
+    "小牧\tこまき": [
+      {
+        "text": "小",
+        "reading": "こ"
+      },
+      {
+        "text": "牧",
+        "reading": "まき"
+      }
+    ],
+    "四国\tしこく": [
+      {
+        "text": "四",
+        "reading": "し"
+      },
+      {
+        "text": "国",
+        "reading": "こく"
+      }
+    ],
+    "一宮\tいちのみや": [
+      {
+        "text": "一",
+        "reading": "いち"
+      },
+      {
+        "text": "宮",
+        "reading": "のみや"
+      }
+    ],
+    "富山\tとやま": [
+      {
+        "text": "富",
+        "reading": "と"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      }
+    ],
+    "夜襲\tやしゅう": [
+      {
+        "text": "夜",
+        "reading": "や"
+      },
+      {
+        "text": "襲",
+        "reading": "しゅう"
+      }
+    ],
+    "山中\tやまなか": [
+      {
+        "text": "山",
+        "reading": "やま"
+      },
+      {
+        "text": "中",
+        "reading": "なか"
+      }
+    ],
+    "韮山\tにらやま": [
+      {
+        "text": "韮",
+        "reading": "にら"
+      },
+      {
+        "text": "山",
+        "reading": "やま"
+      }
+    ],
+    "小田原\tおだわら": [
+      {
+        "text": "小",
+        "reading": "お"
+      },
+      {
+        "text": "田",
+        "reading": "だ"
+      },
+      {
+        "text": "原",
+        "reading": "わら"
+      }
+    ],
+    "大河内\tおかわち": [
+      {
+        "text": "大",
+        "reading": "お"
+      },
+      {
+        "text": "河内",
+        "reading": "かわち",
+        "wholeWordReading": true
+      }
+    ]
+  },
+  "displayCorrections": {
+    "値段\tのねだん": "ねだん",
+    "品物\tしなも": "しなもの"
+  }
+}

@@ -1,0 +1,29 @@
+Japanese battle narration / 日本語戦闘ナレーション
+
+音声：ユーフルカ / Voice performer: YouFulca
+https://youfulca.com/
+
+Original human voice recordings downloaded directly from the performer's site:
+https://youfulca.com/voice_assets/
+https://youfulca.com/2022/08/07/game_narration/
+https://youfulca.com/2022/08/06/cool/
+
+License terms checked 2026-10-06:
+https://youfulca.com/kiyaku_jp/
+
+Copyright remains with YouFulca. Official terms allow use in commercial and
+non-commercial works, including games made with any engine, except assets
+expressly marked RPGmaker-only or Touhou-only. None of these clips has either
+designation. The downloaded voice page states all voices are YouFulca's own.
+
+Original WAVs are unchanged. Runtime volume control only; no synthesized voice,
+pitch shifting, voice cloning or AI voice generation is used for these clips.
+
+The game incorporates the recordings as part of its audiovisual presentation.
+Do not extract, redistribute or sell these recordings as standalone audio assets.
+This notice is an attribution and summary; the linked original terms govern use.
+
+Official page snapshots and original download URLs/hashes are retained in the
+development asset sources and manifest. No claim is made that the site provides
+a bespoke Sengoku military narrator; these are licensed samurai-announcer and
+cool male character performances by the named creator.
