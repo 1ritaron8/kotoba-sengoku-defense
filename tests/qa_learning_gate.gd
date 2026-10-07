@@ -159,8 +159,8 @@ func malformed_scope_cases() -> void:
 	evidence.edgeCases.append({"case":context,"state":gate.snapshot()})
 
 func run() -> void:
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/learning-gate/"): push_error("Gate QA refuses the player's profile");quit(2);return
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/learning-gate/").to_lower()): push_error("Gate QA refuses the player's profile");quit(2);return
 	curriculum = JSON.parse_string(FileAccess.get_file_as_string("res://native/curriculum.json"))
 	plans = JSON.parse_string(FileAccess.get_file_as_string("res://native/learning_plans.json"))
 	all_content()
@@ -174,3 +174,11 @@ func run() -> void:
 	output.close()
 	print("LEARNING_GATE ",checks," checks / ",failures.size()," failures / ",evidence.words," words / ",evidence.grammar," grammar; report=",ProjectSettings.globalize_path(path))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

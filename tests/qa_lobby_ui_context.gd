@@ -91,8 +91,8 @@ func cleanup() -> void:
 	await frames(3)
 
 func run() -> void:
-	var profile: String=OS.get_environment("APPDATA").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/lobby-ui-context/") or DisplayServer.get_name()!="headless":
+	var profile: String=OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/lobby-ui-context/").to_lower()) or DisplayServer.get_name()!="headless":
 		push_error("Refusing a player profile or GPU lobby-context fixture")
 		quit(2)
 		return
@@ -234,7 +234,7 @@ func run() -> void:
 	await fade_finished()
 	check(not app.battle_announcer.enabled and not app.battle_narrator.enabled,"voice off ends both channels safely")
 	check(FileAccess.get_file_as_string("res://assets/narration/manifest.json")==male_manifest,"male manifest and original clip metadata remain unchanged")
-	check(app.progress.save_path==fixture_save and ProjectSettings.globalize_path(fixture_save).replace("\\","/").to_lower().begins_with(profile),"all actual settings saves remain inside the isolated fixture profile")
+	check(app.progress.save_path==fixture_save and ProjectSettings.globalize_path(fixture_save).replace("\\","/").simplify_path().to_lower().begins_with(profile),"all actual settings saves remain inside the isolated fixture profile")
 	var loaded: RefCounted=Store.new()
 	loaded.save_path=fixture_save
 	loaded.read_save()
@@ -249,3 +249,11 @@ func run() -> void:
 	else: check(false,"isolated report is writable")
 	print(JSON.stringify({"checks":checks,"failed":failures.size(),"samples":samples.size(),"report":ProjectSettings.globalize_path("user://qa_lobby_ui_context.json")}))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

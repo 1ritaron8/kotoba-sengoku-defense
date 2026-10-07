@@ -151,8 +151,8 @@ func same_stats_on_parallel_roads(game: Node2D) -> void:
 			else: check(reference==stats,"Parallel roads do not change any actual enemy stat or role: "+str(game.config.id)+" "+kind)
 
 func run() -> void:
-	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/route-selection/") or DisplayServer.get_name()!="headless": quit(2);return
+	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/route-selection/").to_lower()) or DisplayServer.get_name()!="headless": quit(2);return
 	var raw_maps: String=FileAccess.get_file_as_string("res://native/maps.json")
 	maps=JSON.parse_string(raw_maps)
 	catalog=JSON.parse_string(FileAccess.get_file_as_string("res://native/units.json")).units
@@ -189,3 +189,11 @@ func run() -> void:
 	file.store_string(JSON.stringify(report,"  "));file.close()
 	print("MULTI_ROUTES ",JSON.stringify({"checks":checks,"failures":failures,"stages":observations.size(),"walkedRoutes":movement_rows.size(),"sideEntrances":side_rows.size()}))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

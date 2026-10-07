@@ -2,7 +2,7 @@ extends SceneTree
 const Game = preload("res://native/game.gd")
 const TYPES: Array = ["archer","spear","samurai","gunner","naginata","monk","commander","ninja"]
 const MARCHING: Array = ["spear","samurai","commander"]
-const PROFILE: String = "C:/JP_DF/tests/profiles/compact-placement/"
+var PROFILE: String = qa_project_path("tests/profiles/compact-placement/")
 var checks: int = 0
 var failures: Array[String] = []
 var rows: Array = []
@@ -46,8 +46,8 @@ func stripped(stage: Dictionary) -> Dictionary:
 	return result
 
 func run() -> void:
-	var profile: String = OS.get_environment("APPDATA").replace("\\","/").trim_suffix("/")
-	check(profile.begins_with(PROFILE) and OS.get_environment("LOCALAPPDATA").replace("\\","/").trim_suffix("/")==profile,"Isolated private APPDATA and LOCALAPPDATA")
+	var profile: String = OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")
+	check(profile.begins_with(PROFILE.to_lower()) and OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")==profile,"Isolated private APPDATA and LOCALAPPDATA")
 	if not failures.is_empty(): quit(2);return
 	var source_sha: String = FileAccess.get_sha256("res://native/maps.json")
 	var candidate: String = PROFILE+"maps-pocket-draft.json"
@@ -103,3 +103,11 @@ func run() -> void:
 	output.store_string(JSON.stringify({"scope":"Actual public eight-class selection, production, mixed unchanged army capacity and source-value preservation; body-geometry clearance is a separate Native exporter observation","passed":failures.is_empty(),"checks":checks,"failures":failures,"sourceMapsSha256":source_sha,"candidateSha256":FileAccess.get_sha256(candidate),"singleClassDeployments":singles,"mixedDistinctDeployments":mixed,"ambushEnrichments":ambush_enrichments,"rows":rows},"\t"));output.close()
 	print("COMPACT_PLACEMENT ",checks," checks, ",failures.size()," failures; single ",singles," mixed ",mixed)
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

@@ -31,8 +31,8 @@ func _write_manifest(path: String,value: Dictionary) -> void:
 	RenderedArt.release_shared_resources()
 
 func run() -> void:
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/native-battlefield-hybrid-"):
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/native-battlefield-hybrid-").to_lower()):
 		push_error("An isolated native-battlefield-hybrid profile is required")
 		quit(2)
 		return
@@ -417,3 +417,11 @@ func _image_difference(a: Image,b: Image) -> float:
 			result += (absf(left.r-right.r)+absf(left.g-right.g)+absf(left.b-right.b))/3.0
 			count += 1
 	return result/maxi(count,1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

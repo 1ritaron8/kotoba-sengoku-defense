@@ -54,8 +54,8 @@ func run() -> void:
 	if "--hunter-alerts-only" in OS.get_cmdline_user_args():
 		await run_hunter_alerts()
 		return
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/"): quit(2); return
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("").to_lower()+"/"): quit(2); return
 	var maps: Array = JSON.parse_string(FileAccess.get_file_as_string("res://native/maps.json"))
 	for type_name in ["archer","spear","samurai","gunner","naginata","monk","commander","ninja"]:
 		var game: Node2D = create_battle(maps[0])
@@ -217,7 +217,7 @@ func prepare_physical_builder(script: Script, stage: Dictionary) -> Node3D:
 
 func check_hunter_surface(maps: Array) -> void:
 	var baseline_path: String = OS.get_environment("QA_HUNTER_RENDER_BASELINE").replace("\\", "/")
-	check(baseline_path.to_lower().begins_with("c:/jp_df/tests/profiles/hunter-route-alerts/") and FileAccess.file_exists(baseline_path), "Previous renderer is an isolated preserved source snapshot")
+	check(baseline_path.simplify_path().to_lower().begins_with(qa_project_path("tests/profiles/hunter-route-alerts/").to_lower()) and FileAccess.file_exists(baseline_path), "Previous renderer is an isolated preserved source snapshot")
 	if failures.size() > 0: return
 	var previous_script: Script = load(baseline_path)
 	check(previous_script != null, "The actual previous renderer source parses")
@@ -316,11 +316,11 @@ func hunter_image(label: String) -> Image:
 	return image
 
 func run_hunter_alerts() -> void:
-	var appdata: String = OS.get_environment("APPDATA").replace("\\", "/").to_lower().trim_suffix("/")
-	var localdata: String = OS.get_environment("LOCALAPPDATA").replace("\\", "/").to_lower().trim_suffix("/")
-	var user_path: String = ProjectSettings.globalize_path("user://").replace("\\", "/").to_lower()
+	var appdata: String = OS.get_environment("APPDATA").replace("\\", "/").simplify_path().to_lower().trim_suffix("/")
+	var localdata: String = OS.get_environment("LOCALAPPDATA").replace("\\", "/").simplify_path().to_lower().trim_suffix("/")
+	var user_path: String = ProjectSettings.globalize_path("user://").replace("\\", "/").simplify_path().to_lower()
 	var capture: bool = "--capture" in OS.get_cmdline_user_args()
-	if not appdata.begins_with("c:/jp_df/tests/profiles/hunter-route-alerts/") or appdata != localdata or not user_path.begins_with(appdata+"/") or (DisplayServer.get_name()=="headless") == capture:
+	if not appdata.begins_with(qa_project_path("tests/profiles/hunter-route-alerts/").to_lower()) or appdata != localdata or not user_path.begins_with(appdata+"/") or (DisplayServer.get_name()=="headless") == capture:
 		push_error("Hunter presentation QA requires its isolated CPU/GPU profile")
 		quit(2); return
 	var maps_hash: String = FileAccess.get_sha256("res://native/maps.json")
@@ -442,16 +442,16 @@ func hunter_function_source(path: String, function_name: String) -> String:
 	return source.substr(start, end-start if end>=0 else -1)
 
 func run_hunter_clearance() -> void:
-	var appdata: String = OS.get_environment("APPDATA").replace("\\", "/").to_lower().trim_suffix("/")
-	var localdata: String = OS.get_environment("LOCALAPPDATA").replace("\\", "/").to_lower().trim_suffix("/")
-	var user_path: String = ProjectSettings.globalize_path("user://").replace("\\", "/").to_lower()
-	if not appdata.begins_with("c:/jp_df/tests/profiles/hunter-route-alerts/") or appdata!=localdata or not user_path.begins_with(appdata+"/") or DisplayServer.get_name()!="headless":
+	var appdata: String = OS.get_environment("APPDATA").replace("\\", "/").simplify_path().to_lower().trim_suffix("/")
+	var localdata: String = OS.get_environment("LOCALAPPDATA").replace("\\", "/").simplify_path().to_lower().trim_suffix("/")
+	var user_path: String = ProjectSettings.globalize_path("user://").replace("\\", "/").simplify_path().to_lower()
+	if not appdata.begins_with(qa_project_path("tests/profiles/hunter-route-alerts/").to_lower()) or appdata!=localdata or not user_path.begins_with(appdata+"/") or DisplayServer.get_name()!="headless":
 		push_error("Hunter clearance QA requires an isolated CPU profile")
 		quit(2); return
 	var baseline_path: String = OS.get_environment("QA_HUNTER_RENDER_BASELINE").replace("\\", "/")
 	var bad_path: String = OS.get_environment("QA_HUNTER_CLEARANCE_BASELINE").replace("\\", "/")
 	for path in [baseline_path,bad_path]:
-		check(path.to_lower().begins_with("c:/jp_df/tests/profiles/hunter-route-alerts/") and FileAccess.file_exists(path), "Actual preserved clearance sources stay in the private profile")
+		check(path.simplify_path().to_lower().begins_with(qa_project_path("tests/profiles/hunter-route-alerts/").to_lower()) and FileAccess.file_exists(path), "Actual preserved clearance sources stay in the private profile")
 	if not failures.is_empty(): quit(2); return
 	var original_script: Script = load(baseline_path)
 	var rejected_script: Script = load(bad_path)
@@ -522,15 +522,15 @@ func run_hunter_clearance() -> void:
 	quit(0 if failures.is_empty() else 1)
 
 func run_healthbars() -> void:
-	var appdata: String = OS.get_environment("APPDATA").replace("\\", "/").to_lower().trim_suffix("/")
-	var localdata: String = OS.get_environment("LOCALAPPDATA").replace("\\", "/").to_lower().trim_suffix("/")
-	var user_path: String = ProjectSettings.globalize_path("user://").replace("\\", "/").to_lower()
+	var appdata: String = OS.get_environment("APPDATA").replace("\\", "/").simplify_path().to_lower().trim_suffix("/")
+	var localdata: String = OS.get_environment("LOCALAPPDATA").replace("\\", "/").simplify_path().to_lower().trim_suffix("/")
+	var user_path: String = ProjectSettings.globalize_path("user://").replace("\\", "/").simplify_path().to_lower()
 	var capture: bool = "--capture" in OS.get_cmdline_user_args()
-	if not appdata.begins_with("c:/jp_df/tests/profiles/healthbar-presentation/") or appdata!=localdata or not user_path.begins_with(appdata+"/") or (DisplayServer.get_name()=="headless")==capture:
+	if not appdata.begins_with(qa_project_path("tests/profiles/healthbar-presentation/").to_lower()) or appdata!=localdata or not user_path.begins_with(appdata+"/") or (DisplayServer.get_name()=="headless")==capture:
 		push_error("Health bar QA requires its isolated CPU/GPU profile")
 		quit(2); return
 	var previous_path: String = OS.get_environment("QA_HEALTHBAR_BASELINE").replace("\\", "/")
-	check(previous_path.to_lower().begins_with("c:/jp_df/tests/profiles/healthbar-presentation/") and FileAccess.file_exists(previous_path), "Previous actual Game drawing source is preserved inside the test profile")
+	check(previous_path.simplify_path().to_lower().begins_with(qa_project_path("tests/profiles/healthbar-presentation/").to_lower()) and FileAccess.file_exists(previous_path), "Previous actual Game drawing source is preserved inside the test profile")
 	if not failures.is_empty(): quit(2); return
 	var source_before: Dictionary = {}
 	for path in ["res://native/game.gd","res://native/main.gd","res://native/maps.json","res://native/learning_plans.json","res://native/troops_3d.gd","res://native/battlefield_3d.gd","res://native/ground_combat.gd","res://native/units.json"]: source_before[path]=FileAccess.get_sha256(path)
@@ -647,3 +647,11 @@ func run_healthbars() -> void:
 	output.store_string(JSON.stringify(report,"  ")); output.close()
 	print("HEALTHBARS_QA checks=",checks," failures=",failures.size()," gpu=",capture)
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

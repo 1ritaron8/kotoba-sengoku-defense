@@ -4,8 +4,8 @@ const TYPES=["archer","spear","samurai","gunner","naginata","monk","commander","
 func _initialize() -> void:
 	call_deferred("run")
 func run() -> void:
-	var profile=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/actor-proportions/") or DisplayServer.get_name()=="headless":
+	var profile=ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/actor-proportions/").to_lower()) or DisplayServer.get_name()=="headless":
 		quit(2)
 		return
 	await hero_capture()
@@ -81,8 +81,16 @@ func hero_capture() -> void:
 		sheet.blit_rect(frame,Rect2i(0,0,256,320),Vector2i((index%8)*256,int(index/8)*320))
 		actor.queue_free()
 		await process_frame
-	assert(sheet.save_png("C:/JP_DF/dist/preview-proportions-"+("before" if "--before" in OS.get_cmdline_user_args() else "after")+"-close.png")==OK)
+	assert(sheet.save_png(qa_project_path("dist/preview-proportions-")+("before" if "--before" in OS.get_cmdline_user_args() else "after")+"-close.png")==OK)
 	print("BODY_HERO_CAPTURE eight adult full-body GPU renders")
 	viewport.queue_free()
 	await process_frame
 
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

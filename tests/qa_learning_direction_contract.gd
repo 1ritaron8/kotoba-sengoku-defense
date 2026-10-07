@@ -8,7 +8,7 @@ const LearningAudio = preload("res://native/learning_audio.gd")
 const Battlefield = preload("res://native/battlefield_3d.gd")
 const Store = preload("res://native/progress.gd")
 const BASELINE: String = "res://tests/profiles/learning-direction-contract/baseline/source-baseline.json"
-const PROFILE_PREFIX: String = "c:/jp_df/tests/profiles/learning-direction-contract/"
+var PROFILE_PREFIX: String = qa_project_path("tests/profiles/learning-direction-contract/").to_lower()
 var checks: int = 0
 var failures: Array[String] = []
 var app: Node
@@ -43,7 +43,7 @@ func safe_environment() -> bool:
 	var appdata: String = normalize(OS.get_environment("APPDATA"))
 	var localdata: String = normalize(OS.get_environment("LOCALAPPDATA"))
 	var actual: String = normalize(ProjectSettings.globalize_path("user://"))
-	check(appdata.begins_with(PROFILE_PREFIX) and localdata == appdata,"APPDATA/LOCALAPPDATA share a private workspace test profile")
+	check(appdata.begins_with(PROFILE_PREFIX.to_lower()) and localdata == appdata,"APPDATA/LOCALAPPDATA share a private workspace test profile")
 	check(actual.begins_with(appdata+"/"),"Actual user:// is contained by that private profile before any scene or save")
 	check(DisplayServer.get_name() == "headless","Coordinate verification explicitly runs on CPU/headless")
 	# Godot 4.7 removes platform startup switches from get_cmdline_args().
@@ -338,7 +338,7 @@ func run() -> void:
 		return
 	baseline = read_json(BASELINE)
 	var path: String = option("--maps","res://native/maps.json")
-	check(path == "res://native/maps.json" or normalize(path).begins_with("c:/jp_df/tests/profiles/"),"Alternate coordinate source is an isolated project draft")
+	check(path == "res://native/maps.json" or normalize(path).begins_with(qa_project_path("tests/profiles/").to_lower()),"Alternate coordinate source is an isolated project draft")
 	if not failures.is_empty():
 		quit(2)
 		return
@@ -372,3 +372,11 @@ func run() -> void:
 		output.close()
 	print("LEARNING_DIRECTION ",checks," checks / ",failures.size()," failures; snapshot=",ProjectSettings.globalize_path("user://learning-layout-contract.json")," mapsSHA=",layout_contract.mapsSha256)
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

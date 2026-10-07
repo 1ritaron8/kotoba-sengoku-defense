@@ -86,11 +86,11 @@ func selected_pin_tooltip(atlas: Control) -> void:
 
 func run() -> void:
 	scope="isolated profile"
-	var prefix: String="c:/jp_df/tests/profiles/historical-map-ui/"
-	var appdata: String=OS.get_environment("APPDATA").replace("\\","/").to_lower().trim_suffix("/")
-	var localdata: String=OS.get_environment("LOCALAPPDATA").replace("\\","/").to_lower().trim_suffix("/")
+	var prefix: String=qa_project_path("tests/profiles/historical-map-ui/").to_lower()
+	var appdata: String=OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")
+	var localdata: String=OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")
 	check(appdata.begins_with(prefix) and localdata.begins_with(prefix),"Both environment paths are isolated")
-	check(OS.get_user_data_dir().replace("\\","/").to_lower().begins_with(appdata+"/"),"Actual user:// path is isolated")
+	check(OS.get_user_data_dir().replace("\\","/").simplify_path().to_lower().begins_with(appdata+"/"),"Actual user:// path is isolated")
 	check(FileAccess.file_exists(appdata+"/profile_guard.json"),"Profile guard file exists before fixtures are created")
 	if not failures.is_empty(): quit(2); return
 	capture=true
@@ -212,3 +212,11 @@ func run() -> void:
 	output.close()
 	print("HISTORICAL_MAP_UI_INTERACTIONS checks=%d failures=%d"%[checks,failures.size()])
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

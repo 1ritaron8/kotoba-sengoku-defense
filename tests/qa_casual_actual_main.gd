@@ -24,11 +24,11 @@ func check(value: bool, label: String) -> void:
 
 func run() -> void:
 	variant = "before" if "--before" in OS.get_cmdline_user_args() else "final" if "--final" in OS.get_cmdline_user_args() else "after"
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
 	for name in ["APPDATA","LOCALAPPDATA"]:
-		if not OS.get_environment(name).replace("\\","/").to_lower().begins_with("c:/jp_df/tests/profiles/casual-actor-materials/"): quit(2);return
+		if not OS.get_environment(name).replace("\\","/").simplify_path().to_lower().begins_with(qa_project_path("tests/profiles/casual-actor-materials/").to_lower()): quit(2);return
 	print("CASUAL_CAPTURE_GUARD ",JSON.stringify({"profile":profile,"display":DisplayServer.get_name(),"args":OS.get_cmdline_args()}))
-	if not profile.begins_with("c:/jp_df/tests/profiles/casual-actor-materials/") or DisplayServer.get_name()=="headless" or OS.get_environment("JP_CASUAL_DUMMY_AUDIO")!="1":
+	if not profile.begins_with(qa_project_path("tests/profiles/casual-actor-materials/").to_lower()) or DisplayServer.get_name()=="headless" or OS.get_environment("JP_CASUAL_DUMMY_AUDIO")!="1":
 		quit(2)
 		return
 	root.size = Vector2i(1440,900)
@@ -185,3 +185,11 @@ func capture_lod_comparison() -> void:
 	troop.viewport.render_target_update_mode=SubViewport.UPDATE_ONCE
 	for frame in range(4): await process_frame
 
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

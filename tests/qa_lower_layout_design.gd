@@ -1,7 +1,7 @@
 extends SceneTree
 ## Read-only feasibility evidence. Rotated dictionaries remain in memory only.
 const Game = preload("res://native/game.gd")
-const PROFILE_PREFIX: String = "C:/JP_DF/tests/profiles/lower-layout-design/"
+var PROFILE_PREFIX: String = qa_project_path("tests/profiles/lower-layout-design/")
 var checks: int = 0
 var failures: Array[String] = []
 var observations: Array = []
@@ -124,8 +124,8 @@ func geometry_checks(source: Dictionary, candidate: Dictionary, original: Dictio
 		observations.append({"stageId":source.id,"clockwiseDegrees":turns*90,"kind":"generated_ambush_count_differs","before":original.ambushSiteCount,"after":actual.ambushSiteCount,"causeToInspect":"Asymmetric normalized placement margins (.04/.96 x, .06/.94 y); generated sites are derived and must be re-exported, not rotated as cached guide metadata."})
 
 func run() -> void:
-	var profile: String=OS.get_environment("APPDATA").replace("\\","/").trim_suffix("/")
-	check(profile.begins_with(PROFILE_PREFIX) and OS.get_environment("LOCALAPPDATA").replace("\\","/").trim_suffix("/")==profile,"CPU verifier has a private workspace profile")
+	var profile: String=OS.get_environment("APPDATA").replace("\\","/").simplify_path().trim_suffix("/")
+	check(profile.to_lower().begins_with(PROFILE_PREFIX.to_lower()) and OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().trim_suffix("/").to_lower()==profile.to_lower(),"CPU verifier has a private workspace profile")
 	if not failures.is_empty(): quit(2);return
 	map_sha=FileAccess.get_sha256("res://native/maps.json")
 	var stages: Array=JSON.parse_string(FileAccess.get_file_as_string("res://native/maps.json"))
@@ -157,3 +157,11 @@ func run() -> void:
 	file.close()
 	print("LOWER_LAYOUT_DESIGN ",checks," checks, ",failures.size()," failures, ",observations.size()," observations; report ",ProjectSettings.globalize_path("user://qa_lower_layout_design.json"))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

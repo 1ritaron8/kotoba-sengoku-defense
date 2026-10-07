@@ -35,6 +35,7 @@ const EMPLACEMENT_ENEMY_KINDS: Array = ["enemy_archer","enemy_gunner","enemy_sam
 const HUNTER_ACQUIRE_RADIUS: float = .23
 const HUNTER_RELEASE_RADIUS: float = .31
 const HUNTER_LOST_GRACE: float = .75
+const FIRST_STAGE_ENEMY_HP_FACTOR: float = .95
 
 # Shared presentation only: actor bars and the friendly objective bar.
 const HEALTHBAR_HEIGHT: float = 2.0
@@ -1177,6 +1178,8 @@ func _spawn_enemy(kind: String, source_wave: int = -1, options: Dictionary = {})
 	var path_index: int=_spawn_path_index(options)
 	var path: Dictionary = paths[path_index]
 	var difficulty: float = float(config.get("difficulty", 1.0))
+	if str(config.get("id", "")) == "basic-forest" and int(config.get("stageNumber", 0)) == 1:
+		difficulty *= FIRST_STAGE_ENEMY_HP_FACTOR
 	var difficulty_wave: int = wave if source_wave<0 else source_wave
 	var base_hp: float = (32.0 + difficulty_wave * 10.0) * difficulty
 	var move_speed: float = 0.020 + difficulty_wave * 0.00035

@@ -1,7 +1,7 @@
 extends SceneTree
 const Game = preload("res://native/game.gd")
 const TYPES: Array = ["archer","gunner","naginata","monk"]
-const ROOT_PROFILE: String = "C:/JP_DF/tests/profiles/compact-placement/"
+var ROOT_PROFILE: String = qa_project_path("tests/profiles/compact-placement/")
 var checks: int = 0
 var failures: Array[String] = []
 var rejected_advertised: Array = []
@@ -46,13 +46,13 @@ func observe(game: Node2D, stage: Dictionary, type_name: String) -> Dictionary:
 	return {"unitType":type_name,"count":game.units.size(),"positions":points,"postIds":ids}
 
 func run() -> void:
-	var profile: String = OS.get_environment("APPDATA").replace("\\","/").trim_suffix("/")
-	check(profile.begins_with(ROOT_PROFILE) and OS.get_environment("LOCALAPPDATA").replace("\\","/").trim_suffix("/")==profile,"Private capacity profile only")
+	var profile: String = OS.get_environment("APPDATA").replace("\\","/").simplify_path().trim_suffix("/")
+	check(profile.to_lower().begins_with(ROOT_PROFILE.to_lower()) and OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().trim_suffix("/").to_lower()==profile.to_lower(),"Private capacity profile only")
 	if not failures.is_empty(): quit(2); return
 	var source_sha: String = FileAccess.get_sha256("res://native/maps.json")
 	var maps_path: String = OS.get_environment("QA_CANDIDATE_MAPS")
 	if maps_path.is_empty(): maps_path = "res://native/maps.json"
-	check(maps_path=="res://native/maps.json" or maps_path.replace("\\","/").begins_with(ROOT_PROFILE),"Candidate is a private workspace map")
+	check(maps_path=="res://native/maps.json" or maps_path.replace("\\","/").simplify_path().to_lower().begins_with(ROOT_PROFILE.to_lower()),"Candidate is a private workspace map")
 	var maps: Array = JSON.parse_string(FileAccess.get_file_as_string(maps_path))
 	check(maps.size()==40,"Forty stages inspected")
 	var game: Node2D = Game.new()
@@ -73,3 +73,11 @@ func run() -> void:
 	output.close()
 	print("PLACEMENT_CAPACITY ",checks," checks, ",failures.size()," failures")
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

@@ -5,7 +5,7 @@ extends SceneTree
 const Store = preload("res://native/progress.gd")
 const Gate = preload("res://native/learning_gate.gd")
 const Battlefield = preload("res://native/battlefield_3d.gd")
-const PROFILE_PREFIX: String = "c:/jp_df/tests/profiles/final-hybrid-main/"
+var PROFILE_PREFIX: String = qa_project_path("tests/profiles/final-hybrid-main/").to_lower()
 var checks: int = 0
 var failures: Array[String] = []
 var app: Node
@@ -40,7 +40,7 @@ func safe_environment() -> bool:
 	var appdata: String = normalized_path(OS.get_environment("APPDATA"))
 	var localdata: String = normalized_path(OS.get_environment("LOCALAPPDATA"))
 	var actual: String = normalized_path(ProjectSettings.globalize_path("user://"))
-	check(appdata.begins_with(PROFILE_PREFIX) and localdata == appdata,"Both Windows data roots use the same private workspace test profile")
+	check(appdata.begins_with(PROFILE_PREFIX.to_lower()) and localdata == appdata,"Both Windows data roots use the same private workspace test profile")
 	check(actual.begins_with(appdata+"/"),"Actual Godot user:// is contained by the private profile before scene creation")
 	# Godot 4.7 consumes platform/pack startup switches. The invocation log
 	# records --audio-driver Dummy/--main-pack; duplicate launcher declarations
@@ -52,12 +52,12 @@ func safe_environment() -> bool:
 	if packed:
 		main_pack = option("--pack-file")
 		check(not main_pack.is_empty() and normalized_path(main_pack) == normalized_path(OS.get_environment("QA_MAIN_PACK")),"QA target and actual launcher main-pack declaration identify the same artifact")
-		check(normalized_path(main_pack).begins_with("c:/jp_df/tests/") and main_pack.get_extension().to_lower() == "exe","Main integration reads only an isolated newly extracted game executable")
+		check(normalized_path(main_pack).begins_with(qa_project_path("tests/").to_lower()) and main_pack.get_extension().to_lower() == "exe","Main integration reads only an isolated newly extracted game executable")
 		check(not main_pack.is_empty() and FileAccess.file_exists(main_pack),"Packed integration explicitly mounts the newly built artifact")
 		var expected: String = option("--expected-pack-sha").to_lower()
 		check(expected.length() == 64 and FileAccess.get_sha256(main_pack).to_lower() == expected,"Actual target executable bytes match the final build SHA256")
 		var cwd: String = DirAccess.open(".").get_current_dir()
-		check(normalized_path(cwd) == "c:/jp_df/tools/pack-learning-verifier-empty" and normalized_path(OS.get_environment("QA_VERIFIER_CWD")) == normalized_path(cwd),"Actual pack-only working directory matches the launcher's empty verifier directory")
+		check(normalized_path(cwd) == qa_project_path("tools/pack-learning-verifier-empty").to_lower() and normalized_path(OS.get_environment("QA_VERIFIER_CWD")) == normalized_path(cwd),"Actual pack-only working directory matches the launcher's empty verifier directory")
 		check(not FileAccess.file_exists(cwd.path_join("project.godot")) and not DirAccess.dir_exists_absolute(cwd.path_join("native")),"Packed integration has no loose project or runtime in its working directory")
 		check(not FileAccess.file_exists("res://tests/qa_final_hybrid_main.gd"),"External QA is not shipped as a production resource")
 		for key in ["maps","plans","voice","art"]:
@@ -265,3 +265,11 @@ func run() -> void:
 	if file != null: file.store_string(JSON.stringify(result,"  "));file.close()
 	print("FINAL_HYBRID_MAIN ",JSON.stringify({"checks":checks,"failures":failures,"packed":packed,"actualGpu":not cpu_only,"stages":observations.size(),"captures":captures,"report":ProjectSettings.globalize_path("user://qa_final_hybrid_main.json")}))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

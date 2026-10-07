@@ -21,8 +21,8 @@ func check(ok: bool, note: String) -> void:
 
 func run() -> void:
 	variant = "before" if "--before" in OS.get_cmdline_user_args() else "after"
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/premium-models/") or DisplayServer.get_name()=="headless":
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/premium-models/").to_lower()) or DisplayServer.get_name()=="headless":
 		quit(2)
 		return
 	root.size=Vector2i(1440,900)
@@ -81,7 +81,7 @@ func run() -> void:
 		app.learning_field.clear()
 		for frame in range(4): await process_frame
 		await RenderingServer.frame_post_draw
-		var path: String="C:/JP_DF/dist/premium-"+variant+"-"+stage_info.name+".png"
+		var path: String=qa_project_path("dist/premium-")+variant+"-"+stage_info.name+".png"
 		check(root.get_texture().get_image().save_png(path)==OK,"Actual battlefield image saves")
 		check(int(app.combat_feedback.event_counts.get("hit",0))>0,"Genuine combat produced damage events")
 		check(not app.game.finished and int(app.game.snapshot().hp)>0,"Objective still alive at fixed time")
@@ -104,7 +104,7 @@ func run() -> void:
 					app.game._emit_state()
 					await process_frame
 					await RenderingServer.frame_post_draw
-					var contact_path: String="C:/JP_DF/dist/premium-after-"+stage_info.name+"-contact.png"
+					var contact_path: String=qa_project_path("dist/premium-after-")+stage_info.name+"-contact.png"
 					check(root.get_texture().get_image().save_png(contact_path)==OK,"Natural revised-curve engagement captures")
 					captures.append({"path":contact_path,"stageId":app.current_map.id,"comparison":"Additional natural contact, not a matched-time before-after image","startingSupply":start,"paid":paid,"elapsed":app.game.elapsed,"wave":app.game.wave,"gold":app.game.gold,"hp":app.game.snapshot().hp,"kills":app.game.kills,"enemies":app.game.enemies.size(),"actorStates":app.game.actor_states(),"render":app.troops_3d.diagnostics(),"feedback":app.combat_feedback.diagnostics()})
 					contact_saved=true
@@ -124,3 +124,11 @@ func run() -> void:
 	await process_frame
 	await create_timer(.5).timeout
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

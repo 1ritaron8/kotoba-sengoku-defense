@@ -46,8 +46,8 @@ var clock_records: Array=[]
 var bow_order_lanes: Dictionary={}
 
 func run() -> void:
-	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/"): quit(2);return
+	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("").to_lower()+"/"): quit(2);return
 	first_stage_bytes=FileAccess.get_file_as_string("res://native/maps.json")
 	maps=JSON.parse_string(first_stage_bytes)
 	maps.sort_custom(func(a,b): return int(a.stageNumber)<int(b.stageNumber))
@@ -343,3 +343,11 @@ func early_clock_contracts() -> void:
 		clock_records.append(outcome)
 		game.close_battle()
 		game.free()
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

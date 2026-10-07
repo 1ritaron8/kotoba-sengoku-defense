@@ -132,8 +132,8 @@ func prepare_stage(builder: Node3D, config: Dictionary) -> Dictionary:
 	return {"stageId":config.id,"stageNumber":int(config.stageNumber),"title":config.get("title",""),"presentationMirrored":decision.mirrored,"coordinateSpace":"canonical","captureCoordinateSpace":"displayed_pixels","physicalGeometryFingerprint":physical,"sourceMapSha256":source_hashes["res://native/maps.json"],"artPath":art.get("artPath",""),"artSha256":art.get("artSha256",""),"preparedArtMode":art.get("mode","native"),"preparedArtCoverage":art.get("coverage",0),"distributionReadyAtPreparation":art.get("distributionReady",false),"placements":placements,"invalidAuthoredCentres":invalid,"rangedCentres":index,"supportCentres":support_index,"commonEnemyEntry":config.get("commonEnemyEntry",{}),"routes":routes,"routeSamples":route_samples,"blockedWaterRouteSamples":wet_samples,"pathProjectionErrorPixels":projection_error,"sideAmbushEntrances":config.get("sideAmbushEntrances",[]),"liveObjectivesAtStart":actual_objectives,"escortRoute":config.get("escortRoute",[]),"historicalTerrain":history.get("terrain",{}),"historicalLandmarks":history.get("sceneLandmarks",[]),"historicalWeather":history.get("weather",{}),"historicalTimeOfDay":history.get("timeOfDay",""),"waterFeatures":history.get("waterFeatures",[]),"bridges":config.get("bridges",[])}
 
 func run() -> void:
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/native-battlefield-hybrid-campaign-layouts-"):
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/native-battlefield-hybrid-campaign-layouts-").to_lower()):
 		push_error("An isolated native-battlefield-hybrid-campaign-layouts profile is required")
 		quit(2)
 		return
@@ -376,3 +376,11 @@ func add_pin(overlay: CanvasLayer,pixel: Vector2,value: String,colour: Color) ->
 	label.add_theme_color_override("font_outline_color",Color.BLACK)
 	label.add_theme_constant_override("outline_size",5)
 	overlay.add_child(label)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

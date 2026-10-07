@@ -46,13 +46,13 @@ func _option(arguments: PackedStringArray, name: String) -> String:
 	return ""
 
 func _normalized_path(path: String) -> String:
-	return path.replace("\\","/").to_lower().trim_suffix("/")
+	return path.replace("\\","/").simplify_path().to_lower().trim_suffix("/")
 
 func _packed_guard() -> bool:
 	var appdata: String = _normalized_path(OS.get_environment("APPDATA"))
 	var localdata: String = _normalized_path(OS.get_environment("LOCALAPPDATA"))
 	var user_dir: String = _normalized_path(OS.get_user_data_dir())
-	var prefix: String = "c:/jp_df/tests/profiles/female-voice-replacement/packed-"
+	var prefix: String = qa_project_path("tests/profiles/female-voice-replacement/packed-").to_lower()
 	var arguments: PackedStringArray = OS.get_cmdline_args()
 	var custom: PackedStringArray = OS.get_cmdline_user_args()
 	var target: String = _option(custom,"--pack-file")
@@ -66,8 +66,8 @@ func _packed_guard() -> bool:
 	check(appdata.begins_with(prefix) and appdata==localdata and user_dir.begins_with(appdata+"/"),"APPDATA, LOCALAPPDATA and actual user:// are the same private packed-verifier profile")
 	check(DisplayServer.get_name()=="headless" and declared_audio=="Dummy" and _option(custom,"--declared-audio-driver")=="Dummy","Explicit headless renderer and matching launcher Dummy audio declarations are mandatory")
 	check(custom.has("--packed") and not arguments.has("--path"),"Pack-only execution has no source-project override")
-	check(declared_cwd=="c:/jp_df/tools/pack-learning-verifier-empty","Launcher records the required empty verifier working directory")
-	check(not target.is_empty() and _normalized_path(target)==_normalized_path(mounted) and _normalized_path(target).begins_with("c:/jp_df/tests/") and target.get_extension().to_lower()=="exe","Mounted main-pack is exactly the isolated installer-extracted executable")
+	check(declared_cwd==qa_project_path("tools/pack-learning-verifier-empty").to_lower(),"Launcher records the required empty verifier working directory")
+	check(not target.is_empty() and _normalized_path(target)==_normalized_path(mounted) and _normalized_path(target).begins_with(qa_project_path("tests/").to_lower()) and target.get_extension().to_lower()=="exe","Mounted main-pack is exactly the isolated installer-extracted executable")
 	for contract in [{"argument":"--expected-voice-sha","path":"res://assets/announcements/manifest.json"},{"argument":"--expected-narration-sha","path":"res://assets/narration/manifest.json"}]:
 		var expected_resource: String=_option(custom,str(contract.argument)).to_upper()
 		check(expected_resource.length()==64 and FileAccess.get_sha256(str(contract.path)).to_upper()==expected_resource,"Actually mounted packed voice contract matches supplied final SHA: "+str(contract.path))
@@ -234,14 +234,14 @@ func run() -> void:
 		quit(2)
 		return
 	packed = "--packed" in OS.get_cmdline_user_args()
-	var profile := ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not (profile.begins_with("c:/jp_df/tests/profiles/battle-announcer/") or profile.begins_with("c:/jp_df/tests/profiles/female-voice-replacement/")):
+	var profile := ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not (profile.begins_with(qa_project_path("tests/profiles/battle-announcer/").to_lower()) or profile.begins_with(qa_project_path("tests/profiles/female-voice-replacement/").to_lower())):
 		quit(2)
 		return
 	if packed:
 		for argument in OS.get_cmdline_user_args():
 			if argument.begins_with("--pack-file="): main_pack = argument.trim_prefix("--pack-file=")
-		check(not main_pack.is_empty() and main_pack.replace("\\","/").to_lower().begins_with("c:/jp_df/tests/"),"Packed metadata identifies an isolated installed executable")
+		check(not main_pack.is_empty() and main_pack.replace("\\","/").simplify_path().to_lower().begins_with(qa_project_path("tests/").to_lower()),"Packed metadata identifies an isolated installed executable")
 		check(not OS.get_cmdline_args().has("--path"),"No source-project override in packed verification")
 	var initial_buses := AudioServer.bus_count
 	director = Director.new()
@@ -588,3 +588,11 @@ func _inspect_packed_voice_channels(library: Dictionary, female_capture: AudioEf
 	AudioServer.remove_bus(learning_bus)
 	live_captures.clear()
 
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

@@ -30,7 +30,7 @@ func settle() -> void:
 func screenshot(name_value: String) -> Image:
 	await settle()
 	var image: Image=root.get_texture().get_image()
-	var path: String="C:/JP_DF/dist/preview-placement-"+name_value+".png"
+	var path: String=qa_project_path("dist/preview-placement-")+name_value+".png"
 	check(image.save_png(path)==OK,"Actual GPU screen saves "+name_value)
 	images.append(path)
 	return image
@@ -81,8 +81,8 @@ func mouse_click(point: Vector2) -> void:
 	await process_frame
 
 func run() -> void:
-	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/placement-overlay/") or DisplayServer.get_name()=="headless":
+	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/placement-overlay/").to_lower()) or DisplayServer.get_name()=="headless":
 		push_error("Placement visual QA requires its isolated GPU profile")
 		quit(2)
 		return
@@ -108,7 +108,7 @@ func run() -> void:
 	await process_frame
 	await process_frame
 	await RenderingServer.frame_post_draw
-	var passive_path: String="C:/JP_DF/dist/preview-placement-battle-passive.png"
+	var passive_path: String=qa_project_path("dist/preview-placement-battle-passive.png")
 	check(root.get_texture().get_image().save_png(passive_path)==OK,"Actual full battlefield with passive report saves")
 	images.append(passive_path)
 	check(app.army_toolbar.is_visible_in_tree() and app.army_grid.get_child_count()==8,"All eight roster slots remain visible in the fixed bottom toolbar")
@@ -187,3 +187,11 @@ func run() -> void:
 	await process_frame
 	await create_timer(.5).timeout
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

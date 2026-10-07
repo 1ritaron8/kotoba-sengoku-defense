@@ -3,7 +3,7 @@ const Game = preload("res://native/game.gd")
 const TYPES: Array = ["archer","spear","samurai","gunner","naginata","monk","commander","ninja"]
 const MARCHING: Array = ["spear","samurai","commander"]
 const SIZES: Array = [Vector2(1280,800),Vector2(1440,900),Vector2(1920,1080)]
-const ROOT_PROFILE: String = "C:/JP_DF/tests/profiles/lower-layout-design/"
+var ROOT_PROFILE: String = qa_project_path("tests/profiles/lower-layout-design/")
 var checks: int=0
 var failures: Array[String]=[]
 var rows: Array=[]
@@ -160,8 +160,8 @@ func observe_corner_movement(game: Node2D,stage: Dictionary) -> void:
 		movement_rows.append({"stageId":stage.id,"pathIndex":index,"samples":samples,"maxHeadingChangePer50msDegrees":maximum_heading_change,"escapedThroughOwnGoal":bool(enemy.escaped)})
 
 func run() -> void:
-	var profile: String=OS.get_environment("APPDATA").replace("\\","/")
-	check(profile.begins_with(ROOT_PROFILE) and OS.get_environment("LOCALAPPDATA").replace("\\","/")==profile,"Private CPU profile only")
+	var profile: String=OS.get_environment("APPDATA").replace("\\","/").simplify_path()
+	check(profile.to_lower().begins_with(ROOT_PROFILE.to_lower()) and OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().to_lower()==profile.to_lower(),"Private CPU profile only")
 	if not failures.is_empty(): quit(2);return
 	var draft_path: String=ROOT_PROFILE+"maps-lower-draft.json"
 	var draft_sha: String=FileAccess.get_sha256(draft_path)
@@ -186,3 +186,11 @@ func run() -> void:
 	file.store_string(JSON.stringify(report,"\t"));file.close()
 	print("LOWER_LAYOUT_RUNTIME ",checks," checks, ",failures.size()," failures, public deployments ",deployments)
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

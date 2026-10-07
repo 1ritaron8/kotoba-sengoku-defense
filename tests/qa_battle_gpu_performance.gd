@@ -7,8 +7,8 @@ var label: String = "baseline"
 func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
-	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/battle-native-performance/") or not OS.get_environment("LOCALAPPDATA").replace("\\","/").to_lower().begins_with("c:/jp_df/tests/profiles/battle-native-performance/"):
+	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/battle-native-performance/").to_lower()) or not OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().to_lower().begins_with(qa_project_path("tests/profiles/battle-native-performance/").to_lower()):
 		push_error("Native performance QA requires an isolated workspace profile")
 		quit(2)
 		return
@@ -60,7 +60,7 @@ func run() -> void:
 		var sample: Dictionary = {"actors":count,"meanFrameMs":frame_average,"medianFrameMs":frame_times[50],"p95FrameMs":frame_times[95],"fps":1000/frame_average,"poseCpuMs":pose_average,"drawCalls":RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME),"triangles":RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME)}
 		results.append(sample)
 		print("BATTLE_GPU_PERF ",JSON.stringify(sample))
-	var file = FileAccess.open("C:/JP_DF/tests/qa_battle_gpu_performance_"+label+".json",FileAccess.WRITE)
+	var file = FileAccess.open(qa_project_path("tests/qa_battle_gpu_performance_")+label+".json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"label":label,"adapter":RenderingServer.get_video_adapter_name(),"viewport":str(troops.viewport.size),"performance":results,"nativeTerrain":troops.battlefield.diagnostics(),"scope":"Artificial24/56/80 animated actors on the real native terrain at1440x736. Shared physical lights and real shadows, MSAA2, Vsync disabled.25warmup/100 measured frames. This measures the rendered troop/terrain workload; full-game UI and combat simulation are not included. Frame time includes render waiting; poseCpuMs is separately instrumented CPU time."},"  "))
 	file.close()
 	troops.queue_free()
@@ -68,3 +68,11 @@ func run() -> void:
 	Battlefield.release_shared_resources()
 	for unused in range(4): await process_frame
 	quit(0)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

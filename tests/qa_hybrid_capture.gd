@@ -8,8 +8,8 @@ func _initialize() -> void:
 	call_deferred("run")
 
 func run() -> void:
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/"):
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("").to_lower()+"/"):
 		push_error("Hybrid capture refuses player progress")
 		quit(2)
 		return
@@ -69,7 +69,7 @@ func run() -> void:
 			app.game._emit_state()
 			app.learning_field.clear()
 			await RenderingServer.frame_post_draw
-			var path: String = "C:/JP_DF/dist/preview-hybrid-charge.png"
+			var path: String = qa_project_path("dist/preview-hybrid-charge.png")
 			root.get_texture().get_image().save_png(path)
 			images.append(path)
 			observed = true
@@ -82,7 +82,7 @@ func run() -> void:
 				app.game._emit_state()
 				app.learning_field.clear()
 				await RenderingServer.frame_post_draw
-				var path: String = "C:/JP_DF/dist/preview-hybrid-defense.png"
+				var path: String = qa_project_path("dist/preview-hybrid-defense.png")
 				root.get_texture().get_image().save_png(path)
 				images.append(path)
 				defended = true
@@ -97,3 +97,11 @@ func run() -> void:
 	app.queue_free()
 	await process_frame
 	quit(0 if observed and images.size()==2 else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

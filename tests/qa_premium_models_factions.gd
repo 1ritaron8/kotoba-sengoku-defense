@@ -23,8 +23,8 @@ func frames(count: int = 3) -> void:
 		await process_frame
 
 func run() -> void:
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/faction-readability/"):
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/faction-readability/").to_lower()):
 		push_error("Faction QA refuses the player's profile")
 		quit(2)
 		return
@@ -76,8 +76,8 @@ func run() -> void:
 		await RenderingServer.frame_post_draw
 		var rendered: Image = root.get_texture().get_image()
 		var actor_frame: Image = troops.viewport.get_texture().get_image()
-		check(rendered.save_png("C:/JP_DF/dist/premium-after-variants.png")==OK,"Real 26-variant battlefield-size GPU image saved")
-		images.append("C:/JP_DF/dist/premium-after-variants.png")
+		check(rendered.save_png(qa_project_path("dist/premium-after-variants.png"))==OK,"Real 26-variant battlefield-size GPU image saved")
+		images.append(qa_project_path("dist/premium-after-variants.png"))
 		for source in states:
 			var point: Vector2 = Vector2(source.x,source.y)*troops.field_size
 			var colored: int = count_team_pixels(actor_frame,baseline,point,bool(source.friendly))
@@ -94,8 +94,8 @@ func run() -> void:
 		await frames(8)
 		await RenderingServer.frame_post_draw
 		actor_frame = troops.viewport.get_texture().get_image()
-		check(root.get_texture().get_image().save_png("C:/JP_DF/dist/premium-after-variants-night.png")==OK,"All 26 actual night-lit battle variants captured")
-		images.append("C:/JP_DF/dist/premium-after-variants-night.png")
+		check(root.get_texture().get_image().save_png(qa_project_path("dist/premium-after-variants-night.png"))==OK,"All 26 actual night-lit battle variants captured")
+		images.append(qa_project_path("dist/premium-after-variants-night.png"))
 		for source in states:
 			var point: Vector2 = Vector2(source.x,source.y)*troops.field_size
 			var colored: int = count_team_pixels(actor_frame,baseline,point,bool(source.friendly))
@@ -191,3 +191,11 @@ func count_team_pixels(image: Image, baseline: Image, point: Vector2, friendly: 
 			if (c.b>c.r*1.25 and c.b>c.g*1.03 and c.b>.17) if friendly else (c.r>c.b*1.25 and c.r>c.g*1.15 and c.r>.17):
 				count+=1
 	return count
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

@@ -3,7 +3,7 @@ extends SceneTree
 const Actor = preload("res://native/sengoku_actor_3d.gd")
 const Troops = preload("res://native/troops_3d.gd")
 var frame_files: Array = []
-var output_root: String = "C:/JP_DF/tests/running-capture-frames"
+var output_root: String = qa_project_path("tests/running-capture-frames")
 var app: Node
 
 func _initialize() -> void:
@@ -168,7 +168,7 @@ func run() -> void:
 	await process_frame
 	await learning_capture(1,"support-transition")
 	await learning_capture(2,"question-transition")
-	var report = FileAccess.open("C:/JP_DF/tests/qa_running_capture.json",FileAccess.WRITE)
+	var report = FileAccess.open(qa_project_path("tests/qa_running_capture.json"),FileAccess.WRITE)
 	report.store_string(JSON.stringify({"frames":frame_files,"adapter":RenderingServer.get_video_adapter_name(),"scope":"Actual GPU production joint poses enlarged for inspection; actual production learning tweens replayed at 20fps, simulation held throughout the learning screen."},"  "))
 	report.close()
 	app.battle_audio.shutdown()
@@ -176,3 +176,11 @@ func run() -> void:
 	await process_frame
 	print("RUNNING_TRANSITION_CAPTURE ",frame_files.size()," frames")
 	quit(0)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

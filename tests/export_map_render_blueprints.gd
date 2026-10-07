@@ -1,8 +1,8 @@
 extends SceneTree
 ## Native terrain references with an isolated current-source guide revision.
 const SNAPSHOT_ROOT: String="res://tests/profiles/map-render-blueprints/export-73323cb9/source-snapshot/"
-const PROFILE_ROOT: String="C:/JP_DF/tests/profiles/map-render-blueprints/export-73323cb9"
-const Battlefield=preload(SNAPSHOT_ROOT+"battlefield_3d.gd")
+var PROFILE_ROOT: String=qa_project_path("tests/profiles/map-render-blueprints/export-73323cb9")
+var Battlefield: GDScript
 const CurrentBattlefield=preload("res://native/battlefield_3d.gd")
 const CurrentNavigation=preload("res://native/battlefield_navigation.gd")
 const Gameplay=preload("res://native/game.gd")
@@ -133,6 +133,25 @@ func check(value: bool,note: String) -> void:
 		failures.append(note)
 		push_error("MAP_RENDER_BLUEPRINT: "+note)
 
+func require_historical_inputs(require_renderer: bool) -> bool:
+	var required: Array[String]=["maps.json"]
+	if require_renderer: required.append_array(["battlefield_3d.gd","battlefield_materials.gd","visual_profiles.json"])
+	for name in required:
+		var path: String=SNAPSHOT_ROOT+name
+		if not FileAccess.file_exists(path):
+			push_error("MAP_RENDER_BLUEPRINT historical blueprint-only input is missing: "+ProjectSettings.globalize_path(path)+"; restore the preserved source snapshot. Current Native is not a replacement.")
+			quit(2)
+			return false
+	if require_renderer:
+		var renderer_path: String=SNAPSHOT_ROOT+"battlefield_3d.gd"
+		var preserved: GDScript=load(renderer_path) as GDScript
+		if preserved==null or not preserved.can_instantiate() or preserved.resource_path!=renderer_path:
+			push_error("MAP_RENDER_BLUEPRINT cannot bind the preserved historical renderer: "+renderer_path)
+			quit(2)
+			return false
+		Battlefield=preserved as GDScript
+	return true
+
 func settle(frames: int) -> void:
 	for index in range(frames): await process_frame
 
@@ -144,7 +163,7 @@ func descendants(parent: Node) -> Array:
 	return result
 
 func write_manifest(complete: bool) -> void:
-	var report: Dictionary={"complete":complete,"checks":checks,"failures":failures,"stageCount":stages.size(),"stages":stages,"camera":camera_report,"imageSize":{"width":IMAGE_SIZE.x,"height":IMAGE_SIZE.y},"renderer":renderer,"sourceSnapshot":ProjectSettings.globalize_path(SNAPSHOT_ROOT),"mapsSha256":FileAccess.get_sha256(SNAPSHOT_ROOT+"maps.json"),"snapshotRendererSha256":FileAccess.get_sha256(SNAPSHOT_ROOT+"battlefield_3d.gd"),"snapshotMaterialsSha256":FileAccess.get_sha256(SNAPSHOT_ROOT+"battlefield_materials.gd"),"snapshotManifest":PROFILE_ROOT+"/source_snapshot_manifest.json","originalBlueprintManifest":PROFILE_ROOT+"/map_render_blueprints_manifest.json","actualUserDataDir":OS.get_user_data_dir(),"appData":OS.get_environment("APPDATA"),"localAppData":OS.get_environment("LOCALAPPDATA"),"cleanTerrainOnly":not guides,"guidanceOnly":guides,"notFinalArtwork":true,"originalImagesPreserved":guides,"actors":0,"productionUi":0,"ui":0 if not guides else "QA coordinate annotation layer only","labels":0 if not guides else "P/O/B/S/N/X/h reference markers and legend","guideGameplaySourceSha256":FileAccess.get_sha256("res://native/game.gd") if guides else "","guideCoordinates":"Actual camera.unproject_position(snapshot.world_point(normalized source)). h markers are actual legal Game placement hints; marker colours/text are reference-only and must not enter final art.","artLookup":"Absent from frozen native renderer snapshot; future production hybrid changes do not enter this export","scope":"Frozen native terrain with actual normalized path, objective floor, archer/support/ninja/side-entry coordinate guides for image generation. All annotation is reference-only; this is not finished game artwork or a user-facing game capture." if guides else "Native terrain, authored roads/water/bridges/buildings/vegetation rendered by real GPU. Blueprint source for high quality image rendering, not the final hybrid artwork."}
+	var report: Dictionary={"complete":complete,"checks":checks,"failures":failures,"stageCount":stages.size(),"stages":stages,"camera":camera_report,"imageSize":{"width":IMAGE_SIZE.x,"height":IMAGE_SIZE.y},"renderer":renderer,"sourceSnapshot":ProjectSettings.globalize_path(SNAPSHOT_ROOT),"mapsSha256":source_maps_sha if current_source else FileAccess.get_sha256(SNAPSHOT_ROOT+"maps.json"),"snapshotRendererSha256":source_hashes.get("res://native/battlefield_3d.gd","") if current_source else FileAccess.get_sha256(SNAPSHOT_ROOT+"battlefield_3d.gd"),"snapshotMaterialsSha256":source_hashes.get("res://native/battlefield_materials.gd","") if current_source else FileAccess.get_sha256(SNAPSHOT_ROOT+"battlefield_materials.gd"),"snapshotManifest":PROFILE_ROOT+"/source_snapshot_manifest.json","originalBlueprintManifest":PROFILE_ROOT+"/map_render_blueprints_manifest.json","actualUserDataDir":OS.get_user_data_dir(),"appData":OS.get_environment("APPDATA"),"localAppData":OS.get_environment("LOCALAPPDATA"),"cleanTerrainOnly":not guides,"guidanceOnly":guides,"notFinalArtwork":true,"originalImagesPreserved":guides,"actors":0,"productionUi":0,"ui":0 if not guides else "QA coordinate annotation layer only","labels":0 if not guides else "P/O/B/S/N/X/h reference markers and legend","guideGameplaySourceSha256":FileAccess.get_sha256("res://native/game.gd") if guides else "","guideCoordinates":"Actual camera.unproject_position(snapshot.world_point(normalized source)). h markers are actual legal Game placement hints; marker colours/text are reference-only and must not enter final art.","artLookup":"Absent from frozen native renderer snapshot; future production hybrid changes do not enter this export","scope":"Frozen native terrain with actual normalized path, objective floor, archer/support/ninja/side-entry coordinate guides for image generation. All annotation is reference-only; this is not finished game artwork or a user-facing game capture." if guides else "Native terrain, authored roads/water/bridges/buildings/vegetation rendered by real GPU. Blueprint source for high quality image rendering, not the final hybrid artwork."}
 	var file: FileAccess=FileAccess.open(manifest_path,FileAccess.WRITE)
 	if current_source:
 		report.merge({"version":2,"mapsSha256":source_maps_sha,"sourceMode":"current_actual_gameplay_geometry","sourceHashes":source_hashes,"sourceSnapshot":export_profile+"/source_maps.json","snapshotManifest":"","snapshotRendererSha256":source_hashes.get("res://native/battlefield_3d.gd",""),"snapshotMaterialsSha256":source_hashes.get("res://native/battlefield_materials.gd",""),"originalBlueprintManifest":"","guideGameplaySourceSha256":source_hashes.get("res://native/game.gd",""),"exporterSourceSha256":FileAccess.get_sha256("res://tests/export_map_render_blueprints.gd"),"phase":"cpu_geometry_preparation" if prepare_only else "gpu_guidance_export","guideCoordinates":"Canonical actual Game legal placement floors and actual camera.unproject_position(CurrentBattlefield.world_point()). Fresh upright geometry; no image rotation or previous art lookup.","artLookup":"Explicit missing reference-only manifest forces real current native terrain. Registered artwork is never used as guide geometry.","referenceViewOverrides":["Mobile O is the actual moving-cart floor in both gameplay and reference; camps retain their authored separate contact floors."],"bodyClearanceContract":{"measurement":"Original articulated mesh AABBs, evolution0..2, idle/attack, eight headings, actual Troops scale at each floor","marginPixels":BODY_MARGIN,"standingCoreMinimumHeightPixels":82,"legalPocket":"Separate swept body bounds from actual Game legal samples; no coordinate guessing","roadCorridor":"Filled physical native road width, not just a centreline","priority":"Clear floor/body and road corridor overrule conflicting roofs, walls, poles and foliage in the sketch. Violet O architecture region is a placement exclusion candidate; O green floor/route stays open."},"oldReferencesPreserved":true,"cleanTerrainOnly":false,"notFinalArtwork":true},true)
@@ -197,7 +216,7 @@ func load_validated_cpu() -> void:
 	if path.is_empty(): return
 	validated_cpu_path=path.simplify_path()
 	check(current_source and guides and not prepare_only and not private_candidate,"Approved CPU guidance is reused only by the final current-source GPU export")
-	check(validated_cpu_path.to_lower().begins_with("c:/jp_df/tests/profiles/map-render-blueprints/guided-"),"Approved CPU guidance remains within the isolated test profiles")
+	check(validated_cpu_path.to_lower().begins_with(qa_project_path("tests/profiles/map-render-blueprints/guided-").to_lower()),"Approved CPU guidance remains within the isolated test profiles")
 	var expected: String=OS.get_environment("JP_DF_GUIDE_VALIDATED_CPU_SHA").to_lower()
 	check(expected.length()==64 and FileAccess.get_sha256(validated_cpu_path)==expected,"Approved CPU guidance file matches its explicit evidence hash")
 	if not failures.is_empty(): return
@@ -728,9 +747,10 @@ func capture_image(viewport: SubViewport,path: String,id: String) -> Dictionary:
 	return {"path":path,"sha256":FileAccess.get_sha256(path),"width":image.get_width(),"height":image.get_height()}
 
 func run_self_checks() -> void:
-	var private_root: String=OS.get_environment("APPDATA").replace("\\","/").trim_suffix("/")
-	check(current_source and guides and private_root.to_lower().begins_with("c:/jp_df/tests/profiles/map-render-blueprints/guided-"),"Self-check requires the private current-source tool profile")
-	check(OS.get_environment("LOCALAPPDATA").replace("\\","/").trim_suffix("/")==private_root,"Self-check environment isolation")
+	if not require_historical_inputs(false): return
+	var private_root: String=OS.get_environment("APPDATA").replace("\\","/").simplify_path().trim_suffix("/")
+	check(current_source and guides and private_root.to_lower().begins_with(qa_project_path("tests/profiles/map-render-blueprints/guided-").to_lower()),"Self-check requires the private current-source tool profile")
+	check(OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().trim_suffix("/").to_lower()==private_root.to_lower(),"Self-check environment isolation")
 	if not failures.is_empty(): quit(2);return
 	var a: Dictionary=rect_data(Rect2(0,0,10,10))
 	var b: Dictionary=rect_data(Rect2(5,0,10,10))
@@ -831,15 +851,16 @@ func run_self_checks() -> void:
 	quit(0 if failures.is_empty() else 1)
 
 func run() -> void:
-	var appdata: String=OS.get_environment("APPDATA").replace("\\","/").to_lower().trim_suffix("/")
-	var localdata: String=OS.get_environment("LOCALAPPDATA").replace("\\","/").to_lower().trim_suffix("/")
+	if not current_source and not require_historical_inputs(true): return
+	var appdata: String=OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")
+	var localdata: String=OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")
 	check(appdata==export_profile.to_lower() and localdata==appdata,"Both environment paths equal this isolated export profile")
-	check(appdata.begins_with("c:/jp_df/tests/profiles/map-render-blueprints/guided-") if guides else appdata==PROFILE_ROOT.to_lower(),"Guided export uses a new separate profile and preserves original images")
-	check(OS.get_user_data_dir().replace("\\","/").to_lower().begins_with(appdata+"/"),"Actual user data directory remains inside the export profile")
+	check(appdata.begins_with(qa_project_path("tests/profiles/map-render-blueprints/guided-").to_lower()) if guides else appdata==PROFILE_ROOT.to_lower(),"Guided export uses a new separate profile and preserves original images")
+	check(OS.get_user_data_dir().replace("\\","/").simplify_path().to_lower().begins_with(appdata+"/"),"Actual user data directory remains inside the export profile")
 	check(FileAccess.file_exists(export_profile+"/profile_guard.json"),"Profile guard exists")
 	check(not current_source or guides,"Current source uses the isolated paired clean/guided export")
 	check(not prepare_only or current_source,"Preparation is available only for current source")
-	check(not private_candidate or prepare_only and source_maps_path.to_lower().begins_with("c:/jp_df/tests/profiles/"),"Private candidates are workspace test JSON inputs for CPU review only")
+	check(not private_candidate or prepare_only and source_maps_path.to_lower().begins_with(qa_project_path("tests/profiles/").to_lower()),"Private candidates are workspace test JSON inputs for CPU review only")
 	check(prepare_only or DisplayServer.get_name()!="headless","Blueprint image export uses the actual GPU display server")
 	if current_source:
 		source_maps_sha=FileAccess.get_sha256(source_maps_path)
@@ -1026,8 +1047,8 @@ func run() -> void:
 	if is_instance_valid(scale_provider): scale_provider.free()
 	world.free()
 	viewport.free()
-	Battlefield.release_shared_resources()
 	if current_source: CurrentBattlefield.release_shared_resources()
+	else: Battlefield.release_shared_resources()
 	Actor.material_cache.clear()
 	Actor.geometry_cache.clear()
 	SkinnedRenderer.cache.clear()
@@ -1035,7 +1056,16 @@ func run() -> void:
 	ActorMaterials.shared_preview_material=null
 	ActorMaterials.shared_contact_material=null
 	await settle(24)
-	check(Battlefield.shared_cache_diagnostics().materials.textureCount==0,"Shared terrain resources are released")
+	var cache_diagnostics: Dictionary=CurrentBattlefield.shared_cache_diagnostics() if current_source else Battlefield.shared_cache_diagnostics()
+	check(cache_diagnostics.materials.textureCount==0,"Shared terrain resources are released")
 	write_manifest(failures.is_empty())
 	print("MAP_RENDER_BLUEPRINT_DONE stages=%d checks=%d failures=%d manifest=%s"%[stages.size(),checks,failures.size(),manifest_path])
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

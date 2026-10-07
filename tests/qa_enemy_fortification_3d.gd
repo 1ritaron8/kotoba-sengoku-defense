@@ -23,8 +23,8 @@ func sample(id_value: int, type_name: String, fortification: bool = false) -> Di
 		"fortification": fortification, "stationaryEnemy": fortification, "sailing": false}
 
 func run() -> void:
-	var profile: String = OS.get_environment("APPDATA").replace("\\", "/").to_lower()
-	check(profile.begins_with("c:/jp_df/tests/profiles/enemy-fortification/"), "isolated APPDATA is required")
+	var profile: String = OS.get_environment("APPDATA").replace("\\", "/").simplify_path().to_lower()
+	check(profile.begins_with(qa_project_path("tests/profiles/enemy-fortification/").to_lower()), "isolated APPDATA is required")
 	if not failures.is_empty():
 		finish()
 		return
@@ -144,7 +144,7 @@ func capture_fixture(troops: Node, maps: Array) -> void:
 			await process_frame
 		await RenderingServer.frame_post_draw
 		var image_value: Image = troops.viewport.get_texture().get_image()
-		var image_path: String = "C:/JP_DF/dist/preview-enemy-fortifications-" + theme + ".png"
+		var image_path: String = qa_project_path("dist/preview-enemy-fortifications-") + theme + ".png"
 		check(image_value != null and not image_value.is_empty(), "GPU " + theme + " image missing")
 		if image_value != null and not image_value.is_empty():
 			check(image_value.save_png(image_path) == OK, "GPU " + theme + " save failed")
@@ -160,7 +160,7 @@ func capture_fixture(troops: Node, maps: Array) -> void:
 	var dead_image: Image = troops.viewport.get_texture().get_image()
 	check(dead_image != null and not dead_image.is_empty(), "GPU destroyed firing cover image missing")
 	if dead_image != null and not dead_image.is_empty():
-		check(dead_image.save_png("C:/JP_DF/dist/preview-enemy-fortifications-destroyed.png") == OK, "GPU destroyed firing cover save failed")
+		check(dead_image.save_png(qa_project_path("dist/preview-enemy-fortifications-destroyed.png")) == OK, "GPU destroyed firing cover save failed")
 
 func finish() -> void:
 	var path: String = "user://qa_enemy_fortification_3d.json"
@@ -171,3 +171,11 @@ func finish() -> void:
 		file.close()
 	print("ENEMY_FORTIFICATION_QA ", JSON.stringify({"checks": checks, "failures": failures, "report": ProjectSettings.globalize_path(path)}))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

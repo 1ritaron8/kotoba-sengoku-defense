@@ -10,8 +10,8 @@ func check(ok: bool,note: String) -> void:
 func source(id: int,x: float,clock: float) -> Dictionary:
 	return {"id":id,"type":"archer","friendly":true,"x":x,"y":.5,"animation":"idle","animationClock":clock,"motionTime":clock,"aimX":0,"aimY":-1}
 func run() -> void:
-	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/premium-models/"): quit(2);return
+	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/premium-models/").to_lower()): quit(2);return
 	var renderer=Troops.new()
 	root.add_child(renderer)
 	renderer.set_process(false)
@@ -73,8 +73,8 @@ func run() -> void:
 		var a: float=blue_luminance(gpu_image,Vector2(.35,.5)*renderer.field_size)
 		var b: float=blue_luminance(gpu_image,Vector2(.65,.5)*renderer.field_size)
 		check(a>0 and b>a*1.15,"Actual GPU shader visibly distinguishes local shade from light")
-		check(root.get_texture().get_image().save_png("C:/JP_DF/dist/premium-local-light-contract.png")==OK,"Actual controlled local-light GPU contract capture saves")
-		gpu_result={"shadeBodyLuminance":a,"sunBodyLuminance":b,"ratio":b/maxf(.001,a),"path":"C:/JP_DF/dist/premium-local-light-contract.png"}
+		check(root.get_texture().get_image().save_png(qa_project_path("dist/premium-local-light-contract.png"))==OK,"Actual controlled local-light GPU contract capture saves")
+		gpu_result={"shadeBodyLuminance":a,"sunBodyLuminance":b,"ratio":b/maxf(.001,a),"path":qa_project_path("dist/premium-local-light-contract.png")}
 	var result={"checks":checks,"failures":failures,"scope":"Peractor actual ShaderMaterial isolation, movement fade, pause, reset, bounded15Hz update, shared resources, opaque/ghost distinction and physical torch flicker."}
 	result["gpu"]=gpu_result
 	var file=FileAccess.open("user://qa_premium_models_local_light.json",FileAccess.WRITE)
@@ -94,3 +94,11 @@ func blue_luminance(image: Image, point: Vector2) -> float:
 				sum+=colour.r*.2126+colour.g*.7152+colour.b*.0722
 				count+=1
 	return sum/maxi(1,count)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

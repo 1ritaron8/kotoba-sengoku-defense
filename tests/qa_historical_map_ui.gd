@@ -113,7 +113,7 @@ func main_briefing_basis() -> void:
 			check(app.modal_scroll.get_global_rect().grow(2).encloses(basis.get_global_rect()),"Main briefing scroll reveals the complete map basis")
 			check(root.get_visible_rect().grow(1).encloses(app.modal_scroll.get_global_rect()),"Main basis reading pane fits the actual viewport")
 			basis_observations.append({"kind":"mainBriefing","dimensions":dimensions,"stageId":id,"basis":geo.renderingBasisKo,"basisRect":basis.get_global_rect(),"scrollRect":app.modal_scroll.get_global_rect()})
-	check(ProjectSettings.globalize_path(app.progress.save_path).replace("\\","/").to_lower().begins_with(OS.get_environment("APPDATA").replace("\\","/").to_lower()+"/"),"Actual Main exposure writes remain in the unique isolated fixture")
+	check(ProjectSettings.globalize_path(app.progress.save_path).replace("\\","/").simplify_path().to_lower().begins_with(OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower()+"/"),"Actual Main exposure writes remain in the unique isolated fixture")
 	app._stop_narration()
 	app.player.stop()
 	app.player.stream=null
@@ -411,11 +411,11 @@ func catalog_layouts() -> void:
 
 func run() -> void:
 	scope="isolated profile"
-	var profile_prefix: String="c:/jp_df/tests/profiles/historical-map-ui/"
-	var appdata: String=OS.get_environment("APPDATA").replace("\\","/").to_lower().trim_suffix("/")
-	var localdata: String=OS.get_environment("LOCALAPPDATA").replace("\\","/").to_lower().trim_suffix("/")
+	var profile_prefix: String=qa_project_path("tests/profiles/historical-map-ui/").to_lower()
+	var appdata: String=OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")
+	var localdata: String=OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")
 	check(appdata.begins_with(profile_prefix) and localdata.begins_with(profile_prefix),"APPDATA and LOCALAPPDATA both use isolated historical-map-ui profiles")
-	check(OS.get_user_data_dir().replace("\\","/").to_lower().begins_with(appdata+"/"),"Actual user data path remains inside isolated APPDATA")
+	check(OS.get_user_data_dir().replace("\\","/").simplify_path().to_lower().begins_with(appdata+"/"),"Actual user data path remains inside isolated APPDATA")
 	check(FileAccess.file_exists(appdata+"/profile_guard.json"),"Profile guard exists before source fixtures are created")
 	if not failures.is_empty():
 		quit(2)
@@ -441,3 +441,11 @@ func run() -> void:
 	file.close()
 	print("HISTORICAL_MAP_UI_QA checks="+str(checks)+" failures="+str(failures.size())+" report="+ProjectSettings.globalize_path(path))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

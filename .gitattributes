@@ -1,5 +1,5 @@
 # Preserve exact bytes used by SHA-256 provenance records.
-* -text
+* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 *.png binary
 *.jpg binary
 *.webp binary

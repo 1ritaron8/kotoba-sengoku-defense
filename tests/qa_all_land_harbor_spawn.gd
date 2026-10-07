@@ -1,6 +1,6 @@
 extends SceneTree
 const Game = preload("res://native/game.gd")
-const PROFILE: String="C:/JP_DF/tests/profiles/compact-placement/"
+var PROFILE: String=qa_project_path("tests/profiles/compact-placement/")
 var checks: int=0
 var failures: Array=[]
 func _initialize() -> void: call_deferred("run")
@@ -8,8 +8,8 @@ func check(value: bool,note: String) -> void:
 	checks+=1
 	if not value: failures.append(note)
 func run() -> void:
-	var private: String=OS.get_environment("APPDATA").replace("\\","/")
-	if not private.begins_with(PROFILE) or OS.get_environment("LOCALAPPDATA").replace("\\","/")!=private: quit(2);return
+	var private: String=OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower()
+	if not private.begins_with(PROFILE.to_lower()) or OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().to_lower()!=private: quit(2);return
 	var source_sha: String=FileAccess.get_sha256("res://native/game.gd")
 	var stages: Array=JSON.parse_string(FileAccess.get_file_as_string(PROFILE+"maps-pocket-draft.json"))
 	var game: Node2D=Game.new();root.add_child(game);game.set_process(false);game.three_d_enabled=true
@@ -50,3 +50,11 @@ func run() -> void:
 	out.store_string(JSON.stringify({"scope":"Actual birth, first 4 simulated seconds and renderer sailing state of every all-land former-harbor route; no source changes","checks":checks,"failures":failures,"rows":rows,"gameSha256":source_sha},"\t"));out.close()
 	print("ALL_LAND_HARBOR ",checks," checks, ",failures.size()," failures")
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

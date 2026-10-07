@@ -14,8 +14,8 @@ var starter_policies: Array = [
 ]
 
 func run() -> void:
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/") or DisplayServer.get_name()!="headless":
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("").to_lower()+"/") or DisplayServer.get_name()!="headless":
 		push_error("Starter balance QA requires a workspace-only headless profile")
 		quit(2)
 		return
@@ -258,3 +258,11 @@ func write_learning_report() -> void:
 	var output: FileAccess=FileAccess.open("res://tests/qa_starter_learning_balance_"+learner_policy+suffix+".json",FileAccess.WRITE)
 	output.store_string(JSON.stringify({"checks":checks,"failures":failures,"results":outcomes,"scope":"CPU native Main issued answers and native five-minute starter combat: actual 280 wallet, archer/spear unlocks, permanent Lv1, parallel production delays and actual casualties. Scripted correct input does not prove human enjoyment or language ability. DiagnosticOnly uses a test-only Game factory with radius .16; HP growth changes to eight after the first two waves only when hpGrowthOverride is true. Native damage, rewards, paths, production files and 10/20-minute modes remain unchanged."},"\t"))
 	output.close()
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

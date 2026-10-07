@@ -97,8 +97,8 @@ func menu_cards(scope: String, all_unlocked: bool) -> void:
 		check(card.size.x>=245,scope+": class card preserves readable width "+id)
 
 func run() -> void:
-	var profile: String=OS.get_environment("APPDATA").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/training-menu-materials/") or DisplayServer.get_name()!="headless":
+	var profile: String=OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/training-menu-materials/").to_lower()) or DisplayServer.get_name()!="headless":
 		push_error("Refusing a player profile or GPU training-material test")
 		quit(2)
 		return
@@ -162,3 +162,11 @@ func run() -> void:
 		output.close()
 	print(JSON.stringify({"checks":checks,"failed":failures.size(),"samples":samples.size(),"report":ProjectSettings.globalize_path("user://qa_training_menu_materials.json")}))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

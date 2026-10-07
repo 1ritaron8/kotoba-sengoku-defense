@@ -6,8 +6,8 @@ func _initialize() -> void:
 	call_deferred("run")
 
 func run() -> void:
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/"):
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("").to_lower()+"/"):
 		push_error("Visual QA refuses the player's save profile")
 		quit(2)
 		return
@@ -41,20 +41,28 @@ func run() -> void:
 	for index in range(8): await process_frame
 	await RenderingServer.frame_post_draw
 	var prefix: String = "preview-learning" if stage_number==0 else "preview-learning-advanced"
-	root.get_texture().get_image().save_png("C:/JP_DF/dist/%s-context.png" % prefix)
+	root.get_texture().get_image().save_png(qa_project_path("dist/%s-context.png") % prefix)
 	print("LEARNING_VISUAL_READY ",JSON.stringify({"task":app.quiz_task.id,"kind":app.quiz_task.kind,"gold":app.game.gold,"profile":ProjectSettings.globalize_path("user://"),"japaneseVoiceAvailable":not app.japanese_voice.is_empty()}))
 	if "--hold" in OS.get_cmdline_user_args():
 		return
 	app._answer_context(str(app.quiz_task.answerId))
 	for index in range(4): await process_frame
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("C:/JP_DF/dist/%s-support.png" % prefix)
+	root.get_texture().get_image().save_png(qa_project_path("dist/%s-support.png") % prefix)
 	app._continue_battle()
 	for index in range(4): await process_frame
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("C:/JP_DF/dist/%s-support-active.png" % prefix)
+	root.get_texture().get_image().save_png(qa_project_path("dist/%s-support-active.png") % prefix)
 	app.player.stream = null
 	await create_timer(0.5).timeout
 	app.queue_free()
 	await process_frame
 	quit(0)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

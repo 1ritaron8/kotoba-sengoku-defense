@@ -22,8 +22,8 @@ func stop_app() -> void:
 	await process_frame
 
 func run() -> void:
-	var profile := ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/"):
+	var profile := ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("").to_lower()+"/"):
 		quit(2)
 		return
 	root.size = Vector2i(1440,900)
@@ -128,3 +128,11 @@ func run() -> void:
 	print("COMBAT_APP ",checks," checks / ",failures.size()," failures; report=",ProjectSettings.globalize_path("user://qa_combat_app.json"))
 	await stop_app()
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

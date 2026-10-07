@@ -29,10 +29,10 @@ func near(first: float, second: float, tolerance: float = .0001) -> bool:
 	return is_finite(first) and is_finite(second) and absf(first-second) <= tolerance*maxf(1.0,absf(second))
 
 func profile_allowed() -> bool:
-	var prefix: String = "c:/jp_df/tests/profiles/unit-growth-scaling/"
-	var app_data: String = OS.get_environment("APPDATA").replace("\\","/").to_lower().trim_suffix("/")+"/"
-	var local_data: String = OS.get_environment("LOCALAPPDATA").replace("\\","/").to_lower().trim_suffix("/")+"/"
-	var user_path: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
+	var prefix: String = qa_project_path("tests/profiles/unit-growth-scaling/").to_lower()
+	var app_data: String = OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")+"/"
+	var local_data: String = OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")+"/"
+	var user_path: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
 	return app_data.begins_with(prefix) and local_data.begins_with(prefix) and user_path.begins_with(prefix)
 
 func fixture() -> Dictionary:
@@ -417,7 +417,7 @@ func save_preview_roundtrip() -> void:
 
 func run() -> void:
 	if not profile_allowed():
-		push_error("UNIT_GROWTH refuses a profile outside C:/JP_DF/tests/profiles/unit-growth-scaling/")
+		push_error("UNIT_GROWTH refuses a profile outside "+qa_project_path("tests/profiles/unit-growth-scaling/"))
 		quit(2)
 		return
 	catalog=JSON.parse_string(FileAccess.get_file_as_string("res://native/units.json")).units
@@ -441,3 +441,11 @@ func run() -> void:
 	output.close()
 	print("UNIT_GROWTH_QA "+JSON.stringify({"checks":checks,"failures":failures,"report":ProjectSettings.globalize_path("user://qa_unit_growth_scaling.json")}))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

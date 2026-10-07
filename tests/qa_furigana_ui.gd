@@ -1,4 +1,4 @@
-extends "C:/JP_DF/tests/qa_premium_ui.gd"
+extends "qa_premium_ui.gd"
 
 const RubyText = preload("res://native/ruby_label.gd")
 
@@ -34,6 +34,6 @@ func capture(name: String) -> void:
 	app.game.actor_overlay.queue_redraw()
 	await settle()
 	await RenderingServer.frame_post_draw
-	var path: String = "C:/JP_DF/dist/furigana-%s-%dx%d.png" % [name,current_dimensions.x,current_dimensions.y]
+	var path: String = qa_project_path("dist/furigana-%s-%dx%d.png") % [name,current_dimensions.x,current_dimensions.y]
 	check(root.get_texture().get_image().save_png(path)==OK,"GPU reading image saved: "+name)
 	images.append(path)

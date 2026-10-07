@@ -7,7 +7,7 @@ extends SceneTree
 
 const Gate=preload("res://native/learning_gate.gd")
 const LearningAudio=preload("res://native/learning_audio.gd")
-const PROFILE_PREFIX: String="c:/jp_df/tests/profiles/mission-voice-integration/"
+var PROFILE_PREFIX: String=qa_project_path("tests/profiles/mission-voice-integration/").to_lower()
 const PCM_THRESHOLD: float=.0005
 var app: Node
 var manifest: Dictionary={}
@@ -338,10 +338,10 @@ func teardown() -> void:
 	bus_captures.clear()
 
 func run() -> void:
-	appdata=OS.get_environment("APPDATA").replace("\\","/").to_lower().trim_suffix("/")
-	localdata=OS.get_environment("LOCALAPPDATA").replace("\\","/").to_lower().trim_suffix("/")
-	check(appdata.begins_with(PROFILE_PREFIX) and localdata.begins_with(PROFILE_PREFIX),"Both Windows data paths are in the isolated mission-voice profile")
-	check(OS.get_user_data_dir().replace("\\","/").to_lower().begins_with(appdata+"/"),"Actual user:// stays inside isolated APPDATA")
+	appdata=OS.get_environment("APPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")
+	localdata=OS.get_environment("LOCALAPPDATA").replace("\\","/").simplify_path().to_lower().trim_suffix("/")
+	check(appdata.begins_with(PROFILE_PREFIX.to_lower()) and localdata.begins_with(PROFILE_PREFIX.to_lower()),"Both Windows data paths are in the isolated mission-voice profile")
+	check(OS.get_user_data_dir().replace("\\","/").simplify_path().to_lower().begins_with(appdata+"/"),"Actual user:// stays inside isolated APPDATA")
 	if not failures.is_empty(): quit(2);return
 	var decoded: Variant=JSON.parse_string(FileAccess.get_file_as_string(LearningAudio.MANIFEST_PATH))
 	if not decoded is Dictionary or not bool(decoded.get("complete",false)):
@@ -404,7 +404,7 @@ func run() -> void:
 	scope="final isolation and teardown"
 	check(max_actual_voices<=1 and max_signal_voices<=1 and stable_pcm_overlap_windows.is_empty(),"Player states, speech intervals and stable PCM windows agree on single voice playback")
 	check(app.voice_director.failed_tts_starts==0 and app.japanese_voice.is_empty(),"All speech uses offline PCM with no OS Japanese voice fallback")
-	check(ProjectSettings.globalize_path(app.progress.save_path).replace("\\","/").to_lower().begins_with(appdata+"/"),"Every real Main persistence call stays inside its unique test fixture")
+	check(ProjectSettings.globalize_path(app.progress.save_path).replace("\\","/").simplify_path().to_lower().begins_with(appdata+"/"),"Every real Main persistence call stays inside its unique test fixture")
 	check(FileAccess.file_exists("user://progress.json")==fixture_user_default_existed,"Default profile save existence is preserved")
 	if fixture_user_default_existed: check(FileAccess.get_sha256("user://progress.json")==fixture_user_default_hash,"Default profile save bytes are preserved")
 	var final_state: Dictionary=app.voice_director.diagnostics()
@@ -417,3 +417,11 @@ func run() -> void:
 	file.close()
 	print("MISSION_VOICE_INTEGRATION checks=%d failures=%d stages=%d report=%s"%[checks,failures.size(),stage_results.size(),ProjectSettings.globalize_path(output)])
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

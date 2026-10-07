@@ -18,7 +18,7 @@ const GameFonts = preload("res://native/game_fonts.gd")
 const ATLAS_PATH = "res://assets/materials/sengoku/surface-atlas-v1.png"
 const COASTLINE_PATH = "res://assets/atlas/japan-coastline.json"
 const CANOPY_PATH = "res://assets/materials/terrain/pine-canopy-atlas-v1.png"
-const PROFILE_ROOT = "c:/jp_df/tests/profiles/"
+var PROFILE_ROOT = qa_project_path("tests/profiles/").to_lower()
 var checks: int = 0
 var failures: Array = []
 var models: Array = []
@@ -87,20 +87,20 @@ func safe_environment() -> bool:
 	var declared_audio: String = OS.get_environment("QA_AUDIO_DRIVER")
 	check(DisplayServer.get_name() == "headless","CPU-only verifier uses the headless display server")
 	check(declared_audio == "Dummy" and option("--declared-audio-driver") == declared_audio,"Resource launcher's Dummy audio declarations match its recorded startup command")
-	check(appdata.begins_with(PROFILE_ROOT),"APPDATA is an isolated workspace test profile")
+	check(appdata.begins_with(PROFILE_ROOT.to_lower()),"APPDATA is an isolated workspace test profile")
 	check(localdata == appdata,"LOCALAPPDATA is the same isolated workspace test profile")
-	check(user_path.begins_with(PROFILE_ROOT) and user_path.begins_with(appdata + "/"),"Actual Godot user:// is contained by the isolated profile before any writes")
+	check(user_path.begins_with(PROFILE_ROOT.to_lower()) and user_path.begins_with(appdata + "/"),"Actual Godot user:// is contained by the isolated profile before any writes")
 	pack_path = command_pack_path()
 	var resource_hashes: Dictionary = {}
 	if not source_only:
 		check(not pack_path.is_empty() and normalized_os_path(pack_path) == normalized_os_path(OS.get_environment("QA_MAIN_PACK")),"User QA target equals the launcher's actual main-pack declaration")
-		check(normalized_os_path(pack_path).begins_with("c:/jp_df/tests/"),"The mounted release artifact is isolated under workspace tests")
+		check(normalized_os_path(pack_path).begins_with(qa_project_path("tests/").to_lower()),"The mounted release artifact is isolated under workspace tests")
 		check(not pack_path.is_empty() and FileAccess.file_exists(pack_path),"Actual verifier explicitly mounts an existing --main-pack artifact")
 		check(pack_path.get_extension().to_lower() in ["exe","pck"],"Mounted artifact is an embedded executable or PCK")
 		var expected: String = option("--expected-pack-sha").to_lower()
 		check(expected.length() == 64 and FileAccess.get_sha256(pack_path).to_lower() == expected,"Actual target bytes match the final executable/PCK SHA256")
 		var cwd: String = DirAccess.open(".").get_current_dir()
-		check(normalized_os_path(cwd) == "c:/jp_df/tools/pack-learning-verifier-empty" and normalized_os_path(OS.get_environment("QA_VERIFIER_CWD")) == normalized_os_path(cwd),"Actual empty pack-only working directory matches its launcher declaration")
+		check(normalized_os_path(cwd) == qa_project_path("tools/pack-learning-verifier-empty").to_lower() and normalized_os_path(OS.get_environment("QA_VERIFIER_CWD")) == normalized_os_path(cwd),"Actual empty pack-only working directory matches its launcher declaration")
 		check(not FileAccess.file_exists(cwd.path_join("project.godot")) and not DirAccess.dir_exists_absolute(cwd.path_join("native")),"No loose source project can override the mounted artifact")
 		check(not FileAccess.file_exists("res://tests/qa_pack_3d.gd"),"Actual mounted release excludes the external source QA")
 		for key in ["maps","plans","voice","art"]:
@@ -837,3 +837,11 @@ func run() -> void:
 		file.close()
 	print("PACK_3D_QA ",JSON.stringify({"checks":checks,"failures":failures,"mode":report.verificationMode,"packedArtifactVerified":report.packedArtifactVerified,"models":models.size(),"portraits":portrait_paths.size(),"materialTextures":material_paths.size(),"terrainTextures":terrain_paths.size(),"naturalModels":natural_models.size(),"audioDecoded":speech_report.get("decoded",0),"briefings":speech_report.get("briefings",0),"fonts":font_paths.size(),"stages":map_resources.size(),"resourceRoot":report.resourceRoot,"workingDirectory":working_directory,"report":ProjectSettings.globalize_path("user://qa_pack_3d.json")}))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

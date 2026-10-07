@@ -1,4 +1,4 @@
-extends "C:/JP_DF/tests/qa_pack_3d.gd"
+extends "qa_pack_3d.gd"
 ## Supplement to qa_pack_3d and qa_female_voice_packed; mounted release only.
 const Weather = preload("res://native/battlefield_weather.gd")
 const FINAL_MAPS_SHA = "ea5a85f32c4a8962a1c19734f36ac58ec22301c17b1ba36a966408429df8e252"

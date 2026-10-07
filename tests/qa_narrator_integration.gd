@@ -292,8 +292,8 @@ func result_checks() -> void:
 		check(app.player.volume_db==-16,"Natural result completion restores the existing result BGM level")
 
 func run() -> void:
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/narrator-integration/"):
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/narrator-integration/").to_lower()):
 		push_error("Narrator integration refuses the player's profile")
 		quit(2)
 		return
@@ -358,3 +358,11 @@ func run() -> void:
 	print("NARRATOR_INTEGRATION ",checks," checks / ",failures.size()," failures / ",snapshots.size()," snapshots; real mixer RMS=",captured_rms,"; report=",ProjectSettings.globalize_path(path))
 	if not failures.is_empty(): quit(1)
 	# The actual Main close coroutine calls SceneTree.quit after its .5s mixer drain.
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

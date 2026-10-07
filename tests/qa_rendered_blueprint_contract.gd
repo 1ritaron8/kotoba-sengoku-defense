@@ -1,16 +1,27 @@
 extends SceneTree
 
 const Battlefield = preload("res://native/battlefield_3d.gd")
-const FrozenBattlefield = preload("res://tests/profiles/map-render-blueprints/export-73323cb9/source-snapshot/battlefield_3d.gd")
+const FROZEN_SOURCE: String = "res://tests/profiles/map-render-blueprints/export-73323cb9/source-snapshot/battlefield_3d.gd"
+var FrozenBattlefield: GDScript
 const BLUEPRINT_MANIFEST: String = "res://tests/profiles/map-render-blueprints/export-73323cb9/map_render_blueprints_manifest.json"
 
 func _initialize() -> void:
 	call_deferred("run")
 
 func run() -> void:
-	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/native-battlefield-hybrid-"):
+	var profile: String = ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/native-battlefield-hybrid-").to_lower()):
 		push_error("An isolated native-battlefield-hybrid profile is required")
+		quit(2)
+		return
+	for historical_path in [FROZEN_SOURCE,FROZEN_SOURCE.get_base_dir()+"/battlefield_materials.gd",BLUEPRINT_MANIFEST]:
+		if not FileAccess.file_exists(historical_path):
+			push_error("BLUEPRINT_GEOMETRY preserved historical input missing: "+ProjectSettings.globalize_path(historical_path)+"; current Native cannot replace this baseline.")
+			quit(2)
+			return
+	FrozenBattlefield=load(FROZEN_SOURCE) as GDScript
+	if FrozenBattlefield==null or not FrozenBattlefield.can_instantiate() or FrozenBattlefield.resource_path!=FROZEN_SOURCE:
+		push_error("BLUEPRINT_GEOMETRY cannot bind preserved historical renderer: "+FROZEN_SOURCE)
 		quit(2)
 		return
 	var maps: Array = JSON.parse_string(FileAccess.get_file_as_string("res://native/maps.json"))
@@ -54,3 +65,11 @@ func run() -> void:
 	file.close()
 	print("BLUEPRINT_GEOMETRY checks=%d failures=%d" % [maps.size()+1,failures.size()])
 	quit(0 if maps.size() == 40 and failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

@@ -19,10 +19,10 @@ func check(value: bool, label: String) -> void:
 	if not value: failures.append(label);push_error(label)
 
 func run() -> void:
-	var allowed: String = "c:/jp_df/tests/profiles/casual-actor-materials/"
+	var allowed: String = qa_project_path("tests/profiles/casual-actor-materials/").to_lower()
 	for name in ["APPDATA","LOCALAPPDATA"]:
-		if not OS.get_environment(name).replace("\\","/").to_lower().begins_with(allowed): quit(2);return
-	if DisplayServer.get_name()=="headless" or OS.get_environment("JP_CASUAL_DUMMY_AUDIO")!="1" or not ProjectSettings.globalize_path("user://").replace("\\","/").to_lower().begins_with(allowed): quit(2);return
+		if not OS.get_environment(name).replace("\\","/").simplify_path().to_lower().begins_with(allowed): quit(2);return
+	if DisplayServer.get_name()=="headless" or OS.get_environment("JP_CASUAL_DUMMY_AUDIO")!="1" or not ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower().begins_with(allowed): quit(2);return
 	root.size=Vector2i(1440,900)
 	var ui: Control=Control.new()
 	ui.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -130,3 +130,11 @@ func create_cell(ui: Control, index: int, font: Font) -> void:
 	texture.texture=viewport.get_texture()
 	texture.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
 	ui.add_child(texture)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

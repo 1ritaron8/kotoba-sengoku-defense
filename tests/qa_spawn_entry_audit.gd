@@ -4,8 +4,8 @@ extends SceneTree
 const Game = preload("res://native/game.gd")
 const Presentation = preload("res://native/battlefield_presentation.gd")
 const SIZE: Vector2 = Vector2(1280,720)
-const PROFILE_ROOT: String = "c:/jp_df/tests/profiles/spawn-entry-audit/"
-const LAYOUT_MANIFEST: String = "C:/JP_DF/tests/profiles/native-battlefield-hybrid-campaign-layouts-final-gpu/AppData/Godot/app_userdata/말의 전장/campaign-layouts/manifest.json"
+var PROFILE_ROOT: String = qa_project_path("tests/profiles/spawn-entry-audit/").to_lower()
+var LAYOUT_MANIFEST: String = qa_project_path("tests/profiles/native-battlefield-hybrid-campaign-layouts-final-gpu/AppData/Godot/app_userdata/말의 전장/campaign-layouts/manifest.json")
 var checks: int = 0
 var failures: Array = []
 var stages: Array = []
@@ -35,7 +35,7 @@ func safe_environment() -> bool:
 	var localdata: String = normalized_path(OS.get_environment("LOCALAPPDATA"))
 	var user_path: String = normalized_path(ProjectSettings.globalize_path("user://"))
 	check(DisplayServer.get_name() == "headless","Audit uses only the headless CPU display")
-	check(appdata.begins_with(PROFILE_ROOT) and appdata == localdata and user_path.begins_with(appdata+"/"),"APPDATA, LOCALAPPDATA and actual user:// are the same isolated workspace profile")
+	check(appdata.begins_with(PROFILE_ROOT.to_lower()) and appdata == localdata and user_path.begins_with(appdata+"/"),"APPDATA, LOCALAPPDATA and actual user:// are the same isolated workspace profile")
 	return failures.is_empty()
 
 func point_record(value: Vector2) -> Dictionary:
@@ -186,3 +186,11 @@ func run() -> void:
 	file.store_string(JSON.stringify(report,"\t"));file.close()
 	print("SPAWN_ENTRY_AUDIT checks=%d failures=%d stages=%d paths=%d formationSpawns=%d queuedSpawns=%d blocked=%d report=%s" % [checks,failures.size(),stages.size(),path_count,spawn_count,side_count,blocked_count,ProjectSettings.globalize_path("user://spawn_entry_audit.json")])
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

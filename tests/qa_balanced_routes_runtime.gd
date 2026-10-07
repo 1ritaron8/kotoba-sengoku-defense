@@ -1,7 +1,7 @@
 extends SceneTree
 ## Private candidate verification. Real game production/movement; fixture gold only.
 const Game=preload("res://native/game.gd")
-const PROFILE="C:/JP_DF/tests/profiles/balanced-route-design-20261007/"
+var PROFILE=qa_project_path("tests/profiles/balanced-route-design-20261007/")
 var candidate_profile=PROFILE
 var obstacle_comparisons: Array=[]
 const TYPES=["archer","spear","samurai","gunner","naginata","monk","commander","ninja"]
@@ -31,7 +31,7 @@ func sha(path: String) -> String:
 	return context.finish().hex_encode()
 func safe_candidate_directory(path: String) -> bool:
 	var current=path.trim_suffix("/")
-	while current.to_lower()!="c:/jp_df":
+	while current.to_lower()!=qa_project_path("").to_lower():
 		var parent=current.get_base_dir()
 		var directory=DirAccess.open(parent)
 		if directory==null or directory.is_link(current.get_file()): return false
@@ -251,13 +251,13 @@ func run() -> void:
 		if arg.begins_with("--candidate-profile="): candidate_profile=arg.trim_prefix("--candidate-profile=")
 	var supplied_profile=candidate_profile.replace("\\","/")
 	var normalized_profile=supplied_profile.simplify_path().trim_suffix("/")+"/"
-	if not supplied_profile.is_absolute_path() or not normalized_profile.to_lower().begins_with("c:/jp_df/tests/profiles/") or not DirAccess.dir_exists_absolute(normalized_profile) or not safe_candidate_directory(normalized_profile):
-		push_error("Candidate profile must be an existing absolute directory within C:/JP_DF/tests/profiles/")
+	if not supplied_profile.is_absolute_path() or not normalized_profile.to_lower().begins_with(qa_project_path("tests/profiles/").to_lower()) or not DirAccess.dir_exists_absolute(normalized_profile) or not safe_candidate_directory(normalized_profile):
+		push_error("Candidate profile must be an existing absolute directory within "+qa_project_path("tests/profiles/"))
 		quit(2)
 		return
 	candidate_profile=normalized_profile
-	var user_path=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not user_path.begins_with("c:/jp_df/tests/profiles/") or expected_sha.is_empty():
+	var user_path=ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not user_path.begins_with(qa_project_path("tests/profiles/").to_lower()) or expected_sha.is_empty():
 		push_error("Requires isolated profile and frozen --expected-maps-sha")
 		quit(2)
 		return
@@ -302,3 +302,11 @@ func run() -> void:
 	output.close()
 	print("BALANCED_ROUTES_RESULT checks=",checks," failures=",failures.size()," sha=",maps_sha)
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

@@ -41,15 +41,15 @@ func bone_hash(actor: Node3D, bone_name: String) -> String:
 	return context.finish().hex_encode()
 
 func run() -> void:
-	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
-	if not profile.begins_with("c:/jp_df/tests/profiles/actor-proportions/"):
+	var profile: String=ProjectSettings.globalize_path("user://").replace("\\","/").simplify_path().to_lower()
+	if not profile.begins_with(qa_project_path("tests/profiles/actor-proportions/").to_lower()):
 		push_error("Proportion QA refuses player profile")
 		quit(2)
 		return
 	before="--before" in OS.get_cmdline_user_args()
 	var old: Dictionary={}
 	if not before:
-		old=JSON.parse_string(FileAccess.get_file_as_string("C:/JP_DF/tests/qa_actor_proportions_before.json"))
+		old=JSON.parse_string(FileAccess.get_file_as_string(qa_project_path("tests/qa_actor_proportions_before.json")))
 	for type_name in TYPES:
 		for evolution in range(1 if type_name.begins_with("enemy") else 3):
 			var actor=Actor.new()
@@ -78,10 +78,18 @@ func run() -> void:
 			variants.append(observation)
 			actor.queue_free()
 			await process_frame
-	var file=FileAccess.open("C:/JP_DF/tests/qa_actor_proportions_"+("before" if before else "after")+".json",FileAccess.WRITE)
+	var file=FileAccess.open(qa_project_path("tests/qa_actor_proportions_")+("before" if before else "after")+".json",FileAccess.WRITE)
 	check(file!=null,"Measured QA report opens")
 	if file:
 		file.store_string(JSON.stringify({"checks":checks,"failures":failures,"variants":variants},"  "))
 		file.close()
 	print("ACTOR_PROPORTIONS ",JSON.stringify({"checks":checks,"failures":failures,"before":before,"variants":variants.size()}))
 	quit(0 if failures.is_empty() else 1)
+
+# Source root also works for external packed verifiers without res://tests.
+func qa_project_path(relative_path: String="") -> String:
+	var script_path: String=get_script().resource_path.replace("\\","/")
+	if script_path.begins_with("res://"): script_path=ProjectSettings.globalize_path(script_path)
+	var project_root: String=script_path.get_base_dir().get_base_dir().simplify_path()
+	if not project_root.is_absolute_path(): return "__invalid_qa_project__/"
+	return project_root if relative_path.is_empty() else project_root.path_join(relative_path)

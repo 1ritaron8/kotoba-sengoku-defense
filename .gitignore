@@ -1,5 +1,6 @@
 # Godot and Python generated caches
 .godot/
+.local/
 **/__pycache__/
 *.pyc
 *.pyo
