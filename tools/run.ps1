@@ -84,8 +84,9 @@ if ($Mode -in @('Import', 'Check', 'Qa') -or $Headless -or $QuitAfter -gt 0) {
 }
 $taskTemp = Join-Path $taskProfile 'temp'
 New-Item -ItemType Directory -Path $taskProfile, $taskTemp, $taskLocalRoot, $taskProfilesRoot -Force | Out-Null
-# Prevent the editor from importing local saves, logs or temporary QA scripts.
-foreach ($taskIgnoredDirectory in @($taskLocalRoot, $taskProfilesRoot)) {
+# Keep private saves, QA inputs and generation/release artifacts out of editor imports.
+foreach ($taskIgnoredDirectory in @($taskLocalRoot, $taskProfilesRoot, (Join-Path $taskRoot 'output'), (Join-Path $taskRoot 'dist'))) {
+    if (-not (Test-Path -LiteralPath $taskIgnoredDirectory -PathType Container)) { continue }
     $taskIgnoreFile = Join-Path $taskIgnoredDirectory '.gdignore'
     if (-not (Test-Path -LiteralPath $taskIgnoreFile)) { [IO.File]::WriteAllText($taskIgnoreFile, '') }
 }
