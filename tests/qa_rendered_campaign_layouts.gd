@@ -13,8 +13,6 @@ const Presentation = preload("res://native/battlefield_presentation.gd")
 const SkinnedRenderer = preload("res://native/sengoku_skinned_renderer.gd")
 const SIZE: Vector2i = Vector2i(1280,720)
 const WIDTH: float = 18.5
-const ELEVATION: float = 50.0
-const DEPTH: float = WIDTH/(1280.0/720.0)/sin(deg_to_rad(ELEVATION))
 const UNIT_IDS: Array = ["archer","spear","samurai","gunner","naginata","monk","commander","ninja"]
 const SOURCE_PATHS: Array[String] = ["res://native/maps.json","res://native/battlefield_3d.gd","res://native/battlefield_materials.gd","res://native/rendered_battlefield_helpers.gd","res://native/troops_3d.gd","res://native/sengoku_actor_3d.gd","res://native/sengoku_skinned_renderer.gd","res://native/actor_materials.gd","res://native/terrain_light_field.gd","res://native/mobile_objective_cart_3d.gd","res://native/game.gd","res://native/battle_support.gd","res://native/battlefield_presentation.gd"]
 var checks: int = 0
@@ -26,8 +24,10 @@ var runtime_manifest_hash: String = ""
 var game: Node2D
 var output_folder: String = "user://campaign-layouts"
 var max_art_cache: int = 0
+var selected_stage_numbers: Array[int] = []
 
 func _initialize() -> void:
+	root.position = Vector2i(-16000,-16000)
 	Engine.max_fps = 60
 	gpu = "--gpu" in OS.get_cmdline_user_args()
 	call_deferred("run")
@@ -49,14 +49,34 @@ func collect_source_hashes() -> Dictionary:
 	for path in SOURCE_PATHS: result[path] = FileAccess.get_sha256(path)
 	return result
 
+func select_stages(maps: Array) -> Array:
+	var filters: int = 0
+	for argument in OS.get_cmdline_user_args():
+		if not argument.begins_with("--stages="): continue
+		filters += 1
+		for token in argument.trim_prefix("--stages=").split(",",true):
+			check(token.is_valid_int(),"Stage filters contain integer campaign numbers")
+			if not token.is_valid_int(): continue
+			var number: int = int(token)
+			check(number>=1 and number<=40 and not selected_stage_numbers.has(number),"Stage filters contain distinct campaign numbers from 1 through 40")
+			if number>=1 and number<=40 and not selected_stage_numbers.has(number): selected_stage_numbers.append(number)
+	check(filters<=1,"Only one --stages filter is supplied")
+	if filters==0: return maps
+	check(not selected_stage_numbers.is_empty(),"A requested stage filter is nonempty")
+	var selected: Array = []
+	for config in maps:
+		if selected_stage_numbers.has(int(config.stageNumber)): selected.append(config)
+	check(selected.size()==selected_stage_numbers.size(),"Every requested campaign number exists in the source maps")
+	return selected
+
 func prepare_geometry(builder: Node3D, config: Dictionary) -> void:
 	# Resolve exactly the shared height grid, without creating native props or
 	# silently rendering fallback geometry while the artwork is incomplete.
 	builder.stage = config
 	builder.history = config.get("historicalBattlefield",{})
 	builder.width = WIDTH
-	builder.depth = DEPTH
-	builder.elevation = ELEVATION
+	builder.elevation = Presentation.elevation_for_stage(config)
+	builder.depth = WIDTH/(float(SIZE.x)/SIZE.y)/sin(deg_to_rad(builder.elevation))
 	builder.seed_value = absi(str(config.id).hash())
 	builder._collect_geometry()
 	builder._build_height_grid()
@@ -110,7 +130,7 @@ func prepare_stage(builder: Node3D, config: Dictionary) -> Dictionary:
 			for step in range(25):
 				var sample: Vector2 = start.lerp(end,float(step)/24.0)
 				var world: Vector3 = builder.world_point(sample)
-				var projected: Vector2 = Vector2(world.x/WIDTH+.5,(world.z-world.y/tan(deg_to_rad(ELEVATION)))/DEPTH+.5)*Vector2(SIZE)
+				var projected: Vector2 = Vector2(world.x/WIDTH+.5,(world.z-world.y/tan(deg_to_rad(builder.elevation)))/builder.depth+.5)*Vector2(SIZE)
 				projection_error = maxf(projection_error,projected.distance_to(sample*Vector2(SIZE)))
 				route_samples += 1
 				if builder._is_water(sample): wet_samples += 1
@@ -146,6 +166,9 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(output_folder))
 	var maps: Array = JSON.parse_string(FileAccess.get_file_as_string("res://native/maps.json"))
 	check(maps.size() == 40,"Exactly forty source stages are available")
+	maps = select_stages(maps)
+	if not failures.is_empty(): quit(2);return
+	var expected_count: int = maps.size()
 	game = Game.new()
 	game.three_d_enabled = true
 	root.add_child(game)
@@ -158,13 +181,14 @@ func run() -> void:
 	var all_rendered_ready: bool = true
 	for config in maps:
 		var record: Dictionary = prepare_stage(builder,config)
+		record["camera"] = {"elevation":builder.elevation,"worldDepth":builder.depth,"worldWidth":WIDTH,"width":SIZE.x,"height":SIZE.y,"projection":"orthographic"}
 		check(not fingerprints.has(str(record.physicalGeometryFingerprint)),"Actual physical geometry is unique: "+str(config.id))
 		fingerprints[str(record.physicalGeometryFingerprint)] = true
 		reports.append(record)
 		if str(record.preparedArtMode)!="rendered" or not bool(record.distributionReadyAtPreparation): all_rendered_ready = false
 	builder.free()
 	if gpu:
-		check(all_rendered_ready,"All forty images must be registered and verified before any diagnostic GPU capture; fallback is forbidden")
+		check(all_rendered_ready,"All selected images must be registered and verified before any diagnostic GPU capture; fallback is forbidden")
 		if all_rendered_ready:
 			await capture_campaign(maps)
 	check(collect_source_hashes() == source_hashes,"The diagnostic did not change source, navigation, actor or map files")
@@ -182,11 +206,11 @@ func run() -> void:
 		if record.has("actualRenderMode") and str(record.actualRenderMode)!="rendered": fallback_count += 1
 		invalid_count += int(record.invalidAuthoredCentres)
 		if bool(record.presentationMirrored): mirrored_count += 1
-	check(reports.size()==40,"Every current lower-base battlefield has an individually checked display orientation")
+	check(reports.size()==expected_count,"Every selected battlefield has an individually checked display orientation")
 	check(invalid_count==0,"Every authored deployment center is independently legal")
 	if gpu:
-		check(png_count==40 and fallback_count==0,"Final GPU evidence contains forty actual images without fallback terrain")
-	var manifest: Dictionary = {"version":2,"captureKind":"injected_authored_layout_diagnostic","naturalGameplay":false,"armyWasRecruited":false,"deploymentValidation":"Every authored center is checked independently against real Game.placement_preview with an empty army; the combined display is deliberately injected.","coordinateContract":{"sourceGeometry":"canonical normalized x/y and world positions","capture":"Actual root viewport, including TextureRect.flip_h; upright diagnostic CanvasLayer in displayed pixels","artImage":"Registered original canonical artwork; PNG was not postprocessed or flipped","bodyBounds":"Projected source joint mesh AABBs; include weapons, conservative proxy","occlusion":"Artwork has no semantic depth mask. Source landmark overlap candidates require manual image review; they are not automatic confirmed occlusion."},"phase":"gpu_captured" if gpu else "cpu_prepared_gpu_pending","sourceHashes":source_hashes,"runtimeArtManifestSha256":runtime_manifest_hash,"camera":{"elevation":ELEVATION,"worldWidth":WIDTH,"width":SIZE.x,"height":SIZE.y,"projection":"orthographic"},"legend":{"B":"Authored ranged center with a real original archer","S":"Authored ground/support center with a real original monk","cyanLine":"Shared movement route","orangeLine":"Authored side ingress","redPin":"Independently invalid authored position","objective":"Live initial objective position, including mobile carts"},"stageCount":reports.size(),"pngCount":png_count,"fallbackCount":fallback_count if gpu else null,"artCoverageComplete":all_rendered_ready,"mirroredStageCount":mirrored_count,"originalOrientationStageCount":reports.size()-mirrored_count,"maxArtTextureCacheCount":max_art_cache if gpu else null,"invalidAuthoredCentres":invalid_count,"checks":checks,"failures":failures,"stages":reports}
+		check(png_count==expected_count and fallback_count==0,"Final GPU evidence contains every selected image without fallback terrain")
+	var manifest: Dictionary = {"version":2,"captureKind":"injected_authored_layout_diagnostic","naturalGameplay":false,"armyWasRecruited":false,"deploymentValidation":"Every authored center is checked independently against real Game.placement_preview with an empty army; the combined display is deliberately injected.","coordinateContract":{"sourceGeometry":"canonical normalized x/y and world positions","capture":"Actual root viewport, including TextureRect.flip_h; upright diagnostic CanvasLayer in displayed pixels","artImage":"Registered original canonical artwork; PNG was not postprocessed or flipped","bodyBounds":"Projected source joint mesh AABBs; include weapons, conservative proxy","occlusion":"Artwork has no semantic depth mask. Source landmark overlap candidates require manual image review; they are not automatic confirmed occlusion."},"phase":"gpu_captured" if gpu else "cpu_prepared_gpu_pending","sourceHashes":source_hashes,"runtimeArtManifestSha256":runtime_manifest_hash,"camera":{"elevationMode":"per_stage","worldWidth":WIDTH,"width":SIZE.x,"height":SIZE.y,"projection":"orthographic"},"legend":{"B":"Authored ranged center with a real original archer","S":"Authored ground/support center with a real original monk","cyanLine":"Shared movement route","orangeLine":"Authored side ingress","redPin":"Independently invalid authored position","objective":"Live initial objective position, including mobile carts"},"selectedStageNumbers":selected_stage_numbers,"expectedStageCount":expected_count,"stageCount":reports.size(),"pngCount":png_count,"fallbackCount":fallback_count if gpu else null,"artCoverageComplete":all_rendered_ready,"mirroredStageCount":mirrored_count,"originalOrientationStageCount":reports.size()-mirrored_count,"maxArtTextureCacheCount":max_art_cache if gpu else null,"invalidAuthoredCentres":invalid_count,"checks":checks,"failures":failures,"stages":reports}
 	var file: FileAccess = FileAccess.open(output_folder+"/manifest.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(manifest,"\t"))
 	file.close()
@@ -211,6 +235,9 @@ func capture_campaign(maps: Array) -> void:
 		troops.set_stage(config)
 		check(troops.presentation_mirrored==bool(record.presentationMirrored) and troops.output.flip_h==bool(record.presentationMirrored),"Actual TextureRect orientation follows the shared presentation decision: "+str(config.id))
 		var layer: Dictionary = troops.battlefield.render_layer_contract()
+		check(is_equal_approx(troops.elevation_degrees,float(record.camera.elevation)) and is_equal_approx(troops.world_depth,float(record.camera.worldDepth)),"Runtime camera and prepared stage projection agree: "+str(config.id))
+		check(JSON.stringify(troops.battlefield._physical_contract(config)).sha256_text()==str(record.physicalGeometryFingerprint),"Prepared and actual terrain preserve the registered source geometry fingerprint: "+str(config.id))
+		check(is_equal_approx(float(layer.get("sourceProjection",{}).get("elevation",-1)),troops.elevation_degrees),"Registered artwork matches the actual stage viewpoint: "+str(config.id))
 		check(str(layer.mode)=="rendered" and bool(layer.distributionReady) and int(layer.coverage)==40,"The actual diagnostic viewport uses verified forty-stage artwork: "+str(config.id))
 		check(bool(layer.rawArtHashVerified) and bool(layer.sourceDataVerified),"Actual runtime artwork and source SHA are verified: "+str(config.id))
 		check(not image_hashes.has(str(layer.artSha256)),"Every capture uses distinct actual artwork: "+str(config.id))
@@ -287,14 +314,26 @@ func capture_campaign(maps: Array) -> void:
 		var filename: String = "stage-%02d-%s-layout.png" % [int(config.stageNumber),str(config.id)]
 		var capture_path: String = output_folder+"/"+filename
 		check(image.save_png(ProjectSettings.globalize_path(capture_path))==OK,"The actual diagnostic image is saved: "+str(config.id))
+		# The same injected actors also get a presentation image without audit
+		# routes, ingress lines, pins, B/S labels or the diagnostic caption.
+		overlay.visible = false
+		for unused in range(4): await process_frame
+		await RenderingServer.frame_post_draw
+		var clean_image: Image = root.get_texture().get_image()
+		var clean_path: String = output_folder+"/stage-%02d-%s-injected-scene.png" % [int(config.stageNumber),str(config.id)]
+		check(clean_image.save_png(ProjectSettings.globalize_path(clean_path))==OK,"The injected scene without development overlays is saved: "+str(config.id))
+		record["cleanCapturePath"] = ProjectSettings.globalize_path(clean_path)
+		record["cleanCaptureSha256"] = FileAccess.get_sha256(clean_path)
+		record["cleanCaptureKind"] = "injected_fixed_actor_scene_without_diagnostic_overlays"
+		record["cleanCaptureNaturalGameplay"] = false
 		var cache: Dictionary = Materials.cache_diagnostics()
 		check(int(cache.renderedArtTextureCount)<=3,"Full-resolution artwork uses the bounded three-image LRU: "+str(config.id))
 		max_art_cache = maxi(max_art_cache,int(cache.renderedArtTextureCount))
 		record.merge({"capturePath":ProjectSettings.globalize_path(capture_path),"captureSha256":FileAccess.get_sha256(capture_path),"actualRenderMode":layer.mode,"artPath":layer.artPath,"artSha256":layer.artSha256,"sourceDataVerified":layer.sourceDataVerified,"actualPixelSize":{"x":image.get_width(),"y":image.get_height()},"worstActorFootProjectionErrorPixels":worst_projection,"worstCanonicalFootProjectionErrorPixels":worst_canonical_projection,"repeatSyncFootJitterPixels":worst_jitter,"fixedStateDisplayedImageByteIdentical":stable_pixels,"occlusionReviewStatus":"manual_review_pending","sourceArchitectureProxies":landmark_bounds,"normalizedUvHeightVertexError":uv_error,"heightVertices":vertices.size(),"terrainTriangles":troops.battlefield.diagnostics().terrainTriangles,"artTextureCacheCount":cache.renderedArtTextureCount,"realShadowCasting":troops.sun.shadow_enabled,"visibleDrawCalls":troops.viewport.get_render_info(Viewport.RENDER_INFO_TYPE_VISIBLE,Viewport.RENDER_INFO_DRAW_CALLS_IN_FRAME)},true)
 		overlay.free()
 		troops.viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
-		if (index+1)%5==0: print("CAMPAIGN_LAYOUTS captured=%d/40" % (index+1))
-	check(FileAccess.get_sha256(RenderedArt.MANIFEST_PATH)==runtime_manifest_hash,"The runtime artwork manifest remained frozen during all forty captures")
+		print("CAMPAIGN_LAYOUTS captured=%d/%d" % [index+1,maps.size()])
+	check(FileAccess.get_sha256(RenderedArt.MANIFEST_PATH)==runtime_manifest_hash,"The runtime artwork manifest remained frozen during all selected captures")
 	troops.free()
 	await process_frame
 	Actor.material_cache.clear()

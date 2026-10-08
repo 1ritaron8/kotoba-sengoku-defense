@@ -71,7 +71,7 @@ func _ready() -> void:
 	camera.keep_aspect = Camera3D.KEEP_WIDTH
 	camera.size = world_width
 	camera.near = 0.1
-	camera.far = 45.0
+	camera.far = 90.0
 	camera.current = true
 	world.add_child(camera)
 	var lighting: WorldEnvironment = WorldEnvironment.new()
@@ -103,7 +103,7 @@ func _ready() -> void:
 	# One fixed orthographic battlefield has no far terrain to justify split
 	# cascades. Keep real joint shadows while avoiding duplicate shadow draws.
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
-	sun.directional_shadow_max_distance = 50.0
+	sun.directional_shadow_max_distance = 90.0
 	world.add_child(sun)
 	fill = DirectionalLight3D.new()
 	fill.light_energy = 0.26
@@ -132,6 +132,7 @@ func _ready() -> void:
 	side_overlay.z_index = 2046
 	side_overlay.draw.connect(_draw_side_markers)
 	add_child(side_overlay)
+	elevation_degrees = BattlefieldPresentation.elevation_for_stage(stage)
 	set_field_size(field_size)
 	set_stage(stage)
 
@@ -170,20 +171,28 @@ func set_field_size(value: Vector2) -> void:
 	if viewport == null:
 		return
 	viewport.size = Vector2i(roundi(field_size.x),roundi(field_size.y))
-	var aspect: float = field_size.x/field_size.y
-	world_depth = world_width/aspect/sin(deg_to_rad(elevation_degrees))
+	_update_camera_projection()
+	if is_instance_valid(battlefield): battlefield.configure(stage,world_width,world_depth,elevation_degrees)
 	for torch in torch_lights:
 		torch.position = normalized_to_world(torch.get_meta("normalized_point",Vector2.ZERO))+Vector3(0,0.65,0)
-	camera.size = world_width
-	camera.position = Vector3(0,30.0,30.0/tan(deg_to_rad(elevation_degrees)))
-	camera.look_at(Vector3.ZERO,Vector3.UP)
-	if is_instance_valid(battlefield): battlefield.configure(stage,world_width,world_depth,elevation_degrees)
 	_bind_terrain_navigation()
 	if sun!=null and not stage.is_empty(): _configure_stage_lighting(false)
 	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 
+func _update_camera_projection() -> void:
+	var aspect: float = field_size.x/field_size.y
+	world_depth = world_width/aspect/sin(deg_to_rad(elevation_degrees))
+	if not is_instance_valid(camera): return
+	camera.size = world_width
+	camera.position = Vector3(0,30.0,30.0/tan(deg_to_rad(elevation_degrees)))
+	camera.look_at(Vector3.ZERO,Vector3.UP)
+
 func set_stage(value: Dictionary) -> void:
+	var previous_elevation: float = elevation_degrees
 	stage = value.duplicate(true)
+	elevation_degrees = BattlefieldPresentation.elevation_for_stage(stage)
+	if not is_equal_approx(previous_elevation,elevation_degrees): motion_tracks.clear()
+	_update_camera_projection()
 	presentation_mirrored = BattlefieldPresentation.mirror_for_stage(stage)
 	if output!=null: output.flip_h=presentation_mirrored
 	for cart in mobile_objectives.values(): cart.reset_motion()

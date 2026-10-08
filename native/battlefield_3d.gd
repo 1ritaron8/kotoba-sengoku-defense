@@ -12,15 +12,33 @@ const GRID_BORDER: float = 0.065
 const ROAD_HALF_WIDTH: float = 0.55
 const ROAD_SURFACE_OFFSET: float = 0.005
 const MODEL_ROOT: String = "res://assets/models/battlefield/"
+const INTERACTIVE_FRAME_BUDGET_USEC: int = 6000
+const PREPARATION_FRAME_BUDGET_USEC: int = 24000
+const DEFAULT_HEIGHT_LIMIT_WORLD: float = 1.45
+const MAX_HEIGHT_LIMIT_WORLD: float = 3.0
+
+static func preview_frame_budget(value: int) -> int:
+	return clampi(value,1000,PREPARATION_FRAME_BUDGET_USEC)
+
+static func height_limit_for_history(value: Dictionary) -> float:
+	var requested: Variant=value.get("heightLimitWorld",DEFAULT_HEIGHT_LIMIT_WORLD)
+	if not (requested is float or requested is int) or not is_finite(float(requested)):
+		return DEFAULT_HEIGHT_LIMIT_WORLD
+	return clampf(float(requested),DEFAULT_HEIGHT_LIMIT_WORLD,MAX_HEIGHT_LIMIT_WORLD)
 
 static var model_cache: Dictionary = {}
 static var primitive_cache: Dictionary = {}
+static var height_grid_cache: Dictionary = {}
+static var height_grid_order: Array[String] = []
+const HEIGHT_GRID_CACHE_LIMIT: int = 12
 
 static func release_shared_resources() -> void:
 	# These caches span battle and preview instances. Do not flush them on each
 	# scene change; release them once when the application is shutting down.
 	model_cache.clear()
 	primitive_cache.clear()
+	height_grid_cache.clear()
+	height_grid_order.clear()
 	Materials.release_shared_resources()
 	RenderedArt.release_shared_resources()
 
@@ -56,6 +74,14 @@ var objects: Array = []
 var stats: Dictionary = {}
 var seed_value: int = 1
 var height_noise: FastNoiseLite
+var height_centers: Array[Vector2] = []
+var height_scale_x: Array[float] = []
+var height_scale_y: Array[float] = []
+var height_amplitudes: Array[float] = []
+var height_rotations: Array[float] = []
+var height_has_edge_ridge: bool = false
+var height_limit_world: float = DEFAULT_HEIGHT_LIMIT_WORLD
+var anchor_heights: Dictionary = {}
 var ground_mesh: MeshInstance3D
 var art_manifest_path: String = RenderedArt.MANIFEST_PATH
 var legacy_art_preview: bool = false
@@ -63,6 +89,32 @@ var render_record: Dictionary = {}
 var render_signature: String = ""
 
 func configure(value: Dictionary, world_width: float, world_depth: float, elevation_degrees: float = 50.0) -> void:
+	if not _begin_configure(value,world_width,world_depth,elevation_degrees): return
+	var build_start: int = Time.get_ticks_usec()
+	_collect_geometry()
+	_build_height_grid()
+	stats["heightBuildMilliseconds"] = (Time.get_ticks_usec()-build_start)/1000.0
+	build_start = Time.get_ticks_usec()
+	_build_ground()
+	stats["groundBuildMilliseconds"] = (Time.get_ticks_usec()-build_start)/1000.0
+	_complete_configure()
+
+func configure_preview(value: Dictionary, world_width: float, world_depth: float, elevation_degrees: float = 50.0, frame_budget_usec: int = INTERACTIVE_FRAME_BUDGET_USEC) -> void:
+	# Catalog input and scrolling keep receiving frames while an unseen map's
+	# exact height grid is generated. Combat retains the synchronous contract.
+	if not _begin_configure(value,world_width,world_depth,elevation_degrees): return
+	stats["previewFrameBudgetUsec"] = preview_frame_budget(frame_budget_usec)
+	var build_start: int = Time.get_ticks_usec()
+	_collect_geometry()
+	await _build_height_grid(true,preview_frame_budget(frame_budget_usec))
+	stats["heightBuildMilliseconds"] = (Time.get_ticks_usec()-build_start)/1000.0
+	build_start = Time.get_ticks_usec()
+	await _build_ground(true,preview_frame_budget(frame_budget_usec))
+	stats["groundBuildMilliseconds"] = (Time.get_ticks_usec()-build_start)/1000.0
+	await get_tree().process_frame
+	_complete_configure()
+
+func _begin_configure(value: Dictionary, world_width: float, world_depth: float, elevation_degrees: float) -> bool:
 	var new_width: float = maxf(world_width, 2.0)
 	var new_depth: float = maxf(world_depth, 2.0)
 	var new_elevation: float = clampf(elevation_degrees, 35.0, 85.0)
@@ -72,7 +124,7 @@ func configure(value: Dictionary, world_width: float, world_depth: float, elevat
 	var new_record: Dictionary = RenderedArt.resolve(value,physical_fingerprint,art_manifest_path,legacy_art_preview)
 	var new_render_signature: String = JSON.stringify(new_record).sha256_text()
 	if fingerprint == geometry_fingerprint and new_render_signature == render_signature:
-		return
+		return false
 	geometry_fingerprint = fingerprint
 	render_record = new_record
 	render_signature = new_render_signature
@@ -94,9 +146,10 @@ func configure(value: Dictionary, world_width: float, world_depth: float, elevat
 	structure_phase = "structure"
 	objects.clear()
 	stats = {"stageId": str(stage.get("id", "")), "terrainTriangles": GRID_X * GRID_Y * 2, "roadTriangles": 0, "waterTriangles": 0, "meshNodes": 0, "batches": 0, "instances": 0, "scannedModels": 0, "modelBaseTriangles": 0, "renderTrianglesUpperBound": 0, "bridgeCount": 0, "gateCount": 0, "treeCount": 0, "photoFloor": false}
-	_collect_geometry()
-	_build_height_grid()
-	_build_ground()
+	return true
+
+func _complete_configure() -> void:
+	var build_start: int = Time.get_ticks_usec()
 	if str(render_record.get("mode","native")) == "native":
 		_build_roads()
 		_build_water()
@@ -124,6 +177,7 @@ func configure(value: Dictionary, world_width: float, world_depth: float, elevat
 		batches.clear()
 		objects = artwork_objects
 	stats["seasonDetails"] = Weather.build_ground_details(self,stage,Callable(self,"world_point"),Callable(self,"_weather_detail_clear"))
+	stats["propsBuildMilliseconds"] = (Time.get_ticks_usec()-build_start)/1000.0
 	stats["presentationWeather"] = Weather.profile_for_stage(stage)
 	stats["renderLayerContract"] = render_layer_contract()
 	stats["sourceDataContractValid"] = _validate_contract()
@@ -162,6 +216,8 @@ func _geometry_contract(value: Dictionary) -> Dictionary:
 		result[key] = value.get(key, null)
 	for key in ["sceneLandmarks", "landmarkLabels", "heightFeatures", "materialTheme", "groundSeason", "sceneBiome", "waterFeatures", "traces", "terrain", "season", "timeOfDay", "weather", "presentationWeather", "ambushClearings", "terrainLayout"]:
 		result[key] = historical.get(key, null)
+	if historical.has("heightLimitWorld"):
+		result["heightLimitWorld"] = historical.heightLimitWorld
 	return result
 
 func _collect_geometry() -> void:
@@ -173,6 +229,23 @@ func _collect_geometry() -> void:
 	clearing_radii.clear()
 	landmarks = history.get("sceneLandmarks", history.get("landmarkLabels", [])).duplicate(true)
 	height_features = _resolved_height_features(history)
+	height_centers.clear()
+	height_scale_x.clear()
+	height_scale_y.clear()
+	height_amplitudes.clear()
+	height_rotations.clear()
+	anchor_heights.clear()
+	height_limit_world=height_limit_for_history(history)
+	# Unspecified/default relief keeps its original 1.4 amplitude ceiling.
+	var amplitude_limit: float=height_limit_world if height_limit_world>DEFAULT_HEIGHT_LIMIT_WORLD else 1.4
+	for feature in height_features:
+		height_centers.append(_point(feature))
+		height_scale_x.append(maxf(0.035,float(feature.get("w",0.25))*0.5))
+		height_scale_y.append(maxf(0.035,float(feature.get("h",0.25))*0.5))
+		height_amplitudes.append(clampf(float(feature.get("amplitudeWorld",feature.get("heightWorld",0.75))),-0.5,amplitude_limit))
+		height_rotations.append(-float(feature.get("orientationRadians",0.0)))
+	var biome: String = str(history.get("sceneBiome",history.get("terrain",{}).get("key","")))
+	height_has_edge_ridge = "hill" in biome or "mountain" in biome or "ridge" in biome or "valley" in biome
 	var seen_segments: Dictionary = {}
 	var shared_layout: Dictionary = history.get("terrainLayout", {})
 	for path in stage.get("paths", []):
@@ -324,33 +397,36 @@ func _road_projection(p: Vector2, visible_only: bool = false) -> Dictionary:
 
 func _natural_height(p: Vector2) -> float:
 	var result: float = 0.0
-	for feature in height_features:
-		var scale_x: float = maxf(0.035, float(feature.get("w", 0.25)) * 0.5)
-		var scale_y: float = maxf(0.035, float(feature.get("h", 0.25)) * 0.5)
-		var relative: Vector2 = (p - _point(feature)).rotated(-float(feature.get("orientationRadians", 0.0)))
+	for index in range(height_centers.size()):
+		var scale_x: float = height_scale_x[index]
+		var scale_y: float = height_scale_y[index]
+		var relative: Vector2 = (p-height_centers[index]).rotated(height_rotations[index])
 		var radius: float = pow(relative.x / scale_x, 2.0) + pow(relative.y / scale_y, 2.0)
-		var amplitude: float = clampf(float(feature.get("amplitudeWorld", feature.get("heightWorld", 0.75))), -0.5, 1.4)
+		var amplitude: float = height_amplitudes[index]
 		result += amplitude * exp(-radius * 1.35)
 	result += height_noise.get_noise_2d(p.x * width, p.y * depth) * 0.06
-	var biome: String = str(history.get("sceneBiome",history.get("terrain",{}).get("key","")))
-	if "hill" in biome or "mountain" in biome or "ridge" in biome or "valley" in biome:
+	if height_has_edge_ridge:
 		var edge: float = minf(minf(p.x,1.0-p.x)*width,minf(p.y,1.0-p.y)*depth)
 		var ridge: float = 1.0-smoothstep(.18,1.95,edge)
 		var broken_edge: float = .78+height_noise.get_noise_2d(p.x*width*.9+30.0,p.y*depth*.9-8.0)*.35
 		result += ridge*broken_edge*1.16
-	return clampf(result, -0.16, 1.45)
+	return clampf(result, -0.16, height_limit_world)
+
+func _anchor_height(p: Vector2) -> float:
+	if not anchor_heights.has(p): anchor_heights[p] = _natural_height(p)
+	return float(anchor_heights[p])
 
 func _raw_height(p: Vector2) -> float:
 	var value: float = _natural_height(p)
 	var nearest: Dictionary = _road_projection(p)
 	var distance: float = float(nearest.distance)
 	if distance < 0.80:
-		var road_height: float = lerpf(_natural_height(nearest.a), _natural_height(nearest.b), float(nearest.t))
+		var road_height: float = lerpf(_anchor_height(nearest.a), _anchor_height(nearest.b), float(nearest.t))
 		value = lerpf(value, road_height, 1.0 - smoothstep(0.42, 0.80, distance))
 	for center in clearing_centers:
 		var center_distance: float = _scaled(p - center).length()
 		if center_distance < 0.63:
-			value = lerpf(value, _natural_height(center), 1.0 - smoothstep(0.32, 0.63, center_distance))
+			value = lerpf(value, _anchor_height(center), 1.0 - smoothstep(0.32, 0.63, center_distance))
 	for region in water_regions:
 		var rect: Rect2 = region.rect
 		if rect.has_point(p):
@@ -366,11 +442,27 @@ func _raw_height(p: Vector2) -> float:
 func _grid_point(x: int, y: int) -> Vector2:
 	return Vector2(float(x) / GRID_X, float(y) / GRID_Y) * (1.0 + GRID_BORDER * 2.0) - Vector2.ONE * GRID_BORDER
 
-func _build_height_grid() -> void:
+func _build_height_grid(responsive: bool = false, frame_budget_usec: int = INTERACTIVE_FRAME_BUDGET_USEC) -> void:
+	if not geometry_fingerprint.is_empty() and height_grid_cache.has(geometry_fingerprint):
+		heights = height_grid_cache[geometry_fingerprint]
+		height_grid_order.erase(geometry_fingerprint)
+		height_grid_order.append(geometry_fingerprint)
+		stats["heightCacheHit"] = true
+		return
+	stats["heightCacheHit"] = false
+	var slice_start: int = Time.get_ticks_usec()
 	heights.resize((GRID_X + 1) * (GRID_Y + 1))
 	for y in range(GRID_Y + 1):
 		for x in range(GRID_X + 1):
 			heights[y * (GRID_X + 1) + x] = _raw_height(_grid_point(x, y))
+			if responsive and x % 8 == 0 and Time.get_ticks_usec()-slice_start >= frame_budget_usec:
+				await get_tree().process_frame
+				slice_start = Time.get_ticks_usec()
+	if not geometry_fingerprint.is_empty():
+		height_grid_cache[geometry_fingerprint] = heights
+		height_grid_order.append(geometry_fingerprint)
+		while height_grid_order.size() > HEIGHT_GRID_CACHE_LIMIT:
+			height_grid_cache.erase(height_grid_order.pop_front())
 
 func height_at(p: Vector2) -> float:
 	if heights.is_empty():
@@ -417,9 +509,10 @@ func _ground_colour(p: Vector2) -> Color:
 		growth *= 0.62
 	return Color(maxf(road, clearing), growth * (1.0 - clearing), wetness, 0.9)
 
-func _build_ground() -> void:
+func _build_ground(responsive: bool = false, frame_budget_usec: int = INTERACTIVE_FRAME_BUDGET_USEC) -> void:
+	var slice_start: int = Time.get_ticks_usec()
 	var rendered: bool = str(render_record.get("mode","native")) != "native"
-	var art_material: ShaderMaterial = Materials.rendered_art(render_record) if rendered else null
+	var art_material: ShaderMaterial = Materials.rendered_art(render_record,stage) if rendered else null
 	if rendered and art_material == null:
 		render_record["mode"] = "native"
 		render_record["reason"] = "art_texture_decode_failed"
@@ -447,6 +540,9 @@ func _build_ground() -> void:
 			colors[index] = _ground_colour(p) if str(render_record.get("mode","native")) == "native" else Color.WHITE
 			uvs[index] = _scaled(p)
 			normalized_uvs[index] = p
+		if responsive and Time.get_ticks_usec()-slice_start >= frame_budget_usec:
+			await get_tree().process_frame
+			slice_start = Time.get_ticks_usec()
 	for y in range(GRID_Y + 1):
 		for x in range(GRID_X + 1):
 			var index: int = y * (GRID_X + 1) + x
@@ -460,6 +556,9 @@ func _build_ground() -> void:
 			tangents[index*4+1] = tangent.y
 			tangents[index*4+2] = tangent.z
 			tangents[index*4+3] = -1.0
+		if responsive and Time.get_ticks_usec()-slice_start >= frame_budget_usec:
+			await get_tree().process_frame
+			slice_start = Time.get_ticks_usec()
 	for y in range(GRID_Y):
 		for x in range(GRID_X):
 			var a: int = y * (GRID_X + 1) + x
@@ -1021,7 +1120,7 @@ func _palisade(base: Vector3, length: float, yaw: float, short: bool) -> void:
 			continue
 		position = world_point(p)+Vector3(0,maxf(0.0,base.y-height_at(_normalized_foot(base)))+height*.5,0)
 		var variation: float = 0.94 + 0.08 * sin(index * 4.17)
-		_add_batch("stake", _stake_mesh(), Materials.surface("wood", Color(0.71, 0.67, 0.56)), Transform3D(Basis(Vector3.UP, yaw).scaled_local(Vector3(0.085, height * variation, 0.085)), position))
+		_add_batch("stake", _stake_mesh(), _structural_material("wood", Color(0.71, 0.67, 0.56)), Transform3D(Basis(Vector3.UP, yaw).scaled_local(Vector3(0.085, height * variation, 0.085)), position))
 	var rails: int = maxi(2,ceili(length/.44))
 	for index in range(rails):
 		var local: Vector3 = Vector3(.045,0,(float(index+.5)/rails-.5)*length).rotated(Vector3.UP,yaw)
@@ -1037,8 +1136,9 @@ func _banner(base: Vector3, yaw: float, friendly: bool) -> void:
 	structure_phase = "banner"
 	_box("wood", base + Vector3(0, 1.00, 0), Vector3(0.035, 2.0, 0.035), yaw)
 	var cloth: BoxMesh = _unit_box()
-	_add_batch("banner:" + str(friendly), cloth, Materials.cloth("friendly" if friendly else "enemy"), Transform3D(Basis(Vector3.UP, yaw).scaled_local(Vector3(0.36, 0.80, 0.008)), base + Vector3(0.17, 1.48, 0).rotated(Vector3.UP, yaw)))
-	var crest: StandardMaterial3D = Materials.surface("crest", Color(0.90, 0.80, 0.52))
+	var cloth_material: Material = Materials.cloth("friendly" if friendly else "enemy") if str(render_record.get("mode","native"))=="native" else null
+	_add_batch("banner:" + str(friendly), cloth, cloth_material, Transform3D(Basis(Vector3.UP, yaw).scaled_local(Vector3(0.36, 0.80, 0.008)), base + Vector3(0.17, 1.48, 0).rotated(Vector3.UP, yaw)))
+	var crest: Material = _structural_material("crest", Color(0.90, 0.80, 0.52))
 	_add_batch("crest", _unit_box(), crest, Transform3D(Basis(Vector3.UP, yaw).scaled_local(Vector3(0.18, 0.15, 0.014)), base + Vector3(0.17, 1.53, -0.005).rotated(Vector3.UP, yaw)))
 	structure_phase = previous_phase
 
@@ -1046,7 +1146,7 @@ func _roof(base: Vector3, size_value: Vector3, yaw: float) -> void:
 	var previous_phase: String = structure_phase
 	structure_phase = "roof"
 	var mesh: ArrayMesh = _roof_mesh()
-	_add_batch("roof", mesh, Materials.surface("wood", Color(0.71, 0.66, 0.53)), Transform3D(Basis(Vector3.UP, yaw).scaled_local(size_value), base))
+	_add_batch("roof", mesh, _structural_material("wood", Color(0.71, 0.66, 0.53)), Transform3D(Basis(Vector3.UP, yaw).scaled_local(size_value), base))
 	_box("wood", base + Vector3(0, size_value.y * 0.98, 0), Vector3(size_value.x * 1.03, 0.045, 0.055), yaw, Color(0.29, 0.30, 0.26))
 	for side in [-1.0, 1.0]:
 		_box("wood", base + Vector3(0, 0, side * size_value.z * 0.5).rotated(Vector3.UP, yaw), Vector3(size_value.x * 1.04, 0.055, 0.04), yaw, Color(0.31, 0.32, 0.27))
@@ -1072,14 +1172,19 @@ func _earth_bank(base: Vector3, size_value: Vector3, yaw: float) -> void:
 		var piece_radius: float = Vector2(piece_size.x,piece_size.z).length()*.5
 		if _road_projection(p).distance < ROAD_HALF_WIDTH+piece_radius+.12 or _is_water(p):
 			continue
-		_add_batch("earth_bank",_bank_mesh(),Materials.surface("earth",Color(.90,.80,.60)),Transform3D(Basis(Vector3.UP,yaw).scaled_local(piece_size),world_point(p)))
+		_add_batch("earth_bank",_bank_mesh(),_structural_material("earth",Color(.90,.80,.60)),Transform3D(Basis(Vector3.UP,yaw).scaled_local(piece_size),world_point(p)))
 	structure_owner = previous_owner
 
 func _normalized_foot(value: Vector3) -> Vector2:
 	return Vector2(value.x/width+.5,(value.z-value.y/tan(deg_to_rad(elevation)))/depth+.5)
 
 func _box(family: String, center: Vector3, size_value: Vector3, yaw: float, tint: Color = Color.WHITE) -> void:
-	_add_batch("box:" + family + ":" + tint.to_html(), _unit_box(), Materials.surface(family, tint), Transform3D(Basis(Vector3.UP, yaw).scaled_local(size_value), center))
+	_add_batch("box:" + family + ":" + tint.to_html(), _unit_box(), _structural_material(family, tint), Transform3D(Basis(Vector3.UP, yaw).scaled_local(size_value), center))
+
+func _structural_material(family: String, tint: Color) -> Material:
+	# Rendered artwork already supplies these invisible meshes' appearance.
+	# Retain the physical parts without decoding PBR textures to discard them.
+	return Materials.surface(family,tint) if str(render_record.get("mode","native"))=="native" else null
 
 func _unit_box() -> BoxMesh:
 	if not primitive_cache.has("box"):
@@ -1150,6 +1255,7 @@ func _add_triangle(tool: SurfaceTool,a: Vector3,b: Vector3,c: Vector3) -> void:
 func _add_batch(key: String, mesh: Mesh, material: Material, transform_value: Transform3D) -> void:
 	if not structure_owner.is_empty():
 		structural_parts.append({"key":key,"mesh":mesh,"transform":transform_value,"owner":structure_owner,"phase":structure_phase})
+	if str(render_record.get("mode","native"))!="native": return
 	if not batches.has(key):
 		batches[key] = {"mesh": mesh, "material": material, "transforms": []}
 	batches[key].transforms.append(transform_value)
@@ -1354,6 +1460,8 @@ func _physical_contract(value: Dictionary = {}) -> Dictionary:
 	result["sceneBiome"] = historical.get("sceneBiome",historical.get("terrain",{}).get("key",""))
 	if historical.has("terrainLayout"):
 		result["terrainLayout"] = historical.terrainLayout.duplicate(true)
+	if historical.has("heightLimitWorld"):
+		result["heightLimitWorld"] = historical.heightLimitWorld
 	return result
 
 func _shape_fields(values: Array, keys: Array) -> Array:
@@ -1473,6 +1581,7 @@ func _compact_surface_vertices(arrays: Array) -> Array:
 	return arrays
 
 func _add_model(id: String, point: Vector2, scale_value: Vector3, yaw: float, variant: int = 0) -> void:
+	if str(render_record.get("mode","native"))!="native": return
 	var variants: Array = _model_variants(id)
 	if variants.is_empty():
 		return

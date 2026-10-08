@@ -83,70 +83,87 @@ func _text_lines(face: Font, text: String, point_size: int, width: float) -> Arr
 	return lines
 
 func _part_width(face: Font, part: Dictionary, text_size: int) -> float:
-	var body: String = str(part.get("text",""))
-	var kana: String = str(part.get("reading",""))
-	var width: float = face.get_string_size(body,HORIZONTAL_ALIGNMENT_LEFT,-1,text_size).x
-	if not kana.is_empty() and kana!=body:
-		# Reserve the reading's own width instead of compressing it into a kanji.
-		var kana_face: Font = reading_font if reading_font!=null else face
-		width = maxf(width,kana_face.get_string_size(kana,HORIZONTAL_ALIGNMENT_LEFT,-1,_reading_size(text_size)).x)+4.0
-	return width
+	# Ruby can overhang above a word, but never changes the base glyph advance.
+	return face.get_string_size(str(part.get("text","")),HORIZONTAL_ALIGNMENT_LEFT,-1,text_size).x
 
-func _group_gap(previous: Dictionary, part: Dictionary) -> float:
-	if previous.is_empty() or group_spacing<=0: return 0.0
-	var body: String=str(part.get("text",""))
-	var reading: String=str(part.get("reading",""))
-	var earlier: String=str(previous.get("text",""))
-	var earlier_reading: String=str(previous.get("reading",""))
-	var annotated: bool=not reading.is_empty() and reading!=body
-	var earlier_annotated: bool=not earlier_reading.is_empty() and earlier_reading!=earlier
-	var particles: Array=["は","が","を","に","と","も","で","へ","の"]
-	if earlier_annotated and annotated: return group_spacing
-	# Keep okurigana attached: 固 + いです and 食 + べる remain one word.
-	# A following particle gets breathing room without acquiring the kanji's ruby.
-	if earlier_annotated and not annotated:
-		var particle_only: bool=body in particles
-		var particle_boundary: bool=body.length()>1 and body.substr(0,1) in particles and body.substr(1,1) in [" ","、","。","！","？"]
-		return group_spacing if particle_only or particle_boundary else 0.0
-	if annotated and not earlier_annotated:
-		return group_spacing if earlier.ends_with(" ") or earlier.right(1) in particles else 0.0
+func _group_gap(_previous: Dictionary, _part: Dictionary) -> float:
+	# Retain the public option for callers, without inserting artificial spaces.
 	return 0.0
 
 func _japanese_lines(face: Font, width: float, text_size: int) -> Array:
 	var kana_face: Font = reading_font if reading_font!=null else face
 	var lines: Array = []
 	var current: Array = []
-	var used: float = 0.0
-	var previous_part: Dictionary = {}
+	var body_used: float = 0.0
+	var reading_used: float = 0.0
+	var reading_count: int = 0
 	var group_index: int = -1
 	for part in _pieces():
 		group_index += 1
 		var body: String = str(part.get("text",""))
 		var kana: String = str(part.get("reading",""))
-		var gap: float = _group_gap(previous_part,part)
 		var fragments: Array = [part]
 		if kana.is_empty() or kana==body:
 			fragments = []
-			for character in body:
-				fragments.append({"text":character})
+			for character in body: fragments.append({"text":character})
 		for fragment in fragments:
 			body = str(fragment.get("text",""))
 			kana = str(fragment.get("reading",""))
-			if kana==body:
-				kana = ""
+			if kana==body: kana = ""
 			var span: float = minf(width,_part_width(face,fragment,text_size))
-			if used+gap+span>width and not current.is_empty():
+			var kana_lines: Array[String] = _text_lines(kana_face,kana,_reading_size(text_size),width)
+			var kana_span: float = 0.0
+			for text in kana_lines: kana_span=maxf(kana_span,kana_face.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,_reading_size(text_size)).x)
+			var reading_gap: float = READING_GAP if reading_count>0 and kana_span>0 else 0.0
+			if maxf(body_used+span,reading_used+reading_gap+kana_span)>width and not current.is_empty():
 				lines.append(current)
-				current = []
-				used = 0.0
-				gap = 0.0
-			current.append({"span":span,"gap":gap,"group":group_index,"body":_text_lines(face,body,text_size,span),"reading":_text_lines(kana_face,kana,_reading_size(text_size),maxf(1,span-4.0))})
-			used += gap+span
-			gap = 0.0
-		previous_part = part
-	if not current.is_empty():
-		lines.append(current)
+				current=[]
+				body_used=0.0
+				reading_used=0.0
+				reading_count=0
+				reading_gap=0.0
+			current.append({"span":span,"gap":0.0,"group":group_index,"body":_text_lines(face,body,text_size,width),"reading":kana_lines,"reading_span":kana_span})
+			body_used+=span
+			reading_used+=reading_gap+kana_span
+			if kana_span>0: reading_count+=1
+	if not current.is_empty(): lines.append(current)
 	return lines
+
+func _reading_positions(row: Array, body_left: float, width: float) -> Dictionary:
+	var positions: Dictionary={}
+	var preferred_positions: Dictionary={}
+	var annotated: Array=[]
+	var body_x: float=body_left
+	var previous_end: float=TEXT_PADDING-READING_GAP
+	for index in range(row.size()):
+		var part: Dictionary=row[index]
+		if float(part.reading_span)>0:
+			var preferred: float=body_x+(float(part.span)-float(part.reading_span))*.5
+			preferred_positions[index]=preferred
+			var start: float=maxf(preferred,previous_end+READING_GAP)
+			positions[index]=start
+			annotated.append(index)
+			previous_end=start+float(part.reading_span)
+		body_x+=float(part.span)
+	# Shift overflowing readings back into the widget while preserving their
+	# order and colour correspondence. Only ruby moves; base advances stay fixed.
+	var next_start: float=TEXT_PADDING+width+READING_GAP
+	for ordinal in range(annotated.size()-1,-1,-1):
+		var index: int=annotated[ordinal]
+		var span: float=float(row[index].reading_span)
+		positions[index]=minf(float(positions[index]),next_start-READING_GAP-span)
+		next_start=float(positions[index])
+	if not annotated.is_empty():
+		var displacement: float=0.0
+		for index in annotated: displacement+=float(positions[index])-float(preferred_positions[index])
+		var first: int=annotated[0]
+		var last: int=annotated[-1]
+		var preferred_shift: float=-displacement/annotated.size()
+		if annotated.size()==row.size():
+			preferred_shift=(body_left+body_x)*.5-(float(positions[first])+float(positions[last])+float(row[last].reading_span))*.5
+		var shift: float=clampf(preferred_shift,TEXT_PADDING-float(positions[first]),TEXT_PADDING+width-float(positions[last])-float(row[last].reading_span))
+		for index in annotated: positions[index]=float(positions[index])+shift
+	return positions
 
 func _text_run(face: Font, text: String, point_size: int, x: float, top: float, role: String) -> Dictionary:
 	var width: float = face.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,point_size).x
@@ -191,7 +208,9 @@ func get_text_layout() -> Dictionary:
 		var reading_height: float = reading_rows*kana_face.get_height(ruby_size)
 		var body_y: float = y+reading_height+(READING_GAP if reading_rows>0 else 0.0)
 		var x: float = TEXT_PADDING+(width-total_width)*0.5
-		for part in row:
+		var reading_positions: Dictionary=_reading_positions(row,x,width)
+		for part_index in range(row.size()):
+			var part: Dictionary=row[part_index]
 			x += float(part.gap)
 			if show_reading_guides and not part.reading.is_empty():
 				guides.append({"from":Vector2(x+2.0,body_y-1.0),"to":Vector2(x+float(part.span)-2.0,body_y-1.0),"group":int(part.group)})
@@ -199,7 +218,8 @@ func get_text_layout() -> Dictionary:
 				var text: String = part.reading[index]
 				var span: float = kana_face.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,ruby_size).x
 				var top: float = y+(reading_rows-part.reading.size()+index)*kana_face.get_height(ruby_size)
-				var run: Dictionary = _text_run(kana_face,text,ruby_size,x+(float(part.span)-span)*0.5,top,"reading")
+				var ruby_x: float=float(reading_positions[part_index])+(float(part.reading_span)-span)*.5
+				var run: Dictionary = _text_run(kana_face,text,ruby_size,ruby_x,top,"reading")
 				run["group"] = int(part.group)
 				run["color"] = _group_ink(int(part.group),"reading",annotated_groups)
 				runs.append(run)

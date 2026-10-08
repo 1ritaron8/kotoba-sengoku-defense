@@ -30,12 +30,53 @@ func verify_label(word: Dictionary, expected: Array) -> void:
 		if index>0:
 			check(ruby_runs[index].color!=ruby_runs[index-1].color,"Adjacent kanji alternate colours")
 		check(int(ruby_runs[index].size)>=20,"Kana remains legible")
+		if index>0:
+			check(absf(body_runs[index].bounds.position.x-body_runs[index-1].bounds.end.x)<.1,"Base kanji keep normal contiguous advances")
+			check(ruby_runs[index].bounds.position.x>ruby_runs[index-1].bounds.end.x,"Adjacent kana have a measurable non-touching gap")
+	label.free()
+
+func verify_compact(word: Dictionary, width: float, points: int, spacing: float=0.0) -> void:
+	var label=Ruby.new()
+	label.size=Vector2(width,1000)
+	label.wrap_japanese=true
+	label.group_spacing=spacing
+	var original: String=JSON.stringify(word)
+	label.set_word(word,points,true)
+	var layout: Dictionary=label.get_text_layout()
+	check(JSON.stringify(word)==original,"Layout preserves source data")
+	var bodies: Array=[]
+	var readings: Array=[]
+	for run in layout.runs:
+		check(Rect2(Vector2.ZERO,Vector2(width,float(layout.height))).grow(.1).encloses(run.bounds),"Every compact layout run fits its widget: "+str(word.jp))
+		if run.role=="body": bodies.append(run)
+		if run.role=="reading": readings.append(run)
+	var reproduced: String=""
+	for index in range(bodies.size()):
+		var run: Dictionary=bodies[index]
+		reproduced+=run.text
+		if index>0 and is_equal_approx(run.bounds.position.y,bodies[index-1].bounds.position.y):
+			check(absf(run.bounds.position.x-bodies[index-1].bounds.end.x)<.1,"No artificial spacing in compact or wrapped Japanese")
+	for index in range(readings.size()):
+		check(int(readings[index].size)>=16,"Ruby remains at least 16 points")
+		for next in range(index+1,readings.size()): check(not readings[index].bounds.grow(.01).intersects(readings[next].bounds),"Ruby groups never touch or overlap")
+	check(reproduced==str(word.jp),"Wrapping preserves the complete Japanese spelling")
+	check(float(layout.height)<=label.custom_minimum_size.y+.1,"Measured minimum height fits ruby and Korean meaning")
+	if str(word.jp) in ["出陣","兵舎"]:
+		var body_width: float=0.0
+		for run in bodies: body_width+=run.bounds.size.x
+		check(absf(body_width-label.font.get_string_size(str(word.jp),HORIZONTAL_ALIGNMENT_LEFT,-1,points).x)<.1,"Short menu word retains its native font width")
+		check(absf((bodies[0].bounds.position.x+bodies[-1].bounds.end.x)*.5-width*.5)<.1,"Compact body is centred independently of ruby")
+		check(absf((readings[0].bounds.position.x+readings[-1].bounds.end.x)*.5-width*.5)<.1,"Overhanging reading row stays centred above the whole word")
 	label.free()
 
 func _initialize() -> void:
 	verify_label({"jp":"手加減","reading":"てかげん"},["て","か","げん"])
 	verify_label({"jp":"鉄砲兵","reading":"てっぽうへい"},["てっ","ぽう","へい"])
 	verify_label({"jp":"地面","reading":"じめん","parts":[{"text":"地面","reading":"じめん"}]},["じ","めん"])
+	verify_compact({"jp":"出陣","reading":"しゅつじん","ko":"출진"},110,24,8)
+	verify_compact({"jp":"兵舎","reading":"へいしゃ","ko":"병영"},110,24,6)
+	verify_compact({"jp":"鉄砲兵","reading":"てっぽうへい","ko":"조총병"},110,30,8)
+	verify_compact({"jp":"今日","reading":"きょう","ko":"오늘"},110,30,8)
 	var unknown: Dictionary={"jp":"京働","parts":[{"text":"京","reading":"きょう"},{"text":"働","reading":"はたら"}]}
 	var original: String=JSON.stringify(unknown)
 	check(Readings.for_word(unknown)==unknown.parts,"An unknown joined phrase preserves authored character boundaries")
@@ -62,5 +103,6 @@ func _initialize() -> void:
 			body+=str(span.text)
 			pronunciation+=str(span.reading) if not str(span.get("reading","")).is_empty() else str(span.text)
 		check(body==stage.briefingJP and pronunciation==stage.briefingReading,"Every briefing keeps accurate text and full spoken reading")
+		verify_compact({"jp":stage.briefingJP,"reading":stage.briefingReading,"parts":stage.briefingParts,"ko":"보고 내용"},330,28,8)
 	print("KANJI_COLOURS checks=",checks," failures=",failures.size()," entries=",data.segments.size())
 	quit(0 if failures.is_empty() else 1)

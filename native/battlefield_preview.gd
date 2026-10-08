@@ -1,11 +1,17 @@
 extends Control
 ## The catalog shows the native battlefield itself, rendered only on changes.
 const Battlefield = preload("res://native/battlefield_3d.gd")
+const RenderedArt = preload("res://native/rendered_battlefield_helpers.gd")
+const Presentation = preload("res://native/battlefield_presentation.gd")
 const WORLD_WIDTH: float = 18.5
 const ELEVATION: float = 50.0
 const MAX_RENDER_SIZE: Vector2 = Vector2(960,640)
+const PRESENTATION_CACHE_VERSION: String = "native-preview-4-stage-viewpoint"
 
 static var visual_profiles: Dictionary = {}
+static var completed_previews: Dictionary = {}
+static var completed_order: Array[String] = []
+const COMPLETED_PREVIEW_LIMIT: int = 40
 var stage: Dictionary = {}
 var viewport: SubViewport
 var image: TextureRect
@@ -18,6 +24,30 @@ var sky_material: ProceduralSkyMaterial
 var pending_refresh: bool = false
 var render_requests: int = 0
 var render_key: String = ""
+var building: bool = false
+var cached_terrain: Dictionary = {}
+var cache_hit: bool = false
+var capturing: bool = false
+var frame_budget_usec: int = Battlefield.INTERACTIVE_FRAME_BUDGET_USEC
+
+static func _completed_key(value: Dictionary) -> String:
+	return PRESENTATION_CACHE_VERSION+":"+JSON.stringify(value).sha256_text()+":"+RenderedArt.cache_revision()
+
+static func has_cached_stage(value: Dictionary) -> bool:
+	return completed_previews.has(_completed_key(value))
+
+func is_loading() -> bool:
+	return building or pending_refresh or capturing
+
+func prepare() -> bool:
+	_request_refresh()
+	while is_loading(): await get_tree().process_frame
+	return has_cached_stage(stage)
+
+static func release_shared_resources() -> void:
+	completed_previews.clear()
+	completed_order.clear()
+	visual_profiles.clear()
 
 func configure(value: Dictionary) -> void:
 	stage=value.duplicate(true)
@@ -40,7 +70,7 @@ func _ready() -> void:
 	camera.projection=Camera3D.PROJECTION_ORTHOGONAL
 	camera.keep_aspect=Camera3D.KEEP_WIDTH
 	camera.near=.1
-	camera.far=45.0
+	camera.far=90.0
 	camera.current=true
 	world.add_child(camera)
 	var lighting: WorldEnvironment=WorldEnvironment.new()
@@ -63,7 +93,7 @@ func _ready() -> void:
 	sun.shadow_bias=.10
 	sun.shadow_normal_bias=.80
 	sun.directional_shadow_mode=DirectionalLight3D.SHADOW_ORTHOGONAL
-	sun.directional_shadow_max_distance=50.0
+	sun.directional_shadow_max_distance=90.0
 	sun.directional_shadow_fade_start=1.0
 	world.add_child(sun)
 	battlefield=Battlefield.new()
@@ -71,7 +101,7 @@ func _ready() -> void:
 	image=TextureRect.new()
 	image.texture=viewport.get_texture()
 	image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
-	image.stretch_mode=TextureRect.STRETCH_SCALE
+	image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	image.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	image.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(image)
@@ -89,26 +119,66 @@ func _visibility_changed() -> void:
 func _request_refresh() -> void:
 	if not is_inside_tree() or viewport==null or pending_refresh: return
 	pending_refresh=true
+	if building or capturing: return
 	call_deferred("_refresh")
 
 func _refresh() -> void:
+	if building or capturing: return
 	pending_refresh=false
 	if viewport==null or not is_visible_in_tree() or stage.is_empty(): return
 	var logical_size: Vector2=size.max(Vector2(2,2))
 	var scale_factor: float=minf(1.0,minf(MAX_RENDER_SIZE.x/logical_size.x,MAX_RENDER_SIZE.y/logical_size.y))
 	var pixels: Vector2i=Vector2i(maxi(2,roundi(logical_size.x*scale_factor)),maxi(2,roundi(logical_size.y*scale_factor)))
-	var next_key: String=JSON.stringify(stage).sha256_text()+":"+str(pixels)
+	var requested_stage: Dictionary = stage.duplicate(true)
+	var completed_key: String = _completed_key(requested_stage)
+	var next_key: String=completed_key+":"+str(pixels)
 	if next_key==render_key: return
+	if completed_previews.has(completed_key):
+		var cached: Dictionary = completed_previews[completed_key]
+		image.texture = cached.texture
+		viewport.size=pixels
+		cached_terrain = cached.terrain
+		cache_hit = true
+		completed_order.erase(completed_key)
+		completed_order.append(completed_key)
+		viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED
+		render_key=next_key
+		return
+	cache_hit = false
+	building = true
+	viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED
+	var stage_elevation: float = Presentation.elevation_for_stage(requested_stage)
+	var depth: float=WORLD_WIDTH/(float(pixels.x)/float(pixels.y))/sin(deg_to_rad(stage_elevation))
+	camera.size=WORLD_WIDTH
+	camera.position=Vector3(0,30.0,30.0/tan(deg_to_rad(stage_elevation)))
+	camera.look_at(Vector3.ZERO,Vector3.UP)
+	await battlefield.configure_preview(requested_stage,WORLD_WIDTH,depth,stage_elevation,frame_budget_usec)
+	building = false
+	if requested_stage != stage or pending_refresh:
+		pending_refresh=false
+		_request_refresh()
+		return
 	render_key=next_key
 	viewport.size=pixels
-	var depth: float=WORLD_WIDTH/(float(pixels.x)/float(pixels.y))/sin(deg_to_rad(ELEVATION))
-	camera.size=WORLD_WIDTH
-	camera.position=Vector3(0,30.0,30.0/tan(deg_to_rad(ELEVATION)))
-	camera.look_at(Vector3.ZERO,Vector3.UP)
-	battlefield.configure(stage,WORLD_WIDTH,depth,ELEVATION)
+	image.texture=viewport.get_texture()
+	cached_terrain.clear()
 	_configure_lighting()
 	render_requests+=1
 	viewport.render_target_update_mode=SubViewport.UPDATE_ONCE
+	if DisplayServer.get_name()!="headless":
+		capturing=true
+		await RenderingServer.frame_post_draw
+		capturing=false
+		if render_key!=next_key or building or not is_visible_in_tree(): return
+		var captured: Image=viewport.get_texture().get_image()
+		if captured!=null and not captured.is_empty():
+			completed_previews[completed_key]={"texture":ImageTexture.create_from_image(captured),"terrain":battlefield.diagnostics()}
+			completed_order.erase(completed_key)
+			completed_order.append(completed_key)
+			while completed_order.size()>COMPLETED_PREVIEW_LIMIT: completed_previews.erase(completed_order.pop_front())
+		if pending_refresh:
+			pending_refresh=false
+			_request_refresh()
 
 func _configure_lighting() -> void:
 	if visual_profiles.is_empty():
@@ -124,7 +194,7 @@ func _configure_lighting() -> void:
 	var ambient: Color=Color("dce6e2")
 	var direction: Dictionary=visual_profiles.get(str(stage.get("id","")),{}).get("shadowDirection",{"x":-.65,"y":.4})
 	var axis: Vector2=Vector2(float(direction.x),float(direction.y)).normalized()
-	sun.position=Vector3(-axis.x*18,30,-axis.y*18/sin(deg_to_rad(ELEVATION)))
+	sun.position=Vector3(-axis.x*18,30,-axis.y*18/sin(deg_to_rad(Presentation.elevation_for_stage(stage))))
 	sun.look_at(Vector3.ZERO,Vector3.UP)
 	sun.light_color=ambient.lerp(Color.WHITE,.25)
 	sun.light_energy=.55 if actual_time=="night" else 1.45*brightness
@@ -135,4 +205,4 @@ func _configure_lighting() -> void:
 	sky_material.ground_horizon_color=Color("202723") if actual_time=="night" else Color(.37,.35,.28)
 
 func diagnostics() -> Dictionary:
-	return {"stageId":str(stage.get("id","")),"nativeBattlefield":is_instance_valid(battlefield),"static":true,"processing":is_processing(),"mouseIgnore":mouse_filter==Control.MOUSE_FILTER_IGNORE,"renderRequests":render_requests,"viewportSize":viewport.size if viewport!=null else Vector2i.ZERO,"updateMode":viewport.render_target_update_mode if viewport!=null else SubViewport.UPDATE_DISABLED,"worldWidth":WORLD_WIDTH,"elevation":ELEVATION,"terrain":battlefield.diagnostics() if is_instance_valid(battlefield) else {}}
+	return {"stageId":str(stage.get("id","")),"nativeBattlefield":is_instance_valid(battlefield),"static":true,"processing":is_processing(),"mouseIgnore":mouse_filter==Control.MOUSE_FILTER_IGNORE,"renderRequests":render_requests,"viewportSize":viewport.size if viewport!=null else Vector2i.ZERO,"updateMode":viewport.render_target_update_mode if viewport!=null else SubViewport.UPDATE_DISABLED,"worldWidth":WORLD_WIDTH,"elevation":Presentation.elevation_for_stage(stage),"frameBudgetUsec":Battlefield.preview_frame_budget(frame_budget_usec),"loading":is_loading(),"cacheHit":cache_hit,"cachedPreviewCount":completed_previews.size(),"terrain":cached_terrain.duplicate(true) if cache_hit else (battlefield.diagnostics() if is_instance_valid(battlefield) else {})}

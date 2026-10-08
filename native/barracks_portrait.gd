@@ -18,6 +18,8 @@ uniform vec2 registration_b = vec2(0.0);
 uniform vec2 canvas_origin = vec2(0.0);
 uniform vec2 canvas_span = vec2(1.0);
 uniform vec2 half_pixel = vec2(0.001953125);
+uniform bool friendly_blue_armor = false;
+uniform float portrait_gamma = 1.0;
 varying vec4 portrait_tint;
 void vertex() { portrait_tint = COLOR; }
 void fragment() {
@@ -34,6 +36,20 @@ void fragment() {
 	float alpha = mix(a.a, b.a, pose_blend);
 	vec3 premultiplied = mix(a.rgb * a.a, b.rgb * b.a, pose_blend);
 	vec3 pigment = premultiplied / max(alpha, 0.00001);
+	if (friendly_blue_armor) {
+		// Red lacquer has little green/blue separation. Skin, wood and brass
+		// have a warm yellow component, so they stay outside this hue mask.
+		float red_dominance = pigment.r - max(pigment.g, pigment.b);
+		float warm_component = (pigment.g - pigment.b) / max(pigment.r, 0.001);
+		float armor_mask = smoothstep(0.025, 0.10, red_dominance);
+		armor_mask *= 1.0 - smoothstep(0.08, 0.22, warm_component);
+		armor_mask *= 1.0 - smoothstep(0.60, 0.78, pigment.g / max(pigment.r, 0.001));
+		float lightness = dot(pigment, vec3(0.2126, 0.7152, 0.0722));
+		vec3 blue_lacquer = vec3(0.22, 0.50, 0.85) * (lightness / 0.465);
+		pigment = mix(pigment, clamp(blue_lacquer, vec3(0.0), vec3(1.0)), armor_mask);
+	}
+	// Lift painted midtones while retaining the authored highlights/alpha.
+	pigment = pow(clamp(pigment, vec3(0.0), vec3(1.0)), vec3(portrait_gamma));
 	COLOR = vec4(pigment, alpha) * portrait_tint;
 }
 """
@@ -203,6 +219,8 @@ func _load_art() -> void:
 	output.texture = texture
 	output.visible = _ready_art
 	output.modulate = Color.WHITE if available else Color(.62,.58,.50,1)
+	_pose_material.set_shader_parameter("friendly_blue_armor",unit_id=="naginata")
+	_pose_material.set_shader_parameter("portrait_gamma",0.80 if available else 1.0)
 	_layout_art()
 	_update_pose()
 	_sync_activity()

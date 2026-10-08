@@ -321,7 +321,7 @@ func _build_menu() -> void:
 	title.name="TrainingTitle"
 	title.add_theme_font_override("font",GameFonts.japanese())
 	title.custom_minimum_size.x=120
-	var subtitle: Label=_label(heading,"훈련 던전 · 병종 연무",22,UIStyle.MUTED)
+	var subtitle: Label=_label(heading,"병종 연습 · 병종 연무",22,UIStyle.MUTED)
 	subtitle.name="TrainingSubtitle"
 	subtitle.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	subtitle.size_flags_vertical=Control.SIZE_SHRINK_CENTER

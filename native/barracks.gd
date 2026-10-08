@@ -155,7 +155,7 @@ func _rebuild() -> void:
 	wallet.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	var back = _button(header,"돌아가기",Rect2(screen.x-231,9,158,47),func(): hide(); closed.emit())
 	back.name = "BarracksBack"
-	var practice = _button(self,"鍛錬 · 훈련 던전",Rect2(screen.x-304,75,232,42),func(): training_requested.emit(selected_unit_id))
+	var practice = _button(self,"鍛錬 · 병종 연습",Rect2(screen.x-304,75,232,42),func(): training_requested.emit(selected_unit_id))
 	practice.name = "BarracksTraining"
 	practice.disabled = not selected_unit_id in progress.unlocked_units()
 	practice.add_theme_font_size_override("font_size",20)

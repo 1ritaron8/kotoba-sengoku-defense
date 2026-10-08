@@ -102,7 +102,7 @@ func front_checks() -> void:
 			var home_rect: Rect2=menu.get_node(home_name).get_global_rect()
 			home_bounds.controls[home_name]={"x":home_rect.position.x,"y":home_rect.position.y,"w":home_rect.size.x,"h":home_rect.size.y}
 		observations.append(home_bounds)
-		check(menu.get_node("HomeMotifJP").text=="戦国絵巻　天下統一への道","Approved campaign title is displayed verbatim")
+		check(menu.get_node("HomeMotifJP").text=="戦国絵巻、天下統一への道。","Approved campaign title is displayed verbatim")
 		check(menu.get_node("HomeMotifKO").text=="전국시대, 천하 통일의 이야기","Korean campaign meaning is displayed")
 		check(menu.get_node("HomeMotifJP").get_theme_font("font")==Fonts.japanese(),"Japanese title uses bundled brush font")
 		gap_above(menu.get_node("HomeTitle"),menu.get_node("HomeSubtitle"),1,"Japanese main title clears its Korean subtitle")
@@ -111,7 +111,7 @@ func front_checks() -> void:
 		gap_above(menu.get_node("HomeDictionary"),menu.get_node("HomeSettings"),10,"Main menu clears utility buttons")
 		gap_above(menu.get_node("HomeSettings"),menu.get_node("HomeResume"),8,"Utility buttons clear the resume action")
 		check(menu.get_node("HomeBarracks/MenuRuby").word.jp=="兵舎" and menu.get_node("HomeBarracks/MenuRuby").word.ko=="병영","Barracks keeps Japanese and Korean meaning")
-		check(menu.get_node("HomeTraining/MenuRuby").word.jp=="鍛錬" and menu.get_node("HomeTraining/MenuRuby").word.ko=="훈련 던전","Training keeps Japanese and Korean meaning")
+		check(menu.get_node("HomeTraining/MenuRuby").word.jp=="鍛錬" and menu.get_node("HomeTraining/MenuRuby").word.ko=="병종 연습","Training keeps Japanese and Korean meaning")
 		for name_hint in ["HomeBarracks","HomeTraining","HomeResume"]:
 			menu.get_node(name_hint).pressed.emit()
 		await shot("home-"+str(dimensions.x))
@@ -176,7 +176,7 @@ func barracks_checks() -> void:
 				check(header.get_node("BarracksTitle").text=="兵舎","Barracks title matches home menu")
 				check(header.get_node("BarracksTitle").get_theme_font("font")==Fonts.japanese(),"Barracks heading uses bundled brush font")
 				check(not header.get_node("BarracksTitle").get_global_rect().intersects(header.get_node("BarracksSubtitle").get_global_rect()),"Barracks title clears Korean meaning")
-				check(barracks.get_node("BarracksTraining").text=="鍛錬 · 훈련 던전","Barracks training action matches training screen")
+				check(barracks.get_node("BarracksTraining").text=="鍛錬 · 병종 연습","Barracks training action matches training screen")
 				check(barracks.get_node_or_null("SelectedArmyPortrait")!=null,"Commander portrait remains present after palette setup")
 				var commander_name: Control=barracks.get_node("CommanderNamePlaque/CommanderName")
 				check(commander_name.reading_group_palette[0]==Color("725022") and commander_name.reading_group_palette[1]==Color("285266"),"Paper readings alternate two dark, readable colours")
@@ -199,7 +199,7 @@ func training_checks() -> void:
 		await settle()
 		geometry(drill,"training menu "+str(dimensions))
 		check(drill.find_child("TrainingTitle",true,false).text=="鍛錬","Training heading matches menu actions")
-		check(drill.find_child("TrainingSubtitle",true,false).text.contains("훈련 던전"),"Training Korean meaning remains visible")
+		check(drill.find_child("TrainingSubtitle",true,false).text.contains("병종 연습"),"Training Korean meaning remains visible")
 		await shot("training-menu-"+str(dimensions.x))
 		for id in Training.UNIT_ORDER:
 			check(drill.open(str(id),maps[14]),"Production training screen opens "+str(id))
@@ -226,15 +226,22 @@ func training_presentation_checks() -> void:
 	drill.configure(account,maps,Fonts.body())
 	root.size=Vector2i(1280,800)
 	root.content_scale_size=root.size
-	for stage_index in [13,0]:
-		var stage: Dictionary=maps[stage_index]
+	for mirrored_fixture in [false,true]:
+		var stage: Dictionary=maps[13].duplicate(true)
+		if mirrored_fixture:
+			# Inspect a copied right/upper base; campaign geometry stays authored.
+			for objective in stage.get("objectives",[]):
+				objective["x"]=.80
+				objective["y"]=.25
+			if not stage.get("escortRoute",[]).is_empty():
+				stage.escortRoute[0]={"x":.80,"y":.25}
 		for id in Training.UNIT_ORDER:
 			check(drill.open(str(id),stage),"Orientation fixture opens "+str(id))
 			drill.set_process(false)
 			await settle()
 			var mirrored: bool=Presentation.mirror_for_stage(stage)
 			check(drill.battle.presentation_mirrored==mirrored,"Practice uses shared orientation")
-			check(mirrored==(stage_index==0),"Opposite presentation cases are exercised")
+			check(mirrored==mirrored_fixture,"Both left/lower and copied right/upper presentation cases are exercised")
 			var recommended: Vector2=drill.recommended
 			check(recommended.x>=0 and not drill.guide.markers.is_empty(),"Practice has a visible recommended marker")
 			if recommended.x<0 or drill.guide.markers.is_empty(): continue

@@ -13,8 +13,20 @@ const GameFonts = preload("res://native/game_fonts.gd")
 const COASTLINE_PATH: String = "res://assets/atlas/japan-coastline.json"
 const JAPAN: Vector4 = Vector4(121,149,24,46)
 const CAMPAIGN: Vector4 = Vector4(130,141.5,30.5,38)
-const CHAPTER_NAMES: Array = ["第一章 · 첫 출전", "第二章 · 전선의 책임", "第三章 · 서쪽 원정", "第四章 · 마지막 원정"]
+const CHAPTER_NAMES: Array = ["기초", "초급", "중급", "고급"]
+const MIN_LEADER_LENGTH: float = 110.0
 static var _coastline: Array = []
+# Modern orientation points; these are not Sengoku battle locations.
+# Coordinates verified against the linked city publications / coordinate entries.
+const CITIES: Array = [
+	{"jp":"札幌","ko":"삿포로","lon":141.355,"lat":43.0628,"source":"https://www.city.sapporo.jp/city/map/"},
+	{"jp":"仙台","ko":"센다이","lon":140.8728,"lat":38.2647,"source":"https://www.city.sendai.jp/chosatoke/shise/toke/tokesho/h05-01/documents/h05-01.pdf"},
+	{"jp":"東京","ko":"도쿄","lon":139.6917,"lat":35.6894,"source":"https://www.toukei.metro.tokyo.lg.jp/faq/fq-faq.htm"},
+	{"jp":"名古屋","ko":"나고야","lon":136.900,"lat":35.183,"source":"https://en.wikipedia.org/wiki/Nagoya"},
+	{"jp":"京都","ko":"교토","lon":135.7681,"lat":35.0117,"source":"https://www2.city.kyoto.lg.jp/sogo/toukei/Publish/Analysis/News/001Land.pdf"},
+	{"jp":"大阪","ko":"오사카","lon":135.5022,"lat":34.6939,"source":"https://en.wikipedia.org/wiki/Osaka"},
+	{"jp":"福岡","ko":"후쿠오카","lon":130.4017,"lat":33.5900,"source":"https://facts.city.fukuoka.lg.jp/data/position/"}
+]
 
 class MapCanvas extends Control:
 	var atlas: Control
@@ -57,6 +69,31 @@ var stage_scroll: ScrollContainer
 var geography_status: String = "pending"
 var data_credits: Array = []
 var coordinate_policy: String = ""
+var city_labels: Array = []
+var city_battle_links: Array = []
+var coast_projection_cache: Dictionary = {}
+
+func _layout_cities() -> void:
+	city_labels.clear()
+	var used: Array[Rect2]=[]
+	for city in CITIES:
+		var point: Vector2=Vector2(city.lon,city.lat)
+		if point.x<bounds.x or point.x>bounds.y or point.y<bounds.z or point.y>bounds.w: continue
+		var anchor: Vector2=project(point)
+		var label_width: float=maxf(GameFonts.japanese().get_string_size(city.jp,HORIZONTAL_ALIGNMENT_LEFT,-1,22).x,GameFonts.body().get_string_size("("+city.ko+")",HORIZONTAL_ALIGNMENT_LEFT,-1,20).x)+12
+		var label_size: Vector2=Vector2(label_width,68)
+		var offsets: Array=[Vector2(10,-72),Vector2(10,8),Vector2(-label_size.x-10,-72),Vector2(-label_size.x-10,8),Vector2(10,-144),Vector2(-label_size.x-10,84)]
+		var chosen: Rect2=Rect2()
+		for offset in offsets:
+			var position: Vector2=(anchor+offset).clamp(map_area.position+Vector2(8,8),map_area.end-label_size-Vector2(8,8))
+			var candidate: Rect2=Rect2(position,label_size)
+			var occupied: bool=false
+			for other in used:
+				if candidate.grow(4).intersects(other): occupied=true; break
+			if not occupied: chosen=candidate; break
+		if chosen.has_area():
+			used.append(chosen)
+			city_labels.append({"jp":city.jp,"ko":city.ko,"lon":city.lon,"lat":city.lat,"anchor":anchor,"rect":chosen,"source":city.source})
 
 func _ready() -> void:
 	theme = GameFonts.theme()
@@ -124,7 +161,7 @@ func _load_coastline() -> void:
 func _sync_progress() -> void:
 	revealed_ids.clear()
 	unlock_cache.clear()
-	available_chapters.clear()
+	available_chapters.assign([0,1,2,3])
 	var latest_number: int=1
 	for entry in maps:
 		var id: String=str(entry.id)
@@ -139,15 +176,11 @@ func _sync_progress() -> void:
 		if int(entry.stageNumber)>latest_number:
 			revealed_ids.append(str(entry.id))
 			break
-	for entry in maps:
-		if str(entry.id) in revealed_ids:
-			var chapter: int=int((int(entry.stageNumber)-1)/10)
-			if chapter not in available_chapters: available_chapters.append(chapter)
 
 func _choose_known_stage(requested: String) -> void:
-	if requested in revealed_ids:
+	if not stage(requested).is_empty():
 		selected_stage_id=requested
-	elif selected_stage_id not in revealed_ids:
+	elif stage(selected_stage_id).is_empty():
 		selected_stage_id=""
 		for entry in maps:
 			if _unlocked(str(entry.id)) or _cleared(str(entry.id)): selected_stage_id=str(entry.id)
@@ -203,12 +236,13 @@ func _cleared(id: String) -> bool:
 
 func _status(id: String) -> String:
 	if _cleared(id): return "클리어"
-	return "출진 가능" if _unlocked(id) else "다음 전투 · 잠김"
+	if _unlocked(id): return "출진 가능"
+	return "다음 전투 · 잠김" if id in revealed_ids else "잠김"
 
 func _eligible_entries() -> Array:
 	var entries: Array=[]
 	for entry in maps:
-		if int((int(entry.stageNumber)-1)/10)==chapter_index and str(entry.id) in revealed_ids: entries.append(entry)
+		if int((int(entry.stageNumber)-1)/10)==chapter_index: entries.append(entry)
 	return entries
 
 func _pin_rect(group: Array) -> Rect2:
@@ -219,22 +253,28 @@ func _layout_callouts() -> void:
 	callout_rects.clear()
 	source_anchors.clear()
 	battle_links.clear()
+	city_battle_links.clear()
 	var entries: Array=_eligible_entries()
-	selected_place_rect=Rect2(map_area.position+Vector2(12,12),Vector2(minf(284,map_area.size.x*.4),104))
-	var marker_size: Vector2=Vector2(50,44)
+	selected_place_rect=Rect2()
 	var used: Array[Rect2]=[]
+	for city in city_labels: used.append(city.rect.grow(4))
 	for entry in entries:
 		var id: String=str(entry.id)
 		if not geography_by_id.has(id): continue
 		var point: Vector2=coordinates(geography_by_id[id])
 		var actual: Vector2=project(point)
 		source_anchors[id]={"lon":point.x,"lat":point.y,"display":actual}
-		pin_groups.append([id])
+		var nearest: Dictionary={}
+		var nearest_distance: float=INF
+		for city in city_labels:
+			var delta: Vector2=(point-Vector2(city.lon,city.lat))*Vector2(cos(deg_to_rad(point.y)),1)
+			if delta.length_squared()<nearest_distance: nearest=city; nearest_distance=delta.length_squared()
+		var marker_size: Vector2=Vector2(maxf(150,GameFonts.body().get_string_size("%02d %s"%[int(entry.stageNumber),_atlas_label(id,"battleKo")],HORIZONTAL_ALIGNMENT_LEFT,-1,20).x+20),44)
 		var best: Rect2=Rect2()
 		var distance: float=INF
 		# Repeated battles share a real coordinate. Only their compact markers
 		# fan out; the dot and leader remain attached to the true location.
-		for ring in range(8):
+		for ring in range(20):
 			var count: int=1 if ring==0 else 16
 			for index in range(count):
 				var angle: float=-PI*.5+TAU*float(index)/float(count)
@@ -243,7 +283,12 @@ func _layout_callouts() -> void:
 				var maximum: Vector2=map_area.end-marker_size*.5-Vector2(8,8)
 				center=center.clamp(minimum,maximum)
 				var candidate: Rect2=Rect2(center-marker_size*.5,marker_size)
-				if candidate.grow(6).intersects(selected_place_rect): continue
+				var battle_endpoint: Vector2=Vector2(clampf(actual.x,candidate.position.x,candidate.end.x),clampf(actual.y,candidate.position.y,candidate.end.y))
+				if actual.distance_to(battle_endpoint)<MIN_LEADER_LENGTH: continue
+				if not nearest.is_empty():
+					var city_anchor: Vector2=nearest.anchor
+					var city_endpoint: Vector2=Vector2(clampf(city_anchor.x,candidate.position.x,candidate.end.x),clampf(city_anchor.y,candidate.position.y,candidate.end.y))
+					if city_anchor.distance_to(city_endpoint)<MIN_LEADER_LENGTH: continue
 				var occupied: bool=false
 				for other in used:
 					if candidate.grow(5).intersects(other): occupied=true;break
@@ -254,6 +299,8 @@ func _layout_callouts() -> void:
 		if best.has_area():
 			used.append(best)
 			callout_rects[id]=best
+			pin_groups.append([id])
+			if not nearest.is_empty(): city_battle_links.append({"stageId":id,"cityJP":nearest.jp,"cityAnchor":nearest.anchor,"battleAnchor":actual,"labelRect":best})
 	for index in range(entries.size()-1):
 		var first: String=str(entries[index].id)
 		var second: String=str(entries[index+1].id)
@@ -271,9 +318,12 @@ func _atlas_label(id: String, key: String) -> String:
 func _change_chapter(chapter: int) -> void:
 	if chapter not in available_chapters: return
 	chapter_index=chapter
-	for entry in _eligible_entries():
-		selected_stage_id=str(entry.id)
-		if _unlocked(selected_stage_id) and not _cleared(selected_stage_id): break
+	var entries: Array=_eligible_entries()
+	if not entries.is_empty(): selected_stage_id=str(entries[0].id)
+	for entry in entries:
+		if _unlocked(str(entry.id)) and not _cleared(str(entry.id)):
+			selected_stage_id=str(entry.id)
+			break
 	_rebuild()
 
 func _rebuild() -> void:
@@ -293,7 +343,7 @@ func _rebuild() -> void:
 	var title: Label=_label(self,"全国地図 · 전국 원정 지도",30)
 	title.position=Vector2(24,18)
 	title.size=Vector2(size.x-48,42)
-	var note: Label=_label(self,"번호를 선택하면 옛 지명과 현재 지역이 표시됩니다. 붉은 선을 따라 원정을 이어갑니다.",20,Color(UIStyle.MUTED),size.x-48)
+	var note: Label=_label(self,"한자: 현대 도시 · 실선: 전장 위치 · 청록 점선: 가까운 도시 연결",20,Color(UIStyle.MUTED),size.x-48)
 	note.position=Vector2(24,66)
 	note.size=Vector2(size.x-48,36)
 	var campaign_zoom: Button=_button(self,"원정 지역",func(): all_japan=false; _rebuild())
@@ -304,18 +354,12 @@ func _rebuild() -> void:
 	japan_zoom.name="JapanZoom"
 	japan_zoom.position=Vector2(174,112)
 	japan_zoom.size=Vector2(140,44)
-	var chapters: OptionButton=OptionButton.new()
-	chapters.name="AtlasChapterFilter"
 	for chapter in available_chapters:
-		chapters.add_item(str(CHAPTER_NAMES[chapter]),chapter)
-		if chapter==chapter_index: chapters.select(chapters.item_count-1)
-	chapters.add_theme_font_override("font",GameFonts.body())
-	chapters.add_theme_font_size_override("font_size",20)
-	for state_name in ["normal","hover","pressed","disabled","focus"]: chapters.add_theme_stylebox_override(state_name,UIStyle.textured_button(state_name))
-	chapters.position=Vector2(326,112)
-	chapters.size=Vector2(278,44)
-	chapters.item_selected.connect(func(index): _change_chapter(chapters.get_item_id(index)))
-	add_child(chapters)
+		var tier: Button=_button(self,str(CHAPTER_NAMES[chapter]),_change_chapter.bind(chapter))
+		tier.name="AtlasTier_%d"%chapter
+		tier.position=Vector2(326+chapter*120,112)
+		tier.size=Vector2(112,44)
+		if chapter==chapter_index: tier.add_theme_stylebox_override("normal",UIStyle.textured_button("normal",false,true))
 	bounds=JAPAN if all_japan else CAMPAIGN
 	map_area=Rect2(24,174,maxf(200,size.x-456),size.y-254)
 	# Match the mean latitude so Japan's recognizable shape is not stretched.
@@ -323,22 +367,46 @@ func _rebuild() -> void:
 	var map_size: Vector2=Vector2(minf(map_area.size.x,map_area.size.y*ratio),minf(map_area.size.y,map_area.size.x/ratio))
 	photo_rect=Rect2(map_area.position+(map_area.size-map_size)*.5,map_size)
 	crop_rect=Rect2()
+	_layout_cities()
 	_layout_callouts()
-	projected_coasts.clear()
-	for ring in _coastline:
-		var points: PackedVector2Array=[]
-		for point in ring: points.append(project(point)-map_area.position)
-		projected_coasts.append({"points":points,"triangles":Geometry2D.triangulate_polygon(points)})
+	var projection_key: String=str(bounds)+str(map_area)+str(photo_rect)
+	if not coast_projection_cache.has(projection_key):
+		var projected: Array=[]
+		for ring in _coastline:
+			var points: PackedVector2Array=[]
+			for point in ring: points.append(project(point)-map_area.position)
+			projected.append({"points":points,"triangles":Geometry2D.triangulate_polygon(points)})
+		if coast_projection_cache.size()>=8: coast_projection_cache.clear()
+		coast_projection_cache[projection_key]=projected
+	projected_coasts=coast_projection_cache[projection_key]
 	map_canvas=MapCanvas.new()
 	map_canvas.name="CoordinateMap"
 	map_canvas.atlas=self
 	map_canvas.position=map_area.position
 	map_canvas.size=map_area.size
 	add_child(map_canvas)
+	for city in city_labels:
+		var city_label: Label=_label(self,city.jp,22,Color("244d49"),city.rect.size.x)
+		city_label.name="AtlasCity_"+city.jp
+		city_label.autowrap_mode=TextServer.AUTOWRAP_OFF
+		city_label.add_theme_font_override("font",GameFonts.japanese())
+		city_label.add_theme_color_override("font_outline_color",Color("f4e9ce"))
+		city_label.add_theme_constant_override("outline_size",6)
+		city_label.position=city.rect.position
+		city_label.size=Vector2(city.rect.size.x,34)
+		city_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+		var city_korean: Label=_label(self,"("+str(city.ko)+")",20,Color("244d49"),city.rect.size.x)
+		city_korean.name="AtlasCityKo_"+city.jp
+		city_korean.autowrap_mode=TextServer.AUTOWRAP_OFF
+		city_korean.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+		city_korean.add_theme_color_override("font_outline_color",Color("f4e9ce"))
+		city_korean.add_theme_constant_override("outline_size",6)
+		city_korean.position=city.rect.position+Vector2(0,34)
+		city_korean.size=Vector2(city.rect.size.x,34)
 	for group in pin_groups:
 		var id: String=str(group[0])
 		var number: int=int(stage(id).stageNumber)
-		var button: Button=_button(self,"%02d"%number,_select_stage.bind(id))
+		var button: Button=_button(self,"%02d %s"%[number,_atlas_label(id,"battleKo")],_select_stage.bind(id))
 		button.name="AtlasPin_%02d"%number
 		button.set_meta("stage_ids",[id])
 		button.set_meta("real_anchor",source_anchors[id].display)
@@ -346,37 +414,18 @@ func _rebuild() -> void:
 		button.position=card_rect.position
 		button.size=card_rect.size
 		button.custom_minimum_size=Vector2(50,44)
-		button.add_theme_stylebox_override("normal",UIStyle.textured_panel("paper",Color("eee2c8"),4))
-		button.add_theme_stylebox_override("hover",UIStyle.textured_panel("paper",Color("fff0d2"),4))
-		button.add_theme_stylebox_override("pressed",UIStyle.textured_panel("paper",Color("d9c8a5"),4))
+		for state_name in ["normal","hover","pressed","disabled"]: button.add_theme_stylebox_override(state_name,StyleBoxEmpty.new())
 		button.add_theme_stylebox_override("focus",UIStyle.frame("00000000","845632"))
+		button.add_theme_color_override("font_outline_color",Color("f4e9ce"))
+		button.add_theme_constant_override("outline_size",4)
+		button.add_theme_color_override("font_hover_color",Color("883e29"))
+		button.add_theme_color_override("font_pressed_color",Color("883e29"))
 		var ink: Color=Color("392d22") if _unlocked(id) else Color("756959")
 		button.add_theme_color_override("font_color",ink)
 		button.tooltip_text="%02d · %s\n%s\n현재 %s"%[number,_atlas_label(id,"battleKo"),_atlas_label(id,"historicPlaceKo"),_atlas_label(id,"modernPlaceKo")]
 		if id==selected_stage_id:
-			button.add_theme_stylebox_override("normal",UIStyle.textured_panel("paper",Color("fff0ce"),4))
 			button.add_theme_color_override("font_color",Color("883e29"))
 		pin_buttons.append(button)
-	if source_anchors.has(selected_stage_id):
-		var place: Panel=Panel.new()
-		place.name="SelectedPlaceCallout"
-		place.position=selected_place_rect.position
-		place.size=selected_place_rect.size
-		place.mouse_filter=Control.MOUSE_FILTER_IGNORE
-		place.add_theme_stylebox_override("panel",UIStyle.textured_panel("paper",Color("eee2c8"),6))
-		add_child(place)
-		var heading: Label=_label(place,"%02d · %s"%[int(stage(selected_stage_id).stageNumber),_atlas_label(selected_stage_id,"battleKo")],20,Color("7e3529"),place.size.x-20)
-		heading.name="CalloutBattle"
-		heading.position=Vector2(10,6)
-		heading.size=Vector2(place.size.x-20,28)
-		var historic: Label=_label(place,_atlas_label(selected_stage_id,"historicPlaceKo"),22,Color("392d22"),place.size.x-20)
-		historic.name="CalloutHistoricPlace"
-		historic.position=Vector2(10,35)
-		historic.size=Vector2(place.size.x-20,29)
-		var modern: Label=_label(place,_atlas_label(selected_stage_id,"modernPlaceKo"),20,Color("665747"),place.size.x-20)
-		modern.name="CalloutModernPlace"
-		modern.position=Vector2(10,67)
-		modern.size=Vector2(place.size.x-20,28)
 	if geography_by_id.is_empty() or _coastline.is_empty():
 		var pending: Label=_label(self,"지도 자료를 준비 중입니다. 오른쪽에서 알려진 전투를 선택할 수 있습니다.",24,Color(UIStyle.INK),map_area.size.x-36)
 		pending.position=map_area.position+Vector2(18,18)
@@ -410,6 +459,8 @@ func _credit_text() -> String:
 		if not str(item.get("license","")).is_empty(): lines.append("라이선스: "+str(item.license))
 		if not str(item.get("modifiedKo","")).is_empty(): lines.append(str(item.modifiedKo))
 	if not coordinate_policy.is_empty(): lines.append(coordinate_policy)
+	lines.append("한자 도시명은 현대의 방향 참고점입니다. 청록 점선은 가까운 도시와 전투 라벨의 UI 연결이며 실제 전장 위치·행군로가 아닙니다. 붉은 점선은 게임 진행 순서입니다.")
+	for city in CITIES: lines.append("현대 도시 참고 · "+str(city.jp)+" · "+str(city.source))
 	return "\n".join(lines)
 
 func _show_credits() -> void:
@@ -448,7 +499,7 @@ func _show_credits() -> void:
 	close.name="AtlasCreditClose"
 
 func _select_stage(id: String) -> void:
-	if id not in revealed_ids: return
+	if stage(id).is_empty(): return
 	selected_stage_id=id
 	selection_changed.emit(id)
 	_rebuild()
@@ -526,7 +577,7 @@ func _build_sidebar(rect: Rect2) -> void:
 	gate_button=_button(stack,"다음 전투 해금 시험" if gate_id==selected_stage_id else "이전 전투 해금 시험",func(): assessment_requested.emit(gate_id))
 	gate_button.name="AtlasAssessment"
 	gate_button.visible=not gate_id.is_empty()
-	var list_title: Label=_label(stack,"이 장의 전투 · %d / 10"%_eligible_entries().size(),20,Color(UIStyle.INK))
+	var list_title: Label=_label(stack,"%s 전투 · %d / 10"%[CHAPTER_NAMES[chapter_index],_eligible_entries().size()],20,Color(UIStyle.INK))
 	list_title.name="AtlasStageListTitle"
 	stage_scroll=ScrollContainer.new()
 	stage_scroll.name="AtlasStageScroll"
@@ -551,7 +602,7 @@ func _build_sidebar(rect: Rect2) -> void:
 
 func draw_map(canvas: Control) -> void:
 	var local_rect: Rect2=Rect2(Vector2.ZERO,map_area.size)
-	canvas.draw_rect(local_rect,Color("bdcbc9"))
+	canvas.draw_rect(local_rect,Color("c5d6d3"))
 	# Sparse ink-wave marks add a paper-chart texture without fake geography.
 	for row in range(9):
 		for column in range(12):
@@ -559,7 +610,7 @@ func draw_map(canvas: Control) -> void:
 			canvas.draw_arc(center,13,.25,2.8,9,Color("7b989225"),1,true)
 	for ring in projected_coasts:
 		var points: PackedVector2Array=ring.points
-		if not ring.triangles.is_empty(): canvas.draw_colored_polygon(points,Color("dfd2b2"))
+		if not ring.triangles.is_empty(): canvas.draw_colored_polygon(points,Color("eadfc1"))
 		var closed: PackedVector2Array=points.duplicate()
 		closed.append(points[0])
 		canvas.draw_polyline(closed,Color("66583f"),1.6,true)
@@ -572,8 +623,20 @@ func draw_map(canvas: Control) -> void:
 			var middle: Vector2=start.lerp(end,.56)
 			canvas.draw_line(middle-direction.rotated(.6)*10,middle,Color("973e31"),2,true)
 			canvas.draw_line(middle-direction.rotated(-.6)*10,middle,Color("973e31"),2,true)
+	for link in city_battle_links:
+		var rect: Rect2=link.labelRect
+		var origin: Vector2=link.cityAnchor
+		var endpoint: Vector2=Vector2(clampf(origin.x,rect.position.x,rect.end.x),clampf(origin.y,rect.position.y,rect.end.y))
+		canvas.draw_dashed_line(origin-map_area.position,endpoint-map_area.position,Color("267870a0"),1.3,4,true,true)
+	for city in city_labels:
+		var origin: Vector2=city.anchor-map_area.position
+		canvas.draw_circle(origin,4.5,Color("f4e9ce"))
+		canvas.draw_circle(origin,2.5,Color("244d49"))
+		var endpoint: Vector2=city.rect.get_center()-map_area.position
+		canvas.draw_line(origin,endpoint,Color("244d4980"),1,true)
 	for id in source_anchors:
 		var actual: Vector2=source_anchors[id].display
+		if not callout_rects.has(id): continue
 		var rect: Rect2=callout_rects[id]
 		var endpoint: Vector2=Vector2(clampf(actual.x,rect.position.x+6,rect.end.x-6),clampf(actual.y,rect.position.y+6,rect.end.y-6))
 		canvas.draw_line(actual-map_area.position,endpoint-map_area.position,Color("564535"),1.3,true)
@@ -581,8 +644,6 @@ func draw_map(canvas: Control) -> void:
 		canvas.draw_circle(actual-map_area.position,3.5,Color("973e31") if _unlocked(id) else Color("777266"))
 		if id==selected_stage_id:
 			canvas.draw_arc(actual-map_area.position,10,0,TAU,24,Color("973e31"),2,true)
-			var callout_end: Vector2=Vector2(clampf(actual.x,selected_place_rect.position.x+6,selected_place_rect.end.x-6),clampf(actual.y,selected_place_rect.position.y+6,selected_place_rect.end.y-6))
-			canvas.draw_line(actual-map_area.position,callout_end-map_area.position,Color("973e31"),1.8,true)
 	canvas.draw_rect(local_rect,Color("aa8c52"),false,2)
 
 func diagnostics() -> Dictionary:
@@ -591,4 +652,4 @@ func diagnostics() -> Dictionary:
 	for group in pin_groups:
 		groups.append({"stageIds":group.duplicate(),"rect":_pin_rect(group),"anchor":source_anchors[str(group[0])].display})
 		visible_ids.append(str(group[0]))
-	return {"selectedStageId":selected_stage_id,"geographyStatus":geography_status,"geographyCount":geography_by_id.size(),"mapCount":maps.size(),"sourcePath":COASTLINE_PATH,"sourcePixelSize":Vector2.ZERO,"sourceCrop":Rect2(),"photoRect":photo_rect,"mapArea":map_area,"bounds":bounds,"anchors":source_anchors.duplicate(true),"pinGroups":groups,"static":true,"processing":is_processing(),"fade":false,"historicalTerritoryMap":false,"credits":_credit_text(),"mapAccuracy":"Original vector atlas based on Natural Earth's physical coastline. Battle connections show game progression, not documented march routes.","stageActionEnabled":action_button!=null and not action_button.disabled,"chapter":chapter_index,"availableChapters":available_chapters.duplicate(),"revealedStageIds":revealed_ids.duplicate(),"visibleStageIds":visible_ids,"battleLinks":battle_links.duplicate(true),"coastlineRingCount":_coastline.size(),"coastlineCoordinateCount":1097}
+	return {"selectedStageId":selected_stage_id,"geographyStatus":geography_status,"geographyCount":geography_by_id.size(),"mapCount":maps.size(),"sourcePath":COASTLINE_PATH,"sourcePixelSize":Vector2.ZERO,"sourceCrop":Rect2(),"photoRect":photo_rect,"mapArea":map_area,"bounds":bounds,"anchors":source_anchors.duplicate(true),"pinGroups":groups,"static":true,"processing":is_processing(),"fade":false,"historicalTerritoryMap":false,"credits":_credit_text(),"mapAccuracy":"Original vector atlas based on Natural Earth's physical coastline. Battle connections show game progression, not documented march routes.","stageActionEnabled":action_button!=null and not action_button.disabled,"chapter":chapter_index,"availableChapters":available_chapters.duplicate(),"revealedStageIds":revealed_ids.duplicate(),"visibleStageIds":visible_ids,"battleLinks":battle_links.duplicate(true),"cityLabels":city_labels.duplicate(true),"cityBattleLinks":city_battle_links.duplicate(true),"coastProjectionCacheCount":coast_projection_cache.size(),"coastlineRingCount":_coastline.size(),"coastlineCoordinateCount":1097}

@@ -704,7 +704,7 @@
       "plannedBackground": "res://assets/battlefields/basic-forest.png",
       "legacyEncounterTheme": "forest",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.nagoya.jp/midori/miryoku/1024793/1024801/1024815.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E4%B8%B8%E6%A0%B9%E7%A0%A6%E8%B7%A1"
@@ -2168,7 +2168,7 @@
       "plannedBackground": "res://assets/battlefields/basic-farm.png",
       "legacyEncounterTheme": "farm",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.nagoyajo.city.nagoya.jp/learn/history/chronology/",
         "https://www.city.nagoya.jp/naka/miryoku/1021146/1033230/1049391.html",
@@ -3241,7 +3241,7 @@
       "plannedBackground": "res://assets/battlefields/basic-town.png",
       "legacyEncounterTheme": "town",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.gifu.lg.jp/kankoubunka/kankou/1013051/1005097/1034742/1034737.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E5%B2%90%E9%98%9C%E5%9F%8E"
@@ -4566,7 +4566,7 @@
       "plannedBackground": "res://assets/battlefields/basic-river.png",
       "legacyEncounterTheme": "river",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.pref.shiga.lg.jp/sd00/2592.html",
         "https://online.bunka.go.jp/heritages/detail/205683",
@@ -5907,7 +5907,7 @@
       "plannedBackground": "res://assets/battlefields/basic-harbor.png",
       "legacyEncounterTheme": "harbor",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.nagaokakyo.lg.jp/0000011496.html",
         "https://www.kyoto-kankou.or.jp/info_search/345"
@@ -7466,7 +7466,7 @@
       "plannedBackground": "res://assets/battlefields/basic-convoy.png",
       "legacyEncounterTheme": "convoy",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.info.city.tsu.mie.jp/kosodate_kyouiku/kyouikuiinkai/1004357/1004663/1004603/1004655/1004660.html",
         "https://www.city.matsusaka.mie.jp/site/culture-info/okawatijyoato.html",
@@ -8431,7 +8431,7 @@
       "plannedBackground": "res://assets/battlefields/basic-temple.png",
       "legacyEncounterTheme": "temple",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.library-archives.pref.fukui.lg.jp/fukui/07/kenshi/T2/T2-4-01-04-04-02.htm",
         "https://www.library-archives.pref.fukui.lg.jp/fukui/07/nenpyo/rekishi/chrn24.html",
@@ -9664,7 +9664,7 @@
       "plannedBackground": "res://assets/battlefields/basic-snow.png",
       "legacyEncounterTheme": "snow",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.library-archives.pref.fukui.lg.jp/fukui/07/kenshi/T2/T2-4-01-04-04-02.htm",
         "https://www.library-archives.pref.fukui.lg.jp/fukui/07/nenpyo/rekishi/chrn24.html",
@@ -11203,7 +11203,7 @@
           "blocksMovement": true
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.nagahama.lg.jp/cmsfiles/contents/0000001/1238/R8rekimachikeikaku_1.pdf",
         "https://www.library-archives.pref.fukui.lg.jp/fukui/07/kenshi/T2/T2-4-01-04-04-02.htm",
@@ -12545,7 +12545,7 @@
       "plannedBackground": "res://assets/battlefields/basic-siege.png",
       "legacyEncounterTheme": "siege",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.library-archives.pref.fukui.lg.jp/fukui/07/nenpyo/rekishi/chrn24.html",
         "https://asakura-museum.pref.fukui.lg.jp/site/history",
@@ -13851,7 +13851,7 @@
       "plannedBackground": "res://assets/battlefields/beginner-forest.png",
       "legacyEncounterTheme": "forest",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.tsuruoka.lg.jp/static/sakai400th/yukarinochi/mikatagahara.html",
         "https://www.maff.go.jp/kanto/nouson/sekkei/kokuei/mikatahara/keii.html",
@@ -15364,7 +15364,7 @@
           "blocksMovement": true
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.uji.kyoto.jp/uploaded/attachment/50695.pdf",
         "https://www.city.uji.kyoto.jp/uploaded/attachment/5660.pdf",
@@ -16464,7 +16464,7 @@
       "plannedBackground": "res://assets/battlefields/beginner-town.png",
       "legacyEncounterTheme": "town",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://asakura-museum.pref.fukui.lg.jp/site/history",
         "https://www.library-archives.pref.fukui.lg.jp/fukui/07/nenpyo/rekishi/chrn24.html",
@@ -17772,7 +17772,7 @@
       "plannedBackground": "res://assets/battlefields/beginner-river.png",
       "legacyEncounterTheme": "river",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://asakura-museum.pref.fukui.lg.jp/site/history",
         "https://www.library-archives.pref.fukui.lg.jp/fukui/07/nenpyo/rekishi/chrn24.html",
@@ -18821,8 +18821,8 @@
       },
       {
         "id": "beginner-harbor-emplacement-10",
-        "x": 0.878284,
-        "y": 0.586008,
+        "x": 0.865,
+        "y": 0.63,
         "r": 0.03,
         "elevation": 0,
         "betweenRoads": false
@@ -19105,10 +19105,11 @@
       "plannedBackground": "res://assets/battlefields/beginner-harbor.png",
       "legacyEncounterTheme": "harbor",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.nagahama.lg.jp/cmsfiles/contents/0000001/1238/R8rekimachikeikaku_1.pdf",
-        "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E5%B0%8F%E8%B0%B7%E5%9F%8E%E8%B7%A1"
+        "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E5%B0%8F%E8%B0%B7%E5%9F%8E%E8%B7%A1",
+        "https://shiroexpo-shiga.jp/2020/column/no22.html"
       ],
       "timeOfDay": "night",
       "timeOfDayKnown": false,
@@ -19219,7 +19220,7 @@
           "y": 0.25,
           "w": 0.2,
           "h": 0.18,
-          "amplitudeWorld": 1.2,
+          "amplitudeWorld": 1.8,
           "orientationRadians": 3.141593,
           "isGameAdaptation": true
         },
@@ -19230,7 +19231,7 @@
           "y": 0.54,
           "w": 0.28,
           "h": 0.61,
-          "amplitudeWorld": 0.6,
+          "amplitudeWorld": 0.85,
           "orientationRadians": 3.141593
         },
         {
@@ -19272,7 +19273,7 @@
         "isGameAdaptation": true,
         "routePrecision": "qualitative_design_only"
       },
-      "terrainDesignKo": "능선에 여러 곡륜이 이어진 산성. 교고쿠마루 접근과 성내 연결을 끊는 야간 공격 국면을 활용할 수 있습니다. [시가현 문화재 담당자의 전투 해설](https://shiroexpo-shiga.jp/2020/column/no22.html)",
+      "terrainDesignKo": "1573년 8월 27일 밤, 히데요시는 남쪽 기요미즈다니에서 교고쿠마루로 올라갔습니다. 낮은 접근부와 높은 산성의 관계를 반영했으며 도로·연락 진지 배치는 게임용 각색입니다. [시가현 문화재 담당 해설](https://shiroexpo-shiga.jp/2020/column/no22.html)",
       "hunterApproachPolicyKo": "주력은 본진 공격 경로, 별동대는 적진에서 갈라지는 사격 진지 공격 경로를 이용합니다. 나룻배는 지정된 수역에서만 이동하고 상륙 후 지상 전투를 시작합니다.",
       "interRoadPlacement": {
         "policy": "outer_only",
@@ -19296,7 +19297,13 @@
         "friendlyTargetsAreCampsOrDefensiveFront": true,
         "historicalFortsRetained": true,
         "rootApprovalAndNativeQaRequired": true
-      }
+      },
+      "viewpoint": {
+        "elevationDegrees": 38,
+        "compositionKo": "낮은 아군 산기슭에서 적의 높은 곡륜과 능선 연결부를 올려다봅니다. 화면 방위는 플레이 가독성을 위한 각색입니다.",
+        "isGameAdaptation": true
+      },
+      "heightLimitWorld": 2.0
     },
     "sideAmbushEntrances": [
       {
@@ -20763,7 +20770,7 @@
           "blocksMovement": true
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.shinshiro.lg.jp/mokuteki/shisetu/shiryokan/nagashinojyoshi/yokoso.html",
         "https://www.city.shinshiro.lg.jp/mokuteki/shisetu/shiryokan/nagashinojyoshi/tenjikaisetsu.html",
@@ -22118,7 +22125,7 @@
           "blocksMovement": true
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.shinshiro.lg.jp/mokuteki/shisetu/shiryokan/nagashinojyoshi/yokoso.html",
         "https://www.city.shinshiro.lg.jp/mokuteki/shisetu/shiryokan/nagashinojyoshi/tenjikaisetsu.html",
@@ -23126,7 +23133,7 @@
       "plannedBackground": "res://assets/battlefields/beginner-snow.png",
       "legacyEncounterTheme": "snow",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.iida.lg.jp/site/bunkazai/minamihonjou.html",
         "https://www.city.ena.lg.jp/syougaigakushu_sports/rekishi_bunka/bunkazai_maizobunkazai/9782.html",
@@ -24476,7 +24483,7 @@
           "blocksMovement": true
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.library-archives.pref.fukui.lg.jp/fukui/07/nenpyo/rekishi/chrn24.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%89%8B%E5%8F%96%E5%B7%9D"
@@ -25812,7 +25819,7 @@
       "plannedBackground": "res://assets/battlefields/beginner-siege.png",
       "legacyEncounterTheme": "siege",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.town.heguri.nara.jp/soshiki/14/1090.html",
         "https://geoshape.ex.nii.ac.jp/nrct-poi/dataset/nrct-poi-20250515.csv"
@@ -26931,7 +26938,7 @@
       "legacyEncounterTheme": "forest",
       "legacyEncounterMode": "ambush",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.miki.lg.jp/site/mikirekishishiryokan/26531.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E4%B8%89%E6%9C%A8%E5%9F%8E%E8%B7%A1"
@@ -29070,7 +29077,7 @@
       "legacyEncounterTheme": "farm",
       "legacyEncounterMode": "multi-objective",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.itami.lg.jp/SOSIKI/TOSHIKATSURYOKU/BUNKA/bunnkazai/KEIHATU_ZIGYO/ouchideariokajyou/1588049228013.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E6%9C%89%E5%B2%A1%E5%9F%8E%E8%B7%A1"
@@ -30393,7 +30400,7 @@
       "legacyEncounterTheme": "town",
       "legacyEncounterMode": "alleys",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.miki.lg.jp/site/mikirekishishiryokan/26531.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E4%B8%89%E6%9C%A8%E5%9F%8E%E8%B7%A1"
@@ -31921,7 +31928,7 @@
       "legacyEncounterTheme": "river",
       "legacyEncounterMode": "bridges",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.osaka.lg.jp/seisakukikakushitsu/page/0000010252.html",
         "https://www.city.osaka.lg.jp/chuo/page/0000641506.html",
@@ -33006,7 +33013,7 @@
       "legacyEncounterTheme": "harbor",
       "legacyEncounterMode": "landing",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.pref.tottori.lg.jp/item/262000.htm",
         "https://www.city.tottori.lg.jp/page/6234.html",
@@ -35053,7 +35060,7 @@
           "blocksMovement": true
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.okayama.jp/kurashi/0000008989.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E9%AB%98%E6%9D%BE%E5%9F%8E%E8%B7%A1"
@@ -37485,7 +37492,7 @@
           "blocksMovement": true
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www2.city.kyoto.lg.jp/html/somu/rekishi/fm/ishibumi/html/na149.html",
         "https://www.town.oyamazaki.kyoto.jp/kanko/kankospot/2523.html",
@@ -40180,7 +40187,7 @@
           "blocksMovement": true
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.okayama.jp/kurashi/0000008989.html",
         "https://www.town.oyamazaki.kyoto.jp/kanko/kankospot/2523.html",
@@ -42406,7 +42413,7 @@
       "legacyEncounterTheme": "night",
       "legacyEncounterMode": "visibility",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.town.oyamazaki.kyoto.jp/kanko/kankospot/2523.html",
         "https://www.town.oyamazaki.kyoto.jp/kanko/modelcourse/2885.html",
@@ -43640,7 +43647,7 @@
       "legacyEncounterTheme": "siege",
       "legacyEncounterMode": "siege",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.biwako-visitors.jp/spot/detail/3804/?active=spot",
         "https://www.pref.shiga.lg.jp/file/attachment/5520527.pdf",
@@ -44960,7 +44967,7 @@
       "legacyEncounterTheme": "forest",
       "legacyEncounterMode": "ambush",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.nagakute.lg.jp/kanko_bunka_sports/5/6/9039.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E5%B0%8F%E7%89%A7%E5%B1%B1"
@@ -46896,7 +46903,7 @@
       "legacyEncounterTheme": "farm",
       "legacyEncounterMode": "multi-objective",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.nagakute.lg.jp/kanko_bunka_sports/5/6/9039.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E9%95%B7%E4%B9%85%E6%89%8B%E5%8F%A4%E6%88%A6%E5%A0%B4",
@@ -48229,7 +48236,7 @@
       "legacyEncounterTheme": "town",
       "legacyEncounterMode": "alleys",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.tokushima.tokushima.jp/kankou/bunkazai/ichinomiya2018.html",
         "https://www.library.pref.kagawa.lg.jp/know/local/local_2033-02",
@@ -49279,7 +49286,7 @@
       "legacyEncounterTheme": "river",
       "legacyEncounterMode": "bridges",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.toyama.toyama.jp/etc/muse/kikakuhaku/list/h22/2203/2203.html",
         "https://www.library.pref.ishikawa.lg.jp/shosho/detail/orgn/B999000127",
@@ -50506,7 +50513,7 @@
           "blocksMovement": true
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.oishiimati-oita.jp/spot/3396",
         "https://www.kochi-rekimin.jp/exhibits/chosokabe.html",
@@ -52397,7 +52404,7 @@
       "legacyEncounterTheme": "convoy",
       "legacyEncounterMode": "escort",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.town.kijo.lg.jp/sosikikarasagasu/kyouikuiinkai_kyouikuka/1_1/1/3299.html",
         "https://www.town.kijo.lg.jp/kankou_bunka_supo-tu/rekisi_bunkazai/1409.html"
@@ -52737,530 +52744,530 @@
         "id": "great-central-stairs",
         "points": [
           {
-            "x": 0.975,
-            "y": 0.3
+            "x": 0.91,
+            "y": 0.16
           },
           {
-            "x": 0.8875,
-            "y": 0.342
+            "x": 0.886667,
+            "y": 0.17
           },
           {
-            "x": 0.878668,
-            "y": 0.346867
+            "x": 0.863333,
+            "y": 0.18
           },
           {
-            "x": 0.870921,
-            "y": 0.352469
+            "x": 0.84,
+            "y": 0.19
           },
           {
-            "x": 0.864259,
-            "y": 0.358805
+            "x": 0.816667,
+            "y": 0.2
           },
           {
-            "x": 0.858683,
-            "y": 0.365876
+            "x": 0.793333,
+            "y": 0.21
           },
           {
-            "x": 0.854193,
-            "y": 0.373681
+            "x": 0.77,
+            "y": 0.22
           },
           {
-            "x": 0.850787,
-            "y": 0.382221
+            "x": 0.754286,
+            "y": 0.237143
           },
           {
-            "x": 0.848467,
-            "y": 0.391495
+            "x": 0.738571,
+            "y": 0.254286
           },
           {
-            "x": 0.847233,
-            "y": 0.401504
+            "x": 0.722857,
+            "y": 0.271429
           },
           {
-            "x": 0.843,
+            "x": 0.707143,
+            "y": 0.288571
+          },
+          {
+            "x": 0.691429,
+            "y": 0.305714
+          },
+          {
+            "x": 0.675714,
+            "y": 0.322857
+          },
+          {
+            "x": 0.66,
+            "y": 0.34
+          },
+          {
+            "x": 0.637,
+            "y": 0.345
+          },
+          {
+            "x": 0.614,
+            "y": 0.35
+          },
+          {
+            "x": 0.591,
+            "y": 0.355
+          },
+          {
+            "x": 0.568,
+            "y": 0.36
+          },
+          {
+            "x": 0.545,
+            "y": 0.365
+          },
+          {
+            "x": 0.522,
+            "y": 0.37
+          },
+          {
+            "x": 0.499,
+            "y": 0.375
+          },
+          {
+            "x": 0.476,
+            "y": 0.38
+          },
+          {
+            "x": 0.453,
+            "y": 0.385
+          },
+          {
+            "x": 0.43,
+            "y": 0.39
+          },
+          {
+            "x": 0.41,
+            "y": 0.405
+          },
+          {
+            "x": 0.39,
+            "y": 0.42
+          },
+          {
+            "x": 0.37,
+            "y": 0.435
+          },
+          {
+            "x": 0.35,
+            "y": 0.45
+          },
+          {
+            "x": 0.33,
             "y": 0.465
           },
           {
-            "x": 0.842011,
-            "y": 0.476191
+            "x": 0.31,
+            "y": 0.48
           },
           {
-            "x": 0.840543,
-            "y": 0.487263
+            "x": 0.2875,
+            "y": 0.48625
           },
           {
-            "x": 0.838596,
-            "y": 0.498217
+            "x": 0.265,
+            "y": 0.4925
           },
           {
-            "x": 0.836171,
-            "y": 0.509053
+            "x": 0.2425,
+            "y": 0.49875
           },
           {
-            "x": 0.833267,
-            "y": 0.519771
+            "x": 0.22,
+            "y": 0.505
           },
           {
-            "x": 0.829884,
-            "y": 0.53037
+            "x": 0.1975,
+            "y": 0.51125
           },
           {
-            "x": 0.826023,
-            "y": 0.54085
+            "x": 0.175,
+            "y": 0.5175
           },
           {
-            "x": 0.821683,
-            "y": 0.551213
+            "x": 0.1525,
+            "y": 0.52375
           },
           {
-            "x": 0.778558,
-            "y": 0.648244
-          },
-          {
-            "x": 0.773552,
-            "y": 0.658312
-          },
-          {
-            "x": 0.767814,
-            "y": 0.667637
-          },
-          {
-            "x": 0.761343,
-            "y": 0.67622
-          },
-          {
-            "x": 0.75414,
-            "y": 0.684061
-          },
-          {
-            "x": 0.746204,
-            "y": 0.691159
-          },
-          {
-            "x": 0.737535,
-            "y": 0.697515
-          },
-          {
-            "x": 0.728134,
-            "y": 0.703129
-          },
-          {
-            "x": 0.718,
-            "y": 0.708
-          },
-          {
-            "x": 0.660713,
-            "y": 0.732552
-          },
-          {
-            "x": 0.650843,
-            "y": 0.73725
-          },
-          {
-            "x": 0.641589,
-            "y": 0.742623
-          },
-          {
-            "x": 0.63295,
-            "y": 0.748669
-          },
-          {
-            "x": 0.624928,
-            "y": 0.755388
-          },
-          {
-            "x": 0.617522,
-            "y": 0.762781
-          },
-          {
-            "x": 0.610732,
-            "y": 0.770847
-          },
-          {
-            "x": 0.604558,
-            "y": 0.779587
-          },
-          {
-            "x": 0.599,
-            "y": 0.789
-          },
-          {
-            "x": 0.55,
-            "y": 0.88
+            "x": 0.13,
+            "y": 0.53
           }
         ],
         "objectiveId": "main",
-        "displayName": "1번 육지 접근로"
+        "displayName": "상부 능선 통로"
       },
       {
         "id": "eastern-courtyard",
         "points": [
           {
-            "x": 0.025,
-            "y": 0.07
+            "x": 0.97,
+            "y": 0.4
           },
           {
-            "x": 0.025,
-            "y": 0.24793
+            "x": 0.942,
+            "y": 0.412
           },
           {
-            "x": 0.025164,
-            "y": 0.260931
+            "x": 0.914,
+            "y": 0.424
           },
           {
-            "x": 0.025656,
-            "y": 0.273898
+            "x": 0.886,
+            "y": 0.436
           },
           {
-            "x": 0.026477,
-            "y": 0.286832
+            "x": 0.858,
+            "y": 0.448
           },
           {
-            "x": 0.027625,
-            "y": 0.299733
+            "x": 0.83,
+            "y": 0.46
           },
           {
-            "x": 0.029102,
-            "y": 0.3126
+            "x": 0.7925,
+            "y": 0.46
           },
           {
-            "x": 0.030906,
-            "y": 0.325433
+            "x": 0.755,
+            "y": 0.46
           },
           {
-            "x": 0.033039,
-            "y": 0.338233
+            "x": 0.7175,
+            "y": 0.46
           },
           {
-            "x": 0.0355,
-            "y": 0.351
+            "x": 0.68,
+            "y": 0.46
           },
           {
-            "x": 0.0495,
-            "y": 0.419
+            "x": 0.6575,
+            "y": 0.4825
           },
           {
-            "x": 0.052403,
-            "y": 0.431636
+            "x": 0.635,
+            "y": 0.505
           },
           {
-            "x": 0.055862,
-            "y": 0.444045
+            "x": 0.6125,
+            "y": 0.5275
           },
           {
-            "x": 0.059876,
-            "y": 0.456226
+            "x": 0.59,
+            "y": 0.55
           },
           {
-            "x": 0.064447,
-            "y": 0.468179
+            "x": 0.558333,
+            "y": 0.558333
           },
           {
-            "x": 0.069573,
-            "y": 0.479905
+            "x": 0.526667,
+            "y": 0.566667
           },
           {
-            "x": 0.075255,
-            "y": 0.491403
+            "x": 0.495,
+            "y": 0.575
           },
           {
-            "x": 0.081493,
-            "y": 0.502673
+            "x": 0.463333,
+            "y": 0.583333
           },
           {
-            "x": 0.088287,
-            "y": 0.513716
+            "x": 0.431667,
+            "y": 0.591667
           },
           {
-            "x": 0.137,
-            "y": 0.589
+            "x": 0.4,
+            "y": 0.6
           },
           {
-            "x": 0.145195,
-            "y": 0.601783
+            "x": 0.375,
+            "y": 0.615
           },
           {
-            "x": 0.153281,
-            "y": 0.614631
+            "x": 0.35,
+            "y": 0.63
           },
           {
-            "x": 0.161258,
-            "y": 0.627545
+            "x": 0.325,
+            "y": 0.645
           },
           {
-            "x": 0.169125,
-            "y": 0.640525
+            "x": 0.3,
+            "y": 0.66
           },
           {
-            "x": 0.176883,
-            "y": 0.653571
+            "x": 0.266,
+            "y": 0.666
           },
           {
-            "x": 0.184532,
-            "y": 0.666682
+            "x": 0.232,
+            "y": 0.672
           },
           {
-            "x": 0.192071,
-            "y": 0.679859
+            "x": 0.198,
+            "y": 0.678
           },
           {
-            "x": 0.199501,
-            "y": 0.693101
+            "x": 0.164,
+            "y": 0.684
           },
           {
-            "x": 0.27,
-            "y": 0.82
+            "x": 0.13,
+            "y": 0.69
           }
         ],
         "objectiveId": "main",
-        "displayName": "2번 육지 접근로"
+        "displayName": "산허리 경사로"
       },
       {
         "id": "western-courtyard",
         "points": [
           {
-            "x": 0.13,
-            "y": 0.075
+            "x": 0.94,
+            "y": 0.65
           },
           {
-            "x": 0.13,
-            "y": 0.1485
+            "x": 0.918333,
+            "y": 0.66
           },
           {
-            "x": 0.13,
-            "y": 0.156375
+            "x": 0.896667,
+            "y": 0.67
           },
           {
-            "x": 0.13,
-            "y": 0.16425
+            "x": 0.875,
+            "y": 0.68
           },
           {
-            "x": 0.13,
-            "y": 0.172125
+            "x": 0.853333,
+            "y": 0.69
           },
           {
-            "x": 0.13,
-            "y": 0.18
+            "x": 0.831667,
+            "y": 0.7
           },
           {
-            "x": 0.13,
-            "y": 0.187875
+            "x": 0.81,
+            "y": 0.71
           },
           {
-            "x": 0.13,
-            "y": 0.19575
+            "x": 0.787143,
+            "y": 0.71
           },
           {
-            "x": 0.13,
-            "y": 0.203625
+            "x": 0.764286,
+            "y": 0.71
           },
           {
-            "x": 0.13,
-            "y": 0.2115
+            "x": 0.741429,
+            "y": 0.71
           },
           {
-            "x": 0.13,
-            "y": 0.32
+            "x": 0.718571,
+            "y": 0.71
           },
           {
-            "x": 0.130509,
-            "y": 0.33485
+            "x": 0.695714,
+            "y": 0.71
           },
           {
-            "x": 0.132037,
-            "y": 0.349398
+            "x": 0.672857,
+            "y": 0.71
           },
           {
-            "x": 0.134584,
-            "y": 0.363646
+            "x": 0.65,
+            "y": 0.71
           },
           {
-            "x": 0.138149,
-            "y": 0.377594
+            "x": 0.631429,
+            "y": 0.724286
           },
           {
-            "x": 0.142732,
-            "y": 0.39124
+            "x": 0.612857,
+            "y": 0.738571
           },
           {
-            "x": 0.148335,
-            "y": 0.404585
+            "x": 0.594286,
+            "y": 0.752857
           },
           {
-            "x": 0.154956,
-            "y": 0.41763
+            "x": 0.575714,
+            "y": 0.767143
           },
           {
-            "x": 0.162595,
-            "y": 0.430374
+            "x": 0.557143,
+            "y": 0.781429
           },
           {
-            "x": 0.212875,
-            "y": 0.50808
+            "x": 0.538571,
+            "y": 0.795714
           },
           {
-            "x": 0.219655,
-            "y": 0.518561
+            "x": 0.52,
+            "y": 0.81
           },
           {
-            "x": 0.22643,
-            "y": 0.529045
+            "x": 0.4975,
+            "y": 0.81375
           },
           {
-            "x": 0.233201,
-            "y": 0.539531
+            "x": 0.475,
+            "y": 0.8175
           },
           {
-            "x": 0.239969,
-            "y": 0.55002
+            "x": 0.4525,
+            "y": 0.82125
           },
           {
-            "x": 0.246732,
-            "y": 0.560511
+            "x": 0.43,
+            "y": 0.825
           },
           {
-            "x": 0.253492,
-            "y": 0.571005
+            "x": 0.4075,
+            "y": 0.82875
           },
           {
-            "x": 0.260248,
-            "y": 0.581501
+            "x": 0.385,
+            "y": 0.8325
           },
           {
-            "x": 0.267,
-            "y": 0.592
+            "x": 0.3625,
+            "y": 0.83625
           },
           {
-            "x": 0.305184,
-            "y": 0.651397
-          },
-          {
-            "x": 0.311141,
-            "y": 0.661148
-          },
-          {
-            "x": 0.316603,
-            "y": 0.671098
-          },
-          {
-            "x": 0.321572,
-            "y": 0.681249
-          },
-          {
-            "x": 0.326046,
-            "y": 0.691599
-          },
-          {
-            "x": 0.330026,
-            "y": 0.70215
-          },
-          {
-            "x": 0.333511,
-            "y": 0.7129
-          },
-          {
-            "x": 0.336503,
-            "y": 0.72385
-          },
-          {
-            "x": 0.339,
-            "y": 0.735
-          },
-          {
-            "x": 0.36,
+            "x": 0.34,
             "y": 0.84
+          },
+          {
+            "x": 0.316667,
+            "y": 0.841111
+          },
+          {
+            "x": 0.293333,
+            "y": 0.842222
+          },
+          {
+            "x": 0.27,
+            "y": 0.843333
+          },
+          {
+            "x": 0.246667,
+            "y": 0.844444
+          },
+          {
+            "x": 0.223333,
+            "y": 0.845556
+          },
+          {
+            "x": 0.2,
+            "y": 0.846667
+          },
+          {
+            "x": 0.176667,
+            "y": 0.847778
+          },
+          {
+            "x": 0.153333,
+            "y": 0.848889
+          },
+          {
+            "x": 0.13,
+            "y": 0.85
           }
         ],
         "objectiveId": "main",
-        "displayName": "3번 육지 접근로"
+        "displayName": "하부 흙해자 바깥길"
       }
     ],
     "objectives": [
       {
         "id": "main",
-        "x": 0.31,
-        "y": 0.77,
-        "label": "山中城",
+        "x": 0.095,
+        "y": 0.69,
+        "label": "외곽 연락진지",
         "hp": 27,
         "presentation": "defense_line"
       }
     ],
     "buildZones": [
       {
-        "x": 0.127533,
-        "y": 0.717164,
+        "x": 0.358711,
+        "y": 0.530967,
         "r": 0.03,
         "elevation": 1,
         "id": "advanced-temple-emplacement-1",
         "betweenRoads": false
       },
       {
-        "x": 0.351791,
-        "y": 0.586492,
+        "x": 0.502181,
+        "y": 0.302674,
         "r": 0.03,
         "elevation": 1,
         "id": "advanced-temple-emplacement-2",
         "betweenRoads": true
       },
       {
-        "x": 0.420702,
-        "y": 0.73559,
+        "x": 0.554125,
+        "y": 0.631824,
         "r": 0.03,
         "elevation": 1,
         "id": "advanced-temple-emplacement-3",
         "betweenRoads": true
       },
       {
-        "x": 0.491156,
-        "y": 0.778355,
+        "x": 0.369186,
+        "y": 0.323111,
         "r": 0.055,
         "elevation": 1,
         "id": "advanced-temple-emplacement-4",
         "betweenRoads": true
       },
       {
-        "x": 0.895816,
-        "y": 0.581135,
+        "x": 0.816603,
+        "y": 0.272753,
         "r": 0.03,
         "elevation": 0,
         "id": "advanced-temple-emplacement-5",
         "betweenRoads": false
       },
       {
-        "x": 0.67574,
-        "y": 0.817846,
+        "x": 0.652209,
+        "y": 0.64,
         "r": 0.03,
         "elevation": 0,
         "id": "advanced-temple-emplacement-6",
         "betweenRoads": false
       },
       {
-        "x": 0.86165,
-        "y": 0.658248,
+        "x": 0.862966,
+        "y": 0.522029,
         "r": 0.03,
         "elevation": 0,
         "id": "advanced-temple-emplacement-7",
         "betweenRoads": false
       },
       {
-        "x": 0.808735,
-        "y": 0.734545,
+        "x": 0.826713,
+        "y": 0.39,
         "r": 0.03,
         "elevation": 0,
         "id": "advanced-temple-emplacement-8",
         "betweenRoads": false
       },
       {
-        "x": 0.835297,
-        "y": 0.861159,
+        "x": 0.28128,
+        "y": 0.772716,
         "r": 0.03,
         "elevation": 2,
         "id": "advanced-temple-emplacement-9",
         "betweenRoads": false
       },
       {
-        "x": 0.711274,
-        "y": 0.89688,
+        "x": 0.763998,
+        "y": 0.64,
         "r": 0.03,
         "elevation": 2,
         "id": "advanced-temple-emplacement-10",
@@ -53268,48 +53275,48 @@
       },
       {
         "id": "advanced-temple-emplacement-11",
-        "x": 0.899676,
-        "y": 0.735789,
+        "x": 0.806993,
+        "y": 0.78,
         "r": 0.03,
         "elevation": 0,
         "betweenRoads": false
       },
       {
         "id": "advanced-temple-emplacement-12",
-        "x": 0.448685,
-        "y": 0.929172,
+        "x": 0.270759,
+        "y": 0.913376,
         "r": 0.03,
         "elevation": 0,
         "betweenRoads": true
       },
       {
         "id": "advanced-temple-emplacement-13",
-        "x": 0.625816,
-        "y": 0.895042,
+        "x": 0.653537,
+        "y": 0.795594,
         "r": 0.03,
         "elevation": 0,
         "betweenRoads": false
       },
       {
         "id": "advanced-temple-emplacement-14",
-        "x": 0.755161,
-        "y": 0.80631,
+        "x": 0.280084,
+        "y": 0.592433,
         "r": 0.03,
         "elevation": 0,
         "betweenRoads": false
       },
       {
         "id": "advanced-temple-emplacement-15",
-        "x": 0.15,
-        "y": 0.8,
+        "x": 0.707723,
+        "y": 0.53,
         "r": 0.03,
         "elevation": 0,
         "betweenRoads": false
       },
       {
         "id": "advanced-temple-emplacement-16",
-        "x": 0.682286,
-        "y": 0.636269,
+        "x": 0.641453,
+        "y": 0.256641,
         "r": 0.03,
         "elevation": 0,
         "betweenRoads": true
@@ -53317,22 +53324,22 @@
     ],
     "obstacles": [
       {
-        "x": 0.65,
-        "y": 0.53,
+        "x": 0.705,
+        "y": 0.39,
         "r": 0.034,
         "blockPlacement": true,
         "landmark": "advanced-temple-land-obstruction-1"
       },
       {
-        "x": 0.25,
-        "y": 0.22,
+        "x": 0.57,
+        "y": 0.485,
         "r": 0.038,
         "blockPlacement": true,
         "landmark": "advanced-temple-land-obstruction-2"
       },
       {
-        "x": 0.42,
-        "y": 0.86,
+        "x": 0.59,
+        "y": 0.845,
         "r": 0.03,
         "blockPlacement": true,
         "landmark": "advanced-temple-land-obstruction-3"
@@ -53368,16 +53375,16 @@
       ],
       "auras": [
         {
-          "x": 0.808735,
-          "y": 0.734545,
+          "x": 0.826713,
+          "y": 0.39,
           "r": 0.14,
           "period": 24,
           "activeSeconds": 8,
           "unitDamageFactor": 1.15
         },
         {
-          "x": 0.351791,
-          "y": 0.586492,
+          "x": 0.502181,
+          "y": 0.302674,
           "r": 0.14,
           "period": 24,
           "activeSeconds": 8,
@@ -53388,15 +53395,15 @@
     },
     "tactics": {
       "nameKo": "흙 곡륜과 쇼지보리",
-      "descriptionKo": "후호조의 야마나카 토성·곡륜과 쇼지보리·우네보리 주변 육지 접근로를 지킵니다. 당시 노출된 적갈색 로암 흙해자를 중심으로 구성하고 복원 유적의 잔디를 당시 모습으로 단정하지 않습니다. 흙해자를 가로지르지 않고 비워 둔 육지 접근로를 지키십시오. 진지 호위는 장도병, 계속 전진은 창병·사무라이·기마의 역할입니다.",
+      "descriptionKo": "1590년 도요토미 공격측의 외곽 연락진지에서 높은 호조 산성으로 전진합니다. 상부 능선·산허리 경사로·하부 해자 바깥의 세 전면에서 짐과 동료의 연락을 유지하십시오. 세 길과 연락진지 유지 규칙은 게임 전술 각색이며 실제 부대 동선의 복원이 아닙니다.",
       "hintKo": "흙해자를 가로지르지 않고 비워 둔 육지 접근로를 지키십시오. 진지 호위는 장도병, 계속 전진은 창병·사무라이·기마의 역할입니다.",
       "groundPosts": [
         {
           "id": "advanced-temple-ground-1",
           "nameKo": "1번 육로 수비점",
           "pathIndex": 0,
-          "segmentIndex": 13,
-          "t": 0.170129,
+          "segmentIndex": 12,
+          "t": 0.918721,
           "r": 0.055,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53406,8 +53413,8 @@
           "id": "advanced-temple-ground-2",
           "nameKo": "2번 육로 수비점",
           "pathIndex": 1,
-          "segmentIndex": 14,
-          "t": 0.058155,
+          "segmentIndex": 13,
+          "t": 0.79385,
           "r": 0.025,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53418,7 +53425,7 @@
           "nameKo": "3번 육로 수비점",
           "pathIndex": 2,
           "segmentIndex": 14,
-          "t": 0.734613,
+          "t": 0.067912,
           "r": 0.035,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53428,8 +53435,8 @@
           "id": "advanced-temple-ground-extra-4",
           "nameKo": "육로 수비·지원점 4",
           "pathIndex": 0,
-          "segmentIndex": 18,
-          "t": 0.116491,
+          "segmentIndex": 16,
+          "t": 0.161702,
           "r": 0.025,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53439,8 +53446,8 @@
           "id": "advanced-temple-ground-extra-5",
           "nameKo": "육로 수비·지원점 5",
           "pathIndex": 0,
-          "segmentIndex": 18,
-          "t": 0.74011,
+          "segmentIndex": 19,
+          "t": 0.40368,
           "r": 0.025,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53450,8 +53457,8 @@
           "id": "advanced-temple-ground-extra-6",
           "nameKo": "육로 수비·지원점 6",
           "pathIndex": 1,
-          "segmentIndex": 23,
-          "t": 0.06022,
+          "segmentIndex": 20,
+          "t": 0.979873,
           "r": 0.025,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53461,8 +53468,8 @@
           "id": "advanced-temple-ground-extra-7",
           "nameKo": "육로 수비·지원점 7",
           "pathIndex": 2,
-          "segmentIndex": 18,
-          "t": 0.757547,
+          "segmentIndex": 19,
+          "t": 0.328325,
           "r": 0.025,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53473,7 +53480,7 @@
           "nameKo": "육로 수비·지원점 8",
           "pathIndex": 0,
           "segmentIndex": 22,
-          "t": 0.533397,
+          "t": 0.645626,
           "r": 0.025,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53483,8 +53490,8 @@
           "id": "advanced-temple-ground-extra-9",
           "nameKo": "육로 수비·지원점 9",
           "pathIndex": 1,
-          "segmentIndex": 18,
-          "t": 0.166374,
+          "segmentIndex": 16,
+          "t": 0.05821,
           "r": 0.025,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53495,7 +53502,7 @@
           "nameKo": "육로 수비·지원점 10",
           "pathIndex": 1,
           "segmentIndex": 19,
-          "t": 0.814161,
+          "t": 0.070914,
           "r": 0.055,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53505,8 +53512,8 @@
           "id": "advanced-temple-ground-extra-11",
           "nameKo": "육로 수비·지원점 11",
           "pathIndex": 2,
-          "segmentIndex": 26,
-          "t": 0.647165,
+          "segmentIndex": 24,
+          "t": 0.713509,
           "r": 0.025,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53516,8 +53523,8 @@
           "id": "advanced-temple-ground-extra-12",
           "nameKo": "육로 수비·지원점 12",
           "pathIndex": 0,
-          "segmentIndex": 27,
-          "t": 0.28334,
+          "segmentIndex": 25,
+          "t": 0.718655,
           "r": 0.025,
           "guardRadius": 0.125,
           "mobilityFactor": 0.65,
@@ -53541,45 +53548,45 @@
           "ko": "야마나카 흙 성채",
           "jp": "山中城",
           "reading": "やまなかじょう",
-          "x": 0.47,
-          "y": 0.37,
+          "x": 0.69,
+          "y": 0.11,
           "scale": {
-            "w": 0.24,
-            "h": 0.21
+            "w": 0.18,
+            "h": 0.12
           },
           "kind": "earthen_fort",
           "placementPrecision": "game_layout_relative",
-          "orientationRadians": 0.0
+          "orientationRadians": -0.28
         },
         {
           "id": "yamanaka-shoji-moat",
           "ko": "격자형 쇼지보리",
           "jp": "障子堀",
           "reading": "しょうじぼり",
-          "x": 0.65,
-          "y": 0.53,
+          "x": 0.44,
+          "y": 0.72,
           "scale": {
-            "w": 0.23,
-            "h": 0.22
+            "w": 0.17,
+            "h": 0.08
           },
           "kind": "grid_dry_moat",
           "placementPrecision": "game_layout_relative",
-          "orientationRadians": 0.0
+          "orientationRadians": -0.3
         },
         {
           "id": "yamanaka-une-moat",
           "ko": "우네보리 흙해자",
           "jp": "畝堀",
           "reading": "うねぼり",
-          "x": 0.24,
-          "y": 0.28,
+          "x": 0.49,
+          "y": 0.475,
           "scale": {
-            "w": 0.26,
-            "h": 0.18
+            "w": 0.14,
+            "h": 0.06
           },
           "kind": "ridged_dry_moat",
           "placementPrecision": "game_layout_relative",
-          "orientationRadians": 0.0
+          "orientationRadians": -0.24
         }
       ],
       "terrain": {
@@ -53587,7 +53594,8 @@
         "labelKo": "산성의 토루 · 격자형 쇼지보리와 우네보리"
       },
       "terrainRelationsKo": [
-        "대사찰의 붉은 산문 대신 후호조씨의 토성·곡륜·쇼지보리·우네보리를 중심으로 합니다. 현재 복원 유적의 잔디는 보호용이며 당시에는 적갈색 로암층이 노출된 미끄러운 흙해자였다는 시 설명을 반영합니다."
+        "대사찰의 붉은 산문 대신 후호조씨의 토성·곡륜·쇼지보리·우네보리를 중심으로 합니다. 현재 복원 유적의 잔디는 보호용이며 당시에는 적갈색 로암층이 노출된 미끄러운 흙해자였다는 시 설명을 반영합니다.",
+        "게임에서 아군은 낮은 좌측 외곽의 도요토미 공격측, 호조의 흙 곡륜은 높은 우상단 적 방어측으로 배치합니다. 세 도로와 연락진지 위치는 정확한 역사 동선 복원도가 아닙니다."
       ],
       "season": {
         "key": "spring",
@@ -53610,12 +53618,12 @@
         "lon": 138.992952836111,
         "isFictionalMission": false
       },
-      "artDirectionKo": "봄 야마나카 산성의 목책·흙 곡륜, 노출된 적갈색 로암 격자 쇼지보리와 우네보리, 통행로는 해자 바깥에. 대사찰·붉은 산문·복원 잔디 전면·석조 판타지 성곽 제외. 최종 표시 방향은 실제 북쪽이 아니라 아군 하단 배치입니다. 방향·도로·표식은 최신 가이드의 새 좌표를 따르며 원문 속 방위 문구를 화면 좌표로 재사용하지 않습니다.",
+      "artDirectionKo": "봄 야마나카 산성의 목책·흙 곡륜, 노출된 적갈색 로암 격자 쇼지보리와 우네보리, 통행로는 해자 바깥에. 대사찰·붉은 산문·복원 잔디 전면·석조 판타지 성곽 제외. 최종 표시 방향은 실제 북쪽이 아니라 아군 좌측·하단 배치입니다. 방향·도로·표식은 최신 가이드의 새 좌표를 따르며 원문 속 방위 문구를 화면 좌표로 재사용하지 않습니다. 도요토미 공격측의 좌측 낮은 외곽 연락진지와 우상단 높은 호조 흙 곡륜을 구분합니다. 아군이 야마나카 산성의 수성측으로 읽히지 않게 합니다.",
       "plannedBackground": "res://assets/battlefields/advanced-temple.png",
       "legacyEncounterTheme": "temple",
       "legacyEncounterMode": "elevation",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 접점은 좌측에 세로로 분산하고 적은 우상단과 우측에서 접근합니다. 실제 북쪽이나 역사 부대 동선의 복원도가 아닌 게임용 교전 배치입니다.",
       "sourceUrls": [
         "https://www.city.mishima.shizuoka.jp/page/2145.html",
         "https://msearch.gsi.go.jp/address-search/AddressSearch?q=%E5%B1%B1%E4%B8%AD%E5%9F%8E%E8%B7%A1"
@@ -53634,59 +53642,59 @@
         "modernPlaceKo": "시즈오카 · 미시마"
       },
       "roadArtPolicyKo": "주력 도로의 실제 폭 1.10과 명시된 접점·열린 몸 공간을 유지합니다. 진지 공격자 내부 통행은 흙길·점선·화살표·별도 도로로 표시하지 않습니다. 기존 수레 순환과 실제 도하 바닥만 보존합니다.",
-      "historyNarrativeKo": "1590년 히데요시 측 군대가 마쓰다 야스나가 등이 지키던 야마나카성을 함락했습니다. 흙을 드러낸 쇼지보리·우네보리가 이 산성의 특징입니다. 게임에서는 본대가 야마나카성을 공격하며 해자가 많은 산길의 후방 거점이 필요하다. 성으로 향하는 통과부를 지켜 짐과 동료들이 안전하게 지나게 하라.",
+      "historyNarrativeKo": "1590년 히데요시 측 군대가 마쓰다 야스나가 등이 지키던 야마나카성을 함락했습니다. 흙을 드러낸 쇼지보리·우네보리가 이 산성의 특징입니다. 게임에서는 도요토미 공격측의 낮은 외곽 연락진지를 유지하면서 전진병을 높은 호조 산성 방향으로 보냅니다. 세 접근로·진지 유지 규칙은 전술 각색입니다.",
       "sceneLandmarks": [
         {
           "id": "yamanaka-earthfort",
           "kind": "earthen_fort",
-          "x": 0.47,
-          "y": 0.37,
+          "x": 0.69,
+          "y": 0.11,
           "scale": {
-            "w": 0.24,
-            "h": 0.21
+            "w": 0.18,
+            "h": 0.12
           },
           "heightWorld": 1.8,
           "labelKo": "야마나카 흙 성채",
           "jp": "山中城",
           "reading": "やまなかじょう",
-          "orientationRadians": 0.0,
+          "orientationRadians": -0.28,
           "owner": "enemy"
         },
         {
           "id": "yamanaka-shoji-moat",
           "kind": "grid_dry_moat",
-          "x": 0.65,
-          "y": 0.53,
+          "x": 0.44,
+          "y": 0.72,
           "scale": {
-            "w": 0.23,
-            "h": 0.22
+            "w": 0.17,
+            "h": 0.08
           },
           "heightWorld": 0.8,
           "labelKo": "격자형 쇼지보리",
           "jp": "障子堀",
           "reading": "しょうじぼり",
-          "orientationRadians": 0.0
+          "orientationRadians": -0.3
         },
         {
           "id": "yamanaka-une-moat",
           "kind": "ridged_dry_moat",
-          "x": 0.24,
-          "y": 0.28,
+          "x": 0.49,
+          "y": 0.475,
           "scale": {
-            "w": 0.26,
-            "h": 0.18
+            "w": 0.14,
+            "h": 0.06
           },
           "heightWorld": 0.8,
           "labelKo": "우네보리 흙해자",
           "jp": "畝堀",
           "reading": "うねぼり",
-          "orientationRadians": 0.0
+          "orientationRadians": -0.24
         },
         {
           "id": "mission-contact-1",
           "kind": "supply_camp",
-          "x": 0.55,
-          "y": 0.88,
+          "x": 0.13,
+          "y": 0.53,
           "scale": {
             "w": 0.08,
             "h": 0.06
@@ -53701,8 +53709,8 @@
         {
           "id": "mission-contact-2",
           "kind": "supply_camp",
-          "x": 0.27,
-          "y": 0.82,
+          "x": 0.13,
+          "y": 0.69,
           "scale": {
             "w": 0.08,
             "h": 0.06
@@ -53717,8 +53725,8 @@
         {
           "id": "mission-contact-3",
           "kind": "supply_camp",
-          "x": 0.36,
-          "y": 0.84,
+          "x": 0.13,
+          "y": 0.85,
           "scale": {
             "w": 0.08,
             "h": 0.06
@@ -53733,8 +53741,8 @@
         {
           "id": "enemy-departure-1",
           "kind": "enemy_entry_camp",
-          "x": 0.975,
-          "y": 0.3,
+          "x": 0.91,
+          "y": 0.16,
           "scale": {
             "w": 0.08,
             "h": 0.055
@@ -53744,8 +53752,8 @@
         {
           "id": "enemy-departure-2",
           "kind": "enemy_entry_camp",
-          "x": 0.025,
-          "y": 0.07,
+          "x": 0.97,
+          "y": 0.4,
           "scale": {
             "w": 0.08,
             "h": 0.055
@@ -53755,8 +53763,8 @@
         {
           "id": "enemy-departure-3",
           "kind": "enemy_entry_camp",
-          "x": 0.13,
-          "y": 0.075,
+          "x": 0.94,
+          "y": 0.65,
           "scale": {
             "w": 0.08,
             "h": 0.055
@@ -53768,12 +53776,52 @@
         {
           "id": "yamanaka-une-moat-relief",
           "kind": "ridge",
-          "x": 0.24,
-          "y": 0.28,
-          "w": 0.26,
-          "h": 0.18,
+          "x": 0.49,
+          "y": 0.475,
+          "w": 0.14,
+          "h": 0.06,
           "amplitudeWorld": 0.6,
-          "orientationRadians": 3.141593
+          "orientationRadians": -0.24
+        },
+        {
+          "id": "yamanaka-hojo-upper-castle-slope",
+          "kind": "hill_slope",
+          "x": 0.77,
+          "y": 0.17,
+          "w": 0.38,
+          "h": 0.32,
+          "amplitudeWorld": 1.3,
+          "orientationRadians": -0.28
+        },
+        {
+          "id": "yamanaka-oblique-upper-ridge",
+          "kind": "ridge",
+          "x": 0.64,
+          "y": 0.31,
+          "w": 0.42,
+          "h": 0.17,
+          "amplitudeWorld": 1.1,
+          "orientationRadians": -0.34
+        },
+        {
+          "id": "yamanaka-hillside-ramp",
+          "kind": "hill_slope",
+          "x": 0.6,
+          "y": 0.52,
+          "w": 0.47,
+          "h": 0.26,
+          "amplitudeWorld": 0.7,
+          "orientationRadians": -0.2
+        },
+        {
+          "id": "yamanaka-lower-dry-cut",
+          "kind": "low_rise",
+          "x": 0.48,
+          "y": 0.77,
+          "w": 0.43,
+          "h": 0.15,
+          "amplitudeWorld": -0.28,
+          "orientationRadians": -0.12
         }
       ],
       "sceneBiome": "earthen_hill_castle_grid_moats",
@@ -53781,7 +53829,7 @@
       "materialTheme": "forest_ground",
       "sceneScalePolicyKo": "성문 앞·퇴각 통로·하천 양안의 가까운 교전 구역입니다. 전체 성곽·산을 축소해 넣지 않습니다. 확인된 지형 관계를 게임용 육지 통로로 각색했으며 정확한 높이 복원도가 아닙니다.",
       "ambushClearings": [],
-      "routeTopologyKo": "쇼지보리·우네보리 바깥의 마른 세 공략 접점을 사용하며 (.40,.86)의 기존 장애물을 지우지 않습니다.",
+      "routeTopologyKo": "우상단의 능선 통로, 우측 산허리 경사로, 우하단 흙해자 바깥길이 좌측의 서로 다른 세 접점으로 이어집니다. 세 길은 교차·합류하지 않으며 바위와 짧은 토루 끝을 피해 제한된 굽힘만 둡니다.",
       "phasePeriodKo": "1590년 3월 29일 · 봄. 이즈국 야마나카 → 시즈오카현 미시마시",
       "presentationWeather": {
         "sky": "mountain_cloud",
@@ -53800,7 +53848,7 @@
       },
       "missionDesign": {
         "key": "hold_battle_front",
-        "descriptionKo": "흙해자와 토루를 실제 통행 제약으로 사용합니다. 여러 공략 전면을 선택할 수 있고, 길의 꺾임은 토루와 해자 구조에서 나오도록 합니다.",
+        "descriptionKo": "1590년 도요토미 공격측이 낮은 외곽에서 올라가고 호조가 높은 산성을 지키는 역사적 관계를 유지합니다. 게임의 세 접근로와 연락진지 유지 임무는 전술 각색이며 당시 실제 공격 경로나 성의 아군 소유를 뜻하지 않습니다.",
         "isGameAdaptation": true,
         "routePrecision": "qualitative_design_only"
       },
@@ -53829,8 +53877,8 @@
           "pathId": "great-central-stairs",
           "pathIndex": 0,
           "objectiveId": "main",
-          "x": 0.55,
-          "y": 0.88,
+          "x": 0.13,
+          "y": 0.53,
           "isGameAdaptation": true,
           "sharesExistingObjectiveHp": true
         },
@@ -53839,8 +53887,8 @@
           "pathId": "eastern-courtyard",
           "pathIndex": 1,
           "objectiveId": "main",
-          "x": 0.27,
-          "y": 0.82,
+          "x": 0.13,
+          "y": 0.69,
           "isGameAdaptation": true,
           "sharesExistingObjectiveHp": true
         },
@@ -53849,112 +53897,131 @@
           "pathId": "western-courtyard",
           "pathIndex": 2,
           "objectiveId": "main",
-          "x": 0.36,
-          "y": 0.84,
+          "x": 0.13,
+          "y": 0.85,
           "isGameAdaptation": true,
           "sharesExistingObjectiveHp": true
         }
-      ]
+      ],
+      "viewpoint": {
+        "elevationDegrees": 42
+      }
     },
     "sideAmbushEntrances": [
       {
         "id": "advanced-temple-side-1",
         "pathIndex": 0,
         "point": {
-          "x": 0.975,
-          "y": 0.3
+          "x": 0.91,
+          "y": 0.16
         },
         "connectionPoints": [
           {
-            "x": 0.975,
-            "y": 0.3
+            "x": 0.91,
+            "y": 0.16
           },
           {
-            "x": 0.676055,
-            "y": 0.877916
+            "x": 0.778097,
+            "y": 0.167571
           },
           {
-            "x": 0.579203,
-            "y": 0.825765
+            "x": 0.659882,
+            "y": 0.273534
+          },
+          {
+            "x": 0.576855,
+            "y": 0.312024
+          },
+          {
+            "x": 0.502181,
+            "y": 0.302674
+          },
+          {
+            "x": 0.517051,
+            "y": 0.371076
           }
         ],
         "displayNameKo": "적진 출발 · 사격 진지 별동대 접근로",
         "role": "tower_hunter_only",
-        "segmentIndex": 36,
-        "t": 0.404012,
+        "segmentIndex": 19,
+        "t": 0.215175,
         "enemyDeparturePoint": {
-          "x": 0.975,
-          "y": 0.3
+          "x": 0.91,
+          "y": 0.16
         },
         "departureKind": "enemy_camp",
-        "targetBuildZoneId": "advanced-temple-emplacement-10",
-        "approachDesignKo": "적진에서 출발해 지형을 따라 사격 진지에 접근하는 별동대입니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
+        "targetBuildZoneId": "advanced-temple-emplacement-2",
+        "approachDesignKo": "같은 적 진입부에서 해당 전면의 사격 진지 옆으로 붙는 별동대 내부 동선입니다. 표시 도로를 추가하지 않으며 주력 경로의 정확한 접점으로 돌아갑니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
       },
       {
         "id": "advanced-temple-side-2",
         "pathIndex": 1,
         "point": {
-          "x": 0.025,
-          "y": 0.07
+          "x": 0.97,
+          "y": 0.4
         },
         "connectionPoints": [
           {
-            "x": 0.025,
-            "y": 0.07
+            "x": 0.97,
+            "y": 0.4
           },
           {
-            "x": 0.385736,
-            "y": 0.755016
+            "x": 0.826713,
+            "y": 0.39
           },
           {
-            "x": 0.269708,
-            "y": 0.819475
+            "x": 0.852568,
+            "y": 0.450328
           }
         ],
         "displayNameKo": "적진 출발 · 사격 진지 별동대 접근로",
         "role": "tower_hunter_only",
-        "segmentIndex": 27,
-        "t": 0.995865,
+        "segmentIndex": 4,
+        "t": 0.194004,
         "enemyDeparturePoint": {
-          "x": 0.025,
-          "y": 0.07
+          "x": 0.97,
+          "y": 0.4
         },
         "departureKind": "enemy_camp",
-        "targetBuildZoneId": "advanced-temple-emplacement-3",
-        "approachDesignKo": "적진에서 출발해 지형을 따라 사격 진지에 접근하는 별동대입니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
+        "targetBuildZoneId": "advanced-temple-emplacement-8",
+        "approachDesignKo": "같은 적 진입부에서 해당 전면의 사격 진지 옆으로 붙는 별동대 내부 동선입니다. 표시 도로를 추가하지 않으며 주력 경로의 정확한 접점으로 돌아갑니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
       },
       {
         "id": "advanced-temple-side-3",
         "pathIndex": 2,
         "point": {
-          "x": 0.13,
-          "y": 0.075
+          "x": 0.94,
+          "y": 0.65
         },
         "connectionPoints": [
           {
-            "x": 0.13,
-            "y": 0.075
+            "x": 0.94,
+            "y": 0.65
           },
           {
-            "x": 0.16118,
-            "y": 0.695534
+            "x": 0.811836,
+            "y": 0.659592
           },
           {
-            "x": 0.283151,
-            "y": 0.617124
+            "x": 0.763998,
+            "y": 0.64
+          },
+          {
+            "x": 0.763998,
+            "y": 0.71
           }
         ],
         "displayNameKo": "적진 출발 · 사격 진지 별동대 접근로",
         "role": "tower_hunter_only",
-        "segmentIndex": 27,
-        "t": 0.422979,
+        "segmentIndex": 8,
+        "t": 0.0126,
         "enemyDeparturePoint": {
-          "x": 0.13,
-          "y": 0.075
+          "x": 0.94,
+          "y": 0.65
         },
         "departureKind": "enemy_camp",
-        "targetBuildZoneId": "advanced-temple-emplacement-1",
-        "approachDesignKo": "적진에서 출발해 지형을 따라 사격 진지에 접근하는 별동대입니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
+        "targetBuildZoneId": "advanced-temple-emplacement-10",
+        "approachDesignKo": "같은 적 진입부에서 해당 전면의 사격 진지 옆으로 붙는 별동대 내부 동선입니다. 표시 도로를 추가하지 않으며 주력 경로의 정확한 접점으로 돌아갑니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
       }
     ],
     "camera": {
@@ -53966,23 +54033,23 @@
       {
         "pathIndex": 0,
         "role": "path_attacker",
-        "x": 0.975,
-        "y": 0.3,
-        "terrainBasisKo": "쇼지보리·우네보리 바깥의 마른 세 공략 접점을 사용하며 (.40,.86)의 기존 장애물을 지우지 않습니다."
+        "x": 0.91,
+        "y": 0.16,
+        "terrainBasisKo": "상부 능선 통로에서 좌측의 대응 수비 접점으로 접근합니다. 격자형·우네형 흙해자를 가로지르지 않습니다."
       },
       {
         "pathIndex": 1,
         "role": "path_attacker",
-        "x": 0.025,
-        "y": 0.07,
-        "terrainBasisKo": "쇼지보리·우네보리 바깥의 마른 세 공략 접점을 사용하며 (.40,.86)의 기존 장애물을 지우지 않습니다."
+        "x": 0.97,
+        "y": 0.4,
+        "terrainBasisKo": "산허리 경사로에서 좌측의 대응 수비 접점으로 접근합니다. 격자형·우네형 흙해자를 가로지르지 않습니다."
       },
       {
         "pathIndex": 2,
         "role": "path_attacker",
-        "x": 0.13,
-        "y": 0.075,
-        "terrainBasisKo": "쇼지보리·우네보리 바깥의 마른 세 공략 접점을 사용하며 (.40,.86)의 기존 장애물을 지우지 않습니다."
+        "x": 0.94,
+        "y": 0.65,
+        "terrainBasisKo": "하부 흙해자 바깥길에서 좌측의 대응 수비 접점으로 접근합니다. 격자형·우네형 흙해자를 가로지르지 않습니다."
       }
     ]
   },
@@ -54840,7 +54907,7 @@
       "legacyEncounterTheme": "snow",
       "legacyEncounterMode": "weather",
       "waterFeatures": [],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.izunokuni.shizuoka.jp/bunka_bunkazai/manabi/bunkazai/documents/urabyousi_1.pdf",
         "https://www.city.izunokuni.shizuoka.jp/bunka_bunkazai/manabi/bunkazai/20140925.html",
@@ -56339,7 +56406,7 @@
           "blocksMovement": false
         }
       ],
-      "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
+      "layoutCoordinatePolicyKo": "아군 본진은 화면 왼쪽 또는 아래쪽에 두며 9~7시 방향을 우선합니다. 실제 지형의 고저 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.gyoda.lg.jp/soshiki/shougaigakusyubu/bunkazaihogo/gyomu/rekishi_bunkazai/1/2261.html",
         "https://www.city.gyoda.lg.jp/material/files/group/5/1102all.pdf",
@@ -57011,156 +57078,136 @@
         "id": "outer-north-court",
         "points": [
           {
-            "x": 0.975,
-            "y": 0.28
+            "x": 0.88,
+            "y": 0.12
           },
           {
-            "x": 0.963573,
-            "y": 0.38665
+            "x": 0.86,
+            "y": 0.13
           },
           {
-            "x": 0.962501,
-            "y": 0.394935
+            "x": 0.84,
+            "y": 0.14
           },
           {
-            "x": 0.961072,
-            "y": 0.403116
+            "x": 0.82,
+            "y": 0.15
           },
           {
-            "x": 0.959286,
-            "y": 0.411191
+            "x": 0.8,
+            "y": 0.16
           },
           {
-            "x": 0.957143,
-            "y": 0.419162
+            "x": 0.78,
+            "y": 0.17
           },
           {
-            "x": 0.954643,
-            "y": 0.427029
+            "x": 0.76,
+            "y": 0.18
           },
           {
-            "x": 0.951786,
-            "y": 0.434791
+            "x": 0.735714,
+            "y": 0.185714
           },
           {
-            "x": 0.948571,
-            "y": 0.442448
+            "x": 0.711429,
+            "y": 0.191429
           },
           {
-            "x": 0.945,
-            "y": 0.45
+            "x": 0.687143,
+            "y": 0.197143
           },
           {
-            "x": 0.925,
-            "y": 0.49
+            "x": 0.662857,
+            "y": 0.202857
           },
           {
-            "x": 0.921194,
-            "y": 0.497467
+            "x": 0.638571,
+            "y": 0.208571
           },
           {
-            "x": 0.917275,
-            "y": 0.504869
+            "x": 0.614286,
+            "y": 0.214286
           },
           {
-            "x": 0.913243,
-            "y": 0.512206
+            "x": 0.59,
+            "y": 0.22
           },
           {
-            "x": 0.909099,
-            "y": 0.519477
+            "x": 0.568889,
+            "y": 0.227778
           },
           {
-            "x": 0.904842,
-            "y": 0.526683
+            "x": 0.547778,
+            "y": 0.235556
           },
           {
-            "x": 0.900472,
-            "y": 0.533823
+            "x": 0.526667,
+            "y": 0.243333
           },
           {
-            "x": 0.89599,
-            "y": 0.540898
+            "x": 0.505556,
+            "y": 0.251111
           },
           {
-            "x": 0.891395,
-            "y": 0.547908
+            "x": 0.484444,
+            "y": 0.258889
           },
           {
-            "x": 0.838339,
-            "y": 0.627492
+            "x": 0.463333,
+            "y": 0.266667
           },
           {
-            "x": 0.831181,
-            "y": 0.638064
+            "x": 0.442222,
+            "y": 0.274444
           },
           {
-            "x": 0.823878,
-            "y": 0.648527
+            "x": 0.421111,
+            "y": 0.282222
           },
           {
-            "x": 0.816429,
-            "y": 0.65888
+            "x": 0.4,
+            "y": 0.29
           },
           {
-            "x": 0.808835,
-            "y": 0.669123
+            "x": 0.376,
+            "y": 0.297
           },
           {
-            "x": 0.801094,
-            "y": 0.679257
+            "x": 0.352,
+            "y": 0.304
           },
           {
-            "x": 0.793209,
-            "y": 0.689281
+            "x": 0.328,
+            "y": 0.311
           },
           {
-            "x": 0.785177,
-            "y": 0.699195
+            "x": 0.304,
+            "y": 0.318
           },
           {
-            "x": 0.777,
-            "y": 0.709
+            "x": 0.28,
+            "y": 0.325
           },
           {
-            "x": 0.733,
-            "y": 0.761
+            "x": 0.256,
+            "y": 0.332
           },
           {
-            "x": 0.724616,
-            "y": 0.770605
+            "x": 0.232,
+            "y": 0.339
           },
           {
-            "x": 0.715964,
-            "y": 0.779918
+            "x": 0.208,
+            "y": 0.346
           },
           {
-            "x": 0.707045,
-            "y": 0.788941
+            "x": 0.184,
+            "y": 0.353
           },
           {
-            "x": 0.697857,
-            "y": 0.797674
-          },
-          {
-            "x": 0.688402,
-            "y": 0.806115
-          },
-          {
-            "x": 0.678678,
-            "y": 0.814266
-          },
-          {
-            "x": 0.668687,
-            "y": 0.822125
-          },
-          {
-            "x": 0.658428,
-            "y": 0.829694
-          },
-          {
-            "x": 0.56,
-            "y": 0.9
+            "x": 0.16,
+            "y": 0.36
           }
         ],
         "objectiveId": "main",
@@ -57170,192 +57217,144 @@
         "id": "southern-defense-line",
         "points": [
           {
-            "x": 0.79,
+            "x": 0.88,
+            "y": 0.12
+          },
+          {
+            "x": 0.86,
+            "y": 0.13
+          },
+          {
+            "x": 0.84,
             "y": 0.14
           },
           {
-            "x": 0.79,
-            "y": 0.196
+            "x": 0.82,
+            "y": 0.15
           },
           {
-            "x": 0.78998,
-            "y": 0.201999
+            "x": 0.8,
+            "y": 0.16
           },
           {
-            "x": 0.789921,
-            "y": 0.207998
+            "x": 0.78,
+            "y": 0.17
           },
           {
-            "x": 0.789823,
-            "y": 0.213995
+            "x": 0.76,
+            "y": 0.18
           },
           {
-            "x": 0.789685,
-            "y": 0.219992
+            "x": 0.75,
+            "y": 0.198333
           },
           {
-            "x": 0.789507,
-            "y": 0.225987
+            "x": 0.74,
+            "y": 0.216667
           },
           {
-            "x": 0.78929,
-            "y": 0.231981
+            "x": 0.73,
+            "y": 0.235
           },
           {
-            "x": 0.789034,
-            "y": 0.237975
+            "x": 0.72,
+            "y": 0.253333
           },
           {
-            "x": 0.788739,
-            "y": 0.243967
+            "x": 0.71,
+            "y": 0.271667
           },
           {
-            "x": 0.782542,
-            "y": 0.361693
+            "x": 0.7,
+            "y": 0.29
           },
           {
-            "x": 0.781853,
-            "y": 0.373765
+            "x": 0.682857,
+            "y": 0.302857
           },
           {
-            "x": 0.781055,
-            "y": 0.385827
+            "x": 0.665714,
+            "y": 0.315714
           },
           {
-            "x": 0.780149,
-            "y": 0.39788
+            "x": 0.648571,
+            "y": 0.328571
           },
           {
-            "x": 0.779136,
-            "y": 0.409923
+            "x": 0.631429,
+            "y": 0.341429
           },
           {
-            "x": 0.778014,
-            "y": 0.421957
+            "x": 0.614286,
+            "y": 0.354286
           },
           {
-            "x": 0.776784,
-            "y": 0.433981
+            "x": 0.597143,
+            "y": 0.367143
           },
           {
-            "x": 0.775446,
-            "y": 0.445995
+            "x": 0.58,
+            "y": 0.38
           },
           {
-            "x": 0.774,
-            "y": 0.458
+            "x": 0.55875,
+            "y": 0.39125
           },
           {
-            "x": 0.763431,
-            "y": 0.542555
+            "x": 0.5375,
+            "y": 0.4025
           },
           {
-            "x": 0.762345,
-            "y": 0.549316
+            "x": 0.51625,
+            "y": 0.41375
           },
           {
-            "x": 0.760805,
-            "y": 0.555875
+            "x": 0.495,
+            "y": 0.425
           },
           {
-            "x": 0.758809,
-            "y": 0.562232
+            "x": 0.47375,
+            "y": 0.43625
           },
           {
-            "x": 0.756358,
-            "y": 0.568389
+            "x": 0.4525,
+            "y": 0.4475
           },
           {
-            "x": 0.753451,
-            "y": 0.574344
+            "x": 0.43125,
+            "y": 0.45875
           },
           {
-            "x": 0.750089,
-            "y": 0.580097
+            "x": 0.41,
+            "y": 0.47
           },
           {
-            "x": 0.746272,
-            "y": 0.585649
+            "x": 0.387143,
+            "y": 0.477143
           },
           {
-            "x": 0.742,
-            "y": 0.591
+            "x": 0.364286,
+            "y": 0.484286
           },
           {
-            "x": 0.718,
-            "y": 0.619
+            "x": 0.341429,
+            "y": 0.491429
           },
           {
-            "x": 0.71344,
-            "y": 0.624187
+            "x": 0.318571,
+            "y": 0.498571
           },
           {
-            "x": 0.70876,
-            "y": 0.629249
+            "x": 0.295714,
+            "y": 0.505714
           },
           {
-            "x": 0.703961,
-            "y": 0.634185
+            "x": 0.272857,
+            "y": 0.512857
           },
           {
-            "x": 0.699042,
-            "y": 0.638995
-          },
-          {
-            "x": 0.694003,
-            "y": 0.64368
-          },
-          {
-            "x": 0.688844,
-            "y": 0.648239
-          },
-          {
-            "x": 0.683566,
-            "y": 0.652673
-          },
-          {
-            "x": 0.678168,
-            "y": 0.656981
-          },
-          {
-            "x": 0.637,
-            "y": 0.689
-          },
-          {
-            "x": 0.630264,
-            "y": 0.694267
-          },
-          {
-            "x": 0.623556,
-            "y": 0.699568
-          },
-          {
-            "x": 0.616875,
-            "y": 0.704904
-          },
-          {
-            "x": 0.610222,
-            "y": 0.710274
-          },
-          {
-            "x": 0.603597,
-            "y": 0.715678
-          },
-          {
-            "x": 0.597,
-            "y": 0.721116
-          },
-          {
-            "x": 0.59043,
-            "y": 0.726588
-          },
-          {
-            "x": 0.583888,
-            "y": 0.732095
-          },
-          {
-            "x": 0.48,
-            "y": 0.82
+            "x": 0.25,
+            "y": 0.52
           }
         ],
         "objectiveId": "main",
@@ -57365,192 +57364,116 @@
         "id": "eastern-dogleg",
         "points": [
           {
-            "x": 0.09,
-            "y": 0.1
+            "x": 0.98,
+            "y": 0.64
           },
           {
-            "x": 0.146,
-            "y": 0.205
+            "x": 0.958,
+            "y": 0.644
           },
           {
-            "x": 0.151733,
-            "y": 0.216336
+            "x": 0.936,
+            "y": 0.648
           },
           {
-            "x": 0.156931,
-            "y": 0.227846
+            "x": 0.914,
+            "y": 0.652
           },
           {
-            "x": 0.161594,
-            "y": 0.239528
+            "x": 0.892,
+            "y": 0.656
           },
           {
-            "x": 0.165723,
-            "y": 0.251383
+            "x": 0.87,
+            "y": 0.66
           },
           {
-            "x": 0.169317,
-            "y": 0.263411
+            "x": 0.845714,
+            "y": 0.662857
           },
           {
-            "x": 0.172376,
-            "y": 0.275612
+            "x": 0.821429,
+            "y": 0.665714
           },
           {
-            "x": 0.174901,
-            "y": 0.287986
+            "x": 0.797143,
+            "y": 0.668571
           },
           {
-            "x": 0.176891,
-            "y": 0.300532
+            "x": 0.772857,
+            "y": 0.671429
           },
           {
-            "x": 0.194196,
-            "y": 0.42744
+            "x": 0.748571,
+            "y": 0.674286
           },
           {
-            "x": 0.195697,
-            "y": 0.438072
+            "x": 0.724286,
+            "y": 0.677143
           },
           {
-            "x": 0.197298,
-            "y": 0.448685
+            "x": 0.7,
+            "y": 0.68
           },
           {
-            "x": 0.198999,
-            "y": 0.459281
+            "x": 0.67625,
+            "y": 0.6825
           },
           {
-            "x": 0.200799,
-            "y": 0.46986
+            "x": 0.6525,
+            "y": 0.685
           },
           {
-            "x": 0.202699,
-            "y": 0.480421
+            "x": 0.62875,
+            "y": 0.6875
           },
           {
-            "x": 0.2047,
-            "y": 0.490965
+            "x": 0.605,
+            "y": 0.69
           },
           {
-            "x": 0.2068,
-            "y": 0.501491
+            "x": 0.58125,
+            "y": 0.6925
           },
           {
-            "x": 0.209,
-            "y": 0.512
+            "x": 0.5575,
+            "y": 0.695
           },
           {
-            "x": 0.221543,
-            "y": 0.570535
+            "x": 0.53375,
+            "y": 0.6975
           },
           {
-            "x": 0.223994,
-            "y": 0.580207
+            "x": 0.51,
+            "y": 0.7
           },
           {
-            "x": 0.227118,
-            "y": 0.589488
+            "x": 0.485714,
+            "y": 0.7
           },
           {
-            "x": 0.230915,
-            "y": 0.598381
+            "x": 0.461429,
+            "y": 0.7
           },
           {
-            "x": 0.235386,
-            "y": 0.606884
+            "x": 0.437143,
+            "y": 0.7
           },
           {
-            "x": 0.24053,
-            "y": 0.614997
+            "x": 0.412857,
+            "y": 0.7
           },
           {
-            "x": 0.246346,
-            "y": 0.622721
+            "x": 0.388571,
+            "y": 0.7
           },
           {
-            "x": 0.252837,
-            "y": 0.630055
+            "x": 0.364286,
+            "y": 0.7
           },
           {
-            "x": 0.26,
-            "y": 0.637
-          },
-          {
-            "x": 0.305983,
-            "y": 0.678385
-          },
-          {
-            "x": 0.3118,
-            "y": 0.68392
-          },
-          {
-            "x": 0.317241,
-            "y": 0.689717
-          },
-          {
-            "x": 0.322306,
-            "y": 0.695775
-          },
-          {
-            "x": 0.326996,
-            "y": 0.702096
-          },
-          {
-            "x": 0.33131,
-            "y": 0.708679
-          },
-          {
-            "x": 0.335249,
-            "y": 0.715524
-          },
-          {
-            "x": 0.338812,
-            "y": 0.722631
-          },
-          {
-            "x": 0.342,
-            "y": 0.73
-          },
-          {
-            "x": 0.359911,
-            "y": 0.774777
-          },
-          {
-            "x": 0.362322,
-            "y": 0.78111
-          },
-          {
-            "x": 0.364512,
-            "y": 0.787499
-          },
-          {
-            "x": 0.366481,
-            "y": 0.793944
-          },
-          {
-            "x": 0.368228,
-            "y": 0.800444
-          },
-          {
-            "x": 0.369753,
-            "y": 0.807
-          },
-          {
-            "x": 0.371057,
-            "y": 0.813611
-          },
-          {
-            "x": 0.372139,
-            "y": 0.820278
-          },
-          {
-            "x": 0.373,
-            "y": 0.827
-          },
-          {
-            "x": 0.38,
-            "y": 0.89
+            "x": 0.34,
+            "y": 0.7
           }
         ],
         "objectiveId": "main",
@@ -57560,120 +57483,116 @@
         "id": "western-court",
         "points": [
           {
-            "x": 0.025,
-            "y": 0.19
+            "x": 0.98,
+            "y": 0.64
           },
           {
-            "x": 0.025,
-            "y": 0.375917
+            "x": 0.958,
+            "y": 0.644
           },
           {
-            "x": 0.025047,
-            "y": 0.389436
+            "x": 0.936,
+            "y": 0.648
           },
           {
-            "x": 0.025188,
-            "y": 0.402953
+            "x": 0.914,
+            "y": 0.652
           },
           {
-            "x": 0.025422,
-            "y": 0.416467
+            "x": 0.892,
+            "y": 0.656
           },
           {
-            "x": 0.02575,
-            "y": 0.429979
+            "x": 0.87,
+            "y": 0.66
           },
           {
-            "x": 0.026172,
-            "y": 0.443488
+            "x": 0.855,
+            "y": 0.6775
           },
           {
-            "x": 0.026688,
-            "y": 0.456995
+            "x": 0.84,
+            "y": 0.695
           },
           {
-            "x": 0.027297,
-            "y": 0.470499
+            "x": 0.825,
+            "y": 0.7125
           },
           {
-            "x": 0.028,
-            "y": 0.484
+            "x": 0.81,
+            "y": 0.73
           },
           {
-            "x": 0.032116,
-            "y": 0.558097
+            "x": 0.791667,
+            "y": 0.74
           },
           {
-            "x": 0.033378,
-            "y": 0.570824
+            "x": 0.773333,
+            "y": 0.75
           },
           {
-            "x": 0.035722,
-            "y": 0.583054
-          },
-          {
-            "x": 0.039147,
-            "y": 0.594788
-          },
-          {
-            "x": 0.043654,
-            "y": 0.606024
-          },
-          {
-            "x": 0.049243,
-            "y": 0.616764
-          },
-          {
-            "x": 0.055914,
-            "y": 0.627006
-          },
-          {
-            "x": 0.063666,
-            "y": 0.636752
-          },
-          {
-            "x": 0.0725,
-            "y": 0.646
-          },
-          {
-            "x": 0.126195,
-            "y": 0.697547
-          },
-          {
-            "x": 0.13468,
-            "y": 0.705622
-          },
-          {
-            "x": 0.143235,
-            "y": 0.71362
-          },
-          {
-            "x": 0.151857,
-            "y": 0.721542
-          },
-          {
-            "x": 0.160549,
-            "y": 0.729387
-          },
-          {
-            "x": 0.169309,
-            "y": 0.737155
-          },
-          {
-            "x": 0.178137,
-            "y": 0.744847
-          },
-          {
-            "x": 0.187034,
-            "y": 0.752462
-          },
-          {
-            "x": 0.196,
+            "x": 0.755,
             "y": 0.76
           },
           {
-            "x": 0.28,
+            "x": 0.736667,
+            "y": 0.77
+          },
+          {
+            "x": 0.718333,
+            "y": 0.78
+          },
+          {
+            "x": 0.7,
+            "y": 0.79
+          },
+          {
+            "x": 0.676667,
+            "y": 0.795
+          },
+          {
+            "x": 0.653333,
+            "y": 0.8
+          },
+          {
+            "x": 0.63,
+            "y": 0.805
+          },
+          {
+            "x": 0.606667,
+            "y": 0.81
+          },
+          {
+            "x": 0.583333,
+            "y": 0.815
+          },
+          {
+            "x": 0.56,
+            "y": 0.82
+          },
+          {
+            "x": 0.536667,
+            "y": 0.823333
+          },
+          {
+            "x": 0.513333,
+            "y": 0.826667
+          },
+          {
+            "x": 0.49,
             "y": 0.83
+          },
+          {
+            "x": 0.466667,
+            "y": 0.833333
+          },
+          {
+            "x": 0.443333,
+            "y": 0.836667
+          },
+          {
+            "x": 0.42,
+            "y": 0.84
           }
         ],
         "objectiveId": "main",
@@ -57683,8 +57602,8 @@
     "objectives": [
       {
         "id": "main",
-        "x": 0.43,
-        "y": 0.89,
+        "x": 0.18,
+        "y": 0.63,
         "label": "小田原城",
         "hp": 34,
         "presentation": "defense_line"
@@ -57692,152 +57611,152 @@
     ],
     "buildZones": [
       {
-        "x": 0.496023,
-        "y": 0.701646,
+        "x": 0.1,
+        "y": 0.17,
         "r": 0.03,
-        "elevation": 0,
+        "elevation": 1,
         "id": "advanced-siege-emplacement-1",
+        "betweenRoads": false
+      },
+      {
+        "x": 0.31,
+        "y": 0.105,
+        "r": 0.03,
+        "elevation": 1,
+        "id": "advanced-siege-emplacement-2",
         "betweenRoads": true
       },
       {
-        "x": 0.188782,
-        "y": 0.844906,
-        "r": 0.03,
-        "elevation": 0,
-        "id": "advanced-siege-emplacement-2",
-        "betweenRoads": false
-      },
-      {
-        "x": 0.675761,
-        "y": 0.915626,
+        "x": 0.41,
+        "y": 0.08,
         "r": 0.03,
         "elevation": 0,
         "id": "advanced-siege-emplacement-3",
-        "betweenRoads": false
+        "betweenRoads": true
       },
       {
-        "x": 0.17223,
-        "y": 0.630843,
+        "x": 0.66,
+        "y": 0.065,
         "r": 0.03,
         "elevation": 0,
         "id": "advanced-siege-emplacement-4",
         "betweenRoads": true
       },
       {
-        "x": 0.777325,
-        "y": 0.831407,
+        "x": 0.13,
+        "y": 0.48,
         "r": 0.03,
-        "elevation": 0,
+        "elevation": 1,
         "id": "advanced-siege-emplacement-5",
         "betweenRoads": false
       },
       {
-        "x": 0.432344,
-        "y": 0.663832,
+        "x": 0.25,
+        "y": 0.66,
         "r": 0.03,
-        "elevation": 1,
+        "elevation": 0,
         "id": "advanced-siege-emplacement-6",
-        "betweenRoads": true
+        "betweenRoads": false
       },
       {
-        "x": 0.556586,
-        "y": 0.655637,
+        "x": 0.27,
+        "y": 0.76,
         "r": 0.03,
         "elevation": 0,
         "id": "advanced-siege-emplacement-7",
         "betweenRoads": true
       },
       {
-        "x": 0.138194,
-        "y": 0.907085,
+        "x": 0.71,
+        "y": 0.52,
         "r": 0.03,
         "elevation": 0,
         "id": "advanced-siege-emplacement-8",
-        "betweenRoads": false
-      },
-      {
-        "x": 0.851899,
-        "y": 0.479788,
-        "r": 0.03,
-        "elevation": 0,
-        "id": "advanced-siege-emplacement-9",
         "betweenRoads": true
       },
       {
-        "x": 0.894317,
-        "y": 0.802529,
+        "x": 0.17,
+        "y": 0.64,
+        "r": 0.03,
+        "elevation": 0,
+        "id": "advanced-siege-emplacement-9",
+        "betweenRoads": false
+      },
+      {
+        "x": 0.33,
+        "y": 0.84,
         "r": 0.03,
         "elevation": 0,
         "id": "advanced-siege-emplacement-10",
         "betweenRoads": false
       },
       {
-        "x": 0.856053,
-        "y": 0.225036,
+        "x": 0.63,
+        "y": 0.57,
         "r": 0.03,
-        "elevation": 1,
+        "elevation": 0,
         "id": "advanced-siege-emplacement-11",
         "betweenRoads": true
       },
       {
         "id": "advanced-siege-emplacement-12",
-        "x": 0.297643,
-        "y": 0.442864,
+        "x": 0.79,
+        "y": 0.86,
         "r": 0.055,
         "elevation": 0,
         "betweenRoads": true
       },
       {
         "id": "advanced-siege-emplacement-13",
-        "x": 0.117159,
-        "y": 0.792172,
+        "x": 0.27,
+        "y": 0.94,
         "r": 0.03,
         "elevation": 0,
         "betweenRoads": false
       },
       {
         "id": "advanced-siege-emplacement-14",
-        "x": 0.765368,
-        "y": 0.904706,
+        "x": 0.87,
+        "y": 0.8,
         "r": 0.055,
         "elevation": 0,
-        "betweenRoads": false
+        "betweenRoads": true
       },
       {
         "id": "advanced-siege-emplacement-15",
-        "x": 0.854255,
-        "y": 0.902869,
-        "r": 0.03,
-        "elevation": 0,
-        "betweenRoads": false
-      },
-      {
-        "id": "advanced-siege-emplacement-16",
-        "x": 0.432925,
-        "y": 0.741905,
+        "x": 0.79,
+        "y": 0.46,
         "r": 0.03,
         "elevation": 0,
         "betweenRoads": true
+      },
+      {
+        "id": "advanced-siege-emplacement-16",
+        "x": 0.93,
+        "y": 0.88,
+        "r": 0.03,
+        "elevation": 0,
+        "betweenRoads": false
       }
     ],
     "obstacles": [
       {
-        "x": 0.48,
-        "y": 0.11,
+        "x": 0.08,
+        "y": 0.42,
         "r": 0.035,
         "blockPlacement": true,
         "landmark": "advanced-siege-land-obstruction-1"
       },
       {
-        "x": 0.1,
-        "y": 0.47,
+        "x": 0.11,
+        "y": 0.67,
         "r": 0.035,
         "blockPlacement": true,
         "landmark": "advanced-siege-land-obstruction-2"
       },
       {
-        "x": 0.86,
-        "y": 0.74,
+        "x": 0.38,
+        "y": 0.13,
         "r": 0.035,
         "blockPlacement": true,
         "landmark": "advanced-siege-land-obstruction-3"
@@ -58021,7 +57940,7 @@
           "id": "advanced-siege-ground-extra-12",
           "nameKo": "육로 수비·지원점 12",
           "pathIndex": 1,
-          "segmentIndex": 36,
+          "segmentIndex": 33,
           "t": 0.07092,
           "r": 0.025,
           "guardRadius": 0.14,
@@ -58031,10 +57950,10 @@
       ]
     },
     "water": {
-      "x": 0.26,
-      "y": 0.15,
-      "w": 0.43,
-      "h": 0.1
+      "x": 0.93,
+      "y": 0.24,
+      "w": 0.04,
+      "h": 0.29
     },
     "historicalBattlefield": {
       "version": 1,
@@ -58049,63 +57968,63 @@
       "landmarkLabels": [
         {
           "id": "odawara-earthfort-town",
-          "ko": "1590년 오다와라 성하 방어 거점",
+          "ko": "호조측 소가마에 안쪽의 작은 성하 건물",
           "jp": "小田原城",
           "reading": "おだわらじょう",
-          "x": 0.57,
-          "y": 0.4,
+          "x": 0.83,
+          "y": 0.41,
           "scale": {
-            "w": 0.23,
-            "h": 0.28
+            "w": 0.15,
+            "h": 0.18
           },
           "kind": "earthwork_castle_town",
           "placementPrecision": "game_layout_relative",
-          "orientationRadians": 0.0
+          "orientationRadians": 0
         },
         {
           "id": "odawara-sogamae",
-          "ko": "구릉과 저지의 소가마에",
+          "ko": "위 고개 출입구 안쪽의 호조 토루",
           "jp": "総構",
           "reading": "そうがまえ",
-          "x": 0.41,
-          "y": 0.53,
+          "x": 0.83,
+          "y": 0.22,
           "scale": {
-            "w": 0.6,
-            "h": 0.75
+            "w": 0.12,
+            "h": 0.055
           },
           "kind": "outer_earthwork",
           "placementPrecision": "game_layout_relative",
-          "orientationRadians": 0.0
+          "orientationRadians": 0.28
         },
         {
           "id": "odawara-west-moat",
-          "ko": "외곽 방어선의 물해자",
+          "ko": "두 출입구 사이 호조측 성하의 물해자",
           "jp": "堀",
           "reading": "ほり",
-          "x": 0.475,
-          "y": 0.2,
+          "x": 0.95,
+          "y": 0.385,
           "scale": {
-            "w": 0.43,
-            "h": 0.1
+            "w": 0.04,
+            "h": 0.29
           },
           "kind": "moat",
           "placementPrecision": "game_layout_relative",
-          "orientationRadians": 0.0
+          "orientationRadians": 0
         },
         {
           "id": "odawara-hill-earthwork",
-          "ko": "구릉의 토루·마른 해자",
+          "ko": "호조측 사면의 토루와 마른 해자",
           "jp": "土塁",
           "reading": "どるい",
-          "x": 0.78,
-          "y": 0.32,
+          "x": 0.5,
+          "y": 0.55,
           "scale": {
-            "w": 0.25,
-            "h": 0.34
+            "w": 0.18,
+            "h": 0.045
           },
           "kind": "dry_earthwork",
           "placementPrecision": "game_layout_relative",
-          "orientationRadians": 0.0
+          "orientationRadians": 0.35
         }
       ],
       "terrain": {
@@ -58140,7 +58059,28 @@
       "plannedBackground": "res://assets/battlefields/advanced-siege.png",
       "legacyEncounterTheme": "siege",
       "legacyEncounterMode": "siege",
-      "waterFeatures": [],
+      "waterFeatures": [
+        {
+          "id": "odawara-gates-water-moat",
+          "kind": "moat",
+          "x": 0.93,
+          "y": 0.24,
+          "w": 0.04,
+          "h": 0.29,
+          "blocksMovement": true,
+          "isGameAdaptation": true
+        },
+        {
+          "id": "odawara-lower-fork-moat",
+          "kind": "moat",
+          "x": 0.54,
+          "y": 0.742,
+          "w": 0.16,
+          "h": 0.018,
+          "blocksMovement": true,
+          "isGameAdaptation": true
+        }
+      ],
       "layoutCoordinatePolicyKo": "아군 본진은 화면 8~5시 방향입니다. 지형 관계를 유지해 시점을 재구성했습니다. 적 접근부는 지형에 따라 독립 또는 공유하며 사격 진지 기습로는 별도입니다.",
       "sourceUrls": [
         "https://www.city.odawara.kanagawa.jp/kanko/corridor/battle/p10012.html",
@@ -58166,109 +58106,146 @@
         {
           "id": "odawara-earthfort-town",
           "kind": "earthwork_castle_town",
-          "x": 0.57,
-          "y": 0.4,
+          "x": 0.83,
+          "y": 0.41,
           "scale": {
-            "w": 0.23,
-            "h": 0.28
+            "w": 0.15,
+            "h": 0.18
           },
           "heightWorld": 0.8,
-          "labelKo": "1590년 오다와라 성하 방어 거점",
-          "jp": "小田原城",
-          "reading": "おだわらじょう",
-          "orientationRadians": 0.0,
+          "orientationRadians": 0,
+          "labelKo": "호조측 소가마에 안쪽의 작은 성하 건물",
+          "isGameAdaptation": true,
           "owner": "enemy"
+        },
+        {
+          "id": "odawara-northwest-ridge",
+          "kind": "ridge",
+          "x": 0.15,
+          "y": 0.18,
+          "scale": {
+            "w": 0.34,
+            "h": 0.3
+          },
+          "heightWorld": 1.2,
+          "orientationRadians": 0,
+          "labelKo": "도요토미 포위군이 연락 거점으로 쓰는 서북 외곽 구릉",
+          "isGameAdaptation": true,
+          "owner": "friendly"
         },
         {
           "id": "odawara-sogamae",
           "kind": "outer_earthwork",
-          "x": 0.41,
-          "y": 0.53,
+          "x": 0.83,
+          "y": 0.22,
           "scale": {
-            "w": 0.6,
-            "h": 0.75
+            "w": 0.12,
+            "h": 0.055
           },
           "heightWorld": 0.8,
-          "labelKo": "구릉과 저지의 소가마에",
-          "jp": "総構",
-          "reading": "そうがまえ",
-          "orientationRadians": 0.0
-        },
-        {
-          "id": "odawara-west-moat",
-          "kind": "moat",
-          "x": 0.475,
-          "y": 0.2,
-          "scale": {
-            "w": 0.43,
-            "h": 0.1
-          },
-          "heightWorld": 0.8,
-          "labelKo": "외곽 방어선의 물해자",
-          "jp": "堀",
-          "reading": "ほり",
-          "orientationRadians": 0.0
+          "orientationRadians": 0.28,
+          "labelKo": "위 고개 출입구 안쪽의 호조 토루",
+          "isGameAdaptation": true,
+          "owner": "enemy"
         },
         {
           "id": "odawara-hill-earthwork",
           "kind": "dry_earthwork",
-          "x": 0.69,
-          "y": 0.32,
+          "x": 0.5,
+          "y": 0.55,
           "scale": {
-            "w": 0.08,
-            "h": 0.055
+            "w": 0.18,
+            "h": 0.045
           },
           "heightWorld": 0.8,
-          "labelKo": "구릉의 토루·마른 해자",
-          "jp": "土塁",
-          "reading": "どるい",
-          "orientationRadians": 0.0,
-          "isGameAdaptation": true
+          "orientationRadians": 0.35,
+          "labelKo": "호조측 사면의 토루와 마른 해자",
+          "isGameAdaptation": true,
+          "owner": "enemy"
         },
         {
           "id": "odawara-hill-earthwork-east",
           "kind": "dry_earthwork",
-          "x": 0.87,
-          "y": 0.32,
+          "x": 0.91,
+          "y": 0.57,
           "scale": {
-            "w": 0.1,
-            "h": 0.055
+            "w": 0.09,
+            "h": 0.04
           },
           "heightWorld": 0.8,
-          "labelKo": "구릉의 토루·마른 해자",
-          "jp": "土塁",
-          "reading": "どるい",
-          "orientationRadians": 0.0,
-          "isGameAdaptation": true
+          "orientationRadians": 0.18,
+          "labelKo": "아래 출입구 안쪽의 호조 토루",
+          "isGameAdaptation": true,
+          "owner": "enemy"
+        },
+        {
+          "id": "odawara-west-moat",
+          "kind": "moat",
+          "x": 0.95,
+          "y": 0.385,
+          "scale": {
+            "w": 0.04,
+            "h": 0.29
+          },
+          "heightWorld": 0,
+          "orientationRadians": 0,
+          "labelKo": "두 출입구 사이 호조측 성하의 물해자",
+          "isGameAdaptation": true,
+          "owner": "enemy"
         },
         {
           "id": "mission-contact-1",
           "kind": "supply_camp",
-          "x": 0.56,
-          "y": 0.9,
+          "x": 0.16,
+          "y": 0.36,
           "scale": {
             "w": 0.08,
             "h": 0.06
           },
+          "heightWorld": 0.8,
+          "orientationRadians": 0,
+          "labelKo": "도요토미 포위군 연락 전면 1",
+          "isGameAdaptation": true,
           "owner": "friendly",
           "isGameMission": true,
-          "isGameAdaptation": true,
           "contactPathIndices": [
             0
           ]
         },
         {
+          "id": "enemy-departure-1",
+          "kind": "enemy_entry_camp",
+          "x": 0.88,
+          "y": 0.12,
+          "scale": {
+            "w": 0.07,
+            "h": 0.055
+          },
+          "heightWorld": 0.8,
+          "orientationRadians": 0,
+          "labelKo": "호조측 위 고개 출입구",
+          "isGameAdaptation": true,
+          "owner": "enemy",
+          "contactPathIndices": [
+            0,
+            1
+          ]
+        },
+        {
           "id": "mission-contact-2",
           "kind": "supply_camp",
-          "x": 0.48,
-          "y": 0.82,
+          "x": 0.25,
+          "y": 0.52,
           "scale": {
             "w": 0.08,
             "h": 0.06
           },
+          "heightWorld": 0.8,
+          "orientationRadians": 0,
+          "labelKo": "도요토미 포위군 연락 전면 2",
+          "isGameAdaptation": true,
           "owner": "friendly",
           "isGameMission": true,
-          "isGameAdaptation": true,
           "contactPathIndices": [
             1
           ]
@@ -58276,87 +58253,123 @@
         {
           "id": "mission-contact-3",
           "kind": "supply_camp",
-          "x": 0.38,
-          "y": 0.89,
+          "x": 0.34,
+          "y": 0.7,
           "scale": {
             "w": 0.08,
             "h": 0.06
           },
+          "heightWorld": 0.8,
+          "orientationRadians": 0,
+          "labelKo": "도요토미 포위군 연락 전면 3",
+          "isGameAdaptation": true,
           "owner": "friendly",
           "isGameMission": true,
-          "isGameAdaptation": true,
           "contactPathIndices": [
             2
           ]
         },
         {
+          "id": "enemy-departure-3",
+          "kind": "enemy_entry_camp",
+          "x": 0.98,
+          "y": 0.64,
+          "scale": {
+            "w": 0.07,
+            "h": 0.055
+          },
+          "heightWorld": 0.8,
+          "orientationRadians": 0,
+          "labelKo": "호조측 아래 수변 출입구",
+          "isGameAdaptation": true,
+          "owner": "enemy",
+          "contactPathIndices": [
+            2,
+            3
+          ]
+        },
+        {
           "id": "mission-contact-4",
           "kind": "supply_camp",
-          "x": 0.28,
-          "y": 0.83,
+          "x": 0.42,
+          "y": 0.84,
           "scale": {
             "w": 0.08,
             "h": 0.06
           },
+          "heightWorld": 0.8,
+          "orientationRadians": 0,
+          "labelKo": "도요토미 포위군 연락 전면 4",
+          "isGameAdaptation": true,
           "owner": "friendly",
           "isGameMission": true,
-          "isGameAdaptation": true,
           "contactPathIndices": [
             3
           ]
         },
         {
-          "id": "enemy-departure-1",
-          "kind": "enemy_entry_camp",
-          "x": 0.975,
-          "y": 0.28,
+          "id": "odawara-lower-fork-moat",
+          "kind": "moat",
+          "x": 0.62,
+          "y": 0.751,
           "scale": {
-            "w": 0.08,
-            "h": 0.055
+            "w": 0.16,
+            "h": 0.018
           },
-          "isGameAdaptation": true
-        },
-        {
-          "id": "enemy-departure-2",
-          "kind": "enemy_entry_camp",
-          "x": 0.79,
-          "y": 0.14,
-          "scale": {
-            "w": 0.08,
-            "h": 0.055
-          },
-          "isGameAdaptation": true
-        },
-        {
-          "id": "enemy-departure-3",
-          "kind": "enemy_entry_camp",
-          "x": 0.09,
-          "y": 0.1,
-          "scale": {
-            "w": 0.08,
-            "h": 0.055
-          },
-          "isGameAdaptation": true
-        },
-        {
-          "id": "enemy-departure-4",
-          "kind": "enemy_entry_camp",
-          "x": 0.025,
-          "y": 0.19,
-          "scale": {
-            "w": 0.08,
-            "h": 0.055
-          },
+          "heightWorld": 0,
+          "labelKo": "아래 두 전면 사이 물해자 끝",
+          "owner": "enemy",
           "isGameAdaptation": true
         }
       ],
-      "heightFeatures": [],
+      "heightFeatures": [
+        {
+          "id": "odawara-northwest-ridge-relief",
+          "kind": "ridge",
+          "x": 0.18,
+          "y": 0.22,
+          "w": 0.44,
+          "h": 0.46,
+          "amplitudeWorld": 2.0,
+          "orientationRadians": 0.55
+        },
+        {
+          "id": "odawara-descending-shoulder",
+          "kind": "hill_slope",
+          "x": 0.23,
+          "y": 0.45,
+          "w": 0.37,
+          "h": 0.3,
+          "amplitudeWorld": 0.9,
+          "orientationRadians": 0.7
+        },
+        {
+          "id": "odawara-southern-terrace",
+          "kind": "low_rise",
+          "x": 0.27,
+          "y": 0.66,
+          "w": 0.28,
+          "h": 0.2,
+          "amplitudeWorld": 0.1,
+          "orientationRadians": 0.35
+        },
+        {
+          "id": "odawara-enemy-south-bank",
+          "kind": "low_rise",
+          "x": 0.87,
+          "y": 0.88,
+          "w": 0.34,
+          "h": 0.24,
+          "amplitudeWorld": 0.5,
+          "orientationRadians": 0.15
+        }
+      ],
       "sceneBiome": "large_earthwork_sogamae",
       "groundSeason": "summer",
       "materialTheme": "dry_earth",
       "sceneScalePolicyKo": "성문 앞·퇴각 통로·하천 양안의 가까운 교전 구역입니다. 전체 성곽·산을 축소해 넣지 않습니다. 확인된 지형 관계를 게임용 육지 통로로 각색했으며 정확한 높이 복원도가 아닙니다.",
       "ambushClearings": [],
-      "routeTopologyKo": "소가마에 토루 바깥 네 연락 전면을 따로 연결하고 모든 길을 같은 성문에 모으지 않습니다.",
+      "routeTopologyKo": "호조 소가마에의 위 고개 출입구와 아래 수변 출입구, 두 출발점에서 각각 짧은 길을 공유한 뒤 두 아군 연락 전면으로 나뉩니다. 위 고개는 서북 능선과 중단 전면, 아래 수변은 남쪽 사면과 저지 전면을 연결합니다. 도요토미측 연락 방어 임무이며 기록에 없는 출격·배치 좌표는 게임 각색입니다.",
       "phasePeriodKo": "1590년 7월 5일 우지나오 항복, 7월 9일 성 인도 · 여름. 사가미국 오다와라 → 가나가와현 오다와라시",
       "presentationWeather": {
         "sky": "summer_clear",
@@ -58387,18 +58400,19 @@
       },
       "terrainComposition": {
         "type": "outer_rampart_siege",
-        "appearanceKo": "총방어 토루의 끝과 해자 바깥 통로, 배후의 시대에 맞는 성하",
-        "emphasizedBend": true,
+        "appearanceKo": "두 호조 출입구에서 갈라지는 위 고개 공방과 아래 수변 전선. 도요토미 연락 전면은 서북 구릉에서 남쪽 저지대로 계단형으로 분산합니다.",
+        "emphasizedBend": false,
         "landmarkIds": [
           "odawara-earthfort-town",
+          "odawara-northwest-ridge",
           "odawara-sogamae",
-          "odawara-west-moat",
           "odawara-hill-earthwork",
-          "odawara-hill-earthwork-east"
+          "odawara-hill-earthwork-east",
+          "odawara-west-moat"
         ],
         "layoutIsGameAdaptation": true,
         "historyBasisKo": "성하까지 포함한 약 9km의 소가마에, 흙 토루·마른 해자·물해자. [오다와라시 합전 설명](https://www.city.odawara.kanagawa.jp/kanko/corridor/battle/p10012.html), [총방어선 구조](https://www.city.odawara.kanagawa.jp/field/lifelong/property/cultural/historic/s-odawarazyou.html)",
-        "constraintKo": "길의 폭·개수·정확한 꺾임과 소품 위치는 게임 각색입니다. 바위나 사면의 규모에 맞는 짧은 굴곡만 사용하고, 길 밖 장식 때문에 넓은 우회나 새 도로를 만들지 않습니다. 계단이 필요한 단차는 배치 공간 바깥에 두며 주력 도로는 이어지는 경사로로 읽히게 합니다."
+        "constraintKo": "공식 기록의 1590년 소가마에 토루·마른 해자·물해자 및 구릉/저지 유구를 바탕으로 만든 도요토미측 포위군 연락 임무입니다. 네 연락 진지와 정확한 좌표·접근로는 기록에 없는 게임 각색이며 역사적 수비 기지 배치 복원이 아닙니다. 서북 외곽 포위 거점은 중앙 산성이 아니고 호조측 성하는 오른쪽 중상단에 둡니다. 내부 기습 통행은 길·점선·화살표로 그리지 않습니다. 두 갈래는 짧은 출발 구간만 공유하며 갈라진 뒤 서로 교차하거나 합류 후 다시 나뉘지 않습니다."
       },
       "missionContactAnchors": [
         {
@@ -58406,8 +58420,8 @@
           "pathId": "outer-north-court",
           "pathIndex": 0,
           "objectiveId": "main",
-          "x": 0.56,
-          "y": 0.9,
+          "x": 0.16,
+          "y": 0.36,
           "isGameAdaptation": true,
           "sharesExistingObjectiveHp": true
         },
@@ -58416,8 +58430,8 @@
           "pathId": "southern-defense-line",
           "pathIndex": 1,
           "objectiveId": "main",
-          "x": 0.48,
-          "y": 0.82,
+          "x": 0.25,
+          "y": 0.52,
           "isGameAdaptation": true,
           "sharesExistingObjectiveHp": true
         },
@@ -58426,8 +58440,8 @@
           "pathId": "eastern-dogleg",
           "pathIndex": 2,
           "objectiveId": "main",
-          "x": 0.38,
-          "y": 0.89,
+          "x": 0.34,
+          "y": 0.7,
           "isGameAdaptation": true,
           "sharesExistingObjectiveHp": true
         },
@@ -58436,288 +58450,346 @@
           "pathId": "western-court",
           "pathIndex": 3,
           "objectiveId": "main",
-          "x": 0.28,
-          "y": 0.83,
+          "x": 0.42,
+          "y": 0.84,
           "isGameAdaptation": true,
           "sharesExistingObjectiveHp": true
         }
-      ]
+      ],
+      "viewpoint": {
+        "elevationDegrees": 38.0,
+        "reasonKo": "북서쪽 높은 구릉의 절토면과 남쪽 저지를 낮은 사선 시점에서 함께 바라봅니다. 길과 연락 진지는 화면의 왼쪽과 아래에 배치합니다.",
+        "isGameAdaptation": true
+      },
+      "heightLimitWorld": 2.4
     },
     "sideAmbushEntrances": [
       {
         "id": "advanced-siege-side-1",
         "pathIndex": 0,
         "point": {
-          "x": 0.975,
-          "y": 0.28
+          "x": 0.88,
+          "y": 0.12
         },
         "connectionPoints": [
           {
-            "x": 0.975,
-            "y": 0.28
+            "x": 0.88,
+            "y": 0.12
           },
           {
-            "x": 0.76506,
-            "y": 0.781387
+            "x": 0.86,
+            "y": 0.13
           },
           {
-            "x": 0.764392,
-            "y": 0.782898
+            "x": 0.84,
+            "y": 0.14
           },
           {
-            "x": 0.763668,
-            "y": 0.784374
+            "x": 0.82,
+            "y": 0.15
           },
           {
-            "x": 0.762889,
-            "y": 0.785816
+            "x": 0.8,
+            "y": 0.16
           },
           {
-            "x": 0.762054,
-            "y": 0.787223
+            "x": 0.78,
+            "y": 0.17
           },
           {
-            "x": 0.761163,
-            "y": 0.788595
+            "x": 0.76,
+            "y": 0.18
           },
           {
-            "x": 0.760216,
-            "y": 0.789933
+            "x": 0.735714,
+            "y": 0.185714
           },
           {
-            "x": 0.759214,
-            "y": 0.791236
+            "x": 0.711429,
+            "y": 0.191429
           },
           {
-            "x": 0.758156,
-            "y": 0.792505
+            "x": 0.687143,
+            "y": 0.197143
           },
           {
-            "x": 0.748018,
-            "y": 0.804183
+            "x": 0.662857,
+            "y": 0.202857
           },
           {
-            "x": 0.718712,
-            "y": 0.77696
+            "x": 0.638571,
+            "y": 0.208571
+          },
+          {
+            "x": 0.614286,
+            "y": 0.214286
           }
         ],
         "displayNameKo": "적진 출발 · 사격 진지 별동대 접근로",
         "role": "tower_hunter_only",
-        "segmentIndex": 29,
-        "t": 0.68238,
+        "segmentIndex": 12,
+        "t": 0.0,
         "enemyDeparturePoint": {
-          "x": 0.975,
-          "y": 0.28
+          "x": 0.88,
+          "y": 0.12
         },
         "departureKind": "enemy_camp",
-        "targetBuildZoneId": "advanced-siege-emplacement-5",
-        "approachDesignKo": "적진에서 출발해 지형을 따라 사격 진지에 접근하는 별동대입니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
+        "targetBuildZoneId": "advanced-siege-emplacement-3",
+        "approachDesignKo": "적 출발점에서 같은 주력 경로의 연결점까지 이동한 뒤 사격 진지로 접근합니다. 내부 기습 통행은 아트의 길이나 화살표로 표시하지 않습니다."
       },
       {
         "id": "advanced-siege-side-2",
         "pathIndex": 1,
         "point": {
-          "x": 0.79,
-          "y": 0.14
+          "x": 0.88,
+          "y": 0.12
         },
         "connectionPoints": [
           {
-            "x": 0.79,
+            "x": 0.88,
+            "y": 0.12
+          },
+          {
+            "x": 0.86,
+            "y": 0.13
+          },
+          {
+            "x": 0.84,
             "y": 0.14
           },
           {
-            "x": 0.752767,
-            "y": 0.799833
+            "x": 0.82,
+            "y": 0.15
           },
           {
-            "x": 0.655421,
-            "y": 0.674673
+            "x": 0.8,
+            "y": 0.16
+          },
+          {
+            "x": 0.78,
+            "y": 0.17
+          },
+          {
+            "x": 0.76,
+            "y": 0.18
+          },
+          {
+            "x": 0.75,
+            "y": 0.198333
+          },
+          {
+            "x": 0.74,
+            "y": 0.216667
+          },
+          {
+            "x": 0.73,
+            "y": 0.235
+          },
+          {
+            "x": 0.72,
+            "y": 0.253333
+          },
+          {
+            "x": 0.71,
+            "y": 0.271667
+          },
+          {
+            "x": 0.7,
+            "y": 0.29
           }
         ],
         "displayNameKo": "적진 출발 · 사격 진지 별동대 접근로",
         "role": "tower_hunter_only",
-        "segmentIndex": 36,
-        "t": 0.552545,
+        "segmentIndex": 12,
+        "t": 0.0,
         "enemyDeparturePoint": {
-          "x": 0.79,
-          "y": 0.14
+          "x": 0.88,
+          "y": 0.12
         },
         "departureKind": "enemy_camp",
-        "targetBuildZoneId": "advanced-siege-emplacement-5",
-        "approachDesignKo": "적진에서 출발해 지형을 따라 사격 진지에 접근하는 별동대입니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
+        "targetBuildZoneId": "advanced-siege-emplacement-7",
+        "approachDesignKo": "적 출발점에서 같은 주력 경로의 연결점까지 이동한 뒤 사격 진지로 접근합니다. 내부 기습 통행은 아트의 길이나 화살표로 표시하지 않습니다."
       },
       {
         "id": "advanced-siege-side-3",
         "pathIndex": 2,
         "point": {
-          "x": 0.09,
-          "y": 0.1
+          "x": 0.98,
+          "y": 0.64
         },
         "connectionPoints": [
           {
-            "x": 0.09,
-            "y": 0.1
+            "x": 0.98,
+            "y": 0.64
           },
           {
-            "x": 0.221719,
-            "y": 0.563457
+            "x": 0.958,
+            "y": 0.644
           },
           {
-            "x": 0.222655,
-            "y": 0.566248
+            "x": 0.936,
+            "y": 0.648
           },
           {
-            "x": 0.223823,
-            "y": 0.568847
+            "x": 0.914,
+            "y": 0.652
           },
           {
-            "x": 0.225222,
-            "y": 0.571256
+            "x": 0.892,
+            "y": 0.656
           },
           {
-            "x": 0.226854,
-            "y": 0.573475
+            "x": 0.87,
+            "y": 0.66
           },
           {
-            "x": 0.228716,
-            "y": 0.575503
+            "x": 0.845714,
+            "y": 0.662857
           },
           {
-            "x": 0.230811,
-            "y": 0.57734
+            "x": 0.821429,
+            "y": 0.665714
           },
           {
-            "x": 0.233137,
-            "y": 0.578986
+            "x": 0.797143,
+            "y": 0.668571
           },
           {
-            "x": 0.235695,
-            "y": 0.580442
+            "x": 0.772857,
+            "y": 0.671429
           },
           {
-            "x": 0.73757,
-            "y": 0.835824
+            "x": 0.748571,
+            "y": 0.674286
           },
           {
-            "x": 0.378414,
-            "y": 0.87573
+            "x": 0.724286,
+            "y": 0.677143
+          },
+          {
+            "x": 0.7,
+            "y": 0.68
           }
         ],
         "displayNameKo": "적진 출발 · 사격 진지 별동대 접근로",
         "role": "tower_hunter_only",
-        "segmentIndex": 45,
-        "t": 0.773498,
+        "segmentIndex": 12,
+        "t": 0.0,
         "enemyDeparturePoint": {
-          "x": 0.09,
-          "y": 0.1
+          "x": 0.98,
+          "y": 0.64
         },
         "departureKind": "enemy_camp",
-        "targetBuildZoneId": "advanced-siege-emplacement-5",
-        "approachDesignKo": "적진에서 출발해 지형을 따라 사격 진지에 접근하는 별동대입니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
+        "targetBuildZoneId": "advanced-siege-emplacement-11",
+        "approachDesignKo": "적 출발점에서 같은 주력 경로의 연결점까지 이동한 뒤 사격 진지로 접근합니다. 내부 기습 통행은 아트의 길이나 화살표로 표시하지 않습니다."
       },
       {
         "id": "advanced-siege-side-4",
         "pathIndex": 3,
         "point": {
-          "x": 0.025,
-          "y": 0.19
+          "x": 0.98,
+          "y": 0.64
         },
         "connectionPoints": [
           {
-            "x": 0.025,
-            "y": 0.19
+            "x": 0.98,
+            "y": 0.64
           },
           {
-            "x": 0.213475,
-            "y": 0.552815
+            "x": 0.958,
+            "y": 0.644
           },
           {
-            "x": 0.216503,
-            "y": 0.558229
+            "x": 0.936,
+            "y": 0.648
           },
           {
-            "x": 0.219824,
-            "y": 0.563378
+            "x": 0.914,
+            "y": 0.652
           },
           {
-            "x": 0.223437,
-            "y": 0.568263
+            "x": 0.892,
+            "y": 0.656
           },
           {
-            "x": 0.227344,
-            "y": 0.572883
+            "x": 0.87,
+            "y": 0.66
           },
           {
-            "x": 0.231544,
-            "y": 0.577238
+            "x": 0.855,
+            "y": 0.6775
           },
           {
-            "x": 0.236037,
-            "y": 0.581328
+            "x": 0.84,
+            "y": 0.695
           },
           {
-            "x": 0.240823,
-            "y": 0.585154
+            "x": 0.825,
+            "y": 0.7125
           },
           {
-            "x": 0.245902,
-            "y": 0.588715
+            "x": 0.81,
+            "y": 0.73
           },
           {
-            "x": 0.405313,
-            "y": 0.693316
+            "x": 0.791667,
+            "y": 0.74
           },
           {
-            "x": 0.28,
-            "y": 0.83
+            "x": 0.773333,
+            "y": 0.75
+          },
+          {
+            "x": 0.755,
+            "y": 0.76
           }
         ],
         "displayNameKo": "적진 출발 · 사격 진지 별동대 접근로",
         "role": "tower_hunter_only",
-        "segmentIndex": 27,
-        "t": 1,
+        "segmentIndex": 12,
+        "t": 0.0,
         "enemyDeparturePoint": {
-          "x": 0.025,
-          "y": 0.19
+          "x": 0.98,
+          "y": 0.64
         },
         "departureKind": "enemy_camp",
-        "targetBuildZoneId": "advanced-siege-emplacement-6",
-        "approachDesignKo": "적진에서 출발해 지형을 따라 사격 진지에 접근하는 별동대입니다. 실제 당시 부대 동선을 재현한 것은 아닙니다."
+        "targetBuildZoneId": "advanced-siege-emplacement-15",
+        "approachDesignKo": "적 출발점에서 같은 주력 경로의 연결점까지 이동한 뒤 사격 진지로 접근합니다. 내부 기습 통행은 아트의 길이나 화살표로 표시하지 않습니다."
       }
     ],
     "camera": {
       "allowZoom": true,
       "reasonKo": "큰 포위·공성 전선의 가까운 교전 구역을 살펴봅니다.",
-      "designReasonKo": "실제 전장 중 교전 구역을 가까이 구성하고, 지형에 따라 여러 접근로를 사용합니다."
+      "designReasonKo": "서북 구릉과 남쪽 저지대의 네 연락 전면을 58도 시점으로 봅니다."
     },
     "enemyApproaches": [
       {
         "pathIndex": 0,
         "role": "path_attacker",
-        "x": 0.975,
-        "y": 0.28,
-        "terrainBasisKo": "소가마에 토루 바깥 네 연락 전면을 따로 연결하고 모든 길을 같은 성문에 모으지 않습니다."
+        "x": 0.88,
+        "y": 0.12,
+        "terrainBasisKo": "호조 소가마에의 위 고개 출입구와 아래 수변 출입구, 두 출발점에서 각각 짧은 길을 공유한 뒤 두 아군 연락 전면으로 나뉩니다. 위 고개는 서북 능선과 중단 전면, 아래 수변은 남쪽 사면과 저지 전면을 연결합니다. 도요토미측 연락 방어 임무이며 기록에 없는 출격·배치 좌표는 게임 각색입니다."
       },
       {
         "pathIndex": 1,
         "role": "path_attacker",
-        "x": 0.79,
-        "y": 0.14,
-        "terrainBasisKo": "소가마에 토루 바깥 네 연락 전면을 따로 연결하고 모든 길을 같은 성문에 모으지 않습니다."
+        "x": 0.88,
+        "y": 0.12,
+        "terrainBasisKo": "호조 소가마에의 위 고개 출입구와 아래 수변 출입구, 두 출발점에서 각각 짧은 길을 공유한 뒤 두 아군 연락 전면으로 나뉩니다. 위 고개는 서북 능선과 중단 전면, 아래 수변은 남쪽 사면과 저지 전면을 연결합니다. 도요토미측 연락 방어 임무이며 기록에 없는 출격·배치 좌표는 게임 각색입니다."
       },
       {
         "pathIndex": 2,
         "role": "path_attacker",
-        "x": 0.09,
-        "y": 0.1,
-        "terrainBasisKo": "소가마에 토루 바깥 네 연락 전면을 따로 연결하고 모든 길을 같은 성문에 모으지 않습니다."
+        "x": 0.98,
+        "y": 0.64,
+        "terrainBasisKo": "호조 소가마에의 위 고개 출입구와 아래 수변 출입구, 두 출발점에서 각각 짧은 길을 공유한 뒤 두 아군 연락 전면으로 나뉩니다. 위 고개는 서북 능선과 중단 전면, 아래 수변은 남쪽 사면과 저지 전면을 연결합니다. 도요토미측 연락 방어 임무이며 기록에 없는 출격·배치 좌표는 게임 각색입니다."
       },
       {
         "pathIndex": 3,
         "role": "path_attacker",
-        "x": 0.025,
-        "y": 0.19,
-        "terrainBasisKo": "소가마에 토루 바깥 네 연락 전면을 따로 연결하고 모든 길을 같은 성문에 모으지 않습니다."
+        "x": 0.98,
+        "y": 0.64,
+        "terrainBasisKo": "호조 소가마에의 위 고개 출입구와 아래 수변 출입구, 두 출발점에서 각각 짧은 길을 공유한 뒤 두 아군 연락 전면으로 나뉩니다. 위 고개는 서북 능선과 중단 전면, 아래 수변은 남쪽 사면과 저지 전면을 연결합니다. 도요토미측 연락 방어 임무이며 기록에 없는 출격·배치 좌표는 게임 각색입니다."
       }
     ]
   }

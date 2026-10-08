@@ -8,6 +8,7 @@ const BattleAtmosphere = preload("res://native/battle_atmosphere.gd")
 const Troops3D = preload("res://native/troops_3d.gd")
 const BattleCamera = preload("res://native/battle_camera.gd")
 const NativeBattlefield = preload("res://native/battlefield_3d.gd")
+const CatalogPreview = preload("res://native/battlefield_preview.gd")
 const Barracks = preload("res://native/barracks.gd")
 const UnitTraining = preload("res://native/unit_training.gd")
 const LivePortrait = preload("res://native/barracks_portrait.gd")
@@ -195,6 +196,10 @@ var narration_danger_reported: bool = false
 var narration_caption_remaining: float = 0.0
 var announcement_caption_remaining: float = 0.0
 var audio_save_timer: Timer
+var catalog_preparation_completed: int = 0
+var catalog_preparation_ready: bool = false
+var catalog_preparation_error: String = ""
+var catalog_preparation_started: bool = false
 
 func _ready() -> void:
 	rng.randomize()
@@ -318,6 +323,43 @@ func _ready() -> void:
 	_layout()
 	_select_map(0)
 	_show_home()
+	if DisplayServer.get_name()!="headless":
+		front_end.set_catalog_preparation(0,maps.size())
+		call_deferred("_prepare_catalog_previews")
+	else:
+		# A headless verifier has no framebuffer to cache. Source-only UI tests
+		# keep their existing navigation contract; GPU QA covers preparation.
+		catalog_preparation_ready=true
+
+func _prepare_catalog_previews() -> void:
+	if catalog_preparation_started or closing: return
+	catalog_preparation_started=true
+	var preview: Control=CatalogPreview.new()
+	preview.name="CatalogPreparationRenderer"
+	preview.frame_budget_usec=NativeBattlefield.PREPARATION_FRAME_BUDGET_USEC
+	preview.position=Vector2(-10000,-10000)
+	var dimensions: Vector2=get_viewport().get_visible_rect().size
+	preview.size=(dimensions-Vector2(452,488)).max(Vector2(2,2))
+	add_child(preview)
+	for stage in maps:
+		if closing:
+			preview.free()
+			return
+		preview.configure(stage)
+		var prepared: bool=await preview.prepare()
+		if closing:
+			preview.free()
+			return
+		if not prepared:
+			catalog_preparation_error="전장 준비에 실패했습니다: "+str(stage.get("id",""))
+			front_end.set_catalog_preparation(catalog_preparation_completed,maps.size(),catalog_preparation_error)
+			preview.free()
+			return
+		catalog_preparation_completed+=1
+		front_end.set_catalog_preparation(catalog_preparation_completed,maps.size())
+		await get_tree().process_frame
+	catalog_preparation_ready=catalog_preparation_completed==maps.size()
+	preview.free()
 
 func _theme() -> Theme:
 	var result = Theme.new()
@@ -2949,6 +2991,7 @@ func _notification(what: int) -> void:
 		_quit_game()
 
 func _exit_tree() -> void:
+	CatalogPreview.release_shared_resources()
 	NativeBattlefield.release_shared_resources()
 
 func _quit_game() -> void:

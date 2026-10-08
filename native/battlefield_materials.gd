@@ -50,7 +50,7 @@ static func rendered_art_texture(path: String,content_hash: String) -> Texture2D
 		rendered_textures.erase(expired)
 	return value
 
-static func rendered_art(record: Dictionary) -> ShaderMaterial:
+static func rendered_art(record: Dictionary, stage: Dictionary = {}) -> ShaderMaterial:
 	var art: Texture2D = rendered_art_texture(str(record.get("artPath","")),str(record.get("artSha256","")))
 	if art == null:
 		return null
@@ -61,6 +61,14 @@ render_mode cull_back, ambient_light_disabled, specular_disabled, fog_disabled;
 uniform sampler2D artwork : source_color, filter_linear_mipmap_anisotropic, repeat_disable;
 uniform vec4 normalized_bounds = vec4(0.0,0.0,1.0,1.0);
 uniform float shadow_strength : hint_range(0.0,1.0) = 0.4;
+uniform float relief_strength : hint_range(0.0,1.0) = 0.65;
+uniform int relief_water_count = 0;
+uniform vec4 relief_water_rects[32];
+varying vec3 flat_normal_view;
+varying float relief_land;
+void vertex() {
+    flat_normal_view = normalize(MODELVIEW_NORMAL_MATRIX * vec3(0.0,1.0,0.0));
+}
 void fragment() {
     vec2 mapped = (UV2-normalized_bounds.xy)/normalized_bounds.zw;
     vec3 source = texture(artwork,clamp(mapped,vec2(0.0),vec2(1.0))).rgb;
@@ -69,6 +77,13 @@ void fragment() {
     ROUGHNESS = 1.0;
     SPECULAR = 0.0;
     AO = 1.0;
+    relief_land = 1.0;
+    for (int i = 0; i < relief_water_count; i++) {
+        vec4 water = relief_water_rects[i];
+        if (UV2.x >= water.x && UV2.x <= water.x+water.z && UV2.y >= water.y && UV2.y <= water.y+water.w) {
+            relief_land = 0.0;
+        }
+    }
 }
 void light() {
     // One key sun affects terrain layer 1. Actor fill lights use layer 2.
@@ -78,7 +93,13 @@ void light() {
     // add two independently gamma-encoded colours and brighten the art.
     // Godot multiplies DIFFUSE_LIGHT by ALBEDO.
     if (LIGHT_IS_DIRECTIONAL) {
-        DIFFUSE_LIGHT += vec3(1.0-shadow_strength*(1.0-ATTENUATION));
+        // Relative to flat ground, so level surfaces retain their exact art.
+        // Existing painted/live shadows are not multiplied by a second shade.
+        float slope = length(NORMAL-normalize(flat_normal_view));
+        float grade_light = dot(NORMAL,LIGHT)-dot(normalize(flat_normal_view),LIGHT);
+        float relief = clamp(1.0+relief_strength*grade_light,0.90,1.15);
+        float relief_weight = relief_land*smoothstep(0.025,0.12,slope)*smoothstep(0.88,1.0,ATTENUATION);
+        DIFFUSE_LIGHT += vec3((1.0-shadow_strength*(1.0-ATTENUATION))*mix(1.0,relief,relief_weight));
     }
 }"""
 	var result: ShaderMaterial = ShaderMaterial.new()
@@ -87,6 +108,24 @@ void light() {
 	result.set_shader_parameter("normalized_bounds",record.get("normalizedBounds",Vector4(0,0,1,1)))
 	var lighting: Dictionary = record.get("lighting",{})
 	result.set_shader_parameter("shadow_strength",clampf(float(lighting.get("shadowStrength",.4)),0.0,1.0))
+	var water_rects: PackedVector4Array = PackedVector4Array()
+	var water_features: Array = []
+	if not stage.get("water",{}).is_empty(): water_features.append(stage.water)
+	var history: Dictionary = stage.get("historicalBattlefield",{})
+	water_features.append_array(history.get("waterFeatures",[]))
+	for landmark in history.get("sceneLandmarks",[]):
+		if str(landmark.get("kind","")) in ["river","stream","valley_river","waterway","lake","bay","marsh","floodplain","wetland_lake"]:
+			var extent: Dictionary = landmark.get("scale",{})
+			var w: float = float(extent.get("w",0))
+			var h: float = float(extent.get("h",0))
+			water_features.append({"x":float(landmark.get("x",.5))-w*.5,"y":float(landmark.get("y",.5))-h*.5,"w":w,"h":h})
+	for water in water_features:
+		if water_rects.size()>=32: break
+		if not water is Dictionary or float(water.get("w",0))<=0 or float(water.get("h",0))<=0: continue
+		water_rects.append(Vector4(float(water.get("x",0)),float(water.get("y",0)),float(water.w),float(water.h)))
+	result.set_shader_parameter("relief_water_count",water_rects.size())
+	while water_rects.size()<32: water_rects.append(Vector4.ZERO)
+	result.set_shader_parameter("relief_water_rects",water_rects)
 	return result
 
 static func texture(path: String) -> Texture2D:

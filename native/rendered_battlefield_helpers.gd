@@ -5,12 +5,34 @@ extends RefCounted
 const MANIFEST_PATH: String = "res://assets/battlefields-rendered/manifest.json"
 const MAPS_PATH: String = "res://native/maps.json"
 const EXPECTED_STAGE_COUNT: int = 40
+const Presentation = preload("res://native/battlefield_presentation.gd")
 static var manifest_cache: Dictionary = {}
 static var hash_cache: Dictionary = {}
+static var resolution_cache: Dictionary = {}
+static var authored_ids_cache: Dictionary = {}
 
 static func release_shared_resources() -> void:
 	manifest_cache.clear()
 	hash_cache.clear()
+	resolution_cache.clear()
+	authored_ids_cache.clear()
+
+static func _file_signature(path: String) -> String:
+	if not FileAccess.file_exists(path): return "missing"
+	var source: FileAccess = FileAccess.open(path,FileAccess.READ)
+	if source == null: return "unreadable"
+	var length: int = source.get_length()
+	source.close()
+	return str(FileAccess.get_modified_time(path))+":"+str(length)
+
+static func cache_revision(manifest_path: String = MANIFEST_PATH) -> String:
+	# Include every source in the approval boundary, so a replaced picture or
+	# edited map invalidates both the scene and completed preview caches.
+	var manifest: Dictionary = _read_manifest(manifest_path)
+	var signatures: PackedStringArray = [str(manifest.get("signature","")),_source_hash(MAPS_PATH)]
+	for entry in manifest.get("stages",[]):
+		if entry is Dictionary: signatures.append(str(entry.get("path",""))+":"+_file_signature(str(entry.get("path",""))))
+	return "|".join(signatures).sha256_text()
 
 static func _source_hash(path: String) -> String:
 	if not FileAccess.file_exists(path):
@@ -31,16 +53,18 @@ static func _source_hash(path: String) -> String:
 static func _read_manifest(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		return {"valid":false,"reason":"manifest_missing","stages":[],"camera":{}}
+	var previous: Dictionary = manifest_cache.get(path,{})
+	var file_signature: String = _file_signature(path)
+	if str(previous.get("fileSignature","")) == file_signature:
+		return previous
 	var text_value: String = FileAccess.get_file_as_string(path)
 	var signature: String = text_value.sha256_text()
-	var previous: Dictionary = manifest_cache.get(path,{})
-	if str(previous.get("signature","")) == signature:
-		return previous
 	var parsed: Variant = JSON.parse_string(text_value)
 	if not parsed is Dictionary or not parsed.get("stages",null) is Array:
 		return {"valid":false,"reason":"manifest_invalid","stages":[],"camera":{}}
 	var result: Dictionary = parsed.duplicate(true)
 	result["signature"] = signature
+	result["fileSignature"] = file_signature
 	result["valid"] = int(result.get("version",0)) == 1
 	result["reason"] = "" if bool(result.valid) else "manifest_version_unsupported"
 	manifest_cache[path] = result
@@ -73,6 +97,9 @@ static func _entry_status(entry: Dictionary,manifest: Dictionary,current_hash: S
 static func resolve(stage: Dictionary,physical_fingerprint: String,manifest_path: String = MANIFEST_PATH,legacy_preview: bool = false) -> Dictionary:
 	var manifest: Dictionary = _read_manifest(manifest_path)
 	var current_data_hash: String = _source_hash(MAPS_PATH)
+	var cache_key: String = manifest_path+":"+cache_revision(manifest_path)+":"+str(stage.get("id",""))+":"+physical_fingerprint+":"+str(Presentation.elevation_for_stage(stage))+":"+str(legacy_preview)
+	if legacy_preview: cache_key += ":"+str(stage.get("background",""))+":"+_file_signature(str(stage.get("background","")))
+	if resolution_cache.has(cache_key): return resolution_cache[cache_key].duplicate(true)
 	var result: Dictionary = {"mode":"native","artPath":"","lighting":{},"normalizedBounds":Vector4(0,0,1,1),"distributionReady":false,"coverage":0,"expectedStageCount":EXPECTED_STAGE_COUNT,"manifestPath":manifest_path,"sourceDataSha256":current_data_hash,"reason":str(manifest.get("reason","")),"sourceDataVerified":false,"rawArtHashVerified":false,"sourceProjection":manifest.get("camera",{})}
 	var selected: Dictionary = {}
 	var seen: Dictionary = {}
@@ -107,23 +134,38 @@ static func resolve(stage: Dictionary,physical_fingerprint: String,manifest_path
 					result.reason = str(status.reason)
 		# An exact 40-ID match prevents a manifest containing 40 unrelated or
 		# repeated entries from being mistaken for a distributable campaign.
-		var authored: Variant = JSON.parse_string(FileAccess.get_file_as_string(MAPS_PATH))
-		var complete_ids: bool = authored is Array and authored.size() == EXPECTED_STAGE_COUNT and seen.size() == EXPECTED_STAGE_COUNT
-		if authored is Array:
-			for config in authored:
-				if not config is Dictionary or not bool(seen.get(str(config.get("id","")),false)):
-					complete_ids = false
+		if not authored_ids_cache.has(current_data_hash):
+			var authored: Variant = JSON.parse_string(FileAccess.get_file_as_string(MAPS_PATH))
+			var ids: Array[String] = []
+			if authored is Array:
+				for config in authored:
+					if config is Dictionary: ids.append(str(config.get("id","")))
+			authored_ids_cache.clear()
+			authored_ids_cache[current_data_hash] = ids
+		var authored_ids: Array = authored_ids_cache[current_data_hash]
+		var complete_ids: bool = authored_ids.size() == EXPECTED_STAGE_COUNT and seen.size() == EXPECTED_STAGE_COUNT
+		for id in authored_ids:
+			if not bool(seen.get(id,false)): complete_ids = false
 		result.distributionReady = result.coverage == EXPECTED_STAGE_COUNT and complete_ids and all_verified
 	if not selected.is_empty():
 		var expected_geometry: String = str(selected.get("sourceGeometryFingerprint",""))
+		var global_projection: Variant = manifest.get("camera",{})
+		var source_projection: Dictionary = global_projection.duplicate(true) if global_projection is Dictionary else {}
+		var selected_projection: Variant = selected.get("camera",null)
+		if selected_projection is Dictionary: source_projection.merge(selected_projection,true)
+		var source_elevation: float = float(source_projection.get("elevation",Presentation.elevation_for_stage(stage)))
 		if not expected_geometry.is_empty() and expected_geometry != physical_fingerprint:
 			result.reason = "source_geometry_changed"
+			result.distributionReady = false
+		elif not is_finite(source_elevation) or absf(source_elevation-Presentation.elevation_for_stage(stage))>0.001:
+			result.reason = "source_viewpoint_changed"
 			result.distributionReady = false
 		else:
 			result.mode = "rendered"
 			result.artPath = str(selected.path)
 			result.artSha256 = str(selected.sha256)
 			result.lighting = selected.get("lighting",{}).duplicate(true)
+			result.sourceProjection = source_projection
 			result.reason = ""
 			var bounds: Variant = selected.get("normalizedBounds",[0,0,1,1])
 			if bounds is Array and bounds.size() == 4:
@@ -138,4 +180,6 @@ static func resolve(stage: Dictionary,physical_fingerprint: String,manifest_path
 			result.artSha256 = _source_hash(legacy_path)
 			result.distributionReady = false
 			result.reason = "legacy_preview_not_historical_release_art"
+	if resolution_cache.size() >= 160: resolution_cache.clear()
+	resolution_cache[cache_key] = result.duplicate(true)
 	return result

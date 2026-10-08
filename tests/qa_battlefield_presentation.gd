@@ -39,7 +39,7 @@ func expected_pixel(point: Vector2, extent: Vector2, mirrored: bool) -> Vector2:
 	return Vector2(extent.x-point.x,point.y) if mirrored else point
 
 func allowed(point: Vector2) -> bool:
-	return point.x<=.500001 or point.y>=.599999
+	return point.is_finite() and (point.x<=.420001 or point.y>=.619999)
 
 func remember_source(path: String) -> void:
 	if not source_hashes.has(path) and FileAccess.file_exists(path): source_hashes[path]=FileAccess.get_sha256(path)
@@ -53,6 +53,9 @@ func navigation_state() -> Dictionary:
 	return {"paths":game.paths.duplicate(true),"zones":game.zones.duplicate(true),"lengths":game.ground_combat.cumulative.duplicate(true),"bases":game.ground_combat.march_bases.duplicate(true),"ambushSites":game.ground_combat.ambush_sites.duplicate(true),"objectives":game.objectives.duplicate(true)}
 
 func helper_checks() -> void:
+	for sample in [{"point":Vector2(.42,.10),"allowed":true},{"point":Vector2(.20,.20),"allowed":true},{"point":Vector2(.95,.62),"allowed":true},{"point":Vector2(.50,.20),"allowed":false},{"point":Vector2(.95,.20),"allowed":false},{"point":Vector2(.421,.619),"allowed":false},{"point":Vector2(NAN,.80),"allowed":false}]:
+		for aspect in [1.0,1.6,1920.0/1080.0,1888.0/900.0]:
+			check(Presentation.allows_friendly_at_aspect(sample.point,aspect)==bool(sample.allowed),"Left/lower placement boundaries stay independent of viewport aspect")
 	for mirrored in [false,true]:
 		for point in MODEL_SAMPLES:
 			var view: Vector2 = Presentation.to_view(point,mirrored)
@@ -69,6 +72,7 @@ func helper_checks() -> void:
 	for fixture in [{"objectives":[]},{"objectives":[{"x":.8,"y":.25}]},{"objectives":[{"x":.8,"y":.75}]},{"objectives":[{"x":.2,"y":.25},{"x":.8,"y":.25}]}]:
 		var before: Dictionary = fixture.duplicate(true)
 		var decision: Dictionary = Presentation.decision(fixture)
+		check(str(decision.displayPolicy)=="friendly_left_or_lower","Presentation reports the current left/lower policy")
 		check(fixture==before,"Policy inspection never edits a caller's stage")
 		if fixture.objectives.size()==2: check(not bool(decision.satisfiable),"Opposing upper objectives explicitly report an unsatisfiable single horizontal reflection")
 		elif fixture.objectives.is_empty(): check(not bool(decision.mirrored),"An empty objective list retains its original orientation")
@@ -108,6 +112,7 @@ func original_stage_checks(stage: Dictionary) -> Dictionary:
 		check(allowed(displayed),"Every actual initial friendly objective is displayed left or lower: "+id+" "+str(authored.id))
 		objective_rows.append({"id":str(authored.id),"model":{"x":model.x,"y":model.y},"view":{"x":displayed.x,"y":displayed.y},"mobile":bool(authored.get("mobile",false))})
 	check(bool(game.presentation_mirrored)==(not original_fits and reflected_fits),"Actual stage orientation matches all original objectives: "+id)
+	check(bool(Presentation.decision(stage).satisfiable),"Every campaign stage satisfies the left/lower initial-base policy: "+id)
 	check(game.config==stage,"Loading presentation never changes the original stage dictionary: "+id)
 	for path_index in range(game.paths.size()):
 		var cumulative: float = 0.0
