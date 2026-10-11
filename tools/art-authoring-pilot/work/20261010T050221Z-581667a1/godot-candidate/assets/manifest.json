@@ -1,0 +1,77 @@
+{
+  "version": 2,
+  "generation": {
+    "tool": "built-in image_gen",
+    "style": "semi-realistic Sengoku Japanese 3D strategy game",
+    "unitsPrompt": "Transparent 1536x1024 production sprite atlas in an exact 3-column by 2-row regular grid, no grid lines. Six isolated full-body historical late-16th-century Japanese adult soldiers with believable 3D anatomy, one per 512x512 cell. Elevated three-quarter camera, all face diagonally lower right. Top row: indigo yumi archer, teal yari spearman, navy katana samurai. Bottom row: gold-and-indigo commander on chestnut horse, crimson light ashigaru, red-and-black heavy samurai. Transparent margins and no scene, platform, interface, lettering or labels."
+  },
+  "sprites": {
+    "atlas": "assets/units-atlas.png",
+    "nativeAtlas": "res://assets/units-atlas.png",
+    "imageSize": [
+      1536,
+      1024
+    ],
+    "columns": 3,
+    "rows": 2,
+    "cellSize": [
+      512,
+      512
+    ],
+    "animated": false,
+    "alphaVerified": true,
+    "cellAnchor": [
+      0.5,
+      0.95
+    ],
+    "regions": {
+      "archer": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "spear": [
+        512,
+        0,
+        512,
+        512
+      ],
+      "samurai": [
+        1024,
+        0,
+        512,
+        512
+      ],
+      "commander": [
+        0,
+        512,
+        512,
+        512
+      ],
+      "enemy_light": [
+        512,
+        512,
+        512,
+        512
+      ],
+      "enemy_heavy": [
+        1024,
+        512,
+        512,
+        512
+      ]
+    }
+  },
+  "validation": {
+    "spriteAtlasViewed": true,
+    "spriteAlphaSample": {
+      "minimum": 0,
+      "maximum": 253,
+      "fullyTransparentSamples": 4113,
+      "totalSamples": 6144
+    },
+    "notes": "Previous battlefield artwork and geometry were discarded by the user. Non-map sprite provenance is retained."
+  },
+  "mapResetStatus": "USER_REQUESTED_FULL_MAP_REDESIGN"
+}

@@ -1,0 +1,1917 @@
+{
+  "directive_id": "JP_DF-HQ-20261008-COMMON-FIRST-R1",
+  "task_id": "BAL-01-REV4",
+  "owner": "BALANCE",
+  "status": "PASS",
+  "scope": "isolated Python REV4 specification arithmetic/state fixtures; NOT Godot/runtime/GPU/natural-play verification",
+  "source_hashes": {
+    "native/units.json": "8053acd1ffd1e430c853787341c16054c7cd2aabb4f0a88125893079798684f0",
+    "native/unit_growth.gd": "95a75670ac82d2e22570a84d5fa17930f6a6d9cb64b7fba1cf269d3441ef617b",
+    "native/unit_skills.gd": "f32b2963331053dc1910434ca9fbd6d1466325d6f510255f1a41070d1112cf8f",
+    "native/game.gd": "4e24e64c4a6b02a44e80aab9f1202b84682c268d7fd4a3cbfe4ff60d96218abf",
+    "native/ground_combat.gd": "8d552b9bc1c0d4f87d00f5310226e7d4e64672e3397d4af40920bf12d0efa08b",
+    "assets/units-animated/manifest.json": "c8208631cd8a546f5c23b6e5ac35e07f0bace0cc113e23601c757fc38932e99d"
+  },
+  "verifier_sha256": "b899cc2dc423ea1723e549738ddbf37fa62d552f5feb9c849cdaa0c55e57d58d",
+  "passed": 312,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "51/160 baseline no enabled skills",
+      "passed": true
+    },
+    {
+      "name": "source growth replacement",
+      "passed": true
+    },
+    {
+      "name": "source prehit execution",
+      "passed": true
+    },
+    {
+      "name": "source threat grade5",
+      "passed": true
+    },
+    {
+      "name": "source samurai uses emplacement role",
+      "passed": true
+    },
+    {
+      "name": "Lv2 D baseline",
+      "passed": true
+    },
+    {
+      "name": "Lv5 D baseline",
+      "passed": true
+    },
+    {
+      "name": "Lv8 highest evolution only",
+      "passed": true
+    },
+    {
+      "name": "Lv2 bomb raw4D",
+      "passed": true
+    },
+    {
+      "name": "Lv8 bomb raw4D",
+      "passed": true
+    },
+    {
+      "name": "samurai wins source threat grade",
+      "passed": true
+    },
+    {
+      "name": "cavalry wins when strong samurai unreachable",
+      "passed": true
+    },
+    {
+      "name": "strong tower wins maxHP samegrade",
+      "passed": true
+    },
+    {
+      "name": "current HP wounds do not rerank",
+      "passed": true
+    },
+    {
+      "name": "commander strongest no instantkill bonus",
+      "passed": true
+    },
+    {
+      "name": "invalid strongest excluded valid",
+      "passed": true
+    },
+    {
+      "name": "invalid strongest excluded reachable",
+      "passed": true
+    },
+    {
+      "name": "invalid strongest excluded ground",
+      "passed": true
+    },
+    {
+      "name": "all invalid no target",
+      "passed": true
+    },
+    {
+      "name": "friendly not assassination candidate",
+      "passed": true
+    },
+    {
+      "name": "armor breaks rank tie",
+      "passed": true
+    },
+    {
+      "name": "travel breaks numeric tie",
+      "passed": true
+    },
+    {
+      "name": "actorID final tie",
+      "passed": true
+    },
+    {
+      "name": "moving cavalry catch-up possible in same lane",
+      "passed": true
+    },
+    {
+      "name": "moving target chase uses base speed",
+      "passed": true
+    },
+    {
+      "name": "cannot guarantee contact with faster target",
+      "passed": true
+    },
+    {
+      "name": "healthy2000 target no lowHP gate",
+      "passed": true
+    },
+    {
+      "name": "healthy enemy partial bomb damage",
+      "passed": true
+    },
+    {
+      "name": "Lv1 cannot plant",
+      "passed": true
+    },
+    {
+      "name": "Lv2 no combo",
+      "passed": true
+    },
+    {
+      "name": "Lv5 must actually complete combo before plant",
+      "passed": true
+    },
+    {
+      "name": "Lv5 begins combo once",
+      "passed": true
+    },
+    {
+      "name": "same impact replay 0",
+      "passed": true
+    },
+    {
+      "name": "each real subhit applied 0",
+      "passed": true
+    },
+    {
+      "name": "same impact replay 1",
+      "passed": true
+    },
+    {
+      "name": "each real subhit applied 1",
+      "passed": true
+    },
+    {
+      "name": "same impact replay 2",
+      "passed": true
+    },
+    {
+      "name": "each real subhit applied 2",
+      "passed": true
+    },
+    {
+      "name": "threehit then plant completed",
+      "passed": true
+    },
+    {
+      "name": "Lv5 combo highHP2D",
+      "passed": true
+    },
+    {
+      "name": "first hit unboosted before30%",
+      "passed": true
+    },
+    {
+      "name": "second hit unboosted before30%",
+      "passed": true
+    },
+    {
+      "name": "third evaluates fresh30% and caps HP",
+      "passed": true
+    },
+    {
+      "name": "three distinct times within original cadence L5",
+      "passed": true
+    },
+    {
+      "name": "combo2D L5 a0",
+      "passed": true
+    },
+    {
+      "name": "combo2D L5 a0.25",
+      "passed": true
+    },
+    {
+      "name": "combo2D L5 a0.38",
+      "passed": true
+    },
+    {
+      "name": "three distinct times within original cadence L8",
+      "passed": true
+    },
+    {
+      "name": "combo2D L8 a0",
+      "passed": true
+    },
+    {
+      "name": "combo2D L8 a0.25",
+      "passed": true
+    },
+    {
+      "name": "combo2D L8 a0.38",
+      "passed": true
+    },
+    {
+      "name": "three distinct times within original cadence L10",
+      "passed": true
+    },
+    {
+      "name": "combo2D L10 a0",
+      "passed": true
+    },
+    {
+      "name": "combo2D L10 a0.25",
+      "passed": true
+    },
+    {
+      "name": "combo2D L10 a0.38",
+      "passed": true
+    },
+    {
+      "name": "lethal first cancels remaining combo/charge",
+      "passed": true
+    },
+    {
+      "name": "death cancels followup",
+      "passed": true
+    },
+    {
+      "name": "preplant death leaves no charge",
+      "passed": true
+    },
+    {
+      "name": "invalid subhit valid",
+      "passed": true
+    },
+    {
+      "name": "invalid subhit consumes valid",
+      "passed": true
+    },
+    {
+      "name": "invalid plant valid",
+      "passed": true
+    },
+    {
+      "name": "invalid subhit safe",
+      "passed": true
+    },
+    {
+      "name": "invalid subhit consumes safe",
+      "passed": true
+    },
+    {
+      "name": "invalid plant safe",
+      "passed": true
+    },
+    {
+      "name": "stale generation subhit ignored",
+      "passed": true
+    },
+    {
+      "name": "no target no combo",
+      "passed": true
+    },
+    {
+      "name": "no target no plant",
+      "passed": true
+    },
+    {
+      "name": "intentional charge commits",
+      "passed": true
+    },
+    {
+      "name": "consumed actor cannot repeat plant",
+      "passed": true
+    },
+    {
+      "name": "no early explosion",
+      "passed": true
+    },
+    {
+      "name": "committed bomb survives intentional consumed actor",
+      "passed": true
+    },
+    {
+      "name": "duplicate explosion no damage",
+      "passed": true
+    },
+    {
+      "name": "ordinary death cannot preserve delayed payload",
+      "passed": true
+    },
+    {
+      "name": "buff snapshot freezes raw",
+      "passed": true
+    },
+    {
+      "name": "armor increases can reduce delayed damage",
+      "passed": true
+    },
+    {
+      "name": "heal/large HP no guaranteed kill",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 2",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 2",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 3",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 3",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 4",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 4",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 5",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 5",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 6",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 6",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 7",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 7",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 8",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 8",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 9",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 9",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 10",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 10",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 11",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 11",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 12",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 12",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 13",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 13",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 14",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 14",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 15",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 15",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 16",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 16",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 17",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 17",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 18",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 18",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 19",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 19",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 20",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 20",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 21",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 21",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 22",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 22",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 23",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 23",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 24",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 24",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 25",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 25",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 26",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 26",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 27",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 27",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 28",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 28",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 29",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 29",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 30",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 30",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 31",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 31",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 32",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 32",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 33",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 33",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 34",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 34",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 35",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 35",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 36",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 36",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 37",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 37",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 38",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 38",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 39",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 39",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 40",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 40",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 41",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 41",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 42",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 42",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 43",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 43",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 44",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 44",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 45",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 45",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 46",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 46",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 47",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 47",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 48",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 48",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 49",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 49",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 50",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 50",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 51",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 51",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 52",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 52",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 53",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 53",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 54",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 54",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 55",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 55",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 56",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 56",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 57",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 57",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 58",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 58",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 59",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 59",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 60",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 60",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 61",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 61",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 62",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 62",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 63",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 63",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 64",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 64",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 65",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 65",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 66",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 66",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 67",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 67",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 68",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 68",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 69",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 69",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 70",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 70",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 71",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 71",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 72",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 72",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 73",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 73",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 74",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 74",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 75",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 75",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 76",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 76",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 77",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 77",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 78",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 78",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 79",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 79",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 80",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 80",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 81",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 81",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 82",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 82",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 83",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 83",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 84",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 84",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 85",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 85",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 86",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 86",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 87",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 87",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 88",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 88",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 89",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 89",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 90",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 90",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 91",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 91",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 92",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 92",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 93",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 93",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 94",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 94",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 95",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 95",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 96",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 96",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 97",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 97",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 98",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 98",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 99",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 99",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 100",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 100",
+      "passed": true
+    },
+    {
+      "name": "distinct ninja plants and consumes 101",
+      "passed": true
+    },
+    {
+      "name": "consumed ninja no repeat 101",
+      "passed": true
+    },
+    {
+      "name": "101 distinct charges share pinned target",
+      "passed": true
+    },
+    {
+      "name": "other identity may hold own charge",
+      "passed": true
+    },
+    {
+      "name": "first shared-target charge kills primary",
+      "passed": true
+    },
+    {
+      "name": "later shared-target charge sees dead primary",
+      "passed": true
+    },
+    {
+      "name": "shared-target kill one fragment set only",
+      "passed": true
+    },
+    {
+      "name": "surviving target takes two distinct bombs",
+      "passed": true
+    },
+    {
+      "name": "distinct explosions may each hit same advancing victim",
+      "passed": true
+    },
+    {
+      "name": "two finite fragment hits",
+      "passed": true
+    },
+    {
+      "name": "shared-target no charge after disposal",
+      "passed": true
+    },
+    {
+      "name": "moving charge uses live explosion center",
+      "passed": true
+    },
+    {
+      "name": "only legitimate advancing fragment victim",
+      "passed": true
+    },
+    {
+      "name": "fragment armored without execution",
+      "passed": true
+    },
+    {
+      "name": "moving primary also excluded from fragment",
+      "passed": true
+    },
+    {
+      "name": "duplicate fragment no new damage",
+      "passed": true
+    },
+    {
+      "name": "Lv5 has no fragments",
+      "passed": true
+    },
+    {
+      "name": "max4 closest ordered",
+      "passed": true
+    },
+    {
+      "name": "equal distance sorted byid",
+      "passed": true
+    },
+    {
+      "name": "fragment4target total2.4D",
+      "passed": true
+    },
+    {
+      "name": "armor break once",
+      "passed": true
+    },
+    {
+      "name": "primary cancelled target_exists",
+      "passed": true
+    },
+    {
+      "name": "no orphan fragments target_exists",
+      "passed": true
+    },
+    {
+      "name": "primary cancelled same_identity",
+      "passed": true
+    },
+    {
+      "name": "no orphan fragments same_identity",
+      "passed": true
+    },
+    {
+      "name": "primary cancelled role_valid",
+      "passed": true
+    },
+    {
+      "name": "no orphan fragments role_valid",
+      "passed": true
+    },
+    {
+      "name": "primary cancelled battle_active",
+      "passed": true
+    },
+    {
+      "name": "no orphan fragments battle_active",
+      "passed": true
+    },
+    {
+      "name": "ally killed target before fuse",
+      "passed": true
+    },
+    {
+      "name": "ally kill no fragments",
+      "passed": true
+    },
+    {
+      "name": "old battle target ID reuse no damage",
+      "passed": true
+    },
+    {
+      "name": "old battle no secondary",
+      "passed": true
+    },
+    {
+      "name": "own explosion kills primary once",
+      "passed": true
+    },
+    {
+      "name": "own primary kill still emits fragments",
+      "passed": true
+    },
+    {
+      "name": "generation shift stops residual fragments",
+      "passed": true
+    },
+    {
+      "name": "no attack cancel or projectile erasure",
+      "passed": true
+    },
+    {
+      "name": "source hashes unchanged during fixture run",
+      "passed": true
+    }
+  ],
+  "growth": [
+    {
+      "level": 1,
+      "damage": 51.0,
+      "health": 160.0,
+      "interval": 0.46,
+      "armor": 0.1,
+      "range": 0.15,
+      "raw_dps": 110.8695652173913
+    },
+    {
+      "level": 2,
+      "damage": 55.080000000000005,
+      "health": 168.0,
+      "interval": 0.4532019704433498,
+      "armor": 0.10600000000000001,
+      "range": 0.1518,
+      "raw_dps": 121.53521739130434
+    },
+    {
+      "level": 3,
+      "damage": 59.16,
+      "health": 176.0,
+      "interval": 0.44660194174757284,
+      "armor": 0.112,
+      "range": 0.1536,
+      "raw_dps": 132.46695652173912
+    },
+    {
+      "level": 4,
+      "damage": 70.82880000000002,
+      "health": 206.08,
+      "interval": 0.4225837320574163,
+      "armor": 0.11800000000000001,
+      "range": 0.161616,
+      "raw_dps": 167.60891304347828
+    },
+    {
+      "level": 5,
+      "damage": 75.39840000000001,
+      "health": 215.04000000000002,
+      "interval": 0.41660377358490563,
+      "armor": 0.124,
+      "range": 0.16348800000000002,
+      "raw_dps": 180.9834782608696
+    },
+    {
+      "level": 6,
+      "damage": 79.968,
+      "health": 224.00000000000003,
+      "interval": 0.4107906976744186,
+      "armor": 0.13,
+      "range": 0.16536,
+      "raw_dps": 194.66847826086956
+    },
+    {
+      "level": 7,
+      "damage": 84.53760000000001,
+      "health": 232.96000000000004,
+      "interval": 0.405137614678899,
+      "armor": 0.136,
+      "range": 0.167232,
+      "raw_dps": 208.66391304347832
+    },
+    {
+      "level": 8,
+      "damage": 103.42800000000001,
+      "health": 270.0,
+      "interval": 0.38298642533936655,
+      "armor": 0.14200000000000002,
+      "range": 0.17560800000000001,
+      "raw_dps": 270.05656899810964
+    },
+    {
+      "level": 9,
+      "damage": 108.732,
+      "health": 280.0,
+      "interval": 0.37785714285714284,
+      "armor": 0.14800000000000002,
+      "range": 0.17755200000000004,
+      "raw_dps": 287.75954631379966
+    },
+    {
+      "level": 10,
+      "damage": 114.036,
+      "health": 290.0,
+      "interval": 0.37286343612334805,
+      "armor": 0.154,
+      "range": 0.17949600000000002,
+      "raw_dps": 305.8385160680529
+    }
+  ],
+  "proposed": {
+    "level2": "plant_charge",
+    "level5": "three_hits_then_charge",
+    "level8": "charge_shrapnel",
+    "charge_policy": "one committed charge per ninja; distinct ninjas may share pinned target",
+    "strongest_rank": [
+      "damage_desc",
+      "maxHp_desc",
+      "armor_desc",
+      "travel_asc",
+      "id_asc"
+    ],
+    "combo_factors": [
+      1.0,
+      0.5,
+      0.5
+    ],
+    "combo_phases": [
+      0.25,
+      0.55,
+      0.85
+    ],
+    "bomb_factor": 4.0,
+    "bomb_fuse": 0.75,
+    "shrapnel_factor": 0.6,
+    "shrapnel_radius": 0.065,
+    "shrapnel_limit": 4
+  },
+  "selection_samples": [
+    {
+      "name": "samurai",
+      "winner": 1
+    },
+    {
+      "name": "cavalry",
+      "winner": 2
+    },
+    {
+      "name": "strongtower",
+      "winner": 4
+    }
+  ],
+  "mission_samples": [
+    {
+      "level": 1,
+      "hp": 100,
+      "armor": 0,
+      "finish": "baseline_repeat_melee",
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.6785,
+      "damage_complete_at": 0.6785
+    },
+    {
+      "level": 1,
+      "hp": 100,
+      "armor": 0.25,
+      "finish": "baseline_repeat_melee",
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 1.1385,
+      "damage_complete_at": 1.1385
+    },
+    {
+      "level": 1,
+      "hp": 100,
+      "armor": 0.38,
+      "finish": "baseline_repeat_melee",
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 1.5985,
+      "damage_complete_at": 1.5985
+    },
+    {
+      "level": 1,
+      "hp": 300,
+      "armor": 0,
+      "finish": "baseline_repeat_melee",
+      "primary_damage": 300,
+      "primary_hp_after": 0,
+      "actor_exit_at": 2.5185000000000004,
+      "damage_complete_at": 2.5185000000000004
+    },
+    {
+      "level": 1,
+      "hp": 300,
+      "armor": 0.25,
+      "finish": "baseline_repeat_melee",
+      "primary_damage": 300,
+      "primary_hp_after": 0,
+      "actor_exit_at": 3.4385000000000003,
+      "damage_complete_at": 3.4385000000000003
+    },
+    {
+      "level": 1,
+      "hp": 300,
+      "armor": 0.38,
+      "finish": "baseline_repeat_melee",
+      "primary_damage": 300,
+      "primary_hp_after": 0,
+      "actor_exit_at": 3.8985000000000003,
+      "damage_complete_at": 3.8985000000000003
+    },
+    {
+      "level": 1,
+      "hp": 1000,
+      "armor": 0,
+      "finish": "baseline_repeat_melee",
+      "primary_damage": 1000,
+      "primary_hp_after": 0,
+      "actor_exit_at": 8.0385,
+      "damage_complete_at": 8.0385
+    },
+    {
+      "level": 1,
+      "hp": 1000,
+      "armor": 0.25,
+      "finish": "baseline_repeat_melee",
+      "primary_damage": 1000,
+      "primary_hp_after": 0,
+      "actor_exit_at": 10.7985,
+      "damage_complete_at": 10.7985
+    },
+    {
+      "level": 1,
+      "hp": 1000,
+      "armor": 0.38,
+      "finish": "baseline_repeat_melee",
+      "primary_damage": 1000,
+      "primary_hp_after": 0,
+      "actor_exit_at": 13.098500000000001,
+      "damage_complete_at": 13.098500000000001
+    },
+    {
+      "level": 2,
+      "hp": 100,
+      "armor": 0,
+      "finish": "charge",
+      "knife_damage": 0,
+      "bomb_damage": 100,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.21527093596059116,
+      "damage_complete_at": 0.9652709359605911
+    },
+    {
+      "level": 2,
+      "hp": 100,
+      "armor": 0.25,
+      "finish": "charge",
+      "knife_damage": 0,
+      "bomb_damage": 100,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.21527093596059116,
+      "damage_complete_at": 0.9652709359605911
+    },
+    {
+      "level": 2,
+      "hp": 100,
+      "armor": 0.38,
+      "finish": "charge",
+      "knife_damage": 0,
+      "bomb_damage": 100,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.21527093596059116,
+      "damage_complete_at": 0.9652709359605911
+    },
+    {
+      "level": 2,
+      "hp": 300,
+      "armor": 0,
+      "finish": "charge",
+      "knife_damage": 0,
+      "bomb_damage": 220.32000000000002,
+      "primary_damage": 220.32000000000002,
+      "primary_hp_after": 79.67999999999998,
+      "actor_exit_at": 0.21527093596059116,
+      "damage_complete_at": 0.9652709359605911
+    },
+    {
+      "level": 2,
+      "hp": 300,
+      "armor": 0.25,
+      "finish": "charge",
+      "knife_damage": 0,
+      "bomb_damage": 165.24,
+      "primary_damage": 165.24,
+      "primary_hp_after": 134.76,
+      "actor_exit_at": 0.21527093596059116,
+      "damage_complete_at": 0.9652709359605911
+    },
+    {
+      "level": 2,
+      "hp": 300,
+      "armor": 0.38,
+      "finish": "charge",
+      "knife_damage": 0,
+      "bomb_damage": 136.59840000000003,
+      "primary_damage": 136.59840000000003,
+      "primary_hp_after": 163.40159999999997,
+      "actor_exit_at": 0.21527093596059116,
+      "damage_complete_at": 0.9652709359605911
+    },
+    {
+      "level": 2,
+      "hp": 1000,
+      "armor": 0,
+      "finish": "charge",
+      "knife_damage": 0,
+      "bomb_damage": 220.32000000000002,
+      "primary_damage": 220.32000000000005,
+      "primary_hp_after": 779.68,
+      "actor_exit_at": 0.21527093596059116,
+      "damage_complete_at": 0.9652709359605911
+    },
+    {
+      "level": 2,
+      "hp": 1000,
+      "armor": 0.25,
+      "finish": "charge",
+      "knife_damage": 0,
+      "bomb_damage": 165.24,
+      "primary_damage": 165.24,
+      "primary_hp_after": 834.76,
+      "actor_exit_at": 0.21527093596059116,
+      "damage_complete_at": 0.9652709359605911
+    },
+    {
+      "level": 2,
+      "hp": 1000,
+      "armor": 0.38,
+      "finish": "charge",
+      "knife_damage": 0,
+      "bomb_damage": 136.59840000000003,
+      "primary_damage": 136.59840000000008,
+      "primary_hp_after": 863.4015999999999,
+      "actor_exit_at": 0.21527093596059116,
+      "damage_complete_at": 0.9652709359605911
+    },
+    {
+      "level": 5,
+      "hp": 100,
+      "armor": 0,
+      "finish": "combo_kill_no_charge",
+      "knife_damage": 100.0,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.21767547169811322,
+      "damage_complete_at": 0.21767547169811322
+    },
+    {
+      "level": 5,
+      "hp": 100,
+      "armor": 0.25,
+      "finish": "combo_kill_no_charge",
+      "knife_damage": 100.0,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.33640754716981125,
+      "damage_complete_at": 0.33640754716981125
+    },
+    {
+      "level": 5,
+      "hp": 100,
+      "armor": 0.38,
+      "finish": "combo_kill_no_charge",
+      "knife_damage": 100.0,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.33640754716981125,
+      "damage_complete_at": 0.33640754716981125
+    },
+    {
+      "level": 5,
+      "hp": 300,
+      "armor": 0,
+      "finish": "charge",
+      "knife_damage": 150.79680000000002,
+      "bomb_damage": 149.20319999999998,
+      "primary_damage": 300.0,
+      "primary_hp_after": 0.0,
+      "actor_exit_at": 0.6144905660377358,
+      "damage_complete_at": 1.3644905660377358
+    },
+    {
+      "level": 5,
+      "hp": 300,
+      "armor": 0.25,
+      "finish": "charge",
+      "knife_damage": 113.09760000000001,
+      "bomb_damage": 186.90239999999997,
+      "primary_damage": 300.0,
+      "primary_hp_after": 0.0,
+      "actor_exit_at": 0.6144905660377358,
+      "damage_complete_at": 1.3644905660377358
+    },
+    {
+      "level": 5,
+      "hp": 300,
+      "armor": 0.38,
+      "finish": "charge",
+      "knife_damage": 93.49401600000002,
+      "bomb_damage": 186.98803200000003,
+      "primary_damage": 280.482048,
+      "primary_hp_after": 19.51795199999998,
+      "actor_exit_at": 0.6144905660377358,
+      "damage_complete_at": 1.3644905660377358
+    },
+    {
+      "level": 5,
+      "hp": 1000,
+      "armor": 0,
+      "finish": "charge",
+      "knife_damage": 150.79680000000002,
+      "bomb_damage": 301.59360000000004,
+      "primary_damage": 452.3904000000001,
+      "primary_hp_after": 547.6095999999999,
+      "actor_exit_at": 0.6144905660377358,
+      "damage_complete_at": 1.3644905660377358
+    },
+    {
+      "level": 5,
+      "hp": 1000,
+      "armor": 0.25,
+      "finish": "charge",
+      "knife_damage": 113.09760000000001,
+      "bomb_damage": 226.19520000000003,
+      "primary_damage": 339.29280000000006,
+      "primary_hp_after": 660.7072,
+      "actor_exit_at": 0.6144905660377358,
+      "damage_complete_at": 1.3644905660377358
+    },
+    {
+      "level": 5,
+      "hp": 1000,
+      "armor": 0.38,
+      "finish": "charge",
+      "knife_damage": 93.49401600000002,
+      "bomb_damage": 186.98803200000003,
+      "primary_damage": 280.4820480000001,
+      "primary_hp_after": 719.5179519999999,
+      "actor_exit_at": 0.6144905660377358,
+      "damage_complete_at": 1.3644905660377358
+    },
+    {
+      "level": 8,
+      "hp": 100,
+      "armor": 0,
+      "finish": "combo_kill_no_charge",
+      "knife_damage": 100,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.09095927601809956,
+      "damage_complete_at": 0.09095927601809956
+    },
+    {
+      "level": 8,
+      "hp": 100,
+      "armor": 0.25,
+      "finish": "combo_kill_no_charge",
+      "knife_damage": 100.0,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.20011040723981904,
+      "damage_complete_at": 0.20011040723981904
+    },
+    {
+      "level": 8,
+      "hp": 100,
+      "armor": 0.38,
+      "finish": "combo_kill_no_charge",
+      "knife_damage": 100.0,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.3092615384615385,
+      "damage_complete_at": 0.3092615384615385
+    },
+    {
+      "level": 8,
+      "hp": 300,
+      "armor": 0,
+      "finish": "charge",
+      "knife_damage": 206.85600000000002,
+      "bomb_damage": 93.144,
+      "primary_damage": 300.0,
+      "primary_hp_after": 0.0,
+      "actor_exit_at": 0.5649049773755657,
+      "damage_complete_at": 1.3149049773755657
+    },
+    {
+      "level": 8,
+      "hp": 300,
+      "armor": 0.25,
+      "finish": "charge",
+      "knife_damage": 155.14200000000002,
+      "bomb_damage": 144.85799999999995,
+      "primary_damage": 300.0,
+      "primary_hp_after": 0.0,
+      "actor_exit_at": 0.5649049773755657,
+      "damage_complete_at": 1.3149049773755657
+    },
+    {
+      "level": 8,
+      "hp": 300,
+      "armor": 0.38,
+      "finish": "charge",
+      "knife_damage": 128.25072,
+      "bomb_damage": 171.74928,
+      "primary_damage": 300.0,
+      "primary_hp_after": 0.0,
+      "actor_exit_at": 0.5649049773755657,
+      "damage_complete_at": 1.3149049773755657
+    },
+    {
+      "level": 8,
+      "hp": 1000,
+      "armor": 0,
+      "finish": "charge",
+      "knife_damage": 206.85600000000002,
+      "bomb_damage": 413.71200000000005,
+      "primary_damage": 620.5680000000002,
+      "primary_hp_after": 379.43199999999985,
+      "actor_exit_at": 0.5649049773755657,
+      "damage_complete_at": 1.3149049773755657
+    },
+    {
+      "level": 8,
+      "hp": 1000,
+      "armor": 0.25,
+      "finish": "charge",
+      "knife_damage": 155.14200000000002,
+      "bomb_damage": 310.28400000000005,
+      "primary_damage": 465.42599999999993,
+      "primary_hp_after": 534.5740000000001,
+      "actor_exit_at": 0.5649049773755657,
+      "damage_complete_at": 1.3149049773755657
+    },
+    {
+      "level": 8,
+      "hp": 1000,
+      "armor": 0.38,
+      "finish": "charge",
+      "knife_damage": 128.25072,
+      "bomb_damage": 256.50144,
+      "primary_damage": 384.75216,
+      "primary_hp_after": 615.24784,
+      "actor_exit_at": 0.5649049773755657,
+      "damage_complete_at": 1.3149049773755657
+    },
+    {
+      "level": 10,
+      "hp": 100,
+      "armor": 0,
+      "finish": "combo_kill_no_charge",
+      "knife_damage": 100,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.08855506607929516,
+      "damage_complete_at": 0.08855506607929516
+    },
+    {
+      "level": 10,
+      "hp": 100,
+      "armor": 0.25,
+      "finish": "combo_kill_no_charge",
+      "knife_damage": 100.0,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.19482114537444936,
+      "damage_complete_at": 0.19482114537444936
+    },
+    {
+      "level": 10,
+      "hp": 100,
+      "armor": 0.38,
+      "finish": "combo_kill_no_charge",
+      "knife_damage": 100.0,
+      "primary_damage": 100,
+      "primary_hp_after": 0,
+      "actor_exit_at": 0.19482114537444936,
+      "damage_complete_at": 0.19482114537444936
+    },
+    {
+      "level": 10,
+      "hp": 300,
+      "armor": 0,
+      "finish": "charge",
+      "knife_damage": 228.072,
+      "bomb_damage": 71.928,
+      "primary_damage": 300.0,
+      "primary_hp_after": 0.0,
+      "actor_exit_at": 0.5499735682819383,
+      "damage_complete_at": 1.2999735682819384
+    },
+    {
+      "level": 10,
+      "hp": 300,
+      "armor": 0.25,
+      "finish": "charge",
+      "knife_damage": 171.054,
+      "bomb_damage": 128.94600000000003,
+      "primary_damage": 300.0,
+      "primary_hp_after": 0.0,
+      "actor_exit_at": 0.5499735682819383,
+      "damage_complete_at": 1.2999735682819384
+    },
+    {
+      "level": 10,
+      "hp": 300,
+      "armor": 0.38,
+      "finish": "charge",
+      "knife_damage": 141.40464,
+      "bomb_damage": 158.59536000000003,
+      "primary_damage": 300.0,
+      "primary_hp_after": 0.0,
+      "actor_exit_at": 0.5499735682819383,
+      "damage_complete_at": 1.2999735682819384
+    },
+    {
+      "level": 10,
+      "hp": 1000,
+      "armor": 0,
+      "finish": "charge",
+      "knife_damage": 228.072,
+      "bomb_damage": 456.144,
+      "primary_damage": 684.2160000000001,
+      "primary_hp_after": 315.7839999999999,
+      "actor_exit_at": 0.5499735682819383,
+      "damage_complete_at": 1.2999735682819384
+    },
+    {
+      "level": 10,
+      "hp": 1000,
+      "armor": 0.25,
+      "finish": "charge",
+      "knife_damage": 171.054,
+      "bomb_damage": 342.108,
+      "primary_damage": 513.162,
+      "primary_hp_after": 486.8379999999999,
+      "actor_exit_at": 0.5499735682819383,
+      "damage_complete_at": 1.2999735682819384
+    },
+    {
+      "level": 10,
+      "hp": 1000,
+      "armor": 0.38,
+      "finish": "charge",
+      "knife_damage": 141.40464,
+      "bomb_damage": 282.80928,
+      "primary_damage": 424.21392000000014,
+      "primary_hp_after": 575.7860799999999,
+      "actor_exit_at": 0.5499735682819383,
+      "damage_complete_at": 1.2999735682819384
+    }
+  ]
+}

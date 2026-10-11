@@ -1,18 +1,23 @@
 extends Node
 
 const RubyText = preload("res://native/ruby_label.gd")
+const RubyReadings = preload("res://native/ruby_readings.gd")
 const ProgressStore = preload("res://native/progress.gd")
 const Battle = preload("res://native/game.gd")
 const FrontEnd = preload("res://native/front_end.gd")
 const BattleAtmosphere = preload("res://native/battle_atmosphere.gd")
 const Troops3D = preload("res://native/troops_3d.gd")
+const DeploymentOverlay = preload("res://native/deployment_drag_overlay.gd")
 const BattleCamera = preload("res://native/battle_camera.gd")
 const NativeBattlefield = preload("res://native/battlefield_3d.gd")
+const WorldAdapter = preload("res://native/battlefield_world_adapter.gd")
+const RemasterVisuals = preload("res://native/remaster_visual_slice.gd")
 const CatalogPreview = preload("res://native/battlefield_preview.gd")
 const Barracks = preload("res://native/barracks.gd")
 const UnitTraining = preload("res://native/unit_training.gd")
 const LivePortrait = preload("res://native/barracks_portrait.gd")
 const UIStyle = preload("res://native/sengoku_ui.gd")
+const BattlefieldHUD = preload("res://native/battlefield_hud.gd")
 const LearningSession = preload("res://native/learning_session.gd")
 const LearningField = preload("res://native/learning_field.gd")
 const LearningTransition = preload("res://native/learning_transition.gd")
@@ -30,6 +35,7 @@ var progress = ProgressStore.new()
 var game: Node2D
 var atmosphere: Node2D
 var troops_3d: Control
+var remaster_visuals: Node3D
 var field_clip: Control
 var battle_field_content: Control
 var battle_camera: Node
@@ -44,6 +50,7 @@ var words_by_id: Dictionary = {}
 var current_tier: int = 0
 var current_index: int = 0
 var current_map: Dictionary = {}
+var isolated_candidate: bool = false
 var current_lesson: Dictionary = {}
 var campaign_story: Dictionary = {}
 var stories_by_id: Dictionary = {}
@@ -64,6 +71,8 @@ var hud_bar: Panel
 var hint_bar: Panel
 var army_panel: Panel
 var learning_panel: Panel
+var learning_readout_expanded: bool = false
+var learning_readout_button: Button
 var learning_paper: Control
 var map_scroll: ScrollContainer
 var map_list: VBoxContainer
@@ -72,6 +81,18 @@ var hud_wave: Label
 var hud_clock: Label
 var hud_gold: Label
 var hud_health: Label
+var hud_capacity: Label
+var deployment_instruction: Label
+var deployment_overlay: Node2D
+# A held card belongs to this UI until its matching release, including cancellation.
+var deployment_drag: Dictionary = {}
+var deployment_press_unit_id: String = ""
+var deployment_press_position: Vector2
+var deployment_pointer: int = -2
+var deployment_release_pending: bool = false
+var deployment_pressed_suppressed: bool = false
+var deployment_touch_mouse_suppressed: bool = false
+const DEPLOYMENT_DRAG_THRESHOLD: float = 6.0
 var map_title: Label
 var map_note: Label
 var opponent_label: Label
@@ -210,7 +231,8 @@ func _ready() -> void:
 		battle_minutes = int(saved_minutes)
 	active_battle_minutes = battle_minutes
 	var map_data = JSON.parse_string(FileAccess.get_file_as_string("res://native/maps.json"))
-	maps = map_data if map_data is Array else map_data.get("maps", [])
+	var map_catalog: Variant = map_data.get("maps",[]) if map_data is Dictionary else map_data
+	maps = map_catalog if map_catalog is Array else []
 	curriculum = JSON.parse_string(FileAccess.get_file_as_string("res://native/curriculum.json"))
 	for tier in TIER_IDS:
 		for lesson in curriculum.get(tier, []):
@@ -236,6 +258,9 @@ func _ready() -> void:
 	battle_field_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	field_clip.add_child(battle_field_content)
 	battle_field_content.add_child(game)
+	deployment_overlay = DeploymentOverlay.new()
+	deployment_overlay.battle = game
+	game.add_child(deployment_overlay)
 	troops_3d = Troops3D.new()
 	troops_3d.bind_battle(game)
 	battle_field_content.add_child(troops_3d)
@@ -268,6 +293,7 @@ func _ready() -> void:
 	learning_field.listen_requested.connect(_listen_quiz)
 	learning_field.continue_requested.connect(_continue_battle)
 	ui.add_child(learning_field)
+	learning_field.report_card.mouse_filter = Control.MOUSE_FILTER_STOP
 	learning_transition = LearningTransition.new()
 	learning_transition.font = font
 	learning_transition.z_index = 100
@@ -321,9 +347,13 @@ func _ready() -> void:
 	unit_training.closed.connect(_return_from_training)
 	get_viewport().size_changed.connect(_layout)
 	_layout()
-	_select_map(0)
+	if not maps.is_empty():
+		_select_map(0)
+	else:
+		game.set_input_enabled(false)
+		catalog_preparation_ready = true
 	_show_home()
-	if DisplayServer.get_name()!="headless":
+	if not maps.is_empty() and DisplayServer.get_name()!="headless":
 		front_end.set_catalog_preparation(0,maps.size())
 		call_deferred("_prepare_catalog_previews")
 	else:
@@ -334,6 +364,10 @@ func _ready() -> void:
 func _prepare_catalog_previews() -> void:
 	if catalog_preparation_started or closing: return
 	catalog_preparation_started=true
+	if maps.is_empty():
+		catalog_preparation_ready = true
+		front_end.set_catalog_preparation(0,0)
+		return
 	var preview: Control=CatalogPreview.new()
 	preview.name="CatalogPreparationRenderer"
 	preview.frame_budget_usec=NativeBattlefield.PREPARATION_FRAME_BUDGET_USEC
@@ -393,8 +427,37 @@ func _panel(parent: Node, color: String = "15202af5", border: String = "354553")
 	parent.add_child(panel)
 	return panel
 
+func _append_authored_reading(context: Array, source: Variant) -> void:
+	if not source is Dictionary: return
+	context.append(source)
+	for part in source.get("parts",[]):
+		if part is Dictionary and not str(part.get("reading","")).is_empty():
+			context.append({"jp":str(part.get("text","")),"reading":str(part.reading)})
+	for key in ["example","transferExample"]:
+		if source.get(key) is Dictionary: _append_authored_reading(context,source[key])
+
+func _display_reading_context() -> Array:
+	var lesson: Dictionary=current_lesson if catalog_study_lesson.is_empty() else catalog_study_lesson
+	var context: Array=[]
+	for word in lesson.get("newWords",[]): _append_authored_reading(context,word)
+	for word in (learning_words if catalog_study_lesson.is_empty() else catalog_study_words): _append_authored_reading(context,word)
+	for expression in lesson.get("expressions",[]): _append_authored_reading(context,expression)
+	for step in lesson.get("grammarSteps",[]):
+		_append_authored_reading(context,step.get("pattern",{}))
+		_append_authored_reading(context,step.get("example",{}))
+		var assessment: Dictionary=step.get("assessment",{})
+		_append_authored_reading(context,assessment.get("item",{}))
+		for choice in assessment.get("choices",[]): _append_authored_reading(context,choice)
+	_append_authored_reading(context,current_map.get("trait",{}))
+	_append_authored_reading(context,current_story.get("opponent",{}))
+	for key in ["item","questionItem","revealItem"]: _append_authored_reading(context,quiz_task.get(key,{}))
+	for choice in quiz_task.get("choices",[]): _append_authored_reading(context,choice.get("item",{}))
+	_append_authored_reading(context,quiz_word)
+	return context
+
 func _label(parent: Node, text: String, text_size: int = 16, color: String = "e1e6e9") -> Label:
-	var label = Label.new()
+	var label = UIStyle.TooltipLabel.new()
+	if RubyReadings.contains_kanji(text): label.ruby_context_words=_display_reading_context()
 	label.text = text
 	label.add_theme_font_override("font",GameFonts.heading() if text_size>=26 else GameFonts.body())
 	label.add_theme_font_size_override("font_size", maxi(20,text_size))
@@ -404,7 +467,8 @@ func _label(parent: Node, text: String, text_size: int = 16, color: String = "e1
 	return label
 
 func _button(parent: Node, text: String, action: Callable) -> Button:
-	var button = Button.new()
+	var button = UIStyle.TooltipButton.new()
+	if RubyReadings.contains_kanji(text): button.ruby_context_words=_display_reading_context()
 	button.text = text
 	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	button.pressed.connect(func():
@@ -489,6 +553,8 @@ func _build_ui() -> void:
 	hud_clock.tooltip_text = "1× 전투 시간 기준 · 학습과 일시 정지는 제외 · 2×에서는 실제 시간이 짧아집니다."
 	hud_gold = _label(ui,"",22,"d2bd89")
 	hud_health = _label(ui,"",20,"b7c3cc")
+	hud_capacity = _label(ui,"",20,"b7c3cc")
+	hud_capacity.name = "BattleCapacity"
 	hud_health.clip_text=true
 	hint_line = _label(ui,"",20,"d1dce4")
 	hint_line.clip_text=true
@@ -498,6 +564,8 @@ func _build_ui() -> void:
 	speed_button.tooltip_text = "전투 속도 · 1× / 2×"
 	army_panel = _panel(ui)
 	army_toolbar = _panel(ui,"101b26f5","354553")
+	deployment_instruction = _label(army_toolbar,"카드를 끌어 배치",20,"c8b993")
+	deployment_instruction.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	production_panel = _panel(ui,"101b26ee","354553")
 	production_panel.name = "ProductionQueue"
 	production_panel.z_index = 50
@@ -612,6 +680,11 @@ func _build_ui() -> void:
 	listen.name = "ListenButton"
 	var next_word = _button(learning_panel,"다음 단어  ›",_advance_word)
 	next_word.name = "NextWordButton"
+	learning_readout_button = _button(army_toolbar,"학습 펼치기",func():
+		learning_readout_expanded = not learning_readout_expanded
+		_layout())
+	learning_readout_button.name = "LearningReadoutToggle"
+	learning_readout_button.tooltip_text = "현재 단어의 예문과 문법 표시를 펼칩니다. 학습 시간과 문제 진행은 그대로 유지됩니다."
 	music_button = _button(ui,"음악 켜짐",_toggle_music)
 	voice_button = _button(ui,"음성",_toggle_voice)
 	for compact in [battle_menu_button,pause_button,speed_button,listen,next_word]:
@@ -659,6 +732,19 @@ func _build_ui() -> void:
 	ui.add_child(announcement_subtitle)
 	announcement_subtitle.hide()
 	_rebuild_map_list()
+	_apply_battlefield_materials()
+	for input_surface in [army_toolbar,army_panel,production_panel,learning_panel,hint_bar,camera_controls]:
+		input_surface.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _apply_battlefield_materials() -> void:
+	for pair in [[hud_bar,"hud"],[field_border,"field"],[army_toolbar,"dock"],[army_panel,"selection"],[production_panel,"queue"],[hint_bar,"hint"],[camera_controls,"hint"],[selected_portrait_window,"portrait"],[learning_panel,"hint"]]:
+		BattlefieldHUD.apply_panel(pair[0],pair[1])
+	for value_label in [hud_clock,hud_gold]: BattlefieldHUD.apply_label(value_label,"value")
+	for value_label in [hud_wave,hud_health,hud_capacity]: BattlefieldHUD.apply_label(value_label)
+	BattlefieldHUD.apply_label(map_title,"title")
+	for control in [battle_menu_button,pause_button,speed_button,camera_zoom_in,camera_zoom_out,camera_reset,learning_readout_button,learning_panel.get_node("ListenButton"),learning_panel.get_node("NextWordButton")]:
+		BattlefieldHUD.apply_button(control)
+	BattlefieldHUD.apply_progress(army_health,"health")
 
 func _layout() -> void:
 	if ui == null:
@@ -666,15 +752,18 @@ func _layout() -> void:
 	var viewport = get_viewport().get_visible_rect().size
 	var width = viewport.x
 	var height = viewport.y
-	var inspector_width = 330.0
-	var field = Rect2(16,112,width-32,height-228)
+	var geometry: Dictionary = BattlefieldHUD.layout(viewport)
+	var inspector_width: float = geometry.inspectorWidth
+	var field: Rect2 = geometry.field
+	var dock: Rect2 = geometry.roster
 	sidebar.hide()
 	stage_browser_button.hide()
 	battle_study_button.hide()
 	music_button.hide()
 	voice_button.hide()
 	map_note.hide()
-	_place(map_title,24,8,width-292,44)
+	_place(map_title,24,8,width-548,44)
+	_place(hud_capacity,width-502,8,245,44)
 	_place(opponent_label,24,60,width-808,44)
 	_place(hud_clock,width-758,60,198,44)
 	_place(hud_wave,width-547,60,130,44)
@@ -683,7 +772,7 @@ func _layout() -> void:
 	_place(pause_button,width-245,8,56,46)
 	_place(speed_button,width-179,8,58,46)
 	_place(battle_menu_button,width-111,8,88,46)
-	for hud_label in [map_title,opponent_label,hud_clock,hud_wave,hud_health,hud_gold]:
+	for hud_label in [map_title,opponent_label,hud_clock,hud_wave,hud_health,hud_gold,hud_capacity]:
 		hud_label.clip_text = true
 		hud_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		hud_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
@@ -705,6 +794,8 @@ func _layout() -> void:
 	atmosphere.position = -field.position
 	troops_3d.position = Vector2.ZERO
 	troops_3d.set_field_size(field.size)
+	if learning_field != null:
+		learning_field.refresh_world_presentation()
 	_place(hud_bar,0,0,width,108)
 	hud_bar.show()
 	active_word.size.x = 230
@@ -715,13 +806,12 @@ func _layout() -> void:
 	learning_caption.size.x = width-270
 	var tip_height: float = maxf(40,learning_caption.get_minimum_size().y)
 	var caption_height: float = reading_height+tip_height+24
-	var production_reserve: float = 108.0 if production_panel.visible else 0.0
-	var caption_y: float = height-122-caption_height-production_reserve
-	_place(hint_bar,field.position.x+1,caption_y-56,field.size.x-200,49)
+	var caption_y: float = dock.position.y-caption_height-8
+	_place(hint_bar,field.position.x+274,field.position.y+8,field.size.x-572,49)
 	game.set_field_rect(field)
 	if battle_audio != null:
 		battle_audio.set_field_rect(field)
-	_place(hint_line,field.position.x+14,caption_y-46,field.size.x-240,30)
+	_place(hint_line,field.position.x+286,field.position.y+17,field.size.x-596,30)
 	selected_word.size.x = inspector_width-122
 	selected_word._sync_minimum_height()
 	var selected_height: float = selected_word.custom_minimum_size.y
@@ -730,31 +820,43 @@ func _layout() -> void:
 	army_tactics.size.x = inspector_width-28
 	var tactics_height: float = maxf(54,army_tactics.get_minimum_size().y)
 	var panel_height: float = tactics_y+tactics_height+20
-	var panel_y: float = caption_y-panel_height-8
-	_place(army_panel,28 if inspector_on_left else width-inspector_width-28,panel_y,inspector_width,panel_height)
-	_place(army_toolbar,16,height-108,width-32,96)
+	# The authored approach enters at the upper-right. Keep the complete
+	# inspector above the dock, clear of that entrance and its direction label.
+	var panel_y: float = maxf(field.position.y+8,field.end.y-panel_height-8)
+	_place(army_panel,width-inspector_width-24,panel_y,inspector_width,panel_height)
+	_place(army_toolbar,dock.position.x,dock.position.y,dock.size.x,dock.size.y)
 	_layout_production_queue()
 	army_scroll.show()
-	recruit_button.show()
+	recruit_button.hide()
 	_place(selected_portrait_window,12,12,90,114)
 	_layout_selected_portrait()
 	_place(selected_word,110,4,inspector_width-122,selected_height)
 	_place(selected_label,110,stats_y,inspector_width-122,48)
-	_place(army_scroll,8,4,width-230,88)
-	var roster_card_width: float = floorf((width-230-42)/8.0)
+	var control_x: float = dock.size.x-geometry.controlsWidth-8
+	_place(army_scroll,8,8,control_x-16,dock.size.y-16)
+	var roster_card_width: float = geometry.rosterCardWidth
 	for card in army_grid.get_children():
-		card.custom_minimum_size = Vector2(roster_card_width,88)
+		card.custom_minimum_size = Vector2(roster_card_width,geometry.rosterCardHeight)
 		for child in card.get_children():
 			if child is Label:
 				child.size.x = roster_card_width-8 if child.name=="DeploymentKindBadge" else roster_card_width-48
+				if child.name=="DeploymentKindBadge": child.position.y = geometry.rosterCardHeight-33
+			elif child.name=="SelectedDeploymentRole":
+				child.position.y = geometry.rosterCardHeight-4
+				child.size.x = roster_card_width
+			elif child is TextureRect: child.size.y = geometry.rosterCardHeight-10
 	_place(army_tactics,14,tactics_y,inspector_width-28,tactics_height)
 	_place(army_health,14,tactics_y+tactics_height+2,inspector_width-28,2)
 	_place(recruit_button,width-212,10,164,60)
+	_place(deployment_instruction,control_x,4,geometry.controlsWidth,58)
+	_place(learning_readout_button,control_x,dock.size.y-52,geometry.controlsWidth,44)
+	learning_readout_button.text = "학습 접기" if learning_readout_expanded else "학습 펼치기"
 	var marching_selected: bool = str(game.placement_contract(chosen_unit_id).get("deploymentKind","placed"))=="marching"
 	march_route_select.visible = marching_selected and game.paths.size()>1
 	if march_route_select.visible:
-		_place(march_route_select,width-212,3,164,28)
+		_place(march_route_select,control_x,3,geometry.controlsWidth,28)
 		_place(recruit_button,width-212,34,164,42)
+		_place(deployment_instruction,control_x,34,geometry.controlsWidth,48)
 	_place(learning_panel,16,caption_y,width-32,caption_height)
 	_place(learning_paper,0,0,width-32,caption_height)
 	learning_paper.queue_redraw()
@@ -764,6 +866,13 @@ func _layout() -> void:
 	var caption_buttons_y: float = (caption_height-100)*0.5
 	_place(learning_panel.get_node("ListenButton"),width-212,caption_buttons_y,164,46)
 	_place(learning_panel.get_node("NextWordButton"),width-212,caption_buttons_y+54,164,46)
+	example_label.visible = learning_readout_expanded
+	learning_caption.visible = learning_readout_expanded
+	learning_panel.get_node("ListenButton").visible = learning_readout_expanded
+	learning_panel.get_node("NextWordButton").visible = learning_readout_expanded
+	if not learning_readout_expanded:
+		_place(learning_panel,field.position.x+8,field.position.y+8,254,reading_height+16)
+		_place(active_word,12,8,230,reading_height)
 	_place(toast_label,field.position.x+90,field.position.y+10,field.size.x-450,30)
 	_update_army_visibility()
 	if modal != null:
@@ -808,9 +917,9 @@ func _layout() -> void:
 func _layout_production_queue() -> void:
 	if production_panel==null or army_toolbar==null: return
 	var viewport: Vector2 = get_viewport().get_visible_rect().size
-	var bar_width: float = minf(990.0,viewport.x-64.0)
+	var bar_width: float = minf(520.0,viewport.x-64.0)
 	var bar_height: float = 98.0
-	_place(production_panel,(viewport.x-bar_width)*.5,army_toolbar.position.y-bar_height-8.0,bar_width,bar_height)
+	_place(production_panel,viewport.x-bar_width-24,army_toolbar.position.y-bar_height-8.0,bar_width,bar_height)
 	_place(production_title,12,3,bar_width-24,27)
 	_place(production_scroll,10,29,bar_width-20,68)
 
@@ -848,8 +957,8 @@ func _sync_announcement_reading() -> void:
 		return
 	var announcing: bool = announcement_subtitle.visible
 	active_word.visible = not announcing
-	example_label.visible = not announcing
-	learning_caption.visible = not announcing
+	example_label.visible = not announcing and learning_readout_expanded
+	learning_caption.visible = not announcing and learning_readout_expanded
 	if is_instance_valid(quiz_ruby):
 		quiz_ruby.modulate.a = 1
 	if learning_field!=null and learning_field.report_text!=null:
@@ -859,6 +968,9 @@ func _sync_announcement_reading() -> void:
 func _learning_screen_active() -> bool:
 	return context_task_active or (modal!=null and modal_context=="quiz")
 
+func _field_report_visible() -> bool:
+	return learning_field != null and learning_field.report_card != null and learning_field.report_card.is_visible_in_tree()
+
 func _learning_covers_battle() -> bool:
 	return _learning_screen_active() and (learning_transition == null or learning_transition.phase == "idle" or learning_transition.covers_battle())
 
@@ -866,7 +978,8 @@ func _set_intermission_presentation(active: bool, force_restore: bool = false) -
 	if not active and not intermission_presented and not force_restore:
 		return
 	intermission_presented = active
-	for control in [field_clip,hud_bar,map_title,opponent_label,hud_wave,hud_clock,hud_health,hud_gold,pause_button,speed_button,battle_menu_button,army_toolbar,learning_panel]:
+	troops_3d.set_external_viewport_consumer(active and context_task_active and ui.is_visible_in_tree() and learning_field.is_visible_in_tree() and troops_3d.uses_world_geometry())
+	for control in [field_clip,hud_bar,map_title,opponent_label,hud_wave,hud_clock,hud_health,hud_gold,hud_capacity,pause_button,speed_button,battle_menu_button,army_toolbar,learning_panel]:
 		control.visible = not active
 	if active:
 		army_panel.hide()
@@ -887,6 +1000,7 @@ func _cancel_learning_transition() -> void:
 func _on_learning_phase_changed(_phase: String) -> void:
 	if not _learning_screen_active():
 		return
+	_cancel_deployment_drag()
 	_set_intermission_presentation(_learning_covers_battle(),true)
 	_set_learning_input(learning_transition.accepts_actions())
 	game.set_input_enabled(false)
@@ -946,6 +1060,16 @@ func _tier_maps() -> Array:
 			result.append(config)
 	return result
 
+func _next_registered_stage() -> Dictionary:
+	# Historical progress can include stages that have no playable map yet.
+	var next_number: int = int(current_map.get("stageNumber",0))+1
+	for tier in range(TIER_IDS.size()):
+		var available: Array = maps.filter(func(stage): return str(stage.get("tier",""))==TIER_IDS[tier])
+		for index in range(available.size()):
+			if int(available[index].get("stageNumber",0)) == next_number:
+				return {"tier":tier,"index":index,"stage":available[index]}
+	return {}
+
 func _rebuild_army_cards() -> void:
 	if army_grid == null:
 		return
@@ -960,17 +1084,17 @@ func _rebuild_army_cards() -> void:
 		var unlocked: bool = id in progress.unlocked_units()
 		var evolution: Dictionary = progress.army_evolution(id)
 		var deployment: Dictionary = _deployment_display(id)
-		var card = Button.new()
+		var card = UIStyle.TooltipButton.new()
+		card.ruby_context_words=[evolution]
 		card.name = "DeployCard_%s" % id
 		card.custom_minimum_size = Vector2(125,88)
 		card.disabled=not unlocked
-		for variant in ["normal","hover","pressed","disabled","focus"]:
-			card.add_theme_stylebox_override(variant,UIStyle.textured_button(variant,false,id==chosen_unit_id))
+		BattlefieldHUD.apply_roster_card(card,id==chosen_unit_id,not unlocked)
 		card.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
 		card.tooltip_text = "%s · %s · Lv.%d\n%s · %s" % [str(evolution.jp),str(evolution.name),progress.army_level(id),str(deployment.location),str(deployment.action)]
 		card.set_meta("placement_mode",deployment.mode)
 		card.set_meta("placement_role",deployment.placementRole)
-		card.pressed.connect(_choose_unit.bind(id))
+		card.pressed.connect(_on_deployment_card_pressed.bind(id))
 		card.mouse_entered.connect(_on_deploy_card_hover.bind(id,true))
 		card.mouse_exited.connect(_on_deploy_card_hover.bind(id,false))
 		army_grid.add_child(card)
@@ -1084,9 +1208,9 @@ func _deployment_display(unit_id: String) -> Dictionary:
 		kind_name = "전진형"
 		color = Color("73e5d2")
 	elif kind=="ambush":
-		location = "보라색 숲·측면 기습 지점"
-		action = "급습 · 적 사격 진지 암살 · 엄폐 복귀"
-		kind_name = "기습형"
+		location = "보라색 임무 출발 지점"
+		action = "적 타워형 공격자 암살 · 임무 종료 후 소모"
+		kind_name = "소모형"
 		color = Color("b997ff")
 	elif kind=="support":
 		location = "청록 전열 지원 지점"
@@ -1110,9 +1234,200 @@ func _on_deploy_card_hover(unit_id: String, active: bool) -> void:
 	_update_placement_feedback()
 
 func _can_prepare_placement() -> bool:
-	return battle_started and not battle_finished and modal == null and not context_task_active and not front_end.visible and not barracks.visible and not unit_training.visible
+	return battle_started and not battle_finished and not closing and modal == null and not context_task_active and not front_end.visible and not barracks.visible and not unit_training.visible and game.input_enabled and not game.between_waves and (learning_transition == null or not learning_transition.is_busy())
+
+func _deployment_card_at(pointer: Vector2) -> String:
+	if army_grid == null or not army_toolbar.is_visible_in_tree(): return ""
+	for card in army_grid.get_children():
+		if card is Button and card.is_visible_in_tree() and card.get_global_rect().has_point(pointer):
+			return str(card.name).trim_prefix("DeployCard_")
+	return ""
+
+func _deployment_surface_point(pointer: Vector2) -> Dictionary:
+	if not _can_prepare_placement() or not pointer.is_finite() or not game.screen_point_in_field(pointer): return {}
+	for surface in [hud_bar,army_toolbar,army_panel,production_panel,learning_panel,hint_bar,camera_controls]:
+		if surface != null and surface.is_visible_in_tree() and surface.get_global_rect().has_point(pointer): return {}
+	for caption in [narration_subtitle,announcement_subtitle]:
+		if caption != null and caption.is_visible_in_tree() and caption.get_global_rect().has_point(pointer): return {}
+	if learning_field != null and learning_field.report_card.is_visible_in_tree() and learning_field.report_card.get_global_rect().has_point(pointer): return {}
+	var point: Vector2 = game.screen_to_field_point(pointer)
+	if not point.is_finite() or point.x<0 or point.x>1 or point.y<0 or point.y>1: return {}
+	return {"position":point}
+
+func _deployment_path_id() -> String:
+	if chosen_march_path<0 or chosen_march_path>=game.paths.size(): return ""
+	return str(game.paths[chosen_march_path].get("id",chosen_march_path))
+
+func _on_deployment_card_pressed(unit_id: String) -> void:
+	# Pointer gestures are consumed before Control receives them. This signal
+	# remains available to an explicit keyboard activation on the focused card.
+	if deployment_pressed_suppressed or deployment_release_pending: return
+	if _can_prepare_placement(): _choose_unit(unit_id)
+
+func _begin_deployment_press(unit_id: String, pointer: Vector2, pointer_id: int) -> void:
+	deployment_press_unit_id = unit_id
+	deployment_press_position = pointer
+	deployment_pointer = pointer_id
+	deployment_release_pending = true
+	deployment_pressed_suppressed = true
+	deployment_touch_mouse_suppressed = pointer_id>=0
+	game.ui_deployment_active = true
+	battle_camera.set_input_enabled(false)
+
+func _begin_deployment_drag(unit_id: String, pointer: Vector2, touch_index: int = -1) -> void:
+	if not _can_prepare_placement() or not unit_id in progress.unlocked_units(): return
+	if not deployment_release_pending:
+		_begin_deployment_press(unit_id,pointer,touch_index)
+	deployment_press_unit_id = ""
+	deployment_drag = {"unitId":unit_id,"pointer":pointer,"preview":{}}
+	# Retire an older free click preview once this gesture becomes a drag.
+	# Accepted jobs and their refunds belong to the production queue.
+	if bool(game.pending.get("preview",false)) and int(game.pending.get("paid",0))==0:
+		game.cancel_recruit()
+	_update_deployment_presentation()
+	_update_deployment_drag(pointer)
+
+func _update_deployment_drag(pointer: Vector2) -> void:
+	if deployment_drag.is_empty(): return
+	if not _can_prepare_placement():
+		_cancel_deployment_drag()
+		return
+	deployment_drag.pointer = pointer
+	var surface: Dictionary = _deployment_surface_point(pointer)
+	var point: Vector2 = game.screen_to_field_point(pointer) if pointer.is_finite() else Vector2(-1,-1)
+	var preview: Dictionary = game.deployment_preview(str(deployment_drag.unitId),point,_deployment_path_id())
+	if surface.is_empty():
+		preview.valid = false
+		preview.ok = false
+		preview.visible = false
+		preview.reason = "전장 안의 배치 지점에 놓으십시오."
+	deployment_drag.preview = preview
+	deployment_overlay.present(preview)
+	troops_3d.ui_deployment_preview = preview
+	var guidance: String = str(preview.get("reason",""))
+	if guidance.is_empty(): guidance = "놓으면 소집 · Esc 취소"
+	deployment_instruction.text = guidance
+	deployment_instruction.tooltip_text = "%s ×%d · 보급 %d\n%s" % [str(preview.get("name",deployment_drag.unitId)),int(preview.get("quantity",1)),int(preview.get("cost",0)),guidance]
+
+func _finish_deployment_drag(pointer: Vector2) -> void:
+	if deployment_drag.is_empty(): return
+	var unit_id: String = str(deployment_drag.unitId)
+	var surface: Dictionary = _deployment_surface_point(pointer)
+	var result: Dictionary = {}
+	if not surface.is_empty():
+		# Commit uses the current surface, path, balance, unlock and reservations.
+		result = game.submit_deployment(unit_id,surface.position,_deployment_path_id())
+	_cancel_deployment_drag()
+	if not result.is_empty() and not bool(result.get("ok",false)):
+		_toast(str(result.get("message",result.get("reason","배치할 수 없습니다."))))
+
+func _cancel_deployment_drag() -> void:
+	var owned_gesture: bool = deployment_release_pending
+	deployment_drag.clear()
+	deployment_press_unit_id = ""
+	if owned_gesture and is_instance_valid(game) and bool(game.pending.get("preview",false)) and int(game.pending.get("paid",0))==0:
+		game.cancel_recruit()
+	if is_instance_valid(deployment_overlay): deployment_overlay.present({})
+	if is_instance_valid(troops_3d):
+		troops_3d.ui_deployment_preview = {}
+		troops_3d.sync_placement_preview({})
+	if is_instance_valid(game): game.ui_deployment_active = deployment_release_pending
+	_update_deployment_presentation()
+
+func _release_deployment_pointer() -> void:
+	deployment_release_pending = false
+	deployment_pointer = -2
+	if is_instance_valid(game): game.ui_deployment_active = false
+	_sync_battle_camera()
+
+func _update_deployment_presentation() -> void:
+	if learning_panel == null: return
+	var dragging: bool = not deployment_drag.is_empty()
+	if dragging:
+		learning_panel.hide()
+		army_panel.hide()
+		hint_bar.hide()
+		hint_line.hide()
+	else:
+		learning_panel.visible = not _learning_covers_battle() and not _field_report_visible()
+		_update_army_visibility()
+		_update_placement_feedback()
+		if deployment_instruction != null:
+			deployment_instruction.text = "카드를 끌어 배치"
+			deployment_instruction.tooltip_text = "짧게 클릭: 기존 병종 선택 / 출진 · R: 선택 병종 소집 · Esc / 우클릭: 취소"
+
+func _handle_deployment_input(event: InputEvent) -> bool:
+	# Only a captured card touch owns its synthetic mouse copy. Ordinary GUI
+	# taps must still reach home, menu and learning controls.
+	if (event is InputEventMouseButton or event is InputEventMouseMotion) and event.device==-1 and deployment_touch_mouse_suppressed:
+		if event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT and not event.pressed:
+			deployment_touch_mouse_suppressed = false
+		return true
+	if event is InputEventKey:
+		if deployment_release_pending and event.pressed and event.keycode in [KEY_ESCAPE,KEY_R]:
+			if event.keycode==KEY_ESCAPE: _cancel_deployment_drag()
+			return true
+		if event.pressed and not event.echo and event.keycode in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE] and not deployment_release_pending:
+			deployment_pressed_suppressed = false
+		return false
+	var pointer: Vector2
+	var pointer_id: int = -1
+	var is_press: bool = false
+	var is_release: bool = false
+	var is_motion: bool = false
+	if event is InputEventMouseButton:
+		if event.button_index==MOUSE_BUTTON_RIGHT and deployment_release_pending:
+			if event.pressed: _cancel_deployment_drag()
+			return true
+		if event.button_index!=MOUSE_BUTTON_LEFT: return false
+		pointer = event.position
+		is_press = event.pressed
+		is_release = not event.pressed
+	elif event is InputEventMouseMotion:
+		pointer = event.position
+		is_motion = true
+	elif event is InputEventScreenTouch:
+		pointer = event.position
+		pointer_id = event.index
+		is_press = event.pressed
+		is_release = not event.pressed
+	elif event is InputEventScreenDrag:
+		pointer = event.position
+		pointer_id = event.index
+		is_motion = true
+	else: return false
+	if is_press:
+		if deployment_release_pending and (not deployment_drag.is_empty() or not deployment_press_unit_id.is_empty()): return true
+		if deployment_release_pending: _release_deployment_pointer()
+		deployment_touch_mouse_suppressed = false
+		var unit_id: String = _deployment_card_at(pointer)
+		if unit_id.is_empty() or not _can_prepare_placement(): return false
+		# A locked card's gesture is consumed, so its release cannot reach a
+		# previous legacy placement waiting underneath the UI.
+		_begin_deployment_press(unit_id,pointer,pointer_id)
+		if not unit_id in progress.unlocked_units(): deployment_press_unit_id = ""
+		return true
+	if not deployment_release_pending: return false
+	if pointer_id!=deployment_pointer: return true
+	if is_motion:
+		if not deployment_press_unit_id.is_empty() and pointer.distance_to(deployment_press_position)>=DEPLOYMENT_DRAG_THRESHOLD:
+			_begin_deployment_drag(deployment_press_unit_id,pointer,pointer_id)
+		elif not deployment_drag.is_empty(): _update_deployment_drag(pointer)
+		return true
+	if is_release:
+		var clicked_unit: String = deployment_press_unit_id
+		var deliberate_click: bool = not clicked_unit.is_empty() and deployment_drag.is_empty() and _can_prepare_placement() and _deployment_card_at(pointer)==clicked_unit and pointer.distance_to(deployment_press_position)<DEPLOYMENT_DRAG_THRESHOLD
+		if not deployment_drag.is_empty(): _finish_deployment_drag(pointer)
+		else: _cancel_deployment_drag()
+		_release_deployment_pointer()
+		if deliberate_click: _choose_unit(clicked_unit)
+		return true
+	return false
 
 func _show_unit_training(focused_unit: String = "") -> void:
+	if maps.is_empty():
+		_toast("병종 연습에 사용할 전장을 재설계하고 있습니다.")
+		return
 	training_return_view = "barracks" if barracks.visible else "home"
 	_stop_narration()
 	_cancel_learning_transition()
@@ -1135,7 +1450,7 @@ func _on_unit_training_completed(unit_id: String) -> void:
 
 func _return_from_training() -> void:
 	if training_return_view=="barracks":
-		barracks.open(not battle_started or battle_finished)
+		barracks.open(not battle_started or battle_finished,not maps.is_empty())
 	else:
 		front_end.battle_active = battle_started and not battle_finished
 		front_end.show_home()
@@ -1148,7 +1463,7 @@ func _show_barracks() -> void:
 	ui.hide()
 	field_clip.hide()
 	game.set_input_enabled(false)
-	barracks.open(not battle_started or battle_finished)
+	barracks.open(not battle_started or battle_finished,not maps.is_empty())
 	_set_lobby_music()
 
 func _return_from_barracks() -> void:
@@ -1171,6 +1486,8 @@ func _select_map(index: int) -> void:
 	if not progress.map_unlocked(str(candidates[index].id)):
 		_toast(progress.map_lock_reason(str(candidates[index].id)))
 		return
+	isolated_candidate = false
+	_cancel_deployment_drag()
 	gate_active = false
 	_cancel_learning_transition()
 	navigation_resume_battle = false
@@ -1223,13 +1540,19 @@ func _select_map(index: int) -> void:
 	if battle_audio!=null: battle_audio.set_presentation_mirrored(game.presentation_mirrored)
 	_configure_march_routes()
 	atmosphere.set_stage(current_map)
-	troops_3d.set_stage(current_map)
+	if not _set_battlefield_stage(current_map):
+		game.close_battle()
+		_show_home()
+		_toast("새 전장의 지형 데이터를 확인할 수 없습니다.")
+		return
+	_mount_remaster_visuals(current_map)
 	game.three_d_actor_scale = troops_3d.actor_base_scale()
 	game.set_speed(speed)
 	_set_music_context(false)
 	map_title.text = "%02d  ·  %s" % [int(current_map.get("stageNumber",current_tier*10+index+1)),str(current_map.title)]
 	if not current_story.is_empty(): map_title.text = "%02d · %d %s" % [int(current_map.stageNumber),int(current_story.year),str(current_story.battleKo)]
 	opponent_label.text = "적장 · "+str(current_story.get("opponent",{}).get("nameKo","")) if not current_story.is_empty() else ""
+	opponent_label.set("ruby_context_words",[current_story.get("opponent",{})])
 	opponent_label.tooltip_text = str(current_story.get("opponent",{}).get("nameJP",""))+" · "+str(current_story.get("opponent",{}).get("reading",""))
 	map_note.text = "%s · 신규 %d · 맞춤 복습 %d" % [TIER_NAMES[current_tier],current_lesson.get("newWords",[]).size(),maxi(0,learning_words.size()-current_lesson.get("newWords",[]).size())]
 	map_note.tooltip_text = str(stage_learning.get("goalKo",""))
@@ -1239,7 +1562,86 @@ func _select_map(index: int) -> void:
 	_show_briefing()
 	_animate_stage_arrival()
 
+func _set_battlefield_stage(stage: Dictionary) -> bool:
+	# The authored extent is independent of camera and viewport size.
+	if stage.get("worldGeometry") is Dictionary and not stage.worldGeometry.is_empty():
+		var provider: Node3D=WorldAdapter.new()
+		provider.configure(stage)
+		if not bool(provider.diagnostics().ready):
+			provider.free()
+			return false
+		_clear_remaster_visuals()
+		troops_3d.set_stage(stage)
+		troops_3d.set_terrain_provider(provider)
+		return true
+	_clear_remaster_visuals()
+	if is_instance_valid(troops_3d.battlefield) and troops_3d.battlefield is WorldAdapter:
+		troops_3d.set_terrain_provider(NativeBattlefield.new())
+	troops_3d.set_stage(stage)
+	return true
+
+func _clear_remaster_visuals() -> void:
+	if is_instance_valid(remaster_visuals):
+		if remaster_visuals.get_parent() != null:
+			remaster_visuals.get_parent().remove_child(remaster_visuals)
+		remaster_visuals.queue_free()
+	remaster_visuals = null
+
+func _mount_remaster_visuals(stage: Dictionary) -> void:
+	# Candidate QA owns its own presentation; normal stage selection mounts once.
+	if not stage.get("worldGeometry") is Dictionary or not stage.get("visualComposition") is Dictionary or stage.visualComposition.is_empty():
+		return
+	remaster_visuals = RemasterVisuals.new()
+	remaster_visuals.name = "RemasterVisuals"
+	troops_3d.world.add_child(remaster_visuals)
+	remaster_visuals.configure(stage,troops_3d.battlefield)
+	# Troops initializes native lights while installing its provider.
+	remaster_visuals.apply_lighting(troops_3d)
+
+func configure_candidate(stage: Dictionary) -> Dictionary:
+	# Material review uses real HUD/gameplay in an isolated account only.
+	var profile_path: String=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
+	var qa_root: String=ProjectSettings.globalize_path("res://tests/profiles/").replace("\\","/").to_lower().trim_suffix("/")+"/"
+	if not profile_path.begins_with(qa_root): return {"ok":false,"reason":"Candidate requires an isolated tests/profiles account"}
+	if not bool(stage.get("candidateOnly",stage.get("qaOnly",false))) or not stage.get("paths") is Array or stage.paths.is_empty() or not stage.get("objectives") is Array or stage.objectives.is_empty() or not stage.get("worldGeometry") is Dictionary or stage.worldGeometry.is_empty(): return {"ok":false,"reason":"Labeled candidate requires new ground, routes and objectives"}
+	if not _set_battlefield_stage(stage): return {"ok":false,"reason":"Candidate world geometry is invalid"}
+	_cancel_deployment_drag()
+	_cancel_learning_transition()
+	_close_modal(false)
+	isolated_candidate=true
+	current_map=stage.duplicate(true)
+	current_story=current_map.get("story",{})
+	current_lesson=curriculum.get("basic",[])[0] if not curriculum.get("basic",[]).is_empty() else {}
+	stage_learning={}
+	lesson_session.begin_lesson(current_lesson,current_map)
+	learning_words=lesson_session.words.duplicate()
+	seen_this_run.clear(); learning_index=-1; learning_clock=0; learning_turn=0
+	answers_correct=0; answers_total=0; chosen_march_path=-1
+	battle_started=false; battle_finished=false; last_victory=false
+	active_battle_minutes=battle_minutes
+	last_campaign_reward.clear()
+	game.configure_roster(progress.unit_catalog,progress.unlocked_units(),progress.data.army.levels)
+	game.load_map(current_map,battle_minutes)
+	troops_3d.bind_battle(game)
+	_configure_march_routes()
+	atmosphere.set_stage(current_map)
+	front_end.hide(); barracks.hide(); unit_training.hide()
+	ui.show(); field_clip.show()
+	map_title.text="CANDIDATE · 새 전장 검토"
+	map_note.text="격리 검증 · 캠페인 전장 아님"
+	_rebuild_army_cards()
+	_advance_word()
+	_layout()
+	return {"ok":true,"catalogRegistered":false,"campaignRewards":false,"world":troops_3d.battlefield.diagnostics()}
+
+func _candidate_display_allowed() -> bool:
+	if not isolated_candidate or current_map.is_empty(): return false
+	var profile_path: String=ProjectSettings.globalize_path("user://").replace("\\","/").to_lower()
+	var qa_root: String=ProjectSettings.globalize_path("res://tests/profiles/").replace("\\","/").to_lower().trim_suffix("/")+"/"
+	return profile_path.begins_with(qa_root)
+
 func _pause_for_navigation() -> void:
+	_cancel_deployment_drag()
 	if not battle_started or battle_finished:
 		navigation_resume_battle = false
 		return
@@ -1261,6 +1663,7 @@ func _show_home() -> void:
 	game.set_input_enabled(false)
 	ui.hide()
 	field_clip.hide()
+	troops_3d.set_external_viewport_consumer(false)
 	front_end.battle_active = battle_started and not battle_finished
 	front_end.show_home()
 	_set_lobby_music()
@@ -1274,11 +1677,15 @@ func _show_catalog() -> void:
 	game.set_input_enabled(false)
 	ui.hide()
 	field_clip.hide()
+	troops_3d.set_external_viewport_consumer(false)
 	front_end.battle_active = battle_started and not battle_finished
 	front_end.show_catalog(current_tier)
 	_set_lobby_music()
 
 func _resume_from_navigation() -> void:
+	if maps.is_empty() or current_map.is_empty():
+		_show_home()
+		return
 	front_end.hide()
 	ui.show()
 	field_clip.show()
@@ -1334,6 +1741,7 @@ func _animate_stage_arrival() -> void:
 	scene_transition.tween_callback(transition_layer.hide)
 
 func _show_briefing() -> void:
+	if current_map.is_empty() or (maps.is_empty() and not _candidate_display_allowed()): return
 	_open_modal()
 	modal_context = "briefing"
 	modal_body.add_theme_constant_override("separation",10)
@@ -1366,7 +1774,7 @@ func _show_briefing() -> void:
 	var tactics: Dictionary = current_map.get("tactics",{})
 	if not tactics.is_empty():
 		_modal_label(str(tactics.get("nameKo","전장 배치"))+"\n"+str(tactics.get("descriptionKo","")),20,"d7c399")
-	_modal_label("배치형 · 궁병은 황금 진지, 조총병은 청록 전선\n전진형 · 창병·사무라이·기마병은 기지에서 출진\n호위형 · 장도병은 성벽·사격 진지 주변 방어\n지원형 · 승병은 부상 아군 치료·진언 지원\n기습형 · 닌자는 보라색 엄폐에서 급습·암살\n생산을 시작하면 보급금을 지불합니다. 각 주문은 병렬로 준비됩니다.",20,UIStyle.MUTED)
+	_modal_label("배치형 · 궁병은 황금 진지, 조총병은 청록 전선\n전진형 · 창병·사무라이·기마병은 기지에서 출진\n호위형 · 장도병은 성벽·사격 진지 주변 방어\n지원형 · 승병은 부상 아군 치료·진언 지원\n소모형 · 닌자는 적 타워형 공격자 암살 후 임무 종료\n생산을 시작하면 보급금을 지불합니다. 각 주문은 병렬로 준비됩니다.",20,UIStyle.MUTED)
 	if game.emplacement_protection_active():
 		_modal_label("초반에는 적이 진지를 공격하지 않습니다. 장도병을 해금한 뒤에는 호위 병력으로 진지를 지키십시오.",20,"d9c79b")
 	_modal_label("문장 속 빈칸 한 곳을 채우면 보급을 받습니다.\n한자 위 히라가나와 한국어 도움을 보며 시작하십시오.",20,"b7c3cc")
@@ -1433,6 +1841,9 @@ func _battle_clock_text(seconds: float) -> String:
 	return "%02d:%02d" % [total/60,total%60]
 
 func _begin_battle() -> void:
+	if maps.is_empty() or current_map.is_empty():
+		_show_home()
+		return
 	if not progress.map_unlocked(str(current_map.get("id",""))):
 		_toast(progress.map_lock_reason(str(current_map.get("id",""))))
 		return
@@ -1455,6 +1866,13 @@ func _begin_battle() -> void:
 	toast_label.hide()
 
 func _process(delta: float) -> void:
+	if not deployment_press_unit_id.is_empty() or not deployment_drag.is_empty():
+		if not _can_prepare_placement():
+			_cancel_deployment_drag()
+		elif not deployment_drag.is_empty():
+			_update_deployment_drag(deployment_drag.pointer)
+	if learning_panel != null:
+		learning_panel.visible = deployment_drag.is_empty() and not _learning_covers_battle() and not _field_report_visible()
 	_sync_battle_camera()
 	_update_placement_feedback()
 	_update_voice_mix()
@@ -1474,7 +1892,7 @@ func _process(delta: float) -> void:
 		if toast_clock <= 0:
 			toast_label.text = ""
 	if battle_started and not battle_finished and modal == null and not context_task_active and not front_end.visible and not unit_training.visible and not bool(state.get("paused",false)) and not bool(state.get("betweenWaves",false)):
-		if active_word.visible and example_label.visible:
+		if active_word.is_visible_in_tree():
 			if learning_index>=0 and learning_index<learning_words.size(): _record_displayed_word(learning_words[learning_index])
 			learning_clock += delta
 		if learning_clock >= _word_dwell_seconds():
@@ -1483,7 +1901,7 @@ func _process(delta: float) -> void:
 func _sync_battle_camera() -> void:
 	if battle_camera==null or camera_controls==null: return
 	var showing_battle: bool = ui!=null and ui.is_visible_in_tree() and field_clip.is_visible_in_tree() and not _learning_screen_active()
-	var accepting_input: bool = showing_battle and battle_started and not battle_finished and modal==null and not bool(state.get("paused",false))
+	var accepting_input: bool = showing_battle and battle_started and not battle_finished and modal==null and not bool(state.get("paused",false)) and not deployment_release_pending
 	if battle_camera.input_enabled!=accepting_input:
 		battle_camera.set_input_enabled(accepting_input)
 	camera_controls.visible = showing_battle and battle_camera.enabled and modal==null
@@ -1509,7 +1927,9 @@ func _advance_word() -> void:
 		example = word.transferExample
 	example_label.set_word(example,24)
 	var step: Dictionary = _current_grammar_step(example)
+	learning_caption.set("ruby_context_words",_display_reading_context())
 	learning_caption.text = "어휘 %02d / %d · %s" % [learning_index+1,learning_words.size(),str(step.get("explanationKo","후리가나로 소리를 읽고, 한국어 뜻과 짧은 예문을 연결하십시오."))]
+	learning_caption.call("refresh_ruby")
 	_layout()
 	if battle_started and active_word.visible and learning_panel.visible:
 		_record_displayed_word(word)
@@ -1598,12 +2018,16 @@ func _on_state(value: Dictionary) -> void:
 	var show_battle_ui: bool = not _learning_covers_battle()
 	army_toolbar.visible = show_battle_ui
 	_refresh_production_queue(value,show_battle_ui)
-	learning_panel.visible = show_battle_ui
+	learning_panel.visible = show_battle_ui and deployment_drag.is_empty() and not _field_report_visible()
 	var wave = int(value.get("wave",0))
 	hud_clock.text = "%d분 · %s / %s" % [active_battle_minutes,_battle_clock_text(float(value.get("battleElapsedSeconds",value.get("elapsed",0)))),_battle_clock_text(float(value.get("battleTargetSeconds",active_battle_minutes*60)))]
 	hud_wave.text = "%02d / %02d  ·  적 %d" % [wave,int(value.get("totalWaves",10)),int(value.get("enemyCount",0))]
 	hud_wave.tooltip_text = "총 %d개 파상 공격 · 전장에 남은 적 %d · 진입 예정 %d" % [int(value.get("totalWaves",10)),int(value.get("enemyCount",0)),int(value.get("remainingSpawns",0))]
 	hud_gold.text = "보급  %d" % int(value.get("gold",0))
+	hud_capacity.text = "출전 %d / %d" % [value.get("units",[]).size(),int(value.get("unitLimit",0))]
+	hud_capacity.tooltip_text = "실제 출전 병력 / 출전 정원 · 소집 완료 주문은 필요한 정원이 생길 때 출진합니다."
+	speed = float(value.get("speed",speed))
+	speed_button.text = "%d×" % int(speed)
 	var objectives: Array = value.get("objectives",[])
 	var health_parts: Array = []
 	for objective in objectives:
@@ -1657,6 +2081,7 @@ func _on_state(value: Dictionary) -> void:
 	_update_army_visibility()
 	_set_intermission_presentation(_learning_covers_battle(),_learning_screen_active())
 	_layout_production_queue()
+	_update_deployment_presentation()
 	_observe_narration_state(value)
 
 func _refresh_production_queue(value: Dictionary, battle_visible: bool) -> void:
@@ -1708,11 +2133,14 @@ func _refresh_production_queue(value: Dictionary, battle_visible: bool) -> void:
 	for index in range(jobs.size()):
 		var job: Dictionary = jobs[index]
 		var card: Button = production_cards.get_child(index)
-		var timing: String = "정원 대기" if str(job.status)=="waiting_capacity" else "%.1f초" % float(job.remainingSeconds)
-		card.text = "%s ×%d\n%s" % [str(job.name),int(job.quantity),timing]
-		card.tooltip_text = "각 병력을 동시에 준비합니다.\n클릭: 이 주문 취소 · 보급 %d 환불" % int(job.cost)
+		card.text = BattlefieldHUD.queue_text(job)
+		card.tooltip_text = BattlefieldHUD.queue_tooltip(job)
 		card.disabled = context_task_active or battle_finished
+		var waiting_capacity: bool = str(job.get("status",""))=="waiting_capacity"
+		var status_changed: bool = not card.has_meta("hud_waiting_capacity") or bool(card.get_meta("hud_waiting_capacity"))!=waiting_capacity
+		if status_changed: BattlefieldHUD.apply_queue_card(card,waiting_capacity)
 		var gauge: ProgressBar = card.get_node("ProductionGauge")
+		if status_changed: BattlefieldHUD.apply_progress(gauge,"waiting_capacity" if waiting_capacity else "production")
 		gauge.value = 100.0*(1.0-float(job.remainingSeconds)/maxf(.001,float(job.totalSeconds)))
 	production_title.text = "병렬 소집 · %d / %d건   ·   주문을 누르면 취소" % [jobs.size(),int(value.get("recruitmentCapacity",24))]
 	if was_visible!=production_panel.visible: _layout()
@@ -1769,6 +2197,9 @@ func _update_placement_feedback() -> void:
 		hint_line.add_theme_color_override("font_color",feedback_color)
 	hint_bar.visible = can_place and (placing or not hovered_unit_id.is_empty())
 	hint_line.visible = hint_bar.visible
+	if not deployment_drag.is_empty():
+		hint_bar.hide()
+		hint_line.hide()
 
 func _update_army_visibility() -> void:
 	if army_panel == null:
@@ -1779,11 +2210,12 @@ func _update_army_visibility() -> void:
 	var placing: bool = pending is Dictionary and not pending.is_empty()
 	if has_selected and int(selected.get("id",-1)) != inspector_unit_id:
 		inspector_unit_id = int(selected.id)
-		inspector_on_left = game.view_point(Vector2(float(selected.get("x",.5)),float(selected.get("y",.5)))).x>=.5
-		army_panel.position.x = 28 if inspector_on_left else get_viewport().get_visible_rect().size.x-358
+		# Keep the pilot's objective and lower approach/contact corridor readable.
+		inspector_on_left = false
+		army_panel.position.x = get_viewport().get_visible_rect().size.x-army_panel.size.x-24
 	elif not has_selected:
 		inspector_unit_id = -1
-	army_panel.visible = not context_task_active and not _learning_covers_battle() and has_selected and not placing
+	army_panel.visible = deployment_drag.is_empty() and not context_task_active and not _learning_covers_battle() and has_selected and not placing
 
 func _update_tactical_status(selected, unit_id: String) -> void:
 	var deployment: Dictionary = _deployment_display(unit_id)
@@ -1792,6 +2224,9 @@ func _update_tactical_status(selected, unit_id: String) -> void:
 	var tactical_text: String = ""
 	if selected is Dictionary and not selected.is_empty():
 		var stance: String = str(selected.get("stanceKo","사격 대기" if fixed_emplacement else "전선 대기"))
+		if is_instance_valid(troops_3d):
+			var action: Dictionary = troops_3d.action_presentation.state_for_id(int(selected.get("id",-1)))
+			if not action.is_empty(): stance = str(action.actionLabelKo)
 		var status: String = "%s · %s" % [deployment.kind,stance]
 		army_tactics.tooltip_text = "%s\n%s" % [str(selected.get("postName",deployment.location)),deployment.hint]
 		if fixed_emplacement:
@@ -1824,6 +2259,8 @@ func _update_tactical_status(selected, unit_id: String) -> void:
 			if bool(skill.unlocked): unlocked_skills.append(str(skill.titleKo))
 		if not unlocked_skills.is_empty():
 			army_tactics.tooltip_text += "\n해금 능력: "+" · ".join(unlocked_skills)
+		if unit_id=="naginata":
+			army_tactics.tooltip_text += "\n파란 실선: 이동 경계 · 황금 점선: 적 인식 범위\n방어 구역 밖으로 나가야 하는 적은 추격하지 않습니다."
 	else:
 		tactical_text = str(deployment.role)+"\n"+str(deployment.location)
 		army_tactics.tooltip_text = str(deployment.hint)
@@ -1838,7 +2275,9 @@ func _on_game_event(event: Dictionary) -> void:
 		combat_feedback.consume_event(event)
 	if battle_audio != null:
 		battle_audio.consume_event(event)
-	if event.has("message"):
+	if str(event.get("type","")) == "unit_consumed":
+		_toast(Troops3D.TroopActions.consumed_label(str(event.get("consumeReason","mission_ended"))))
+	elif event.has("message"):
 		_toast(str(event.message))
 
 func _on_emplacement_alert(_event: Dictionary) -> void:
@@ -1848,6 +2287,7 @@ func _on_emplacement_alert(_event: Dictionary) -> void:
 	# Existing speech does not describe this danger, so the voice queue stays unchanged.
 
 func _recruit() -> void:
+	if deployment_release_pending: return
 	if _can_prepare_placement():
 		if not game.snapshot().get("pending",{}).is_empty():
 			game.cancel_recruit()
@@ -1913,14 +2353,18 @@ func _show_quiz() -> void:
 	modal_card.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
 	var shade: ColorRect = modal.get_child(0)
 	shade.color = Color(.045,.033,.02,.74)
-	var picture = TextureRect.new()
-	picture.texture = load(str(current_map.background))
-	picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-	picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	picture.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	modal.add_child(picture)
-	modal.move_child(picture,0)
+	# Indexed battlefields remain visible beneath the existing modal shade.
+	# A painted background is optional and used only when it actually exists.
+	var background_path: String=str(current_map.get("background",""))
+	if not background_path.is_empty() and ResourceLoader.exists(background_path,"Texture2D"):
+		var picture = TextureRect.new()
+		picture.texture = load(background_path)
+		picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+		picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		picture.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		modal.add_child(picture)
+		modal.move_child(picture,0)
 	modal_body.add_theme_constant_override("separation",14)
 	quiz_choices.clear()
 	var kind: String = str(quiz_task.get("kind","meaning"))
@@ -2007,7 +2451,8 @@ func _show_quiz() -> void:
 	modal_footer_height = 112
 	modal_card.add_child(modal_footer)
 	modal_footer.minimum_size_changed.connect(_layout)
-	quiz_feedback = Label.new()
+	quiz_feedback = UIStyle.TooltipLabel.new()
+	quiz_feedback.set("ruby_context_words",_display_reading_context())
 	quiz_feedback.text = "정답이면 전장에 맞는 지원을 무작위로 받습니다. 힌트를 사용하면 지원이 약해집니다."
 	if gate_active: quiz_feedback.text = "한 문제라도 틀리면 복습 후 처음부터 다시 응시합니다."
 	quiz_feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -2050,11 +2495,14 @@ func _show_quiz() -> void:
 	learning_transition.present(modal,quiz_choices,modal_footer,"解禁試験 · 해금 시험" if gate_active else "補給任務 · 보급 임무",quiz_resolved)
 
 func _show_context_task() -> void:
+	_cancel_deployment_drag()
 	_close_modal(false)
 	modal_context = "context"
 	context_task_active = true
 	game.set_input_enabled(false)
-	learning_field.set_stage_background(str(current_map.get("background","")))
+	learning_field.set_stage_background(str(current_map.get("background","")),current_map)
+	if troops_3d.uses_world_geometry():
+		learning_field.set_world_presentation(current_map,troops_3d.viewport.get_texture(),_project_learning_anchor,_project_learning_world_focus)
 	_layout()
 	learning_field.begin_choice(quiz_task.get("mission",{}),_reading_available())
 	if quiz_hinted:
@@ -2063,6 +2511,16 @@ func _show_context_task() -> void:
 		learning_field.show_result(quiz_outcome_correct,quiz_feedback_text,quiz_selected_id)
 	_on_state(game.snapshot())
 	learning_transition.present(learning_field,learning_field.target_buttons,learning_field.action_card,"援軍の要請 · 원군 요청",quiz_resolved)
+
+func _project_learning_anchor(canonical: Vector2) -> Vector2:
+	if troops_3d.field_size.x<=0 or troops_3d.field_size.y<=0:
+		return Vector2(INF,INF)
+	return troops_3d.model_to_field_point(canonical)/troops_3d.field_size
+
+func _project_learning_world_focus(world_point: Vector3) -> Vector2:
+	if not world_point.is_finite() or troops_3d.field_size.x<=0 or troops_3d.field_size.y<=0:
+		return Vector2(INF,INF)
+	return troops_3d.project_world_to_field(world_point)/troops_3d.field_size
 
 func _listen_quiz(automatic: bool = false) -> void:
 	if gate_active and not quiz_resolved: return
@@ -2208,6 +2666,7 @@ func _continue_battle(escape_requested: bool = false) -> void:
 	learning_transition.begin_return()
 
 func _start_gate_from_catalog(tier: int, index: int) -> void:
+	if maps.is_empty(): return
 	_choose_stage(tier,index)
 	if current_tier!=tier or current_index!=index: return
 	_start_gate()
@@ -2248,8 +2707,15 @@ func _apply_gate_answer(result: Dictionary) -> void:
 	var receipt: Dictionary = unlock_gate.snapshot()
 	if bool(receipt.get("passed",false)):
 		gate_saved = progress.record_assessment(unlock_gate)
-		quiz_feedback.text = "전 문항 정답 · 다음 전장 해금 완료" if gate_saved else "전 문항 정답입니다. 저장을 다시 시도해야 다음 전장이 열립니다. " + progress.save_error
-		quiz_continue_button.text = "다음 전장에 출진  ›" if gate_saved else "저장 다시 시도"
+		if not gate_saved:
+			quiz_feedback.text = "전 문항 정답입니다. 저장을 다시 시도해야 다음 전장이 열립니다. " + progress.save_error
+			quiz_continue_button.text = "저장 다시 시도"
+		elif _next_registered_stage().is_empty():
+			quiz_feedback.text = "전 문항 정답 · 시험 기록 저장 완료\n다음 전장은 준비 중입니다."
+			quiz_continue_button.text = "전장 선택으로 돌아가기"
+		else:
+			quiz_feedback.text = "전 문항 정답 · 다음 전장 해금 완료"
+			quiz_continue_button.text = "다음 전장에 출진  ›"
 	elif bool(receipt.get("complete",false)):
 		quiz_feedback.text = "이번 응시는 통과하지 못했습니다. 원문과 뜻을 복습한 뒤 다시 응시하십시오."
 		quiz_continue_button.text = "처음부터 다시 응시"
@@ -2284,7 +2750,7 @@ func _continue_gate(exit_requested: bool) -> void:
 	_show_quiz()
 
 func _leave_gate(open_next: bool) -> void:
-	var next_number: int = int(current_map.get("stageNumber",1))+1
+	var next_stage: Dictionary = _next_registered_stage()
 	_stop_narration()
 	_cancel_learning_transition()
 	_close_modal(false)
@@ -2292,11 +2758,12 @@ func _leave_gate(open_next: bool) -> void:
 	quiz_task.clear()
 	context_task_active = false
 	learning_field.clear()
-	if open_next and next_number<=40:
-		_choose_stage((next_number-1)/10,(next_number-1)%10)
+	if open_next and not next_stage.is_empty():
+		_choose_stage(int(next_stage.tier),int(next_stage.index))
 	else:
 		_show_catalog()
-		front_end.show_catalog(current_tier)
+		if open_next and int(current_map.get("stageNumber",1))<40:
+			_toast("시험 기록을 저장했습니다. 다음 전장은 준비 중입니다.")
 
 func _finish_continue_battle() -> void:
 	if quiz_task.is_empty() or battle_finished:
@@ -2318,6 +2785,7 @@ func _finish_continue_battle() -> void:
 	_on_state(game.snapshot())
 
 func _on_battle_finished(result: Dictionary) -> void:
+	_cancel_deployment_drag()
 	_cancel_learning_transition()
 	var already_finished = battle_finished
 	if not already_finished:
@@ -2333,9 +2801,9 @@ func _on_battle_finished(result: Dictionary) -> void:
 	quiz_task.clear()
 	learning_field.clear()
 	_set_music_context(false)
-	if won and not already_finished:
+	if won and not already_finished and not isolated_candidate:
 		last_campaign_reward = progress.complete_map(str(current_map.id),{"seen":seen_this_run.size(),"correct":answers_correct,"attempts":answers_total})
-	elif not already_finished:
+	elif not already_finished and not isolated_candidate:
 		progress.write_save()
 	_rebuild_map_list()
 	_open_modal()
@@ -2371,20 +2839,18 @@ func _on_battle_finished(result: Dictionary) -> void:
 	_modal_label("오답·힌트를 쓴 표현은 맞춤 복습에 반영됩니다.\n다른 문장과 시간을 두고 확인한 기록을 도감에서 볼 수 있습니다.",20,"acbdac")
 	var retry = _button(modal_body,"같은 지도 다시 출진",_retry_battle)
 	retry.custom_minimum_size.y = 46
-	if int(current_map.get("stageNumber",1))<40 and progress.map_cleared(str(current_map.id)) and not progress.map_assessed(str(current_map.id)):
+	var next_stage: Dictionary = _next_registered_stage()
+	if not _candidate_display_allowed() and int(current_map.get("stageNumber",1))<40 and progress.map_cleared(str(current_map.id)) and not progress.map_assessed(str(current_map.id)):
 		var exam_button = _button(modal_body,"다음 지도 해금 시험  ›",_start_gate)
 		exam_button.name = "ResultUnlockExam"
 		exam_button.custom_minimum_size.y = 46
 		_modal_label("새 단어 %d개 + 문법 %d개 · 힌트 없이 전 문항 정답이어야 다음 지도가 열립니다." % [current_lesson.get("newWords",[]).size(),current_lesson.get("grammarSteps",[]).size()],20,"e5d09f")
-	elif current_index < 9:
-		var next = _button(modal_body,"다음 지도  ›",func(): _select_map(current_index+1))
+	elif not _candidate_display_allowed() and not next_stage.is_empty():
+		var next = _button(modal_body,"다음 지도  ›",_choose_stage.bind(int(next_stage.tier),int(next_stage.index)))
 		next.custom_minimum_size.y = 46
-		next.disabled = not progress.map_unlocked(str(_tier_maps()[current_index+1].id))
-	elif current_tier<3:
-		var next_tier_button = _button(modal_body,"다음 원정 · %s  ›" % TIER_NAMES[current_tier+1],func(): _select_tier(current_tier+1))
-		next_tier_button.custom_minimum_size.y = 46
-		var next_tier_maps: Array = maps.filter(func(stage): return str(stage.tier)==TIER_IDS[current_tier+1])
-		next_tier_button.disabled = not progress.map_unlocked(str(next_tier_maps[0].id))
+		next.disabled = not progress.map_unlocked(str(next_stage.stage.id))
+	if not _candidate_display_allowed() and next_stage.is_empty() and int(current_map.get("stageNumber",1))<40:
+		_modal_label("다음 전장은 준비 중입니다. 현재 전장은 다시 출진할 수 있습니다.",20,"acbdac")
 	var study = _button(modal_body,"학습 도감 열기",_show_study)
 	study.custom_minimum_size.y = 42
 	_button(modal_body,"戦場選択 · 다른 전장 선택",_show_catalog).custom_minimum_size.y = 42
@@ -2403,6 +2869,7 @@ func _retry_battle() -> void:
 	_select_map(current_index)
 
 func _open_modal() -> void:
+	_cancel_deployment_drag()
 	_close_modal(false)
 	game.set_input_enabled(false)
 	modal = Control.new()
@@ -2427,7 +2894,8 @@ func _open_modal() -> void:
 	_layout()
 
 func _modal_label(text: String, text_size: int = 16, color: String = "dddac5") -> Label:
-	var label = Label.new()
+	var label = UIStyle.TooltipLabel.new()
+	if RubyReadings.contains_kanji(text): label.ruby_context_words=_display_reading_context()
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.text=text
 	label.add_theme_font_size_override("font_size",maxi(20,text_size))
@@ -2454,6 +2922,7 @@ func _close_modal(resume: bool = true) -> void:
 	_set_intermission_presentation(context_task_active)
 
 func _show_study() -> void:
+	if maps.is_empty() and not _candidate_display_allowed(): return
 	_stop_narration()
 	_cancel_learning_transition()
 	if not quiz_task.is_empty() and not quiz_resolved:
@@ -2874,7 +3343,9 @@ func _speak(text: String, automatic: bool = false) -> void:
 	_apply_voice_mix(voice_director.is_voice_active())
 
 func _toast(message: String) -> void:
+	toast_label.set("ruby_context_words",_display_reading_context())
 	toast_label.text = message
+	toast_label.call("refresh_ruby")
 	toast_clock = 4.0
 	toast_label.visible = learning_field == null or not learning_field.report_card.visible or not progress.save_error.is_empty()
 	if not progress.save_error.is_empty():
@@ -2882,6 +3353,9 @@ func _toast(message: String) -> void:
 		toast_label.size.x = game.field_rect.size.x-200
 
 func _input(event: InputEvent) -> void:
+	if _handle_deployment_input(event):
+		get_viewport().set_input_as_handled()
+		return
 	if unit_training!=null and unit_training.visible: return
 	if learning_transition != null and learning_transition.is_busy() and ui.visible and not front_end.visible:
 		if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
@@ -2987,6 +3461,9 @@ func _show_pause_menu() -> void:
 	modal_body.add_child(volumes)
 
 func _notification(what: int) -> void:
+	if what in [NOTIFICATION_APPLICATION_FOCUS_OUT,NOTIFICATION_WM_WINDOW_FOCUS_OUT]:
+		_cancel_deployment_drag()
+		_release_deployment_pointer()
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		_quit_game()
 
@@ -2995,6 +3472,7 @@ func _exit_tree() -> void:
 	NativeBattlefield.release_shared_resources()
 
 func _quit_game() -> void:
+	_cancel_deployment_drag()
 	if closing:
 		return
 	closing = true

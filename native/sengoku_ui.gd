@@ -1,13 +1,155 @@
 extends Control
 
-# Ink, lacquered wood and aged gold connect the menus to the painted screens.
-const INK = "171410"
-const SURFACE = "26201bee"
-const RAISED = "382c20ee"
-const LINE = "64523b"
-const BRASS = "c9ac6a"
-const TEXT = "f2ead9"
-const MUTED = "c0b49c"
+const RubyText = preload("res://native/ruby_label.gd")
+const RubyReadings = preload("res://native/ruby_readings.gd")
+
+# Native Label/Button contracts remain intact. The annotated child renders the
+# complete original body and readings; coverage is checked on its actual runs.
+class TooltipLabel extends Label:
+	var ruby_context_words: Array=[]:
+		set(value):
+			ruby_context_words=value
+			_signature=""
+			queue_redraw()
+			if is_node_ready(): refresh_ruby()
+	var ruby_text: Control
+	var _signature: String=""
+	var _native_modulate: Color=Color.WHITE
+	var _ruby_minimum: float=0.0
+	var _minimum_before_ruby: float=0.0
+	var _syncing: bool=false
+	func _ready() -> void:
+		_native_modulate=self_modulate
+		resized.connect(refresh_ruby)
+		minimum_size_changed.connect(refresh_ruby)
+		refresh_ruby()
+	func _draw() -> void:
+		refresh_ruby()
+	func _make_custom_tooltip(for_text: String) -> Object:
+		return RubyText.make_tooltip(for_text,ruby_context_words)
+	func refresh_ruby() -> void:
+		if _syncing or not is_inside_tree(): return
+		_syncing=true
+		if not RubyReadings.contains_kanji(text):
+			self_modulate=_native_modulate
+			if is_instance_valid(ruby_text): ruby_text.hide()
+			if is_equal_approx(custom_minimum_size.y,_ruby_minimum): custom_minimum_size.y=_minimum_before_ruby
+			_signature=""
+			_syncing=false
+			return
+		var points: int=get_theme_font_size("font_size")
+		var ink: Color=get_theme_color("font_color")
+		var signature: String=str([text,size,points,ink,horizontal_alignment,vertical_alignment,autowrap_mode,get_theme_font("font").get_instance_id(),get_theme_constant("outline_size"),get_theme_color("font_outline_color"),ruby_context_words])
+		if signature==_signature and is_instance_valid(ruby_text): _syncing=false; return
+		_signature=signature
+		if not is_instance_valid(ruby_text):
+			ruby_text=RubyText.new()
+			ruby_text.name="VisibleAnnotatedText"
+			ruby_text.custom_minimum_size.x=1
+			add_child(ruby_text)
+		ruby_text.show()
+		ruby_text.font=get_theme_font("font")
+		ruby_text.ink=ink
+		ruby_text.reading_ink=ink
+		ruby_text.colour_reading_groups=false
+		ruby_text.wrap_japanese=autowrap_mode!=TextServer.AUTOWRAP_OFF
+		ruby_text.horizontal_alignment=horizontal_alignment
+		ruby_text.outline_size=mini(2,get_theme_constant("outline_size"))
+		ruby_text.outline_ink=get_theme_color("font_outline_color")
+		ruby_text.size.x=maxf(1,size.x)
+		ruby_text.set_text(text,points,ruby_context_words)
+		var height: float=float(ruby_text.get_text_layout().height)
+		ruby_text.size.y=height
+		if not is_equal_approx(custom_minimum_size.y,_ruby_minimum): _minimum_before_ruby=custom_minimum_size.y
+		_ruby_minimum=maxf(_minimum_before_ruby,height)
+		custom_minimum_size.y=_ruby_minimum
+		ruby_text.position=Vector2(0,maxf(0,size.y-height)*(.5 if vertical_alignment==VERTICAL_ALIGNMENT_CENTER else 1.0 if vertical_alignment==VERTICAL_ALIGNMENT_BOTTOM else 0.0))
+		# Only the duplicate native glyphs are replaced; child body remains visible.
+		self_modulate=Color(_native_modulate,0)
+		_syncing=false
+
+class TooltipButton extends Button:
+	var ruby_context_words: Array=[]:
+		set(value):
+			ruby_context_words=value
+			_signature=""
+			queue_redraw()
+			if is_node_ready(): refresh_ruby()
+	var ruby_text: Control
+	var _signature: String=""
+	var _colours: Dictionary={}
+	var _syncing: bool=false
+	var _minimum_before_ruby: float=0.0
+	var _ruby_minimum: float=0.0
+	const MASKED_COLOURS: Array[String]=["font_color","font_hover_color","font_pressed_color","font_hover_pressed_color","font_disabled_color","font_focus_color","font_outline_color"]
+	func _ready() -> void:
+		resized.connect(refresh_ruby)
+		minimum_size_changed.connect(refresh_ruby)
+		refresh_ruby()
+	func _draw() -> void:
+		refresh_ruby()
+	func _make_custom_tooltip(for_text: String) -> Object:
+		return RubyText.make_tooltip(for_text,ruby_context_words)
+	func refresh_ruby() -> void:
+		if _syncing or not is_inside_tree(): return
+		_syncing=true
+		if not RubyReadings.contains_kanji(text):
+			if is_instance_valid(ruby_text): ruby_text.hide()
+			for key in _colours:
+				if get_theme_color(key).a==0: add_theme_color_override(key,_colours[key])
+			_colours.clear()
+			if is_equal_approx(custom_minimum_size.y,_ruby_minimum): custom_minimum_size.y=_minimum_before_ruby
+			_signature=""
+			_syncing=false
+			return
+		begin_bulk_theme_override()
+		for key in MASKED_COLOURS:
+			var current: Color=get_theme_color(key)
+			if current.a>0 or not _colours.has(key): _colours[key]=current
+			if current.a>0: add_theme_color_override(key,Color(current,0))
+		end_bulk_theme_override()
+		var colour_key: String="font_disabled_color" if disabled else "font_hover_pressed_color" if is_pressed() and is_hovered() else "font_pressed_color" if is_pressed() else "font_hover_color" if is_hovered() else "font_color"
+		var ink: Color=_colours.get(colour_key,Color(TEXT))
+		var points: int=get_theme_font_size("font_size")
+		var signature: String=str([text,size,points,ink,alignment,get_theme_font("font").get_instance_id(),get_theme_constant("outline_size"),_colours.get("font_outline_color",Color.BLACK),ruby_context_words])
+		if signature!=_signature or not is_instance_valid(ruby_text):
+			_signature=signature
+			if not is_instance_valid(ruby_text):
+				ruby_text=RubyText.new()
+				ruby_text.name="VisibleAnnotatedText"
+				ruby_text.custom_minimum_size.x=1
+				add_child(ruby_text)
+			ruby_text.show()
+			ruby_text.font=get_theme_font("font")
+			ruby_text.ink=ink
+			ruby_text.reading_ink=ink
+			ruby_text.outline_size=mini(2,get_theme_constant("outline_size"))
+			ruby_text.outline_ink=_colours.get("font_outline_color",Color.BLACK)
+			ruby_text.colour_reading_groups=false
+			ruby_text.horizontal_alignment=alignment
+			ruby_text.wrap_japanese=true
+			ruby_text.size.x=maxf(1,size.x-8)
+			ruby_text.set_text(text,points,ruby_context_words)
+			var height: float=float(ruby_text.get_text_layout().height)
+			ruby_text.size.y=height
+			if not is_equal_approx(custom_minimum_size.y,_ruby_minimum): _minimum_before_ruby=custom_minimum_size.y
+			_ruby_minimum=maxf(_minimum_before_ruby,height+4)
+			custom_minimum_size.y=_ruby_minimum
+			ruby_text.position=Vector2(4,maxf(0,size.y-height)*.5)
+		_syncing=false
+
+# Shared materials: charcoal lacquer, dull metal edges and warm ivory text.
+const INK = "141819"
+const SURFACE = "1d2223f5"
+const RAISED = "2a3132f5"
+const LINE = "67614f"
+const BRASS = "bda978"
+const TEXT = "eee8d9"
+const MUTED = "b8b7aa"
+const BLUE = "79b3d4"
+const DISABLED = "777f80"
+const WARNING = "d4b579"
+const DANGER = "d68f7d"
 const MATERIAL_PATHS: Dictionary = {
 	"lacquer":"res://assets/ui/lacquer-panel.png",
 	"wood":"res://assets/ui/lacquer-panel.png",
@@ -100,13 +242,13 @@ static func textured_button(state: String = "normal", emphasized: bool = false, 
 		return button("focus")
 	if material_texture("lacquer")==null:
 		return selected() if is_selected else primary() if emphasized and state=="normal" else button(state)
-	var pigment: Color = Color("d0c0a5")
+	var pigment: Color = Color("b8c2c1")
 	match state:
-		"hover": pigment=Color("f5dfb6")
-		"pressed": pigment=Color("bda382")
-		"disabled": pigment=Color("756d60")
-	if emphasized: pigment*=Color("efba97")
-	if is_selected: pigment*=Color("ffdf9b")
+		"hover": pigment=Color("dde0d4")
+		"pressed": pigment=Color("9cb1bb")
+		"disabled": pigment=Color("6f7b7c")
+	if emphasized: pigment*=Color("e3ca9e")
+	if is_selected: pigment*=Color("9accec")
 	var result: StyleBoxTexture = textured_panel("lacquer",pigment) as StyleBoxTexture
 	if not emphasized and not is_selected:
 		var picture: Texture2D = result.texture
@@ -142,11 +284,11 @@ static func frame(background: String = SURFACE, border: String = LINE, accent: b
 static func button(state: String = "normal") -> StyleBoxFlat:
 	var box: StyleBoxFlat
 	match state:
-		"hover": box=frame("463727f5","b49a6c")
-		"pressed": box=frame("58402cf5",BRASS,true)
-		"disabled": box=frame("221c16c0","44382b")
+		"hover": box=frame("343c3df5","9e947b")
+		"pressed": box=frame("263b48f5",BLUE,true)
+		"disabled": box=frame("1a1e20d9","424a49")
 		"focus":
-			box=frame("00000000",BRASS)
+			box=frame("00000000",BLUE)
 			box.shadow_size=0
 			return box
 		_: box=frame(SURFACE,LINE)
@@ -158,13 +300,13 @@ static func button(state: String = "normal") -> StyleBoxFlat:
 
 static func selected() -> StyleBoxFlat:
 	var box=button("normal")
-	box.bg_color=Color("493725f5")
-	box.border_color=Color(BRASS)
+	box.bg_color=Color("243b49f5")
+	box.border_color=Color(BLUE)
 	box.border_width_bottom=2
 	return box
 
 static func primary() -> StyleBoxFlat:
-	var box=frame("512b21f5",BRASS,true)
+	var box=frame("3c3730f5",BRASS,true)
 	box.shadow_size=0
 	return box
 

@@ -1,0 +1,57 @@
+MODEL_REQUESTED: gpt-6.1-sol
+REASONING_EFFORT: high
+EFFORT_CEILING: max
+FORBIDDEN_EFFORT: ultra
+RUNTIME_SETTINGS_OWNER: USER
+TASK_ID: ASSET-AUTHORING-01
+TEAM_PRESETS: {HQ: high, UX_GRAPHICS: max, FUNCTIONAL: max, QA: high}
+WORKSPACE: 'C:\JP_DF'
+KIT: tools/art-authoring-pilot
+STATUS: INPUTS_AND_TOOLING_PREPARED_NOT_NEW_ART
+PERMISSIONS:
+  current: Prepare local authoring tools and inspect inputs; no game replacement.
+  installation: Explicit user approval required for official Blender installation.
+  external_services: No API payments, credential collection or image upload approved.
+  mcp: Optional later; reviewed pinned version and separate setup permission, not a prerequisite.
+  excluded: Git changes, live R8 edits, saves, security settings, whole-project deletion, agents recursively creating agents.
+SOURCE:
+  reference: docs/map-remaster-reference/10-stage01-approved-composition.png
+  reference_sha256: 1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc
+  report: tests/profiles/reference-scene-01/woodland-composition-01/HQ_WOODLAND_REPORT.json
+  last_art_status: PARTIAL
+  candidate: tests/profiles/r8-lag-01/candidate
+DECISIONS:
+  preserve: Working combat, learning, progression, user saves, verified common color boundary and useful overlay implementation.
+  replace: Unsuitable canopy assets/assembly and inadequate facility/material shapes; no preservation merely because code exists.
+  first_source: Editable Blender models and baked/importable PBR material inputs, not another whole-canopy photograph on a curved surface.
+  image_target: Exact full composition plus materials, depth, scale and UI hierarchy; no proxy reference.
+  camera: Existing orthographic23.5/elevation44 for initial comparison; do not silently switch to perspective.
+  context: Existing ground is workshop context, not an irrevocable final art shape. Replacement gameplay surfaces require coherent world/placement/nav updates and affected checks.
+  hardware: Inspect actual engine and hardware; current report says Iris Xe; do not promise60FPS.
+AFTER_BLENDER_APPROVAL:
+  - Run kit bootstrap once; check workshop orientation and reference image.
+  - Produce an actual broadleaf prototype from branching geometry and leaf-scale assets, not full-tree photographic plates.
+  - Author one real raised firing-platform/short-palisade module and dirt/grass/litter transition in the SAME review segment.
+  - Bake procedural materials to images and export selected assets to GLB; no default-material fallback declared final.
+  - Inspect Godot import in an isolated authored test scene before connecting the normal candidate path.
+  - Compare to reference at full-frame1440x900 and1280x800; retain context/HUD differences explicitly.
+  - Show ordinary candidate movement/placement/combat after scoped integration; art-only stage is not naturalplayPASS.
+TEAMS:
+  HQ: Confirm approved setup scope, own runtime checks and one compact report. No new sessions or repeated history reviews.
+  UX_GRAPHICS: Own .blend, texture sources, UV/materials, tree/platform/ground segment and asset-level visual decisions.
+  FUNCTIONAL: Own export/import contract, world-coordinate/scale/collision bindings. Do not recreate procedural art in gameplay script.
+  QA: Replace an author after freeze; actual imports/images and relevant checks. No unrelated658-test or R6 rerun.
+  MOTION: Park existing logic; provide an already available representative actor through existing systems, no PNG substitution.
+  BALANCE: Park; no stat/skill updates.
+FIRST_ART_GATE:
+  success: Same-scene tree+ground+platform show credible branch structure, surface scale, physical depth and coherent light; a code/tooling PASS is insufficient.
+  failure: Name exact inadequate asset, input, or import limitation. At most one correction; do not restart a cascade of canopy parameter rounds.
+  external_fallback: Select one generator only for a specific failed asset after user approves upload and spending cap. Whole game/repository upload forbidden.
+OPERATION:
+  active_workers_max_excluding_HQ: 2
+  writer_per_exact_file: 1
+  engine_executor: HQ
+  first_art_round_minutes: {target: 45, maximum: 60}
+  first_art_round_start: Actual approved production start; setup approval is not a perpetual self-renewing clock.
+  report: New source assets, actual imports/captures, observed quality gaps, frame distribution and clearly untested scope.
+  automatic_followup: false

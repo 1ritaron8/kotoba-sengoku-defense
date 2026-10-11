@@ -1,0 +1,860 @@
+{
+  "version": 1,
+  "generator": "built-in image_gen",
+  "artType": "Original AI-generated RGBA raster idle animation; not an actual3D mesh",
+  "columns": 6,
+  "rows": 4,
+  "cellWidth": 256,
+  "cellHeight": 256,
+  "imageWidth": 1536,
+  "imageHeight": 1024,
+  "baselineY": 228,
+  "baseline": 0.890625,
+  "anchor": {
+    "x": 0.5,
+    "y": 0.890625
+  },
+  "animations": {
+    "idle": {
+      "frames": 6,
+      "fps": 2.0,
+      "loop": true
+    }
+  },
+  "sprites": {
+    "gunner": {
+      "path": "res://assets/units-standing/idle-support-v1.png",
+      "row": 0,
+      "frames": 6,
+      "fps": 2.0,
+      "baseline": 0.890625,
+      "anchor": {
+        "x": 0.5,
+        "y": 0.890625
+      },
+      "frameAnchors": [
+        {
+          "x": 0.5595703125,
+          "y": 0.9765625
+        },
+        {
+          "x": 0.541015625,
+          "y": 0.9765625
+        },
+        {
+          "x": 0.509765625,
+          "y": 0.9765625
+        },
+        {
+          "x": 0.4677734375,
+          "y": 0.9765625
+        },
+        {
+          "x": 0.4423828125,
+          "y": 0.9765625
+        },
+        {
+          "x": 0.427734375,
+          "y": 0.9765625
+        }
+      ],
+      "classDescription": "Japanese tanegashima matchlock ashigaru"
+    },
+    "naginata": {
+      "path": "res://assets/units-standing/idle-support-v1.png",
+      "row": 1,
+      "frames": 6,
+      "fps": 2.0,
+      "baseline": 0.890625,
+      "anchor": {
+        "x": 0.5,
+        "y": 0.890625
+      },
+      "frameAnchors": [
+        {
+          "x": 0.5517578125,
+          "y": 0.99609375
+        },
+        {
+          "x": 0.5244140625,
+          "y": 0.99609375
+        },
+        {
+          "x": 0.498046875,
+          "y": 0.9921875
+        },
+        {
+          "x": 0.4619140625,
+          "y": 0.99609375
+        },
+        {
+          "x": 0.435546875,
+          "y": 0.99609375
+        },
+        {
+          "x": 0.408203125,
+          "y": 0.99609375
+        }
+      ],
+      "classDescription": "Ii-inspired red naginata warrior"
+    },
+    "monk": {
+      "path": "res://assets/units-standing/idle-support-v1.png",
+      "row": 2,
+      "frames": 6,
+      "fps": 2.0,
+      "baseline": 0.890625,
+      "anchor": {
+        "x": 0.5,
+        "y": 0.890625
+      },
+      "frameAnchors": [
+        {
+          "x": 0.5654296875,
+          "y": 0.9921875
+        },
+        {
+          "x": 0.5322265625,
+          "y": 0.9921875
+        },
+        {
+          "x": 0.505859375,
+          "y": 0.9921875
+        },
+        {
+          "x": 0.47265625,
+          "y": 0.9921875
+        },
+        {
+          "x": 0.4453125,
+          "y": 0.9921875
+        },
+        {
+          "x": 0.4326171875,
+          "y": 0.9921875
+        }
+      ],
+      "classDescription": "Kenshin-inspired pale-cowl sohei"
+    },
+    "ninja": {
+      "path": "res://assets/units-standing/idle-support-v1.png",
+      "row": 3,
+      "frames": 6,
+      "fps": 2.0,
+      "baseline": 0.890625,
+      "anchor": {
+        "x": 0.5,
+        "y": 0.890625
+      },
+      "frameAnchors": [
+        {
+          "x": 0.560546875,
+          "y": 0.9296875
+        },
+        {
+          "x": 0.53515625,
+          "y": 0.9296875
+        },
+        {
+          "x": 0.5048828125,
+          "y": 0.9296875
+        },
+        {
+          "x": 0.4716796875,
+          "y": 0.9296875
+        },
+        {
+          "x": 0.4443359375,
+          "y": 0.9296875
+        },
+        {
+          "x": 0.4248046875,
+          "y": 0.9296875
+        }
+      ],
+      "classDescription": "Hattori-inspired charcoal ninja"
+    }
+  },
+  "registration": {
+    "method": "source-cell per-frame foot anchors; renderer UV sampling only",
+    "targetAnchor": {
+      "x": 0.5,
+      "y": 0.890625
+    },
+    "clipOutsideSourceCell": true,
+    "alphaFootAnalysisThreshold": 96,
+    "anchorMeaning": "normalized original-cell UV: midpoint of two widest boot ranges in final14 opaque-foot rows; y is sole baseline",
+    "sourcePixelsModified": false
+  },
+  "source": {
+    "generatedFile": "C:\\Users\\Playdata\\.codex\\generated_images\\01a0ffd5-e38d-76f1-bfb6-056b25f1de46\\exec-2eed7acd-0863-44f2-9f08-d972f4c97ce5.png",
+    "pngSha256": "4305f0972c8827367ecc8d0aacaae37c8921af50de3d8aecc0a95f2350742ce7",
+    "fileBytes": 2193054,
+    "promptMetadata": "assets/units-standing/support-prompt.json",
+    "references": [
+      "assets/units-atlas.png",
+      "assets/units-animated/samurai.png"
+    ]
+  },
+  "validation": {
+    "pixelMode": "RGBA",
+    "alphaExtrema": [
+      0,
+      254
+    ],
+    "zeroAlphaPixels": 1055964,
+    "totalPixels": 1572864,
+    "uniqueRgbaFrames": 24,
+    "frames": [
+      {
+        "id": "gunner",
+        "row": 0,
+        "frame": 0,
+        "rgbaSha256": "f1d67db2f3c15ee946dec9f24b6884ea34026d9394c68bf2e59fea3999641eaf",
+        "alphaBoundsAbove16": [
+          89,
+          13,
+          199,
+          250
+        ],
+        "maxCellEdgeAlpha": 3,
+        "sourceFootAnchor": {
+          "x": 0.5595703125,
+          "y": 0.9765625
+        },
+        "bootHorizontalRanges": [
+          [
+            166,
+            197
+          ],
+          [
+            94,
+            114
+          ]
+        ]
+      },
+      {
+        "id": "gunner",
+        "row": 0,
+        "frame": 1,
+        "rgbaSha256": "1dc8246922b8b82073f7bf9781c5bd3ed7c3a0afbbda8e1e83b86c8a073fc14f",
+        "alphaBoundsAbove16": [
+          83,
+          12,
+          195,
+          251
+        ],
+        "maxCellEdgeAlpha": 2,
+        "sourceFootAnchor": {
+          "x": 0.541015625,
+          "y": 0.9765625
+        },
+        "bootHorizontalRanges": [
+          [
+            163,
+            194
+          ],
+          [
+            87,
+            108
+          ]
+        ]
+      },
+      {
+        "id": "gunner",
+        "row": 0,
+        "frame": 2,
+        "rgbaSha256": "6e28486fbd4d3782dcec0db7b6f757e4aa09cbae62f0ee3dfffb3756b02fe80c",
+        "alphaBoundsAbove16": [
+          73,
+          14,
+          187,
+          250
+        ],
+        "maxCellEdgeAlpha": 3,
+        "sourceFootAnchor": {
+          "x": 0.509765625,
+          "y": 0.9765625
+        },
+        "bootHorizontalRanges": [
+          [
+            154,
+            185
+          ],
+          [
+            80,
+            101
+          ]
+        ]
+      },
+      {
+        "id": "gunner",
+        "row": 0,
+        "frame": 3,
+        "rgbaSha256": "19626805f9489ce4e3af8fcd283ae25633b1a37fb3a6b63335efd4a5341bb804",
+        "alphaBoundsAbove16": [
+          66,
+          13,
+          177,
+          251
+        ],
+        "maxCellEdgeAlpha": 2,
+        "sourceFootAnchor": {
+          "x": 0.4677734375,
+          "y": 0.9765625
+        },
+        "bootHorizontalRanges": [
+          [
+            144,
+            175
+          ],
+          [
+            68,
+            90
+          ]
+        ]
+      },
+      {
+        "id": "gunner",
+        "row": 0,
+        "frame": 4,
+        "rgbaSha256": "7e477b285beb9b4ce0776352895a88521432c44d17aef891a4a45be879cd04b5",
+        "alphaBoundsAbove16": [
+          58,
+          14,
+          171,
+          251
+        ],
+        "maxCellEdgeAlpha": 2,
+        "sourceFootAnchor": {
+          "x": 0.4423828125,
+          "y": 0.9765625
+        },
+        "bootHorizontalRanges": [
+          [
+            137,
+            169
+          ],
+          [
+            62,
+            83
+          ]
+        ]
+      },
+      {
+        "id": "gunner",
+        "row": 0,
+        "frame": 5,
+        "rgbaSha256": "d1b167f07bfc16d79ae805ecf534ba62a9a6f8fe675a31d2b01832d8950de1d6",
+        "alphaBoundsAbove16": [
+          56,
+          14,
+          167,
+          251
+        ],
+        "maxCellEdgeAlpha": 2,
+        "sourceFootAnchor": {
+          "x": 0.427734375,
+          "y": 0.9765625
+        },
+        "bootHorizontalRanges": [
+          [
+            134,
+            165
+          ],
+          [
+            58,
+            79
+          ]
+        ]
+      },
+      {
+        "id": "naginata",
+        "row": 1,
+        "frame": 0,
+        "rgbaSha256": "3bd35f650a7ce35640c4a6d3e73540d11a38da97ecc5e493816e15bb980acf50",
+        "alphaBoundsAbove16": [
+          83,
+          1,
+          210,
+          255
+        ],
+        "maxCellEdgeAlpha": 4,
+        "sourceFootAnchor": {
+          "x": 0.5517578125,
+          "y": 0.99609375
+        },
+        "bootHorizontalRanges": [
+          [
+            165,
+            197
+          ],
+          [
+            90,
+            111
+          ]
+        ]
+      },
+      {
+        "id": "naginata",
+        "row": 1,
+        "frame": 1,
+        "rgbaSha256": "e55b58d79326fbe215d954d8130f2057a4e88e8c6aa2ae538dc4bcaeb718d49e",
+        "alphaBoundsAbove16": [
+          75,
+          1,
+          202,
+          255
+        ],
+        "maxCellEdgeAlpha": 4,
+        "sourceFootAnchor": {
+          "x": 0.5244140625,
+          "y": 0.99609375
+        },
+        "bootHorizontalRanges": [
+          [
+            158,
+            190
+          ],
+          [
+            82,
+            105
+          ]
+        ]
+      },
+      {
+        "id": "naginata",
+        "row": 1,
+        "frame": 2,
+        "rgbaSha256": "9a8a40eb92727af161b16bdd4b44244e258f9b0a21232f9d484d66416bd04191",
+        "alphaBoundsAbove16": [
+          68,
+          1,
+          196,
+          255
+        ],
+        "maxCellEdgeAlpha": 3,
+        "sourceFootAnchor": {
+          "x": 0.498046875,
+          "y": 0.9921875
+        },
+        "bootHorizontalRanges": [
+          [
+            151,
+            184
+          ],
+          [
+            76,
+            97
+          ]
+        ]
+      },
+      {
+        "id": "naginata",
+        "row": 1,
+        "frame": 3,
+        "rgbaSha256": "cdaa9cf7b643109f49d598fbfdf355e049fdb66c0309e5e1f819f73eda09a9a4",
+        "alphaBoundsAbove16": [
+          59,
+          1,
+          188,
+          255
+        ],
+        "maxCellEdgeAlpha": 5,
+        "sourceFootAnchor": {
+          "x": 0.4619140625,
+          "y": 0.99609375
+        },
+        "bootHorizontalRanges": [
+          [
+            141,
+            174
+          ],
+          [
+            67,
+            89
+          ]
+        ]
+      },
+      {
+        "id": "naginata",
+        "row": 1,
+        "frame": 4,
+        "rgbaSha256": "7b2c9782b7418654721fcc20ee45fc3845569402a220b62a81f9fc0c0109b933",
+        "alphaBoundsAbove16": [
+          52,
+          1,
+          182,
+          255
+        ],
+        "maxCellEdgeAlpha": 4,
+        "sourceFootAnchor": {
+          "x": 0.435546875,
+          "y": 0.99609375
+        },
+        "bootHorizontalRanges": [
+          [
+            135,
+            168
+          ],
+          [
+            60,
+            81
+          ]
+        ]
+      },
+      {
+        "id": "naginata",
+        "row": 1,
+        "frame": 5,
+        "rgbaSha256": "1e9389d65c3528f74096dcb4b23025c85a3b7c0de2753899168a6b9561ed231b",
+        "alphaBoundsAbove16": [
+          44,
+          1,
+          176,
+          255
+        ],
+        "maxCellEdgeAlpha": 5,
+        "sourceFootAnchor": {
+          "x": 0.408203125,
+          "y": 0.99609375
+        },
+        "bootHorizontalRanges": [
+          [
+            129,
+            161
+          ],
+          [
+            52,
+            74
+          ]
+        ]
+      },
+      {
+        "id": "monk",
+        "row": 2,
+        "frame": 0,
+        "rgbaSha256": "ceabfbdeb84deba5231534180ec5e38d328c40a91d9244dfd42ed10aca5fa3c7",
+        "alphaBoundsAbove16": [
+          80,
+          9,
+          208,
+          254
+        ],
+        "maxCellEdgeAlpha": 3,
+        "sourceFootAnchor": {
+          "x": 0.5654296875,
+          "y": 0.9921875
+        },
+        "bootHorizontalRanges": [
+          [
+            170,
+            205
+          ],
+          [
+            90,
+            112
+          ]
+        ]
+      },
+      {
+        "id": "monk",
+        "row": 2,
+        "frame": 1,
+        "rgbaSha256": "171653209b73dd77d1982145e1be90878f1b6829011777d635762204d11e71ad",
+        "alphaBoundsAbove16": [
+          72,
+          9,
+          198,
+          255
+        ],
+        "maxCellEdgeAlpha": 3,
+        "sourceFootAnchor": {
+          "x": 0.5322265625,
+          "y": 0.9921875
+        },
+        "bootHorizontalRanges": [
+          [
+            162,
+            196
+          ],
+          [
+            81,
+            104
+          ]
+        ]
+      },
+      {
+        "id": "monk",
+        "row": 2,
+        "frame": 2,
+        "rgbaSha256": "f58febcd8acbc668e23df857766fca275b03ea96d3f9469a0737755fee1594df",
+        "alphaBoundsAbove16": [
+          65,
+          9,
+          192,
+          254
+        ],
+        "maxCellEdgeAlpha": 3,
+        "sourceFootAnchor": {
+          "x": 0.505859375,
+          "y": 0.9921875
+        },
+        "bootHorizontalRanges": [
+          [
+            156,
+            190
+          ],
+          [
+            74,
+            96
+          ]
+        ]
+      },
+      {
+        "id": "monk",
+        "row": 2,
+        "frame": 3,
+        "rgbaSha256": "faf83a32a5f7e9964e09d8bb329e802c33fd2bdf5fc0123cf53ba1262343ccdb",
+        "alphaBoundsAbove16": [
+          56,
+          9,
+          185,
+          255
+        ],
+        "maxCellEdgeAlpha": 4,
+        "sourceFootAnchor": {
+          "x": 0.47265625,
+          "y": 0.9921875
+        },
+        "bootHorizontalRanges": [
+          [
+            147,
+            181
+          ],
+          [
+            66,
+            88
+          ]
+        ]
+      },
+      {
+        "id": "monk",
+        "row": 2,
+        "frame": 4,
+        "rgbaSha256": "3e5e5c01435ad4e8591d7227ad48637e9b42a96eeb3ee01fd49e3e27c5ec9599",
+        "alphaBoundsAbove16": [
+          49,
+          10,
+          176,
+          254
+        ],
+        "maxCellEdgeAlpha": 3,
+        "sourceFootAnchor": {
+          "x": 0.4453125,
+          "y": 0.9921875
+        },
+        "bootHorizontalRanges": [
+          [
+            139,
+            173
+          ],
+          [
+            60,
+            82
+          ]
+        ]
+      },
+      {
+        "id": "monk",
+        "row": 2,
+        "frame": 5,
+        "rgbaSha256": "308d0dc499b7ddba26c2bb018a22a87a822599c006c37a24e92a24a6bbec117b",
+        "alphaBoundsAbove16": [
+          46,
+          9,
+          174,
+          255
+        ],
+        "maxCellEdgeAlpha": 3,
+        "sourceFootAnchor": {
+          "x": 0.4326171875,
+          "y": 0.9921875
+        },
+        "bootHorizontalRanges": [
+          [
+            137,
+            171
+          ],
+          [
+            55,
+            78
+          ]
+        ]
+      },
+      {
+        "id": "ninja",
+        "row": 3,
+        "frame": 0,
+        "rgbaSha256": "35fa0620e2aa7a19e3935d04ec7d83d34d863a24a7552f298f4cf52f4f042c26",
+        "alphaBoundsAbove16": [
+          80,
+          13,
+          208,
+          238
+        ],
+        "maxCellEdgeAlpha": 1,
+        "sourceFootAnchor": {
+          "x": 0.560546875,
+          "y": 0.9296875
+        },
+        "bootHorizontalRanges": [
+          [
+            171,
+            207
+          ],
+          [
+            86,
+            108
+          ]
+        ]
+      },
+      {
+        "id": "ninja",
+        "row": 3,
+        "frame": 1,
+        "rgbaSha256": "d41f40ab2797230e3af6cdd8daa2503deb6ef2c66628c2179bc543a4349e91ec",
+        "alphaBoundsAbove16": [
+          75,
+          13,
+          203,
+          238
+        ],
+        "maxCellEdgeAlpha": 1,
+        "sourceFootAnchor": {
+          "x": 0.53515625,
+          "y": 0.9296875
+        },
+        "bootHorizontalRanges": [
+          [
+            166,
+            201
+          ],
+          [
+            78,
+            101
+          ]
+        ]
+      },
+      {
+        "id": "ninja",
+        "row": 3,
+        "frame": 2,
+        "rgbaSha256": "dedfbdafb3ac8814937615959df1e89581239c37865fa3ecbb85f47b0ab33d8c",
+        "alphaBoundsAbove16": [
+          69,
+          12,
+          195,
+          239
+        ],
+        "maxCellEdgeAlpha": 1,
+        "sourceFootAnchor": {
+          "x": 0.5048828125,
+          "y": 0.9296875
+        },
+        "bootHorizontalRanges": [
+          [
+            159,
+            193
+          ],
+          [
+            70,
+            93
+          ]
+        ]
+      },
+      {
+        "id": "ninja",
+        "row": 3,
+        "frame": 3,
+        "rgbaSha256": "85bc4221853f56a72326f504daa7cbf649532907de256694e1dfd93e430d70d1",
+        "alphaBoundsAbove16": [
+          60,
+          13,
+          186,
+          239
+        ],
+        "maxCellEdgeAlpha": 1,
+        "sourceFootAnchor": {
+          "x": 0.4716796875,
+          "y": 0.9296875
+        },
+        "bootHorizontalRanges": [
+          [
+            149,
+            184
+          ],
+          [
+            63,
+            85
+          ]
+        ]
+      },
+      {
+        "id": "ninja",
+        "row": 3,
+        "frame": 4,
+        "rgbaSha256": "0e7748c2f84fdc6af9ed018d4182c05d24387351cc8ee6ac99f9df54e9edb4d1",
+        "alphaBoundsAbove16": [
+          53,
+          13,
+          178,
+          239
+        ],
+        "maxCellEdgeAlpha": 1,
+        "sourceFootAnchor": {
+          "x": 0.4443359375,
+          "y": 0.9296875
+        },
+        "bootHorizontalRanges": [
+          [
+            143,
+            177
+          ],
+          [
+            55,
+            78
+          ]
+        ]
+      },
+      {
+        "id": "ninja",
+        "row": 3,
+        "frame": 5,
+        "rgbaSha256": "2a39c95b5464fbdbc9bbb385112951c5c1e83214c0eeb9b179e0fcdb4fe1f692",
+        "alphaBoundsAbove16": [
+          49,
+          13,
+          174,
+          239
+        ],
+        "maxCellEdgeAlpha": 1,
+        "sourceFootAnchor": {
+          "x": 0.4248046875,
+          "y": 0.9296875
+        },
+        "bootHorizontalRanges": [
+          [
+            138,
+            172
+          ],
+          [
+            50,
+            73
+          ]
+        ]
+      }
+    ],
+    "note": "Generative source has varying in-cell registration; frameAnchors are required for stable foot placement. Source sprite content is unchanged. Subtle pose differences are authored raster frames rather than skeleton animation."
+  }
+}

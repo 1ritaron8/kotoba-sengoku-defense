@@ -1,0 +1,17 @@
+{
+  "tool": "built-in image_gen",
+  "prompt": "Use case: photorealistic-natural.\nAsset type: production game PBR BASE COLOR / ALBEDO material texture atlas, one square opaque image, target 2048 x 2048 pixels.\nPrimary request: An EXACT 2 columns by 2 rows atlas of FOUR equally sized square texture quadrants, each filling its complete quadrant. The only divisions are abrupt material changes precisely at 50% horizontal and 50% vertical. NO gutters, padding, borders, frames, labels, seams between quadrants, text or objects. No perspective: orthographic perpendicular close-up surfaces. Each quadrant must be independently seamless/repeatable at its own outer edges, with uniform scale and neutral flat illumination.\nTOP LEFT (x0–50%, y0–50%): authentic blue-black/near-black lacquered wrought iron base color suitable for Sengoku Japanese do armor. Fine uneven age scratches, rubbed lacquer, tiny pitting and subtle worn iron grain; subdued realistic variation; flat uninterrupted material surface with no plates, rivets, edges or armor object.\nTOP RIGHT (x50–100%, y0–50%): washed light NEUTRAL GREY hemp/ramie cloth albedo, authentic visibly irregular woven threads, subtle short frayed fibres and tiny traces of dust. Uniform pale grey suitable for shader tinting, no blue dye, folds or fabric drape. Flat uninterrupted weave.\nBOTTOM LEFT (x0–50%, y50–100%): dark warm brown weathered oiled cowhide albedo for straps/scabbards. Dense natural matte leather grain, fine irregular micro-cracks and restrained wear; uniform leather field, no strap edges or stitching or complete objects.\nBOTTOM RIGHT (x50–100%, y50–100%): neutral warm tan adult East Asian Japanese SKIN ALBEDO TEXTURE ONLY. Dense fine natural pores, subtle sparse freckles and tiny warm/cool color variations, realistic skin with no makeup. Flat anonymous skin material field, no face, eye, nose, lips, wrinkles outlining facial features, fingers or body parts.\nLighting and constraints: true diffuse/albedo appearance under soft flat neutral illumination, no baked directional lighting, gradients, cast shadows, ambient occlusion, specular glints, shiny reflections, rim lighting, vignette or depth of field. Fine physical surface detail, NOT cartoon/stylized or plastic/smooth. Keep all four material tiles as a single raw 2x2 atlas image.",
+  "source": "C:/Users/Playdata/.codex/generated_images/01a0ffd4-ffb3-7191-bfc8-aa826a75c934/exec-9c6c8764-601d-4bae-8cd2-ccc0a0db1ebd.png",
+  "destination": "C:/JP_DF/assets/materials/sengoku/surface-atlas-v1.png",
+  "transparent_background": false,
+  "layout": {
+    "columns": 2,
+    "rows": 2,
+    "quadrants": [
+      "lacquered iron",
+      "neutral hemp/ramie",
+      "oiled cowhide",
+      "skin albedo"
+    ]
+  }
+}

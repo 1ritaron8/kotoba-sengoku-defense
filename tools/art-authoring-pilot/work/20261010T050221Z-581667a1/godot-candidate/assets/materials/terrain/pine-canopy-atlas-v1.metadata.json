@@ -1,0 +1,29 @@
+{
+  "asset": "pine-canopy-atlas-v1.png",
+  "type": "RGBA foliage material atlas",
+  "dimensions": [
+    1254,
+    1254
+  ],
+  "provenance": "Generated for this project using the built-in image_gen imagegen tool.",
+  "sourcePhoto": "none",
+  "sourceFileCopiedUnmodified": true,
+  "sha256": "0e9b0d3f620b8d015fffebf269599235cc21798accef4da576ebf60a7d46ed80",
+  "tool": "image_gen.imagegen",
+  "transparent_background": true,
+  "prompt": "Use case: photorealistic-natural. Asset type: realistic 3D game foliage material atlas, actual transparent background RGBA. Create a square atlas containing FOUR clearly separate Japanese black pine (Pinus thunbergii) foliage branch clusters, one fully contained in each quadrant, with broad clear transparent gutters. Each cluster is a dense, natural, irregular umbrella-shaped bough: masses of deep moss-green pine needle bundles on subtle dark brown twigs. Different shapes and viewpoints: upper-left viewed obliquely from above, upper-right side bough, lower-left spreading horizontal tuft, lower-right small rounded tuft. Photographically realistic botanical foliage, clean neutral overcast soft illumination, intrinsic surface colour suitable for a physically lit game mesh, no sunlight baking or directional shadow. Needles are dense enough to form an opaque organic crown with many detailed uneven edges, not a sparse sapling. Thin natural gaps between needle groups. No trunk, ground, pots, entire tree, background, checkerboard, borders, lettering, captions, numbers or watermarks. Keep all four clumps separate and never cut off at edges. This will be textured onto interlocking irregular 3D foliage mesh clusters sharing terrain and soldier lighting in a historical Sengoku battlefield; avoid stylized cartoon vegetation and artificial geometric cone or sphere silhouettes.",
+  "integration": {
+    "material": "res://native/battlefield_materials.gd:foliage",
+    "geometry": "res://native/battlefield_3d.gd:_foliage_mesh",
+    "billboard": false,
+    "cameraFacing": false,
+    "lighting": "Shared 3D battlefield lights and real shadows",
+    "uvVariants": 4,
+    "transparentGutters": true
+  },
+  "mode": "RGBA",
+  "alphaRange": [
+    0,
+    255
+  ]
+}

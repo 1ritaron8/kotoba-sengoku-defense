@@ -1,0 +1,50 @@
+{
+  "phase": "material-probe-check",
+  "started_utc": "2026-10-10T05:51:50.133695+00:00",
+  "command": [
+    "C:\\JP_DF\\tools\\godot\\Godot_v4.7.2-stable_win64.exe",
+    "--path",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\godot-candidate",
+    "--accessibility",
+    "disabled",
+    "--rendering-method",
+    "gl_compatibility",
+    "--rendering-driver",
+    "opengl3",
+    "--log-file",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\material-probe-check\\godot.log",
+    "--headless",
+    "--check-only",
+    "--resolution",
+    "1440x900",
+    "--script",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\qa_material_probe.gd",
+    "--",
+    "--deadline-unix=1791612968"
+  ],
+  "profile": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\material-probe-check",
+  "protected_before": {
+    "current_candidate_files": 3667,
+    "changed": [],
+    "live137_changed": [],
+    "prepared4_changed": []
+  },
+  "timed_out": false,
+  "script_error": false,
+  "blender": false,
+  "script_sha256_before": "9a02aea4d64baab605c62f59353b5dc16414e4410e283972d484f64830e25445",
+  "pid": 2108,
+  "exit_code": 0,
+  "ended_utc": "2026-10-10T05:51:51.167975+00:00",
+  "wall_seconds": 1.0341073000163306,
+  "protected_after": {
+    "current_candidate_files": 3667,
+    "changed": [],
+    "live137_changed": [],
+    "prepared4_changed": []
+  },
+  "accepted": true,
+  "script_sha256_after": "9a02aea4d64baab605c62f59353b5dc16414e4410e283972d484f64830e25445",
+  "captures": [],
+  "results": []
+}

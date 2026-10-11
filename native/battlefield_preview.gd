@@ -1,6 +1,8 @@
 extends Control
 ## The catalog shows the native battlefield itself, rendered only on changes.
 const Battlefield = preload("res://native/battlefield_3d.gd")
+const WorldAdapter = preload("res://native/battlefield_world_adapter.gd")
+const RemasterVisualScene = preload("res://native/remaster_visual_slice.gd")
 const RenderedArt = preload("res://native/rendered_battlefield_helpers.gd")
 const Presentation = preload("res://native/battlefield_presentation.gd")
 const WORLD_WIDTH: float = 18.5
@@ -19,6 +21,8 @@ var world: Node3D
 var camera: Camera3D
 var battlefield: Node3D
 var sun: DirectionalLight3D
+var fill: DirectionalLight3D
+var remaster_visuals: Node3D
 var environment: Environment
 var sky_material: ProceduralSkyMaterial
 var pending_refresh: bool = false
@@ -31,6 +35,9 @@ var capturing: bool = false
 var frame_budget_usec: int = Battlefield.INTERACTIVE_FRAME_BUDGET_USEC
 
 static func _completed_key(value: Dictionary) -> String:
+	if not value.get("worldGeometry",{}).is_empty():
+		var authored_revision: String = FileAccess.get_file_as_string("res://native/remaster_visual_slice.gd").sha256_text()+FileAccess.get_file_as_string("res://native/remaster_surface_materials.gd").sha256_text()
+		return "authored-world-preview-1:"+JSON.stringify(value).sha256_text()+":"+authored_revision
 	return PRESENTATION_CACHE_VERSION+":"+JSON.stringify(value).sha256_text()+":"+RenderedArt.cache_revision()
 
 static func has_cached_stage(value: Dictionary) -> bool:
@@ -96,6 +103,12 @@ func _ready() -> void:
 	sun.directional_shadow_max_distance=90.0
 	sun.directional_shadow_fade_start=1.0
 	world.add_child(sun)
+	fill=DirectionalLight3D.new()
+	fill.rotation_degrees=Vector3(-42,145,0)
+	fill.light_cull_mask=2
+	fill.light_energy=0.0
+	fill.shadow_enabled=false
+	world.add_child(fill)
 	battlefield=Battlefield.new()
 	world.add_child(battlefield)
 	image=TextureRect.new()
@@ -147,12 +160,28 @@ func _refresh() -> void:
 	cache_hit = false
 	building = true
 	viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED
-	var stage_elevation: float = Presentation.elevation_for_stage(requested_stage)
-	var depth: float=WORLD_WIDTH/(float(pixels.x)/float(pixels.y))/sin(deg_to_rad(stage_elevation))
-	camera.size=WORLD_WIDTH
-	camera.position=Vector3(0,30.0,30.0/tan(deg_to_rad(stage_elevation)))
-	camera.look_at(Vector3.ZERO,Vector3.UP)
-	await battlefield.configure_preview(requested_stage,WORLD_WIDTH,depth,stage_elevation,frame_budget_usec)
+	var authored: bool = not requested_stage.get("worldGeometry",{}).is_empty()
+	_select_provider(authored)
+	if authored:
+		battlefield.configure(requested_stage)
+		if not bool(battlefield.diagnostics().get("ready",false)):
+			building=false
+			push_error("Home preview rejected invalid authored Stage01 floor.")
+			return
+		_configure_authored_camera(requested_stage)
+		if is_instance_valid(remaster_visuals):
+			world.remove_child(remaster_visuals)
+			remaster_visuals.queue_free()
+		remaster_visuals=RemasterVisualScene.new()
+		world.add_child(remaster_visuals)
+		remaster_visuals.configure(requested_stage,battlefield)
+	else:
+		var stage_elevation: float = Presentation.elevation_for_stage(requested_stage)
+		var depth: float=WORLD_WIDTH/(float(pixels.x)/float(pixels.y))/sin(deg_to_rad(stage_elevation))
+		camera.size=WORLD_WIDTH
+		camera.position=Vector3(0,30.0,30.0/tan(deg_to_rad(stage_elevation)))
+		camera.look_at(Vector3.ZERO,Vector3.UP)
+		await battlefield.configure_preview(requested_stage,WORLD_WIDTH,depth,stage_elevation,frame_budget_usec)
 	building = false
 	if requested_stage != stage or pending_refresh:
 		pending_refresh=false
@@ -169,10 +198,17 @@ func _refresh() -> void:
 		capturing=true
 		await RenderingServer.frame_post_draw
 		capturing=false
-		if render_key!=next_key or building or not is_visible_in_tree(): return
+		if render_key!=next_key or building or not is_visible_in_tree():
+			# A hidden/interrupted capture has no completed cache image. Allow a
+			# subsequent show/configure to schedule a fresh render instead of
+			# stranding pending_refresh or accepting this incomplete render key.
+			render_key=""
+			pending_refresh=false
+			if is_visible_in_tree(): _request_refresh()
+			return
 		var captured: Image=viewport.get_texture().get_image()
 		if captured!=null and not captured.is_empty():
-			completed_previews[completed_key]={"texture":ImageTexture.create_from_image(captured),"terrain":battlefield.diagnostics()}
+			completed_previews[completed_key]={"texture":ImageTexture.create_from_image(captured),"terrain":_terrain_diagnostics()}
 			completed_order.erase(completed_key)
 			completed_order.append(completed_key)
 			while completed_order.size()>COMPLETED_PREVIEW_LIMIT: completed_previews.erase(completed_order.pop_front())
@@ -181,6 +217,15 @@ func _refresh() -> void:
 			_request_refresh()
 
 func _configure_lighting() -> void:
+	if is_instance_valid(remaster_visuals):
+		remaster_visuals.apply_lighting(self)
+		return
+	# Restore the existing preview lighting if this control switches from an
+	# authored world back to a legacy stage during the same app session.
+	fill.light_energy=0.0
+	environment.ambient_light_source=Environment.AMBIENT_SOURCE_SKY
+	sun.shadow_bias=.10
+	sun.shadow_normal_bias=.80
 	if visual_profiles.is_empty():
 		var parsed=JSON.parse_string(FileAccess.get_file_as_string("res://native/visual_profiles.json"))
 		if parsed is Dictionary:
@@ -204,5 +249,35 @@ func _configure_lighting() -> void:
 	sky_material.sky_horizon_color=Color("566477") if actual_time=="night" else ambient*.75
 	sky_material.ground_horizon_color=Color("202723") if actual_time=="night" else Color(.37,.35,.28)
 
+func _select_provider(authored: bool) -> void:
+	if is_instance_valid(battlefield) and ((authored and battlefield is WorldAdapter) or (not authored and battlefield is Battlefield)): return
+	if is_instance_valid(remaster_visuals):
+		world.remove_child(remaster_visuals)
+		remaster_visuals.queue_free()
+		remaster_visuals=null
+	if is_instance_valid(battlefield):
+		world.remove_child(battlefield)
+		battlefield.queue_free()
+	battlefield=WorldAdapter.new() if authored else Battlefield.new()
+	world.add_child(battlefield)
+
+func _configure_authored_camera(value: Dictionary) -> void:
+	# Same authored camera as play. Only viewport aspect differs; world bounds
+	# and camera width are never stretched to fit a menu thumbnail.
+	var geometry: Dictionary=value.worldGeometry
+	var settings: Dictionary=geometry.get("camera",{})
+	var bounds: Dictionary=geometry.simulationBounds
+	var target_values: Array=settings.get("worldTarget",[float(bounds.x)+float(bounds.width)*.5,0.0,float(bounds.z)+float(bounds.depth)*.5])
+	var target:=Vector3(float(target_values[0]),float(target_values[1]),float(target_values[2]))
+	var elevation: float=float(settings.get("elevationDegrees",ELEVATION))
+	camera.size=float(settings.get("size",WORLD_WIDTH))
+	camera.position=target+Vector3(0,30.0,30.0/tan(deg_to_rad(elevation)))
+	camera.look_at(target,Vector3.UP)
+
+func _terrain_diagnostics() -> Dictionary:
+	var details: Dictionary=battlefield.diagnostics() if is_instance_valid(battlefield) else {}
+	if is_instance_valid(remaster_visuals): details["remasterVisuals"]=remaster_visuals.diagnostics()
+	return details
+
 func diagnostics() -> Dictionary:
-	return {"stageId":str(stage.get("id","")),"nativeBattlefield":is_instance_valid(battlefield),"static":true,"processing":is_processing(),"mouseIgnore":mouse_filter==Control.MOUSE_FILTER_IGNORE,"renderRequests":render_requests,"viewportSize":viewport.size if viewport!=null else Vector2i.ZERO,"updateMode":viewport.render_target_update_mode if viewport!=null else SubViewport.UPDATE_DISABLED,"worldWidth":WORLD_WIDTH,"elevation":Presentation.elevation_for_stage(stage),"frameBudgetUsec":Battlefield.preview_frame_budget(frame_budget_usec),"loading":is_loading(),"cacheHit":cache_hit,"cachedPreviewCount":completed_previews.size(),"terrain":cached_terrain.duplicate(true) if cache_hit else (battlefield.diagnostics() if is_instance_valid(battlefield) else {})}
+	return {"stageId":str(stage.get("id","")),"nativeBattlefield":is_instance_valid(battlefield),"authoredWorld":not stage.get("worldGeometry",{}).is_empty(),"static":true,"processing":is_processing(),"mouseIgnore":mouse_filter==Control.MOUSE_FILTER_IGNORE,"renderRequests":render_requests,"viewportSize":viewport.size if viewport!=null else Vector2i.ZERO,"updateMode":viewport.render_target_update_mode if viewport!=null else SubViewport.UPDATE_DISABLED,"worldWidth":camera.size if camera!=null else WORLD_WIDTH,"elevation":float(stage.get("worldGeometry",{}).get("camera",{}).get("elevationDegrees",Presentation.elevation_for_stage(stage))),"frameBudgetUsec":Battlefield.preview_frame_budget(frame_budget_usec),"loading":is_loading(),"cacheHit":cache_hit,"cachedPreviewCount":completed_previews.size(),"terrain":cached_terrain.duplicate(true) if cache_hit else _terrain_diagnostics()}

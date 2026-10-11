@@ -1,0 +1,307 @@
+{
+  "roots": {
+    "Broadleaf_A": {
+      "min": [
+        -1.3602104187011719,
+        -0.006879693828523159,
+        -1.5659453868865967
+      ],
+      "max": [
+        1.4512022733688354,
+        3.0999999046325684,
+        1.52500581741333
+      ],
+      "size": [
+        2.8114126920700073,
+        3.1068795984610915,
+        3.0909512042999268
+      ],
+      "triangles": 7570,
+      "mesh_nodes": 1,
+      "material_names": [
+        "Broadleaf_Bark_ImagePBR",
+        "Broadleaf_LeafScale_ImagePBR_OPAQUE"
+      ]
+    },
+    "Broadleaf_B": {
+      "min": [
+        -1.442274570465088,
+        -0.007626516278833151,
+        -1.3803105354309082
+      ],
+      "max": [
+        1.630405306816101,
+        2.7200000286102295,
+        1.6041560173034668
+      ],
+      "size": [
+        3.072679877281189,
+        2.7276265448890626,
+        2.984466552734375
+      ],
+      "triangles": 7442,
+      "mesh_nodes": 1,
+      "material_names": [
+        "Broadleaf_Bark_ImagePBR",
+        "Broadleaf_LeafScale_ImagePBR_OPAQUE"
+      ]
+    },
+    "Broadleaf_C": {
+      "min": [
+        -1.363138198852539,
+        -0.006486194673925638,
+        -1.3598048686981201
+      ],
+      "max": [
+        1.183487057685852,
+        3.3499999046325684,
+        1.367613434791565
+      ],
+      "size": [
+        2.546625256538391,
+        3.356486099306494,
+        2.727418303489685
+      ],
+      "triangles": 7502,
+      "mesh_nodes": 1,
+      "material_names": [
+        "Broadleaf_Bark_ImagePBR",
+        "Broadleaf_LeafScale_ImagePBR_OPAQUE"
+      ]
+    },
+    "Shrub_A": {
+      "min": [
+        -0.6796634793281555,
+        -0.007422243244946003,
+        -0.6315412521362305
+      ],
+      "max": [
+        0.6200164556503296,
+        0.8600000143051147,
+        0.5694313049316406
+      ],
+      "size": [
+        1.299679934978485,
+        0.8674222575500607,
+        1.200972557067871
+      ],
+      "triangles": 4056,
+      "mesh_nodes": 1,
+      "material_names": [
+        "Broadleaf_Bark_ImagePBR",
+        "Broadleaf_LeafScale_ImagePBR_OPAQUE"
+      ]
+    },
+    "Shrub_B": {
+      "min": [
+        -0.7547119855880737,
+        -0.006193585693836212,
+        -0.6522794365882874
+      ],
+      "max": [
+        0.7471935749053955,
+        1.0800000429153442,
+        0.6520503759384155
+      ],
+      "size": [
+        1.5019055604934692,
+        1.0861936286091805,
+        1.3043298125267029
+      ],
+      "triangles": 3996,
+      "mesh_nodes": 1,
+      "material_names": [
+        "Broadleaf_Bark_ImagePBR",
+        "Broadleaf_LeafScale_ImagePBR_OPAQUE"
+      ]
+    },
+    "FiringPad": {
+      "min": [
+        -1.9075499773025513,
+        -0.03200160712003708,
+        -1.6302130222320557
+      ],
+      "max": [
+        1.9447917938232422,
+        0.9446264505386353,
+        1.660566806793213
+      ],
+      "size": [
+        3.8523417711257935,
+        0.9766280576586723,
+        3.2907798290252686
+      ],
+      "triangles": 1600,
+      "mesh_nodes": 1,
+      "material_names": [
+        "CompactedDirt_ImagePBR",
+        "DryStone_ImagePBR",
+        "WeatheredPalisade_ImagePBR"
+      ]
+    },
+    "Palisade": {
+      "min": [
+        -1.6516711711883545,
+        -0.0007323634345084429,
+        -0.08699999749660492
+      ],
+      "max": [
+        1.6516711711883545,
+        1.0454273223876953,
+        0.047747574746608734
+      ],
+      "size": [
+        3.303342342376709,
+        1.0461596858222038,
+        0.13474757224321365
+      ],
+      "triangles": 764,
+      "mesh_nodes": 1,
+      "material_names": [
+        "WeatheredPalisade_ImagePBR"
+      ]
+    },
+    "GroundSample": {
+      "min": [
+        -3.0,
+        -0.00796861294656992,
+        -2.0
+      ],
+      "max": [
+        3.0,
+        0.007927984930574894,
+        2.0
+      ],
+      "size": [
+        6.0,
+        0.015896597877144814,
+        4.0
+      ],
+      "triangles": 768,
+      "mesh_nodes": 1,
+      "material_names": [
+        "BakedDirtGrassLitter_ImagePBR"
+      ],
+      "uv_span": [
+        1.0,
+        1.0
+      ],
+      "uv_cycles_per_world_unit": [
+        0.16666666666666666,
+        0.25
+      ]
+    }
+  },
+  "trees": {
+    "woodland-trunk-07": {
+      "asset": "Broadleaf_A",
+      "scale": 0.6359049127550997,
+      "yaw_degrees": 74.0,
+      "anchor_xz": [
+        -5.97,
+        -2.76
+      ],
+      "target_height": 1.9756799999999999
+    },
+    "woodland-trunk-08": {
+      "asset": "Broadleaf_B",
+      "scale": 0.880688745496023,
+      "yaw_degrees": 157.0,
+      "anchor_xz": [
+        -5.36,
+        -2.36
+      ],
+      "target_height": 2.4021900000000005
+    },
+    "woodland-trunk-09": {
+      "asset": "Broadleaf_C",
+      "scale": 0.4392093267731972,
+      "yaw_degrees": 240.0,
+      "anchor_xz": [
+        -5.56,
+        -3.19
+      ],
+      "target_height": 1.4742
+    },
+    "woodland-trunk-10": {
+      "asset": "Broadleaf_A",
+      "scale": 0.7648703223572184,
+      "yaw_degrees": 111.0,
+      "anchor_xz": [
+        -4.2,
+        -3.56
+      ],
+      "target_height": 2.3763600000000005
+    },
+    "woodland-trunk-11": {
+      "asset": "Broadleaf_B",
+      "scale": 0.5612571863507305,
+      "yaw_degrees": 194.0,
+      "anchor_xz": [
+        -3.59,
+        -3.16
+      ],
+      "target_height": 1.5309
+    },
+    "woodland-trunk-12": {
+      "asset": "Broadleaf_C",
+      "scale": 0.5497624436404678,
+      "yaw_degrees": 277.0,
+      "anchor_xz": [
+        -3.79,
+        -3.99
+      ],
+      "target_height": 1.84527
+    }
+  },
+  "shrubs": {
+    "grouped-understory-02": {
+      "asset": "Shrub_A",
+      "scale": 0.5533637116434013,
+      "yaw_degrees": 0,
+      "anchor_xz": [
+        -6.75,
+        -2.04
+      ]
+    },
+    "grouped-understory-03": {
+      "asset": "Shrub_B",
+      "scale": 0.4879424681202006,
+      "yaw_degrees": 41,
+      "anchor_xz": [
+        -5.22,
+        -2.0
+      ]
+    },
+    "grouped-understory-04": {
+      "asset": "Shrub_A",
+      "scale": 0.43807960505102606,
+      "yaw_degrees": 82,
+      "anchor_xz": [
+        -3.45,
+        -2.8
+      ]
+    }
+  },
+  "fence_id": "aligned-stockade-03",
+  "firing_pad": "showcase-only;no provider floor overlay",
+  "ground_material_source": {
+    "root": "FiringPad",
+    "name": "CompactedDirt_ImagePBR",
+    "requirement": "baked compacted soil/litter base with no road stripe",
+    "uv": "existing soil_uv .31/.40 cycles/world unit;GroundSample transition remains showcase-only"
+  },
+  "fence_source": {
+    "id": "aligned-stockade-03",
+    "a": [
+      -5.2,
+      0.08
+    ],
+    "b": [
+      -6.15,
+      0.18
+    ],
+    "height": 0.94,
+    "occupancyProxy": "aligned-stockade-03"
+  }
+}

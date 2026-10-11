@@ -1,0 +1,1074 @@
+{
+  "task": "BLENDER-ASSET-PRODUCTION-01",
+  "audit_status": "PASS",
+  "created_utc": "2026-10-10T06:06:26.361324+00:00",
+  "functional_status": "PASS",
+  "art_status": "FAIL_FINAL_REFERENCE_MATCH",
+  "scope": "Read-only focused final native evidence audit; no engines, QA-code/product edits, reruns or outbound thread messages; only this result file written.",
+  "evidence": {
+    "final_raw": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\QA_BLENDER_RESULT.json",
+    "final_raw_sha256": "8f9d8191fc09fa89404407ec2fc01a2534215b7a8b76dde03d05c1505f1eebba",
+    "final_receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\correction-game-receipt.json",
+    "first_raw": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\QA_BLENDER_RESULT.json",
+    "first_raw_sha256": "69cfabc9e08e33d23c8661a188eb54ee5bea485c23ceda16c8e62b496797f0be",
+    "asset_freeze": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\ASSET_SOURCE_FREEZE.json",
+    "game_freeze": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\GAME_SOURCE_FREEZE.json",
+    "material_probe": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\material-probe\\material-probe.json",
+    "formal_UX_review": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\UX_BLENDER_VISUAL_REVIEW.json"
+  },
+  "checks": [
+    {
+      "name": "Final native receipt accepted exit0 without script error/timeout",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Final functional320checks0fails0pending",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "First native320checks/captures retained",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "QA script unchanged across both runs and current file",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "All99 frozen authored+isolated critical files raw before/after/current exact",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "All3684 isolated source file hashes still match full HQ freeze",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "Original3667 candidate files remain unchanged",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "Both runner guards preserve original/live137/prepared4",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "One correction changes only isolated GLB/bindings critical files",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "First-pass blend/GLB/images remain unchanged",
+      "pass": true,
+      "detail": {
+        "mismatches": []
+      }
+    },
+    {
+      "name": "Actual8 unique roots and33698 imported triangles",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Actual imported normals/UV/tangents cover all vertices",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Actual imported PBR images all bound",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "All8 showcase common camera and cloned game light/environment",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Mounted6trees3shrubs1palisade/base soil and sole floor preserved",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Both mounted floor meshes shadowOFF across snapshots",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Eligible both-end flags/epoch/clock exclude capture/resize/pause/learning",
+      "pass": true,
+      "detail": {
+        "eligible_rows": 1157,
+        "total_rows": 2532,
+        "violations": []
+      }
+    },
+    {
+      "name": "Eligible clock deltas independently sum to reported40.003890753",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Recomputed frame_ms percentiles agree",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Recomputed shared_gpu_ms percentiles agree",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Recomputed shared_draw_calls percentiles agree",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Eligible stalls>50ms recounted",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "GPU positive/supported for every eligible shared viewport sample",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Actual actor ranges agree",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "14 buttons first press/release/response exactly once",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Both first paid field selections select expected IDs",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Native4card drags and2field-click pairs have no hidden retry",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Paid2archer2spear/both attacks and actual paid damage present",
+      "pass": true,
+      "detail": {
+        "damage_events_by_paid_type": {
+          "spear": 66
+        }
+      }
+    },
+    {
+      "name": "Natural context2quiz1 first answers/returns agree with journals",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Same actual enemy initial offscreen to visible approach captures",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Both paid layouts share native paused clock",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "All22 first/corrected raw PNGs preserved at declared full dimensions",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Formal first-review evidence image hashes still preserved",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Actual matched leaf material probe supports no boundary/gamma fix",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "One geometry correction preserves GLB material definitions",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "name": "Both native game logs contain no script/parse/shader/runtime errors,warnings,leak diagnostics",
+      "pass": true,
+      "detail": {
+        "files": 6
+      }
+    }
+  ],
+  "runtime_checks": {
+    "first": 320,
+    "correction": 320,
+    "failures": [],
+    "pending": []
+  },
+  "source": {
+    "authored_frozen": 34,
+    "isolated_critical": 65,
+    "combined_raw_before_after": 99,
+    "full_isolated_hash_count": 3684,
+    "original_candidate_unchanged": true,
+    "qa_sha256": "9e3f3134c2aa135b9c955a760558a337186577aa96046096b04eace9b04b7f98",
+    "isolated_correction_critical_changes": [
+      "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/godot-candidate/assets/blender-pilot/asset.glb",
+      "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/godot-candidate/assets/blender-pilot/bindings.json"
+    ],
+    "historical_authoring_tool_paths_updated_in_authorized_correction": [
+      "C:/JP_DF/tools/art-authoring-pilot/produce_assets.py",
+      "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/integrate_assets.py"
+    ],
+    "historical_artifact_hash_mismatches": [],
+    "note": "First-pass asset files and evidence preserved; producer/integration tool paths were updated for the single authorized correction and are not falsely described as matching their historical hashes."
+  },
+  "imported_assets": [
+    {
+      "root": "Broadleaf_A",
+      "triangles": 7570,
+      "vertices": 21208,
+      "normals": 21208,
+      "UV": 21208,
+      "tangents": 21208,
+      "actual_bounds": {
+        "max": "(1.451202, 3.1, 1.525006)",
+        "min": "(-1.36021, -0.00688, -1.565945)",
+        "size": "(2.811413, 3.10688, 3.090951)"
+      },
+      "surfaces": 2
+    },
+    {
+      "root": "Broadleaf_B",
+      "triangles": 7442,
+      "vertices": 20819,
+      "normals": 20819,
+      "UV": 20819,
+      "tangents": 20819,
+      "actual_bounds": {
+        "max": "(1.630405, 2.72, 1.604156)",
+        "min": "(-1.442275, -0.007627, -1.380311)",
+        "size": "(3.07268, 2.727627, 2.984467)"
+      },
+      "surfaces": 2
+    },
+    {
+      "root": "Broadleaf_C",
+      "triangles": 7502,
+      "vertices": 21011,
+      "normals": 21011,
+      "UV": 21011,
+      "tangents": 21011,
+      "actual_bounds": {
+        "max": "(1.183487, 3.35, 1.367614)",
+        "min": "(-1.363138, -0.006486, -1.359805)",
+        "size": "(2.546625, 3.356486, 2.727418)"
+      },
+      "surfaces": 2
+    },
+    {
+      "root": "Shrub_A",
+      "triangles": 4056,
+      "vertices": 11216,
+      "normals": 11216,
+      "UV": 11216,
+      "tangents": 11216,
+      "actual_bounds": {
+        "max": "(0.620017, 0.86, 0.569431)",
+        "min": "(-0.679663, -0.007422, -0.631541)",
+        "size": "(1.29968, 0.867422, 1.200973)"
+      },
+      "surfaces": 2
+    },
+    {
+      "root": "Shrub_B",
+      "triangles": 3996,
+      "vertices": 11040,
+      "normals": 11040,
+      "UV": 11040,
+      "tangents": 11040,
+      "actual_bounds": {
+        "max": "(0.747194, 1.08, 0.65205)",
+        "min": "(-0.754712, -0.006194, -0.652279)",
+        "size": "(1.501906, 1.086194, 1.30433)"
+      },
+      "surfaces": 2
+    },
+    {
+      "root": "FiringPad",
+      "triangles": 1600,
+      "vertices": 3292,
+      "normals": 3292,
+      "UV": 3292,
+      "tangents": 3292,
+      "actual_bounds": {
+        "max": "(1.944792, 0.944626, 1.660567)",
+        "min": "(-1.90755, -0.032002, -1.630213)",
+        "size": "(3.852342, 0.976628, 3.29078)"
+      },
+      "surfaces": 3
+    },
+    {
+      "root": "Palisade",
+      "triangles": 764,
+      "vertices": 821,
+      "normals": 821,
+      "UV": 821,
+      "tangents": 821,
+      "actual_bounds": {
+        "max": "(1.651671, 1.045427, 0.047748)",
+        "min": "(-1.651671, -0.000732, -0.087)",
+        "size": "(3.303342, 1.04616, 0.134748)"
+      },
+      "surfaces": 1
+    },
+    {
+      "root": "GroundSample",
+      "triangles": 768,
+      "vertices": 425,
+      "normals": 425,
+      "UV": 425,
+      "tangents": 425,
+      "actual_bounds": {
+        "max": "(3.0, 0.007928, 2.0)",
+        "min": "(-3.0, -0.007969, -2.0)",
+        "size": "(6.0, 0.015897, 4.0)"
+      },
+      "surfaces": 1
+    }
+  ],
+  "GLB_total_triangles": 33698,
+  "mounted_representative": {
+    "trees": 6,
+    "shrubs": 3,
+    "palisades": 1,
+    "imported_instance_triangles": 57900,
+    "base_soil_bound": true,
+    "sole_provider_floor_preserved": true,
+    "physical_stage_bytes_unchanged": true,
+    "full_FiringPad_and_GroundSample": "Showcase-only, never gameplay floor overlay or global baked road tiling."
+  },
+  "showcase": {
+    "camera": {
+      "position": "(-0.25, 30.45, 30.81591)",
+      "projection": 1,
+      "rotation_degrees": "(-44.0, 0.0, 0.0)",
+      "size": 23.5
+    },
+    "context_receiver": {
+      "UV_cycles_per_world_unit": 0.31,
+      "cast_shadow": 0,
+      "material": "cloned imported CompactedDirt_ImagePBR",
+      "name": "QA_ShowcaseOnly_ContactShadowReceiver",
+      "scope": "QA-only contact-shadow display receiver; no gameplay floor change",
+      "size": [
+        20,
+        14
+      ],
+      "y": -0.03
+    },
+    "environment": {
+      "ambient_light_color": "(0.6745, 0.7176, 0.7059, 1.0)",
+      "ambient_light_energy": 0.680000007152557,
+      "glow_enabled": true,
+      "ssao_enabled": true,
+      "tonemap_exposure": 1.0,
+      "tonemap_mode": 3
+    },
+    "game_clock": 0.719835666666669,
+    "modules": [
+      {
+        "origin": "(-7.5, 0.0, -2.5)",
+        "origin_xyz": [
+          -7.5,
+          0.0,
+          -2.5
+        ],
+        "preserved_export_transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]",
+        "root": "Broadleaf_A"
+      },
+      {
+        "origin": "(-2.5, 0.0, -2.5)",
+        "origin_xyz": [
+          -2.5,
+          0.0,
+          -2.5
+        ],
+        "preserved_export_transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]",
+        "root": "Broadleaf_B"
+      },
+      {
+        "origin": "(2.5, 0.0, -2.5)",
+        "origin_xyz": [
+          2.5,
+          0.0,
+          -2.5
+        ],
+        "preserved_export_transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]",
+        "root": "Broadleaf_C"
+      },
+      {
+        "origin": "(7.5, 0.0, -2.5)",
+        "origin_xyz": [
+          7.5,
+          0.0,
+          -2.5
+        ],
+        "preserved_export_transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]",
+        "root": "Shrub_A"
+      },
+      {
+        "origin": "(-7.5, 0.0, 2.5)",
+        "origin_xyz": [
+          -7.5,
+          0.0,
+          2.5
+        ],
+        "preserved_export_transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]",
+        "root": "Shrub_B"
+      },
+      {
+        "origin": "(-2.5, 0.0, 2.5)",
+        "origin_xyz": [
+          -2.5,
+          0.0,
+          2.5
+        ],
+        "preserved_export_transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]",
+        "root": "FiringPad"
+      },
+      {
+        "origin": "(2.5, 0.0, 2.5)",
+        "origin_xyz": [
+          2.5,
+          0.0,
+          2.5
+        ],
+        "preserved_export_transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]",
+        "root": "Palisade"
+      },
+      {
+        "origin": "(7.5, 0.0, 2.5)",
+        "origin_xyz": [
+          7.5,
+          0.0,
+          2.5
+        ],
+        "preserved_export_transform": "[X: (1.0, 0.0, 0.0), Y: (0.0, 1.0, 0.0), Z: (0.0, 0.0, 1.0), O: (0.0, 0.0, 0.0)]",
+        "root": "GroundSample"
+      }
+    ],
+    "scope": "Isolated original-scale asset library only; FiringPad/GroundSample full mesh never overlays gameplay floor",
+    "source_environment_cloned": true,
+    "source_sun_cloned": true
+  },
+  "metrics": {
+    "eligible_seconds": 40.0038907532463,
+    "eligible_clock_delta_sum_recomputed": 40.0038907532463,
+    "eligible_samples": 1157,
+    "total_rows": 2532,
+    "exclusion_violations": [],
+    "exclusion_reason_counts": {
+      "not_natural_combat_at_both_endpoints": 1375,
+      "measurement_epoch_changed_between_observations": 18,
+      "capture_resize_or_layout_interval": 32,
+      "combat_clock_not_advanced": 234
+    },
+    "recomputed": {
+      "frame_ms": {
+        "samples": 1157,
+        "p50": 32.082,
+        "p95": 62.673,
+        "p99": 81.036,
+        "max": 231.366
+      },
+      "shared_gpu_ms": {
+        "samples": 1157,
+        "p50": 18.5459995269775,
+        "p95": 25.2310009002686,
+        "p99": 31.8330001831055,
+        "max": 75.8960037231445
+      },
+      "shared_draw_calls": {
+        "samples": 1157,
+        "p50": 460,
+        "p95": 484,
+        "p99": 488,
+        "max": 492
+      }
+    },
+    "stalls_over50ms": 115,
+    "actor_ranges": {
+      "actor_nodes_min": 5,
+      "actor_nodes_max": 16,
+      "ally_count_min": 3,
+      "ally_count_max": 4,
+      "enemy_count_min": 1,
+      "enemy_count_max": 12
+    },
+    "limits": "Both logged endpoints/epochs and clock deltas audited; screenshots/resize/pause/learning excluded. Showcase occurs before native monitor starts. Shared viewport GPU API is asynchronous and lacks per-frame ID; not whole-app GPU time. No full60FPS acceptance."
+  },
+  "first_vs_correction": {
+    "first_eligible_seconds": 43.2331121111111,
+    "first_metrics": {
+      "actor_nodes_max": 15,
+      "actor_nodes_min": 5,
+      "ally_count_max": 4,
+      "ally_count_min": 3,
+      "enemy_count_max": 11,
+      "enemy_count_min": 1,
+      "frame_ms": {
+        "max": 231.936,
+        "mean": 33.8328697017268,
+        "p50": 32.161,
+        "p95": 60.528,
+        "p99": 83.766,
+        "samples": 1274
+      },
+      "shared_draw_calls": {
+        "max": 488,
+        "mean": 462.464678178964,
+        "p50": 460,
+        "p95": 484,
+        "p99": 488,
+        "samples": 1274
+      },
+      "shared_gpu_ms": {
+        "max": 79.5630035400391,
+        "mean": 20.0746099181602,
+        "p50": 18.4820003509521,
+        "p95": 28.9500007629395,
+        "p99": 37.9959983825684,
+        "samples": 1274
+      },
+      "stalls_over50ms": 98
+    },
+    "correction_eligible_seconds": 40.0038907532463,
+    "correction_metrics": {
+      "frame_ms": {
+        "samples": 1157,
+        "p50": 32.082,
+        "p95": 62.673,
+        "p99": 81.036,
+        "max": 231.366
+      },
+      "shared_gpu_ms": {
+        "samples": 1157,
+        "p50": 18.5459995269775,
+        "p95": 25.2310009002686,
+        "p99": 31.8330001831055,
+        "max": 75.8960037231445
+      },
+      "shared_draw_calls": {
+        "samples": 1157,
+        "p50": 460,
+        "p95": 484,
+        "p99": 488,
+        "max": 492
+      }
+    },
+    "correction_stalls_over50ms": 115,
+    "scope": "Qualitative only: different sample lengths, natural enemy mix, machine scheduling; no matched-condition improvement percentage or causal performance claim."
+  },
+  "interaction": {
+    "button_tokens": [
+      {
+        "token": "1:132154133959",
+        "note": "Asset actual Home sortie",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "2:147589172924",
+        "note": "Asset actual canonical stage",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "3:154836930407",
+        "note": "Asset actual catalog sortie",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "4:175607124017",
+        "note": "Asset actual briefing 출진",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "5:80463529841",
+        "note": "Actual pause before isolated asset showcase",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "6:80463529841",
+        "note": "Actual resume after isolated asset showcase",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "7:80463529841",
+        "note": "Native pause for asset paid layouts",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "8:80463529841",
+        "note": "Native resume after asset paid layouts",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "9:304573582751",
+        "note": "Actual natural LearningTarget answerId",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "10:90664077582",
+        "note": "Actual natural context continue",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "11:377185373001",
+        "note": "Actual natural quiz correct choice",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "12:378057789521",
+        "note": "Actual natural quiz continue",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "13:453555261778",
+        "note": "Actual natural LearningTarget answerId",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      },
+      {
+        "token": "14:90664077582",
+        "note": "Actual natural context continue",
+        "pressed": 1,
+        "delta": 1,
+        "pass": true
+      }
+    ],
+    "field_selection": [
+      {
+        "accepted": true,
+        "after_id": 2,
+        "before_id": 5,
+        "clock": 14.1608293333333,
+        "expected_paid_id": 2,
+        "first_attempt": true,
+        "point": "(599.4894, 374.9508)",
+        "selected_HUD": {
+          "text": "병영 Lv.1\n공격 17 / 초당 19.4",
+          "visible": true
+        },
+        "type": "archer"
+      },
+      {
+        "accepted": true,
+        "after_id": 4,
+        "before_id": 2,
+        "clock": 14.2912646666667,
+        "expected_paid_id": 4,
+        "first_attempt": true,
+        "point": "(982.8687, 363.7669)",
+        "selected_HUD": {
+          "text": "병영 Lv.1\n공격 16 / 초당 26.7",
+          "visible": true
+        },
+        "type": "spear"
+      }
+    ],
+    "paid_produced": {
+      "archer": 2,
+      "spear": 2
+    },
+    "paid_attack_types": [
+      "archer",
+      "spear"
+    ],
+    "paid_damage_events_by_type": {
+      "spear": 66
+    },
+    "context_returns": 2,
+    "quiz_returns": 1,
+    "second_click_workaround": false
+  },
+  "ingress": {
+    "same_enemy_id": "1",
+    "first_body_clock": 3.00885,
+    "first_body_delay_frames": 0,
+    "entry_clock": 10.0405736666667,
+    "offscreen_capture_clock": 3.14766433333333,
+    "approach_capture_clock": 14.3190213333333,
+    "max_observed_step": 0.00717342412099242,
+    "scope": "Actual same Game enemy observed at first available rendered body; no expanded all-position occlusion/ray acceptance claim."
+  },
+  "captures": [
+    {
+      "phase": "first",
+      "label": "map-ready-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "6f74af7d7d5d5d8d08a336a27319156720f968552cc45195bf66b4327b667761",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "map-ready-1280x800",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "sha256": "a1f0076acf8d20936c1910ccd74578eebab3df709cd4ac24ba4076fd4ee023a8",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "showcase-all8-common-camera-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-showcase-all8-common-camera-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "e77240c7ba6edd0125883eb4806ba88372b27c1a7b31db2039ab8468750ab71a",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "held-placement-preview-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-held-placement-preview-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "0af22875dd4720fbda96000e2afbdb915ec46d25438d90f9ab3d384175480c81",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "same-enemy-2-offscreen-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-same-enemy-2-offscreen-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "eba57348a72916bcf3e194f042a383ccc0f384bd71ef3ed16c989474f76fa24d",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "same-enemy-2-visible-approach-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-same-enemy-2-visible-approach-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "4796266f3a062bbcbbe60b3b6c3ebc85045a7197e4942dee5e7886b22ffa31a2",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "paid-battle-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "6d8516bff437acb1625ed699c3db45d5ac0018147081af55652f427923416576",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "paid-battle-1280x800",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "sha256": "c4ddbc5c08a9c8a06ea8152db0b646e0a8c7d1e0a086f66f351a29c7d44ba615",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "natural-context-1440x900-8e6729e5",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-natural-context-1440x900-8e6729e5.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "2480eedf44d3ed9c7ec82cd6456f916c735cceb72350dc9a55662590a11a367f",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "natural-quiz-1440x900-26814c6b",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-natural-quiz-1440x900-26814c6b.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "6dc0dc89cf72fbf6ff6fe296ff1cc46cbc799894a7bd0f9079616d625b855e69",
+      "pass": true
+    },
+    {
+      "phase": "first",
+      "label": "natural-context-1440x900-e062168f",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-natural-context-1440x900-e062168f.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "1451fab10c730094ba59a0416d1f1c4a799b70cd9d18c339558b3114ba555e20",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "map-ready-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "cecaa47cf2ed118cb6654f229d31c7f4b0299e506e31e2f789ca03d683e3a952",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "map-ready-1280x800",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "sha256": "330e734ee3b3172877afa5f099c9d11f3eb1dd2cb691c72e05158fe8b35d18aa",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "showcase-all8-common-camera-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-showcase-all8-common-camera-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "33aae248fa219816fd84db67e12cc0e6cc7140373d56f4b64c5745d60e470d5a",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "held-placement-preview-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-held-placement-preview-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "de991e0aa18a59b26751b4cb75ce695c98b4d4e9d5c83fac8502ddc20fc7f31d",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "same-enemy-1-offscreen-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-same-enemy-1-offscreen-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "719f73fca491227cf8691039b5cf411957a3a2a700a86dc10d3d252a823199a6",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "same-enemy-1-visible-approach-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-same-enemy-1-visible-approach-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "25dc081469ec0b7b9fe142d986fc89cbcb361aad03310ba917224ceb27667212",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "paid-battle-1440x900",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1440x900.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "34c848631da5d374c3726ee72e55ba78316d4d434932caca06045fa6ffcaaffa",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "paid-battle-1280x800",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1280x800.png",
+      "size": [
+        1280,
+        800
+      ],
+      "sha256": "8d3860c91287adbd35f01b6f7cfc6cd33d67605211d5a9fdb158ab514207baf5",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "natural-context-1440x900-2c07cb8c",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-natural-context-1440x900-2c07cb8c.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "2480eedf44d3ed9c7ec82cd6456f916c735cceb72350dc9a55662590a11a367f",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "natural-quiz-1440x900-b5fd84b3",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-natural-quiz-1440x900-b5fd84b3.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "e3c831375e33f82a16bce86a472ccbf2205b13fb4d0589b92cb61bb6f0e18b1f",
+      "pass": true
+    },
+    {
+      "phase": "correction",
+      "label": "natural-context-1440x900-210f8213",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-natural-context-1440x900-210f8213.png",
+      "size": [
+        1440,
+        900
+      ],
+      "sha256": "1451fab10c730094ba59a0416d1f1c4a799b70cd9d18c339558b3114ba555e20",
+      "pass": true
+    }
+  ],
+  "material_probe": {
+    "leaf_max_absolute_channel_difference": {
+      "lit": 0.0004691481590270996,
+      "unlit_common": 0.0003879964351650167,
+      "unlit_neutral": 0.00010618567466696982
+    },
+    "soil_lit_difference_recorded": 0.013575941324233953,
+    "conclusion": "Matched StandardMaterial vs validated output boundary agrees for leaf; no gamma/output compensation justified. Pale native foliage remains an art issue; lighting/material response cause is not fully resolved."
+  },
+  "visual_evidence_observation": {
+    "scope": "QA inspected corrected all8 native showcase only; not an additional formal UX art acceptance review.",
+    "findings": [
+      "Real connected trunks/branches and individual leaves remain visible; corrected crowns cover more middle branches.",
+      "FiringPad has a real bank/side and sparse stones; Palisade central opening and GroundSample visible.",
+      "Native foliage still appears pale; HQ final reference art acceptance is FAIL; not promoted.",
+      "All8 root labels visible, but preserved Main HUD/context text overlays part of the showcase, including Broadleaf_A; diagnostic presentation does not establish unobstructed reference-image parity."
+    ],
+    "review_file_status_at_audit": "PARTIAL; NOT_FINAL_REFERENCE_MATCH; ONE_AUTHORIZED_FORM_CORRECTION_REQUIRED",
+    "final_reference_approval_owner": "USER"
+  },
+  "remaining": [
+    "Pale native leaf appearance unresolved; no gamma compensation authorized by probe.",
+    "Full FiringPad/GroundSample gameplay integration not claimed.",
+    "Inherited1280tooltip issue not closed.",
+    "No full60FPS/all-map/matched-pair acceptance.",
+    "Independent paid archer damage only claimed if present in damage_events_by_type."
+  ],
+  "actions": {
+    "new_engine_launches": 0,
+    "reruns": 0,
+    "QA_code_edits": 0,
+    "product_edits": 0,
+    "outbound_messages": 0,
+    "written_file": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\QA_BLENDER_FINAL_AUDIT.json"
+  },
+  "native_logs": [
+    {
+      "phase": "game",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\godot.log",
+      "bytes": 181,
+      "sha256": "dc452dd8c09fb404c4a7127318ceda85b410063314617a960e5635a52e833e2f",
+      "diagnostic_lines": []
+    },
+    {
+      "phase": "game",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\stdout.log",
+      "bytes": 184,
+      "sha256": "844d7d5ec2713949c3f05ffbc78a1a697fccc2c8c0b1036674523e5aef8d0ff8",
+      "diagnostic_lines": []
+    },
+    {
+      "phase": "game",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "diagnostic_lines": []
+    },
+    {
+      "phase": "game-correction",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\godot.log",
+      "bytes": 181,
+      "sha256": "dc452dd8c09fb404c4a7127318ceda85b410063314617a960e5635a52e833e2f",
+      "diagnostic_lines": []
+    },
+    {
+      "phase": "game-correction",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\stdout.log",
+      "bytes": 184,
+      "sha256": "844d7d5ec2713949c3f05ffbc78a1a697fccc2c8c0b1036674523e5aef8d0ff8",
+      "diagnostic_lines": []
+    },
+    {
+      "phase": "game-correction",
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "diagnostic_lines": []
+    }
+  ],
+  "promotion_status": "NOT_PROMOTED",
+  "art_decision_provenance": {
+    "authority": "HQ latest explicit actual-capture review in delegation",
+    "finding": "New trees remain very pale in both READY layouts, both paid battle layouts and all8showcase; final reference art FAIL; not promoted.",
+    "historical_UX_file_status": "First formal review file remains PARTIAL/oneformcorrection required; it is preserved and not rewritten by QA.",
+    "user_reference_final_approval": "Not claimed"
+  }
+}

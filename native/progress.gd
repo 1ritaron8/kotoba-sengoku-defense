@@ -20,6 +20,7 @@ var stage_names: Dictionary = {}
 var stage_previous: Dictionary = {}
 var stage_lessons: Dictionary = {}
 var vocabulary_ids: Dictionary = {}
+var playable_catalog_available: bool = false
 
 func _init() -> void:
 	var catalog = JSON.parse_string(FileAccess.get_file_as_string("res://native/units.json"))
@@ -28,15 +29,32 @@ func _init() -> void:
 	var heroes = JSON.parse_string(FileAccess.get_file_as_string("res://native/hero_catalog.json"))
 	if heroes is Dictionary:
 		hero_catalog = heroes.get("heroes",[])
+	# Historical identity is independent of playable terrain. Rebuilding an
+	# empty map catalog must not erase campaign receipts or their lesson links.
+	var history = JSON.parse_string(FileAccess.get_file_as_string("res://native/campaign_story.json")) if FileAccess.file_exists("res://native/campaign_story.json") else {}
+	if history is Dictionary:
+		for stage in history.get("stages",[]):
+			if not stage is Dictionary: continue
+			var id: String = str(stage.get("stageId",""))
+			var number: int = int(stage.get("stageNumber",0))
+			if id.is_empty() or number<1: continue
+			stage_numbers[id] = number
+			stage_names[id] = str(stage.get("battleKo","이전 전장"))
 	var maps = JSON.parse_string(FileAccess.get_file_as_string("res://native/maps.json"))
 	if maps is Array:
-		var stages_by_number: Dictionary = {}
+		playable_catalog_available = not maps.is_empty()
 		for stage in maps:
-			stage_numbers[str(stage.id)] = int(stage.stageNumber)
-			stage_names[str(stage.id)] = str(stage.title)
-			stages_by_number[int(stage.stageNumber)] = str(stage.id)
-		for stage in maps:
-			stage_previous[str(stage.id)] = str(stages_by_number.get(int(stage.stageNumber)-1,""))
+			if not stage is Dictionary: continue
+			var id: String = str(stage.get("id",""))
+			var number: int = int(stage.get("stageNumber",0))
+			if id.is_empty() or number<1: continue
+			stage_numbers[id] = number
+			stage_names[id] = str(stage.get("title",stage_names.get(id,"전장")))
+	var stages_by_number: Dictionary = {}
+	for id in stage_numbers:
+		stages_by_number[int(stage_numbers[id])] = str(id)
+	for id in stage_numbers:
+		stage_previous[id] = str(stages_by_number.get(int(stage_numbers[id])-1,""))
 	var curriculum = JSON.parse_string(FileAccess.get_file_as_string("res://native/curriculum.json"))
 	if curriculum is Dictionary:
 		var lesson_number: int = 0
@@ -81,7 +99,7 @@ func read_save() -> void:
 		for counter in ["seen","correct","wrong","hinted","streak"]:
 			data.words[id][counter] = _count(data.words[id].get(counter,0))
 	for id in data.maps.keys():
-		if not data.maps[id] is Dictionary or not stage_numbers.has(str(id)):
+		if not data.maps[id] is Dictionary or (playable_catalog_available and not stage_numbers.has(str(id))):
 			data.maps.erase(id)
 	for setting in ["music","voice","effects"]:
 		if not data.settings.get(setting) is bool:
@@ -99,7 +117,8 @@ func read_save() -> void:
 		# The v1 migration preserves the existing first-clear funding contract.
 		data.army = {"currency":180,"levels":{},"selected":"archer"}
 		for id in data.maps:
-			data.army.currency += 140+int(stage_numbers[id])*8
+			if stage_numbers.has(str(id)):
+				data.army.currency += 140+int(stage_numbers[id])*8
 	data.learning = loaded.get("learning",{}).duplicate(true) if int(loaded.version)==3 and loaded.get("learning") is Dictionary else {}
 	_sanitize_learning()
 	_sanitize_army()
@@ -179,7 +198,7 @@ func _sanitize_learning() -> void:
 	if source.get("assessments") is Dictionary:
 		for id in source.assessments:
 			var receipt = source.assessments[id]
-			if not stage_numbers.has(str(id)) or not receipt is Dictionary: continue
+			if (playable_catalog_available and not stage_numbers.has(str(id))) or not receipt is Dictionary: continue
 			if receipt.get("passed")!=true or _count(receipt.get("correctCount",0))!=_count(receipt.get("count",0)) or _count(receipt.get("count",0))==0: continue
 			if not receipt.get("scopeHash") is String or str(receipt.scopeHash).length()!=64: continue
 			clean.assessments[str(id)] = {"passed":true,"correctCount":_count(receipt.correctCount),"count":_count(receipt.count),"scopeHash":str(receipt.scopeHash),"attemptId":str(receipt.get("attemptId","")),"passedAt":_timestamp(receipt.get("passedAt",0))}

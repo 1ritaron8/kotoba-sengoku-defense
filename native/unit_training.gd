@@ -9,6 +9,7 @@ const CombatFeedback = preload("res://native/combat_feedback.gd")
 const BattleAudio = preload("res://native/battle_audio.gd")
 const RubyText = preload("res://native/ruby_label.gd")
 const UIStyle = preload("res://native/sengoku_ui.gd")
+const UIPresentation = preload("res://native/battlefield_hud.gd")
 const GameFonts = preload("res://native/game_fonts.gd")
 const TRAINING_LIMIT_SECONDS: float = 75.0
 const UNIT_ORDER: Array = ["archer","spear","samurai","gunner","naginata","monk","commander","ninja"]
@@ -17,10 +18,10 @@ const LESSONS: Dictionary = {
 	"spear":{"titleKo":"기지에서 창병 출진","deployKo":"출진을 누르면 창병이 아군 기지에서 출발합니다.","attackKo":"창병이 전진해 연습 적을 창으로 공격하는 모습을 확인하십시오.","useKo":"아군 기지에서 적의 진입구를 향해 전진하며 가까운 적과 교전합니다."},
 	"samurai":{"titleKo":"사무라이의 전진과 교전","deployKo":"출진을 눌러 사무라이를 기지에서 내보내십시오.","attackKo":"사무라이가 적에게 접근해 칼을 명중하도록 지키십시오.","useKo":"기지에서 전진해 근접 교전을 이어갑니다."},
 	"gunner":{"titleKo":"청록 전선에 조총병 배치","deployKo":"청록색 전선 지점을 클릭해 조총병을 배치하십시오.","attackKo":"제자리에 선 조총병의 탄환이 가까운 연습 적에게 명중하도록 지키십시오.","useKo":"적 경로 가까이에 배치하고 제자리에서 화승총을 쏩니다."},
-	"naginata":{"titleKo":"성벽·사격 진지 호위","deployKo":"청록색 진지 주변에 장도병을 배치하십시오.","attackKo":"호위 장도병이 접근한 연습 적을 막고 칼날을 명중하는지 확인하십시오.","useKo":"진지 주변의 적을 막고 조용해지면 배치 지점으로 복귀합니다."},
+	"naginata":{"titleKo":"성벽·사격 진지 호위","deployKo":"청록색 진지 주변에 장도병을 배치하십시오.","attackKo":"장도병이 방어 구역 안에서 기지 공격자를 저지하고 칼날을 명중하는지 확인하십시오.","useKo":"타워 방어 구역 안에서 기지 공격자를 막고 표적을 잃으면 배치 지점으로 복귀합니다."},
 	"monk":{"titleKo":"승병의 아군 치료","deployKo":"청록색 지원 지점에 승병을 배치하십시오.","attackKo":"부상 연습병의 체력이 승병의 실제 치료로 회복되는지 확인하십시오.","useKo":"공격 대신 부상 아군을 치료합니다. 진언 지원 스킬은 영구 Lv.3·5·8에서 열립니다."},
 	"commander":{"titleKo":"기마 무장의 기지 출진","deployKo":"출진을 눌러 기마 무장을 기지에서 내보내십시오.","attackKo":"말을 탄 무장이 전진해 연습 적과 교전하는 모습을 확인하십시오.","useKo":"기지에서 출진해 빠르게 전진하고 가까운 적과 교전합니다."},
-	"ninja":{"titleKo":"외곽 엄폐에서 닌자 기습","deployKo":"보라색 외곽 엄폐 지점에 닌자를 배치하십시오.","attackKo":"표시한 적 사격 진지를 클릭해 암살을 명령하고 엄폐 복귀까지 확인하십시오.","useKo":"외곽 엄폐에서 짧게 기습합니다. 적 사격 진지에는 암살 명령을 내릴 수 있습니다."}
+	"ninja":{"titleKo":"소모성 닌자의 타워 진지 암살","deployKo":"표시한 적 타워 진지에 접근할 수 있는 보라색 엄폐 지점에 닌자를 배치하십시오.","attackKo":"적 타워형 진지의 실제 피해와 파괴, 닌자의 임무 완료 후 소모를 확인하십시오. 자동 표적을 사용하거나 진지를 클릭해 명령할 수 있습니다.","useKo":"적 고정 타워형 진지를 공격합니다. 임무 종료·표적 소멸·접근 불가·대상 부재 시 퇴장하며 재사용하거나 환불받을 수 없습니다."}
 }
 
 class GuideLayer extends Control:
@@ -146,7 +147,7 @@ func open(id: String, stage: Dictionary) -> bool:
 	_fort_initial_hp=0.0
 	_patient.clear()
 	_patient_initial_hp=0.0
-	observations={"deployments":0,"shots":0,"hits":0,"damage":0.0,"heals":0,"healingAmount":0.0,"kills":0,"orders":0,"chargeImpacts":0,"distanceAdvanced":0.0,"returnObserved":false,"fortDamage":0.0,"fortDestroyed":false,"invalidPlacements":0,"trainingOnly":true}
+	observations={"deployments":0,"shots":0,"hits":0,"damage":0.0,"heals":0,"healingAmount":0.0,"kills":0,"orders":0,"chargeImpacts":0,"distanceAdvanced":0.0,"returnObserved":false,"fortDamage":0.0,"fortDestroyed":false,"fortHits":0,"missionObserved":false,"missionTargetId":-1,"consumptionObserved":false,"consumeReason":"","consumedTargetId":-1,"unitFallen":false,"invalidPlacements":0,"trainingOnly":true}
 	_build_training()
 	var runtime: Dictionary = source_stage.duplicate(true)
 	battle=Battle.new()
@@ -158,7 +159,10 @@ func open(id: String, stage: Dictionary) -> bool:
 	battle.set_process(false)
 	battle.set_process_input(false)
 	battle.set_process_unhandled_input(false)
-	battle.configure_roster(catalog,[id],{id:1})
+	# Read the real unlocks so a late ninja drill retains the existing enemy
+	# emplacement rules. A null account is an isolated, fully available drill.
+	var drill_roster: Array=progress.unlocked_units() if progress!=null else UNIT_ORDER
+	battle.configure_roster(catalog,drill_roster,{id:1})
 	# This isolated drill deliberately rehearses level 1. Fund the exact cost
 	# of that runtime roster, including shared recruitment rules.
 	runtime["initialGold"]=battle.recruit_cost(id)
@@ -248,13 +252,17 @@ func _practice_map(id: String) -> Dictionary:
 	var threshold: int=int(_definition(id).get("unlockClears",0))
 	return maps[clampi(threshold,0,maps.size()-1)]
 
+func practice_available(id: String) -> bool:
+	var stage: Dictionary=_practice_map(id)
+	return _unlocked(id) and stage.get("paths") is Array and not stage.paths.is_empty() and stage.get("objectives") is Array and not stage.objectives.is_empty()
+
 func _enter_from_menu(id: String) -> void:
 	if not open(id,_practice_map(id)):
 		if hint_label!=null:
 			hint_label.text=error_ko
 
 func _label(parent: Node, text: String, points: int = 20, color: String = UIStyle.TEXT) -> Label:
-	var label: Label=Label.new()
+	var label: Label=UIStyle.TooltipLabel.new()
 	label.text=text
 	label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	label.mouse_filter=Control.MOUSE_FILTER_IGNORE
@@ -267,13 +275,12 @@ func _label(parent: Node, text: String, points: int = 20, color: String = UIStyl
 	return label
 
 func _button(parent: Node, text: String, callback: Callable) -> Button:
-	var button: Button=Button.new()
+	var button: Button=UIStyle.TooltipButton.new()
 	button.text=text
 	button.custom_minimum_size=Vector2(0,48)
+	UIPresentation.apply_button(button)
 	button.add_theme_font_override("font",GameFonts.body())
 	button.add_theme_font_size_override("font_size",22)
-	for state in ["normal","hover","pressed","disabled","focus"]:
-		button.add_theme_stylebox_override(state,UIStyle.textured_button(state))
 	button.pressed.connect(callback)
 	button.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
 	parent.add_child(button)
@@ -291,7 +298,7 @@ func _shell() -> VBoxContainer:
 	add_child(background)
 	var shade: ColorRect=ColorRect.new()
 	shade.name="TrainingBackdropShade"
-	shade.color=Color("16120f96")
+	shade.color=Color("14181996")
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	shade.mouse_filter=Control.MOUSE_FILTER_STOP
 	add_child(shade)
@@ -339,11 +346,12 @@ func _build_menu() -> void:
 	for id in UNIT_ORDER:
 		var definition: Dictionary=_definition(id)
 		var available: bool=_unlocked(id)
+		var can_enter: bool=practice_available(id)
 		var card: PanelContainer=PanelContainer.new()
 		card.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		card.custom_minimum_size=Vector2(245,0)
 		card.name="TrainingCard_"+str(id)
-		card.add_theme_stylebox_override("panel",UIStyle.textured_panel("lacquer",Color("ffe9b7") if id==unit_id else Color.WHITE))
+		card.add_theme_stylebox_override("panel",UIStyle.frame(UIStyle.SURFACE,UIStyle.BLUE if id==unit_id else UIStyle.LINE))
 		grid.add_child(card)
 		var column: VBoxContainer=VBoxContainer.new()
 		column.add_theme_constant_override("separation",8)
@@ -357,8 +365,9 @@ func _build_menu() -> void:
 		var badge: String="수련 완료" if _trained(id) else "첫 연무" if available else "%d개 전투 완수 후 해금" % int(definition.get("unlockClears",0))
 		_label(column,badge,20,"acd0af" if _trained(id) else "e1c794" if available else UIStyle.MUTED)
 		_label(column,str(LESSONS[id].useKo),20,"dfd5c1")
-		var enter: Button=_button(column,"연무 입장" if available else "미해금",func(): _enter_from_menu(str(id)))
-		enter.disabled=not available
+		var enter: Button=_button(column,"연무 입장" if can_enter else "새 전장 준비 중" if available else "미해금",func(): _enter_from_menu(str(id)))
+		enter.disabled=not can_enter
+		if available and not can_enter: enter.tooltip_text="새 전장이 준비되면 연습할 수 있습니다."
 		enter.set_meta("trainingUnit",str(id))
 	hint_label=_label(shell,error_ko,20,"d8b889")
 	var footer: HBoxContainer=HBoxContainer.new()
@@ -368,7 +377,7 @@ func _build_menu() -> void:
 	footer.add_theme_constant_override("separation",18)
 	shell.add_child(footer)
 	_button(footer,"뒤로",close)
-	footer_hint=_label(footer,"언제든 다시 연습할 수 있습니다.",20,UIStyle.MUTED)
+	footer_hint=_label(footer,"새 전장이 준비되면 연습할 수 있습니다." if maps.is_empty() else "언제든 다시 연습할 수 있습니다.",20,UIStyle.MUTED)
 	footer_hint.autowrap_mode=TextServer.AUTOWRAP_OFF
 	footer_hint.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	footer_hint.size_flags_vertical=Control.SIZE_SHRINK_CENTER
@@ -408,7 +417,7 @@ func _build_training() -> void:
 	var panel: PanelContainer=PanelContainer.new()
 	panel.name="TrainingInstructionPanel"
 	panel.custom_minimum_size=Vector2(280,0)
-	panel.add_theme_stylebox_override("panel",UIStyle.textured_panel("lacquer"))
+	panel.add_theme_stylebox_override("panel",UIStyle.frame(UIStyle.SURFACE,UIStyle.LINE))
 	body.add_child(panel)
 	var column: VBoxContainer=VBoxContainer.new()
 	column.add_theme_constant_override("separation",16)
@@ -562,6 +571,11 @@ func place_at(point: Vector2) -> bool:
 		return false
 	if not battle.place_unit(point.x,point.y):
 		return false
+	# The consumable actor must find its canonical mission on its first step.
+	# Create the existing fort encounter after payment, before production runs.
+	if unit_id=="ninja":
+		_prepare_fort_challenge()
+		if phase=="failed": return true
 	_adopt_deployed_actor()
 	return true
 
@@ -657,7 +671,8 @@ func _prepare_enemy_challenge() -> void:
 		if not chosen:
 			_fail("이 진지의 같은 둑에 연습 적을 놓을 수 없습니다. 다른 표시 지점을 선택하십시오.")
 			return
-	battle._spawn_enemy("raider",1)
+	if unit_id=="naginata": battle._spawn_enemy("enemy_samurai",1,{"pathIndex":route_index})
+	else: battle._spawn_enemy("raider",1)
 	var enemy: Dictionary=battle.enemies[-1]
 	enemy["pathIndex"]=route_index
 	enemy["position"]=battle.ground_combat.route_point(route_index,distance)
@@ -673,6 +688,7 @@ func _prepare_enemy_challenge() -> void:
 	_target_ids.append(int(enemy.id))
 
 func _prepare_fort_challenge() -> void:
+	if not _fort_target.is_empty(): return
 	# The fixture uses the engine's ordinary fort HP, armor and attack rules.
 	# Some campaign maps choose a route by wave/bridge; align only this spawn.
 	var previous_wave: int=battle.wave
@@ -682,11 +698,12 @@ func _prepare_fort_challenge() -> void:
 	_fort_target=battle._spawn_enemy("enemy_archer",1,{"fortification":true,"pathIndex":route_index})
 	battle.wave=previous_wave
 	battle.bridge_index=previous_bridge
-	if _fort_target.is_empty() or not bool(_fort_target.get("fortification",false)):
+	if not battle.ground_combat.is_tower_attacker(_fort_target):
 		_fail("이 엄폐 지점에서 암살할 육지 진지가 없습니다. 다른 표시 지점에서 다시 연습하십시오.")
 		return
 	_fort_initial_hp=float(_fort_target.get("hp",0))
 	_target_ids.append(int(_fort_target.id))
+	_refresh_guide()
 
 func issue_assassination(enemy_id: int = -1) -> Dictionary:
 	if unit_id!="ninja" or phase!="combat" or not is_instance_valid(battle) or _fort_target.is_empty() or not battle.has_method("order_assassination"):
@@ -699,7 +716,6 @@ func issue_assassination(enemy_id: int = -1) -> Dictionary:
 	var result: Dictionary=battle.order_assassination(target_id,actor_id)
 	battle.input_enabled=input_was_enabled
 	if bool(result.get("accepted",false)):
-		observations.orders=int(observations.orders)+1
 		error_ko=""
 	else:
 		error_ko=str(result.get("reasonKo","명령할 수 없는 진지입니다."))
@@ -762,6 +778,38 @@ func advance_training(delta: float) -> void:
 
 func _observe_event(event: Dictionary) -> void:
 	var same_unit: bool=str(event.get("unitType",""))==unit_id and str(event.get("side","friendly"))=="friendly"
+	if same_unit and unit_id=="ninja" and str(event.get("type",""))=="placed" and actor_id<0:
+		# The actor can complete its mission and disappear within this same
+		# simulation step. Retain its authoritative production identity now.
+		var produced: Array=event.get("actorIds",[])
+		actor_id=int(produced[0]) if not produced.is_empty() else int(event.get("actorId",-1))
+		_first_position=_point(event.get("position",{}))
+		route_index=int(event.get("pathIndex",route_index))
+		var actor: Dictionary=_actor()
+		if not actor.is_empty():
+			_first_position=actor.position
+			_first_distance=float(actor.get("routeDistance",0))
+		if phase=="producing" and actor_id>=0: phase="combat"
+	var same_actor: bool=actor_id>=0 and int(event.get("actorId",-1))==actor_id
+	if same_unit and same_actor and unit_id=="ninja":
+		var target_id: int=int(_fort_target.get("id",-1))
+		var victim_id: int=int(event.get("victimId",-2))
+		match str(event.get("type","")):
+			"assassination_ordered":
+				observations.orders=int(observations.orders)+1
+				if target_id>=0 and victim_id==target_id:
+					observations.missionObserved=true
+					observations.missionTargetId=target_id
+			"shot","hit":
+				if target_id>=0 and victim_id==target_id:
+					observations.missionObserved=true
+					observations.missionTargetId=target_id
+					if str(event.type)=="hit" and float(event.get("damage",0))>0: observations.fortHits=int(observations.fortHits)+1
+			"unit_consumed":
+				observations.consumptionObserved=true
+				observations.consumeReason=str(event.get("consumeReason",""))
+				observations.consumedTargetId=int(event.get("targetId",-1))
+			"unit_fallen": observations.unitFallen=true
 	if same_unit:
 		match str(event.get("type","")):
 			"placed","recruited":
@@ -787,18 +835,34 @@ func _observe_event(event: Dictionary) -> void:
 		audio.consume_event(event)
 
 func _observe_positions() -> void:
+	if unit_id=="ninja" and not _fort_target.is_empty():
+		observations.fortDamage=maxf(float(observations.fortDamage),_fort_initial_hp-float(_fort_target.get("hp",_fort_initial_hp)))
+		observations.fortDestroyed=float(_fort_target.get("hp",_fort_initial_hp))<=0 or bool(_fort_target.get("destroyed",false))
 	var unit: Dictionary=_actor()
 	if unit.is_empty():
+		if unit_id=="ninja" and bool(observations.get("consumptionObserved",false)):
+			if _ninja_mission_complete(): return
+			var reasons: Dictionary={"no_target":"접근할 수 있는 적 타워 진지가 없어 닌자가 소모되었습니다.","target_lost":"암살 표적을 잃어 닌자가 소모되었습니다.","unreachable":"암살 경로가 막혀 닌자가 소모되었습니다.","target_defeated":"이 닌자의 실제 진지 타격과 파괴를 확인하지 못했습니다."}
+			_fail(str(reasons.get(str(observations.get("consumeReason","")),"암살 임무를 완료하기 전에 닌자가 소모되었습니다."))+" 다시 연습하십시오.")
+			return
+		if unit_id=="ninja" and not bool(observations.get("unitFallen",false)):
+			_fail("닌자의 실제 암살 임무와 퇴장을 확인하지 못했습니다. 다시 연습하십시오.")
+			return
 		_fail("연무 병력이 전사했습니다. 다시 연습해 배치와 교전을 익히십시오.")
 		return
 	observations.distanceAdvanced=maxf(float(observations.distanceAdvanced),_first_distance-float(unit.get("routeDistance",_first_distance)))
 	if unit_id=="monk" and not _patient.is_empty():
 		observations["patientHealth"]=float(_patient.get("hp",0))
-	if unit_id=="ninja" and not _fort_target.is_empty():
-		observations.fortDamage=maxf(float(observations.fortDamage),_fort_initial_hp-float(_fort_target.get("hp",_fort_initial_hp)))
-		observations.fortDestroyed=float(_fort_target.get("hp",_fort_initial_hp))<=0 or bool(_fort_target.get("destroyed",false))
-		if bool(observations.fortDestroyed) and unit.position.distance_to(unit.get("homePosition",_first_position))<.008 and str(unit.get("combatState",""))=="ambush_wait":
-			observations.returnObserved=true
+	if unit_id=="ninja" and int(unit.get("priorityTargetId",-1))==int(_fort_target.get("id",-2)):
+		observations.missionObserved=true
+		observations.missionTargetId=int(unit.priorityTargetId)
+
+func _ninja_mission_complete() -> bool:
+	var target_id: int=int(_fort_target.get("id",-1))
+	if target_id<0 or actor_id<0 or bool(observations.get("unitFallen",false)): return false
+	if int(observations.get("fortHits",0))<=0 or float(observations.get("fortDamage",0))<=0 or not bool(observations.get("fortDestroyed",false)): return false
+	if not bool(observations.get("missionObserved",false)) or int(observations.get("missionTargetId",-2))!=target_id: return false
+	return bool(observations.get("consumptionObserved",false)) and str(observations.get("consumeReason",""))=="target_defeated" and int(observations.get("consumedTargetId",-2))==target_id
 
 func _evaluate_completion() -> void:
 	if phase!="combat" or actor_id<0:
@@ -807,7 +871,7 @@ func _evaluate_completion() -> void:
 	if str(battle.placement_contract(unit_id).deploymentKind)=="marching":
 		success=success and float(observations.distanceAdvanced)>.015
 	if unit_id=="ninja":
-		success=int(observations.orders)>0 and float(observations.fortDamage)>0 and bool(observations.fortDestroyed) and bool(observations.returnObserved)
+		success=_ninja_mission_complete()
 	elif unit_id=="monk":
 		success=int(observations.heals)>=2 and float(observations.healingAmount)>=12.0 and float(observations.get("patientHealth",0))>_patient_initial_hp
 	if not success:
@@ -849,12 +913,12 @@ func _refresh_ui() -> void:
 		return
 	var goal: Dictionary=current_goal()
 	var action: String="기지 출진" if is_instance_valid(battle) and str(battle.placement_contract(unit_id).deploymentKind)=="marching" else "엄폐 배치" if unit_id=="ninja" else "병력 배치"
-	var step_name: String="생산 대기" if phase=="producing" else action if actor_id<0 else "암살과 복귀" if unit_id=="ninja" else "아군 회복 확인" if unit_id=="monk" else "실제 명중 확인"
+	var step_name: String="생산 대기" if phase=="producing" else action if actor_id<0 else "암살과 소모" if unit_id=="ninja" else "아군 회복 확인" if unit_id=="monk" else "실제 명중 확인"
 	goal_label.text="연무 완료" if phase=="success" else "다시 연습" if phase=="failed" else "%d / 2 · %s" % [int(goal.step),step_name]
 	hint_label.text=error_ko if not error_ko.is_empty() else "배치와 실제 공격을 확인했습니다. 목록에서 다른 병종을 연습할 수 있습니다." if phase=="success" else str(goal.hintKo)
 	var evidence: String="실제 명중 %d회 · 피해 %d" % [int(observations.get("hits",0)),roundi(float(observations.get("damage",0)))]
 	if unit_id=="ninja":
-		evidence="진지 피해 %d · 엄폐 복귀 %s" % [roundi(float(observations.get("fortDamage",0))),"완료" if bool(observations.get("returnObserved",false)) else "대기"]
+		evidence="진지 피해 %d · 임무 완료 후 소모 %s" % [roundi(float(observations.get("fortDamage",0))),"확인" if _ninja_mission_complete() else "대기"]
 	elif unit_id=="monk":
 		evidence="실제 치료 %d회 · 회복 %d\n연습병 체력 %.0f → %.0f" % [int(observations.heals),roundi(float(observations.healingAmount)),_patient_initial_hp,float(observations.get("patientHealth",_patient_initial_hp))]
 	if phase=="producing":

@@ -31,6 +31,10 @@ tools/sfx/
 tools/ui-front-capture/
 tools/ui-scene-capture/
 
+# Authoring work contains private profiles and duplicated runtimes.
+# Reviewed frozen source/assets/captures are added explicitly.
+tools/art-authoring-pilot/work/
+
 # Existing local engine / voice runtimes; keep them on this PC.
 tools/godot/
 tools/godot-engine.zip

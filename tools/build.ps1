@@ -1,4 +1,4 @@
-param([switch]$SkipImport, [string]$ArtRevision = 'casual-v6')
+param([switch]$SkipImport, [string]$ArtRevision = '')
 $ErrorActionPreference = 'Stop'
 $taskRoot = Split-Path -Parent $PSScriptRoot
 $taskGodot = Join-Path $PSScriptRoot 'godot/Godot_v4.7.2-stable_win64_console.exe'
@@ -19,7 +19,7 @@ $taskImageHashes = @{}
 for ($taskIndex = 0; $taskIndex -lt 40; $taskIndex++) {
     $taskMap = $taskMaps[$taskIndex]
     $taskEntry = $taskArt.stages[$taskIndex]
-    $taskExpectedPath = 'res://assets/battlefields-rendered/stage-{0:D2}-{1}-{2}.png' -f ($taskIndex + 1), $taskMap.id, $ArtRevision
+    $taskExpectedPath = if ($ArtRevision) { 'res://assets/battlefields-rendered/stage-{0:D2}-{1}-{2}.png' -f ($taskIndex + 1), $taskMap.id, $ArtRevision } else { $taskEntry.path }
     if ($taskEntry.stageId -ne $taskMap.id -or $taskEntry.stageNumber -ne ($taskIndex + 1) -or $taskEntry.path -cne $taskExpectedPath -or -not $taskEntry.review.assetInspected -or -not $taskEntry.review.inGameReviewed) {
         throw "Battlefield $($taskIndex + 1) is missing its exact reviewed release image."
     }

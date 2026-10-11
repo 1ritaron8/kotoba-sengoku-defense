@@ -1,0 +1,376 @@
+{
+  "task": "BLENDER-ASSET-PRODUCTION-01",
+  "status": "ACTUAL_BLEND_GLB_RENDER_CREATED_PENDING_GODOT_AND_ART_REVIEW",
+  "created_utc": "2026-10-10T05:33:11.867689+00:00",
+  "blender_version": "5.2.2 LTS",
+  "workshop": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\bootstrap-bfa1e3dd\\workshop.blend",
+  "workshop_sha256": "5b2d409a81c1863dcae7ab294489a7c263915a5d58dee9dfa9717c2051773770",
+  "workshop_validation": {
+    "terrain_vertices": 4217,
+    "terrain_triangles": 8144,
+    "all_vertex_coordinates_match": true,
+    "coordinate_map": "Godot(x,y,z)->Blender(x,-z,y)",
+    "camera_projection": "ORTHO",
+    "camera_width": 23.5,
+    "camera_elevation": 43.999997496153945,
+    "packed_reference_sha256": "1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc",
+    "context_excluded_from_export": true
+  },
+  "script_sha256": "f499f11d9fc9058a9935e9eaeb85b1aef160f71f409fc237a8eaaf87e96f2c29",
+  "source_stage_sha256": "9f85ab33d3c626e69b14f02eebf4a0fbb01f2bf4f45b292b6a38d0ca3c4024d5",
+  "reference_sha256": "1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc",
+  "correction": 0,
+  "blend": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\authored_assets.blend",
+  "blend_sha256": "631cb729c52a0d64d9e8f8a2ed2f28a069fa434bfa8f93a0972f79c1cc378da5",
+  "glb": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\stage01_assets.glb",
+  "glb_preflight": {
+    "bytes": 9720048,
+    "sha256": "15403643a8af8806e860d02b7be29b99fb8b76622a3eef14e075e76c19161f24",
+    "meshes": 8,
+    "triangles": 20490,
+    "material_primitives": 15,
+    "images": 11,
+    "self_contained": true,
+    "named_roots": [
+      "Broadleaf_A",
+      "Broadleaf_B",
+      "Broadleaf_C",
+      "Shrub_A",
+      "Shrub_B",
+      "FiringPad",
+      "Palisade",
+      "GroundSample"
+    ],
+    "scope": "GLB structural preflight;Godot/visual/performance acceptance pending HQ"
+  },
+  "render": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\prototypes-render.png",
+  "render_sha256": "e604bceef26291202c294cd7b03476cee0b7ef01c3accfa13a44ca5f58b05076",
+  "assets": [
+    {
+      "root": "Broadleaf_A",
+      "mesh": "Broadleaf_A_Surfaces",
+      "triangles": 4226,
+      "vertices": 4825,
+      "material_surfaces": 2,
+      "blender_bounds": [
+        [
+          -1.4088103771209717,
+          -1.4583008289337158,
+          -0.007072349078953266
+        ],
+        [
+          1.3648042678833008,
+          1.4466246366500854,
+          3.0999999046325684
+        ]
+      ],
+      "local_root": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "root": "Broadleaf_B",
+      "mesh": "Broadleaf_B_Surfaces",
+      "triangles": 4226,
+      "vertices": 4825,
+      "material_surfaces": 2,
+      "blender_bounds": [
+        [
+          -1.3433783054351807,
+          -1.5312004089355469,
+          -0.007996468804776669
+        ],
+        [
+          1.36958646774292,
+          1.4538465738296509,
+          2.7200000286102295
+        ]
+      ],
+      "local_root": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "root": "Broadleaf_C",
+      "mesh": "Broadleaf_C_Surfaces",
+      "triangles": 4562,
+      "vertices": 5245,
+      "material_surfaces": 2,
+      "blender_bounds": [
+        [
+          -1.286677598953247,
+          -1.3984004259109497,
+          -0.0066788154654204845
+        ],
+        [
+          1.3248851299285889,
+          1.2596054077148438,
+          3.3499999046325684
+        ]
+      ],
+      "local_root": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "root": "Shrub_A",
+      "mesh": "Shrub_A_Surfaces",
+      "triangles": 2284,
+      "vertices": 2584,
+      "material_surfaces": 2,
+      "blender_bounds": [
+        [
+          -0.666476309299469,
+          -0.5812566876411438,
+          -0.007993482984602451
+        ],
+        [
+          0.5384386777877808,
+          0.5897491574287415,
+          0.8600000143051147
+        ]
+      ],
+      "local_root": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "root": "Shrub_B",
+      "mesh": "Shrub_B_Surfaces",
+      "triangles": 2284,
+      "vertices": 2584,
+      "material_surfaces": 2,
+      "blender_bounds": [
+        [
+          -0.7287794351577759,
+          -0.7848634719848633,
+          -0.006340646184980869
+        ],
+        [
+          0.6840987205505371,
+          0.7482447028160095,
+          1.0800000429153442
+        ]
+      ],
+      "local_root": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "root": "FiringPad",
+      "mesh": "FiringPad_Surfaces",
+      "triangles": 1376,
+      "vertices": 823,
+      "material_surfaces": 3,
+      "blender_bounds": [
+        [
+          -1.9075499773025513,
+          -1.660566806793213,
+          0.0
+        ],
+        [
+          1.9447917938232422,
+          1.6302130222320557,
+          0.9446264505386353
+        ]
+      ],
+      "local_root": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "root": "Palisade",
+      "mesh": "Palisade_Surfaces",
+      "triangles": 764,
+      "vertices": 426,
+      "material_surfaces": 1,
+      "blender_bounds": [
+        [
+          -1.6516711711883545,
+          -0.047747574746608734,
+          -0.0007323634345084429
+        ],
+        [
+          1.6516711711883545,
+          0.08699999749660492,
+          1.0454273223876953
+        ]
+      ],
+      "local_root": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "root": "GroundSample",
+      "mesh": "GroundSample_Surfaces",
+      "triangles": 768,
+      "vertices": 425,
+      "material_surfaces": 1,
+      "blender_bounds": [
+        [
+          -3.0,
+          -2.0,
+          -0.00796861294656992
+        ],
+        [
+          3.0,
+          2.0,
+          0.007927984930574894
+        ]
+      ],
+      "local_root": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "textures": {
+    "dirt_diff_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\battlefields-remaster\\materials\\dirt_diff_1k.jpg",
+      "source_sha256": "6ce6ca7e28ed046f7f93fa60dcb29f8cf42cd5a539adc5676675acccfa34efd3",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\dirt_diff_1k.jpg"
+    },
+    "dirt_nor_gl_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\battlefields-remaster\\materials\\dirt_nor_gl_1k.jpg",
+      "source_sha256": "5a5f97d920fdcdf352b350b95558bf48bb306be1fe61a47418aadc60b7deb0ce",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\dirt_nor_gl_1k.jpg"
+    },
+    "dirt_rough_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\battlefields-remaster\\materials\\dirt_rough_1k.jpg",
+      "source_sha256": "eff62d5ae7bf0c46b84173bc46f07528dd164aa39f5d550c93a805b36f54b704",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\dirt_rough_1k.jpg"
+    },
+    "brown_mud_leaves_01_diff_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\materials\\terrain\\brown_mud_leaves_01_diff_1k.jpg",
+      "source_sha256": "c598c555f13cd5328409fd5e2a45496a26e319e52299e3959042f1449c2f1b06",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\brown_mud_leaves_01_diff_1k.jpg"
+    },
+    "pine_sapling_small_bark_diff_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\models\\battlefield\\pine_sapling_small\\textures\\pine_sapling_small_bark_diff_1k.jpg",
+      "source_sha256": "5c76836b01c3536fa0e24207b67bf4f3315b53ebe2b4ecc6f08dfcf3f8d74929",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\pine_sapling_small_bark_diff_1k.jpg"
+    },
+    "pine_sapling_small_bark_nor_gl_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\models\\battlefield\\pine_sapling_small\\textures\\pine_sapling_small_bark_nor_gl_1k.jpg",
+      "source_sha256": "05c46455531781b6cf18cae0648cf627f60ee942adaa8bcbfd1592fc2506a9e0",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\pine_sapling_small_bark_nor_gl_1k.jpg"
+    },
+    "rock_boulder_dry_diff_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\materials\\terrain\\rock_boulder_dry_diff_1k.jpg",
+      "source_sha256": "20f653a42fb24f42aa40641663070d578678da49af18cc1049dbdd4ed8679f3c",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\rock_boulder_dry_diff_1k.jpg"
+    },
+    "rock_boulder_dry_nor_gl_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\materials\\terrain\\rock_boulder_dry_nor_gl_1k.jpg",
+      "source_sha256": "5915fea28a97357c78a04fb31c2516f1f7ed1b3a9cef4ae25aa93e4655e6c595",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\rock_boulder_dry_nor_gl_1k.jpg"
+    },
+    "weathered_brown_planks_diff_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\materials\\terrain\\weathered_brown_planks_diff_1k.jpg",
+      "source_sha256": "94833feda44e025a9139f7b5723ea84e4f0258d3b54939a79e1013c133085e29",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\weathered_brown_planks_diff_1k.jpg"
+    },
+    "weathered_brown_planks_nor_gl_1k.jpg": {
+      "source": "C:\\JP_DF\\assets\\materials\\terrain\\weathered_brown_planks_nor_gl_1k.jpg",
+      "source_sha256": "8d38f02f121c0e58eaedc19cd668faea21381ae3ff4d5332cd90de75e6683393",
+      "copy": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\weathered_brown_planks_nor_gl_1k.jpg"
+    }
+  },
+  "baked_images": [
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\broadleaf-leafscale-albedo.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\dirt-grass-litter-albedo.png"
+  ],
+  "pad_contract": {
+    "top_radii_m": [
+      0.6475000000000001,
+      0.47250000000000003
+    ],
+    "terrain_foot_radii_m": [
+      1.92,
+      1.64
+    ],
+    "stake_arc_radii_m": [
+      0.96,
+      0.7
+    ],
+    "absolute_source_crest_y": 0.83,
+    "required_root_world_y_at_source_pad": 0.13570674994854284,
+    "local_rise_m": 0.6942932500514571,
+    "rim_y_min_max": [
+      0.12176322048302801,
+      0.15181292053011586
+    ],
+    "source_id": "left-shoulder-pad",
+    "opening_degrees": 90,
+    "opening_direction_godot": "+Z;rotate module to existing route entrance",
+    "integration": "Standalone visual prototype. Existing provider stays sole floor/collision/picking/navigation;do not place a second support plane over current raised floor. To adopt bank mesh,match/mask the visible provider and preserve exact placement/nav contracts."
+  },
+  "preview": {
+    "scope": "Actual Blender asset bench render;not native game/camera/light parity",
+    "camera_elevation": 44,
+    "camera_width_m": 16.5,
+    "engine": "CYCLES_CPU_24",
+    "preview_translations_only": true
+  },
+  "game_writes": 0,
+  "downloads": 0,
+  "whole_canopy_images": 0,
+  "Godot_import": "NOT_EXECUTED_BY_UX;HQ_ONLY",
+  "art_approval": "NOT_REVIEWED;actualrender/nativecomparison required;finalreferenceapproval belongs to user",
+  "performance": "Actual exported triangle/material counts only;no GPU/FPS claim."
+}

@@ -1,11 +1,11 @@
 extends RefCounted
-## Clean faction lacquer, navy cloth and warm skin on the authored joint mesh.
+## Muted worn faction lacquer and navy cloth on the authored joint mesh.
 
 static var shared_material: ShaderMaterial
 static var shared_contact_material: ShaderMaterial
 static var shared_preview_material: ShaderMaterial
 
-const ART_DIRECTION: String = "clean_casual_3d_v1"
+const ART_DIRECTION: String = "period_worn_3d_v1"
 
 static func configure_actor_material(value: ShaderMaterial, hostile: bool, unit_type: String) -> void:
 	# Every soldier owns these uniforms. All original meshes/animation caches
@@ -62,12 +62,13 @@ uniform sampler2D sengoku_surface : source_color, filter_linear_mipmap;
 uniform bool use_sengoku_surface = false;
 uniform bool hostile_team = false;
 uniform int unit_style = 0;
-uniform vec3 friendly_armour = vec3(0.040,0.230,0.570);
-uniform vec3 hostile_armour = vec3(0.640,0.027,0.033);
+uniform vec3 friendly_armour = vec3(0.028,0.045,0.060);
+uniform vec3 hostile_armour = vec3(0.130,0.032,0.024);
 uniform float local_exposure = 1.0;
 uniform vec3 local_tint = vec3(1.0);
 uniform float local_saturation = 1.0;
 uniform float local_roughness_bias = 0.0;
+uniform float departure_fade = 0.0;
 varying vec4 surface_recipe;
 varying vec3 surface_colour;
 varying vec3 surface_position;
@@ -86,6 +87,11 @@ void vertex() {
 }
 void fragment() {
     ALBEDO = surface_colour;
+    // Per-actor departure works in GL Compatibility without alpha blending.
+    if (departure_fade > 0.0) {
+        float pixel = fract(sin(dot(FRAGCOORD.xy, vec2(12.9898, 78.233))) * 43758.5453);
+        if (pixel < departure_fade) { discard; }
+    }
     METALLIC = surface_recipe.x;
     ROUGHNESS = surface_recipe.y;
     SPECULAR = 0.40;
@@ -110,8 +116,8 @@ void fragment() {
         if (lacquer_surface) {
             ALBEDO = team_colour*surface_colour;
             METALLIC = 0.18;
-            ROUGHNESS = 0.45;
-            SPECULAR = 0.38;
+            ROUGHNESS = 0.66;
+            SPECULAR = 0.28;
         }
         normal_depth = min(normal_depth,0.06);
     } else if (texture_family < 1.5) {
@@ -246,7 +252,7 @@ static func batch_by_joint(pieces: Array, recipes: Dictionary) -> Array:
 
 static func surface_palette(key: String) -> Dictionary:
 	match key:
-		"lacquer","battle_lacquer": return {"colour":Color.WHITE,"metallic":.18,"roughness":.45}
+		"lacquer","battle_lacquer": return {"colour":Color.WHITE,"metallic":.18,"roughness":.66}
 		"cloth","faction_cloth": return {"colour":Color.WHITE,"metallic":0.0,"roughness":.77}
 		"cord","faction_cord","faction_binding": return {"colour":_pigment("d8cfac"),"metallic":0.0,"roughness":.77,"rope":true}
 		"metal": return {"colour":_pigment("9eadb8"),"metallic":.48,"roughness":.40}
@@ -269,4 +275,4 @@ static func _pigment(srgb: String) -> Color:
 	return Color(srgb).srgb_to_linear()
 
 static func style_contract() -> Dictionary:
-	return {"id":ART_DIRECTION,"friendlyArmorLinear":Vector3(.040,.230,.570),"hostileArmorLinear":Vector3(.640,.027,.033),"geometry":"Authored mesh, rig, proportions and locomotion retained","surface":"Clean dyed lacquer, dark navy fabric, cream binding, bright steel/gold, warm skin; restrained existing texture normals","illumination":"Real shared sun and terrain/contact shadows; individual authored shade"}
+	return {"id":ART_DIRECTION,"friendlyArmorLinear":Vector3(.028,.045,.060),"hostileArmorLinear":Vector3(.130,.032,.024),"geometry":"Authored mesh, rig, proportions and locomotion retained","surface":"Muted slate/navy and iron/rust lacquer, dark navy fabric, cream binding, existing steel/gold and skin; restrained existing texture normals","illumination":"Real shared sun and terrain/contact shadows; individual authored shade"}

@@ -1,0 +1,299 @@
+{
+  "round": "BLENDER-ASSET-PRODUCTION-01",
+  "status": "MATCHED_NATIVE_PROBE_NO_COLOR_BOUNDARY_DEFECT_UPDATE_TOOL_READY_NOT_EXECUTED",
+  "recorded_utc": "2026-10-10T05:58:36.717047+00:00",
+  "source_frozen": true,
+  "product_writes": 0,
+  "worker_engine_launches": 0,
+  "observed_images": [
+    "assets/prototypes-render.png",
+    "evidence/game/Godot/app_userdata/말의 전장/blender-assets-showcase-all8-common-camera-1440x900.png",
+    "evidence/game/Godot/app_userdata/말의 전장/blender-assets-map-ready-1440x900.png"
+  ],
+  "observation": "Native imported foliage/pad are pale while Blender bench foliage is olive; actual screenshots inspected. Geometry/UV/normal/tangent presence already native PASS, does not certify color response.",
+  "pixel_evidence": [
+    {
+      "image": "broadleaf-leafscale-albedo",
+      "mean_rgb_bytes": [
+        102.33969116210938,
+        116.98344421386719,
+        73.09893798828125
+      ],
+      "source_to_GLB_MAE_bytes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "GLB_to_Godot_extracted_MAE_bytes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_RGB_SHA256": "26f5baaf69500d2832d74d0815f02c6c18a5440cbc62fb74ba0b7051d392295b",
+      "pixels_exact": true
+    },
+    {
+      "image": "compacted-dirt-litter-albedo",
+      "mean_rgb_bytes": [
+        99.5130386352539,
+        82.8436050415039,
+        61.197689056396484
+      ],
+      "source_to_GLB_MAE_bytes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "GLB_to_Godot_extracted_MAE_bytes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_RGB_SHA256": "17812e22620a0dc1eb59562aa7ebf9715a78fe6cb7f9f2b1c5d025a36556f1f4",
+      "pixels_exact": true
+    },
+    {
+      "image": "rock_boulder_dry_diff_1k",
+      "mean_rgb_bytes": [
+        167.68429565429688,
+        155.2971658706665,
+        140.2861785888672
+      ],
+      "source_to_GLB_MAE_bytes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "GLB_to_Godot_extracted_MAE_bytes": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "raw_RGB_SHA256": "1419f4e0caaca7665c6beaa701d3ed65e1289a8b13586a23beeffd22aaf6495b",
+      "pixels_exact": true
+    }
+  ],
+  "GLB_materials": [
+    {
+      "name": "Broadleaf_Bark_ImagePBR",
+      "baseColorFactor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.9399999976158142,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.3199999928474426
+        }
+      }
+    },
+    {
+      "name": "Broadleaf_LeafScale_ImagePBR_OPAQUE",
+      "baseColorFactor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.9399999976158142,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.3199999928474426
+        }
+      }
+    },
+    {
+      "name": "CompactedDirt_ImagePBR",
+      "baseColorFactor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 1,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.3199999928474426
+        }
+      }
+    },
+    {
+      "name": "DryStone_ImagePBR",
+      "baseColorFactor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.9399999976158142,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.3199999928474426
+        }
+      }
+    },
+    {
+      "name": "WeatheredPalisade_ImagePBR",
+      "baseColorFactor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.9399999976158142,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.3199999928474426
+        }
+      }
+    },
+    {
+      "name": "BakedDirtGrassLitter_ImagePBR",
+      "baseColorFactor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 1,
+      "extensions": {
+        "KHR_materials_specular": {
+          "specularFactor": 0.3199999928474426
+        }
+      }
+    }
+  ],
+  "confirmed": "Source PNG/JPEG, GLB embedded images, and Godot extracted images are exact RGB matches. No export double encoding or extracted-image pixel rewrite. All baseColorFactors are white, metallic zero; roughness .94 or1. HQ native matched render completed: StandardMaterial and validated boundary agree in neutral unlit controls for all three texture families; no gamma/output-boundary fix is justified.",
+  "not_yet_proven": "Art acceptance and corrected geometry/native gameplay remain for HQ. Soil lit maximum channel difference .013576 is recorded rather than concealed; its neutral unlit agreement excludes a global gamma/output explanation. Exact lit cause is not established.",
+  "lighting_difference": {
+    "Blender_bench": "Cycles CPU;review sun energy2;world color(.40,.45,.47) strength.45;camera ortho16.5/elevation44; explicitly not game-light parity in producer.",
+    "native_showcase": "Actual cloned game world/camera, ACES exposure1;ambient(.6745,.7176,.7059) energy.68;common camera23.5/elevation44.",
+    "interpretation": "Different light/tonemap pipeline is a confounder; keep product common lighting and color boundary unchanged."
+  },
+  "related_probe": {
+    "path": "tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\qa_material_probe.gd",
+    "runner": "HQ only;isolated candidate --rendering-method gl_compatibility --script absolute qa_material_probe.gd",
+    "watchdog_seconds": 10,
+    "clone": "Instantiate existing Troops3D with exact canonical stage and call existing VisualSlice.apply_lighting; clone resulting environment/sun/fill/camera for disconnected controls.",
+    "controls": "Actual imported leaf/soil/stone StandardMaterial against same-texture decode+validated-output boundary and decode+direct-linear-output TEST ONLY;identical coplanar quad normals/depth,roughness/specular;lit actual world then unlit actual world then unlit neutral clone.",
+    "report": "tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\material-probe\\material-probe.json",
+    "capture_order": "rows leaf/soil/stone;columns Standard/boundary/direct-linear-output test only; no product fix or acceptance implied"
+  },
+  "correction_update_plan": {
+    "status": "TOOL_READY_FROZEN_NOT_EXECUTED_BY_FUN",
+    "option": "HQ invokes guarded --update-asset --asset assets/correction/stage01_assets.glb after engine exit; tool changes only isolated asset.glb and bindings.json and retains first-pass backup. Never recopy full candidate.",
+    "guards": [
+      "Validate corrected GLB contract first and require path under assets/correction.",
+      "Verify existing isolated GLB/bindings/slice SHA against original integration_result and full GAME_SOURCE_FREEZE;verify original current candidate hashes exact.",
+      "Back up original isolated asset.glb/bindings.json and integration result into bounded work first-pass backup;do not erase imported cache/evidence.",
+      "Replace only isolated asset.glb and recomputed bindings.json;do not patch slice or world/camera/color/actor files unless actual probe confirms specific bridge defect and HQ authorizes.",
+      "Record before/after hashes,changed files,first-pass evidence path and update receipt. HQ rebuilds source freeze and reimports/reviews."
+    ]
+  },
+  "proposed_fix": "None. Preserve product gamma/output, common lighting/camera/color and actor materials. HQ may execute the frozen UX geometry correction through the guarded updater, then reimport and review.",
+  "native_matched_probe": {
+    "evidence": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\material-probe\\material-probe.json",
+    "sha256": "12bb0b2a5942e3740a0d527b87df778dfb889fa89b9041b6cef137b1823c6c59",
+    "renderer": "gl_compatibility",
+    "product_writes": 0,
+    "scope": "Controlled material probe;not normal gameplay",
+    "environment": {
+      "ambient_color": "(0.6745, 0.7176, 0.7059, 1.0)",
+      "ambient_energy": 0.680000007152557,
+      "exposure": 1.0,
+      "fill_energy": 0.200000002980232,
+      "fog": true,
+      "sun_color": "(0.8941, 0.8667, 0.7882, 1.0)",
+      "sun_energy": 1.0,
+      "sun_rotation": "(-48.0, -38.0, 0.0)",
+      "tonemap": 3
+    },
+    "measurements": [
+      {
+        "family": "Broadleaf_LeafScale_ImagePBR_OPAQUE",
+        "standard_lit_rgb": [
+          0.717082142829895,
+          0.790807783603668,
+          0.528690934181213
+        ],
+        "boundary_lit_rgb": [
+          0.716919243335724,
+          0.790566921234131,
+          0.528221786022186
+        ],
+        "maximum_absolute_channel_difference": {
+          "lit": 0.0004691481590270996,
+          "unlit_common": 0.0003879964351650167,
+          "unlit_neutral": 0.00010618567466696982
+        }
+      },
+      {
+        "family": "CompactedDirt_ImagePBR",
+        "standard_lit_rgb": [
+          0.692060351371765,
+          0.594344556331635,
+          0.426890194416046
+        ],
+        "boundary_lit_rgb": [
+          0.685404598712921,
+          0.584950506687164,
+          0.413314253091812
+        ],
+        "maximum_absolute_channel_difference": {
+          "lit": 0.013575941324233953,
+          "unlit_common": 0.00010612607002299934,
+          "unlit_neutral": 4.489719867700748e-05
+        }
+      },
+      {
+        "family": "DryStone_ImagePBR",
+        "standard_lit_rgb": [
+          0.896888792514801,
+          0.86525946855545,
+          0.79438191652298
+        ],
+        "boundary_lit_rgb": [
+          0.897059619426727,
+          0.865472137928009,
+          0.794501125812531
+        ],
+        "maximum_absolute_channel_difference": {
+          "lit": 0.00021266937255903784,
+          "unlit_common": 0.00027745962142999847,
+          "unlit_neutral": 0.0001839399337769665
+        }
+      }
+    ],
+    "conclusion": "No color-boundary defect measured. Direct-linear-output control is darker but is incorrect for this output boundary; do not apply it to product.",
+    "HQ_reported_execution": {
+      "exit_code": 0,
+      "warnings": {
+        "ObjectDB": 4,
+        "resource": 1
+      },
+      "main_game_clean": true,
+      "source": "HQ delegation report; controlled diagnostic only"
+    }
+  },
+  "updater_verification": {
+    "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\integrate_assets.py",
+    "sha256": "08218b6b020cffd0339754b3c1af3f45de04428d80b70b83acf2a3d55f73ab1d",
+    "syntax_ast": "PASS",
+    "pure_guard_cases": "PASS: permitted replacement, unauthorized change, added file, missing file",
+    "read_only_full_isolated_freeze": {
+      "files": 3684,
+      "result": "EXACT_MATCH"
+    },
+    "actual_update_executed": false,
+    "engine_launches_by_FUN": 0,
+    "next": "HQ invokes once; preserve first freezes and integration result; after reimport explicitly record extracted-image changes and refresh full isolated source freeze before syntax/native QA."
+  }
+}

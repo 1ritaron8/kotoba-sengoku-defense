@@ -41,6 +41,7 @@ signal training_requested
 
 const RubyText = preload("res://native/ruby_label.gd")
 const UIStyle = preload("res://native/sengoku_ui.gd")
+const UIPresentation = preload("res://native/battlefield_hud.gd")
 const GameFonts = preload("res://native/game_fonts.gd")
 const VolumeControls = preload("res://native/volume_controls.gd")
 const CampaignAtlas = preload("res://native/campaign_atlas.gd")
@@ -78,10 +79,12 @@ func _sync_catalog_preparation() -> void:
 	var loading: bool = catalog_prepared<catalog_preparation_total
 	for action in ["HomeSortie","HomeDictionary","HomeCampaignMap"]:
 		var button: Button = get_node_or_null(action) as Button
-		if button!=null: button.disabled=loading
+		if button!=null: button.disabled=loading or maps.is_empty()
+	var training: Button = get_node_or_null("HomeTraining") as Button
+	if training!=null: training.disabled=maps.is_empty()
 	var status: Label = get_node_or_null("HomeCatalogPreparation") as Label
 	if status!=null:
-		status.text="전장 준비 중 %02d / %02d · 한 번 준비하면 바로 표시됩니다."%[catalog_prepared,catalog_preparation_total] if loading else ""
+		status.text="전장 재설계 중 · 현재 플레이 가능한 전장 0개" if maps.is_empty() else "전장 준비 중 %02d / %02d · 한 번 준비하면 바로 표시됩니다."%[catalog_prepared,catalog_preparation_total] if loading else ""
 		if not catalog_preparation_error.is_empty(): status.text=catalog_preparation_error
 
 func _ready() -> void:
@@ -115,8 +118,8 @@ func show_campaign_map(stage_id: String = "") -> void:
 func _box(color: String, border: String, _radius: int = 0) -> StyleBoxFlat:
 	return UIStyle.frame(color, border)
 
-func _label(text: String, rect: Rect2, text_size: int = 18, color: String = "e1e6e9") -> Label:
-	var label = Label.new()
+func _label(text: String, rect: Rect2, text_size: int = 18, color: String = UIStyle.TEXT) -> Label:
+	var label = UIStyle.TooltipLabel.new()
 	label.position = rect.position
 	label.size = rect.size
 	label.text = text
@@ -143,25 +146,24 @@ func _surface(rect: Rect2, material_name: String = "lacquer", opacity: float = .
 	panel.position = rect.position
 	panel.size = rect.size
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	var base: StyleBoxFlat = UIStyle.frame("241b14e8",UIStyle.LINE)
+	var base: StyleBoxFlat = UIStyle.frame(UIStyle.SURFACE,UIStyle.LINE)
 	if not ink_border:
 		base.set_border_width_all(0)
 		base.shadow_size = 0
 	panel.add_theme_stylebox_override("panel",base)
 	add_child(panel)
-	UIStyle.texture_layer(panel,material_name,opacity)
+	UIStyle.texture_layer(panel,material_name,minf(opacity,.18) if material_name=="lacquer" else opacity)
 	return panel
 
 func _button(text: String, rect: Rect2, callback: Callable) -> Button:
-	var button = Button.new()
+	var button = UIStyle.TooltipButton.new()
 	button.text = text
 	button.position = rect.position
 	button.size = rect.size
 	button.clip_text = true
+	UIPresentation.apply_button(button)
 	button.add_theme_font_override("font",GameFonts.body())
 	button.add_theme_font_size_override("font_size",22)
-	for state_name in ["normal","hover","pressed","disabled","focus"]:
-		button.add_theme_stylebox_override(state_name,UIStyle.textured_button(state_name))
 	button.pressed.connect(callback)
 	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	add_child(button)
@@ -176,8 +178,8 @@ func _ruby_button(word: Dictionary, rect: Rect2, callback: Callable) -> Button:
 	ruby.reading_font = GameFonts.reading()
 	ruby.meaning_font = GameFonts.body()
 	ruby.ink=Color(UIStyle.TEXT)
-	ruby.reading_ink=Color("d5c8a8")
-	ruby.meaning_ink=Color("c8b993")
+	ruby.reading_ink=Color(UIStyle.MUTED)
+	ruby.meaning_ink=Color(UIStyle.BRASS)
 	ruby.set_word(word,30)
 	ruby.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	ruby.offset_top = 0
@@ -194,10 +196,10 @@ func _background(path: String, darkness: float, left_veil: bool = false) -> void
 	picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(picture)
 	var shade = ColorRect.new()
-	shade.color = Color(0.045,0.034,0.022,darkness)
+	shade.color = Color(0.035,0.047,0.052,darkness)
 	if left_veil:
 		var shader = Shader.new()
-		shader.code = "shader_type canvas_item; void fragment(){ float edge = abs(UV.x-0.5)*2.0; float a = mix(0.12,0.57,smoothstep(0.15,0.85,edge)); COLOR=vec4(0.045,0.034,0.022,a); }"
+		shader.code = "shader_type canvas_item; void fragment(){ float edge = abs(UV.x-0.5)*2.0; float a = mix(0.12,0.57,smoothstep(0.15,0.85,edge)); COLOR=vec4(0.035,0.047,0.052,a); }"
 		var material_now = ShaderMaterial.new()
 		material_now.shader = shader
 		shade.material = material_now
@@ -230,14 +232,14 @@ func _build_home() -> void:
 	var menu_x: float = size_now.x-458.0
 	var content_width: float = menu_x-146.0
 	UIStyle.ornament(self,Rect2(74,54,58,58),"crest")
-	_japanese_label("戦国・言葉の旅",Rect2(150,67,content_width-80,38),22,"e0c992").name="HomeTagline"
-	_japanese_label("言葉の戦場",Rect2(72,110,content_width,72),52,UIStyle.TEXT).name="HomeTitle"
-	_label("말의 전장",Rect2(78,190,content_width,40),28,UIStyle.MUTED).name="HomeSubtitle"
+	_japanese_label("戦国・言葉の旅",Rect2(150,34,content_width-80,64),22,"e0c992").name="HomeTagline"
+	_japanese_label("言葉の戦場",Rect2(72,104,content_width,116),46,UIStyle.TEXT).name="HomeTitle"
+	_label("말의 전장",Rect2(78,228,content_width,40),28,UIStyle.MUTED).name="HomeSubtitle"
 	var protagonist: Dictionary = campaign_story.get("protagonist",{})
 	var motif_jp: String = str(protagonist.get("motifJP","戦国絵巻、天下統一への道。"))
 	var motif_ko: String = str(protagonist.get("motifKo","전국시대, 천하 통일의 이야기"))
 	var motif_width: float = minf(730,content_width-24)
-	var jp_points: int = 36
+	var jp_points: int = 28
 	while GameFonts.japanese().get_string_size(motif_jp,HORIZONTAL_ALIGNMENT_LEFT,-1,jp_points).x>motif_width and jp_points>26:
 		jp_points-=1
 	var jp_width: float = GameFonts.japanese().get_string_size(motif_jp,HORIZONTAL_ALIGNMENT_LEFT,-1,jp_points).x
@@ -245,7 +247,7 @@ func _build_home() -> void:
 	var ko_points: int = clampi(roundi(30.0*jp_width/maxf(1,ko_reference)),28,40)
 	while GameFonts.heading().get_string_size(motif_ko,HORIZONTAL_ALIGNMENT_LEFT,-1,ko_points).x>motif_width and ko_points>24:
 		ko_points-=1
-	var story_plaque: Panel=_surface(Rect2(68,251,motif_width+28,158),"paper",.18)
+	var story_plaque: Panel=_surface(Rect2(68,282,motif_width+28,178),"paper",.18)
 	story_plaque.name="HomeStoryPlaque"
 	var paper: TextureRect=TextureRect.new()
 	paper.texture=UIStyle.material_texture("paper")
@@ -254,10 +256,11 @@ func _build_home() -> void:
 	paper.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	paper.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	story_plaque.add_child(paper)
-	_japanese_label(motif_jp,Rect2(82,263,motif_width,60),jp_points,"231b13").name="HomeMotifJP"
-	_label(motif_ko,Rect2(82,338,motif_width,54),ko_points,"403323").name="HomeMotifKO"
-	if progress.campaign_unified():
-		_label("天下統一 · 천하 통일 완료",Rect2(78,419,content_width,45),26,UIStyle.BRASS)
+	_japanese_label(motif_jp,Rect2(82,292,motif_width,82),jp_points,"231b13").name="HomeMotifJP"
+	_label(motif_ko,Rect2(82,393,motif_width,54),ko_points,"403323").name="HomeMotifKO"
+	var unified: bool=not maps.is_empty() and progress.campaign_unified()
+	if unified:
+		_label("天下統一 · 천하 통일 완료",Rect2(78,464,content_width,62),26,UIStyle.BRASS)
 	UIStyle.ornament(self,Rect2(menu_x,170,376,4),"divider")
 	var menu_surface: Panel=_surface(Rect2(menu_x-10,184,396,442),"lacquer",.82)
 	menu_surface.name="HomeMenuSurface"
@@ -265,7 +268,7 @@ func _build_home() -> void:
 		{"jp":"出陣","ko":"출진","parts":[{"text":"出","reading":"しゅつ"},{"text":"陣","reading":"じん"}]},
 		{"jp":"兵舎","ko":"병영","parts":[{"text":"兵","reading":"へい"},{"text":"舎","reading":"しゃ"}]},
 		{"jp":"鍛錬","ko":"병종 연습","parts":[{"text":"鍛","reading":"たん"},{"text":"錬","reading":"れん"}]},
-		{"jp":"言葉図鑑","ko":"학습 도감","parts":[{"text":"言葉","reading":"ことば"},{"text":"図鑑","reading":"ずかん"}]}
+		{"jp":"言葉図鑑","ko":"학습 도감","parts":[{"text":"言","reading":"こと"},{"text":"葉","reading":"ば"},{"text":"図","reading":"ず"},{"text":"鑑","reading":"かん"}]}
 	]
 	var actions: Array = [func(): show_catalog(0,false),func(): barracks_requested.emit(),func(): training_requested.emit(),func(): show_catalog(0,true)]
 	for index in range(items.size()):
@@ -276,10 +279,12 @@ func _build_home() -> void:
 		ruby.offset_right=-16
 		ruby.offset_top=3
 		ruby.set_word(items[index],24)
-		menu.add_theme_stylebox_override("normal",UIStyle.textured_button("normal",index==0))
-		var marker: Label = Label.new()
+		menu.add_theme_stylebox_override("normal",UIStyle.primary() if index==0 else UIStyle.button("normal"))
+		var marker: Label = UIStyle.TooltipLabel.new()
 		marker.text=["一","二","三","四"][index]
-		marker.position=Vector2(19,29)
+		marker.position=Vector2(12,16)
+		marker.size=Vector2(40,72)
+		marker.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		marker.add_theme_font_override("font",GameFonts.japanese())
 		marker.add_theme_font_size_override("font_size",26)
 		marker.add_theme_color_override("font_color",Color(UIStyle.BRASS))
@@ -287,28 +292,30 @@ func _build_home() -> void:
 		menu.add_child(marker)
 	_button("설정",Rect2(menu_x,634,172,47),func(): view="settings"; _rebuild()).name="HomeSettings"
 	_button("게임 종료",Rect2(menu_x+192,634,184,47),func(): exit_requested.emit()).name="HomeExit"
-	var atlas_entry: Button=_ruby_button({"jp":"全国地図","reading":"ぜんこくちず","ko":"전국 지도","parts":[{"text":"全国","reading":"ぜんこく"},{"text":"地図","reading":"ちず"}]},Rect2(78,477,minf(430,content_width),110),func(): show_campaign_map())
+	var atlas_y: float=534 if unified else 477
+	var atlas_entry: Button=_ruby_button({"jp":"全国地図","reading":"ぜんこくちず","ko":"전국 지도","parts":[{"text":"全国","reading":"ぜんこく"},{"text":"地図","reading":"ちず"}]},Rect2(78,atlas_y,minf(430,content_width),132),func(): show_campaign_map())
 	atlas_entry.name="HomeCampaignMap"
-	var map_hint: Label=_label("옛 지명과 오늘날 지역을 따라\n현재 원정의 전투들을 살펴보십시오.",Rect2(78,605,content_width,84),20,UIStyle.TEXT)
+	var map_hint: Label=_label("전장 지형과 경로를 새로 설계하고 있습니다.\n완성된 전장을 다시 추가할 예정입니다." if maps.is_empty() else "옛 지명과 오늘날 지역을 따라\n현재 원정의 전투들을 살펴보십시오.",Rect2(78,atlas_y+150,content_width,64),20,UIStyle.TEXT)
 	map_hint.name="HomeMapHint"
 	map_hint.add_theme_color_override("font_outline_color",Color("171410"))
 	map_hint.add_theme_constant_override("outline_size",2)
 	_label("",Rect2(78,710,content_width,38),20,UIStyle.MUTED).name="HomeCatalogPreparation"
-	if battle_active:
+	if battle_active and not maps.is_empty():
 		_button("진행 중인 전장으로",Rect2(menu_x,696,376,47),func(): resume_requested.emit()).name="HomeResume"
 	var footer: String = "원정 %02d / 40 · 군자금 %d · 기억 확인 %d / 900" % [progress.data.maps.size(),int(progress.data.army.currency),progress.mastered_count()]
+	if maps.is_empty(): footer="전장 재설계 · 이전 기록 %d개 · 군자금 %d · 기억 확인 %d / 900" % [progress.data.maps.size(),int(progress.data.army.currency),progress.mastered_count()]
 	if not progress.save_error.is_empty(): footer=progress.save_error
 	elif not progress.read_error.is_empty(): footer=progress.read_error
 	_label(footer,Rect2(78,size_now.y-43,size_now.x-410,32),20,UIStyle.MUTED).name="HomeProgressFooter"
-	_japanese_label("戦国時代",Rect2(size_now.x-300,size_now.y-48,236,38),26,"c8b993").horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+	_japanese_label("戦国時代",Rect2(size_now.x-300,size_now.y-82,236,74),26,"c8b993").horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
 	_sync_catalog_preparation()
 
 func _build_catalog() -> void:
 	var size_now = get_viewport().get_visible_rect().size
 	_background("res://assets/ui/barracks-warroom.png",0.52)
 	UIStyle.ornament(self,Rect2(38,26,54,54),"crest")
-	_japanese_label("言葉図鑑" if study_mode else "戦記　出陣之書",Rect2(110,22,size_now.x-380,53),36,UIStyle.TEXT).name="CatalogTitle"
-	_label("전장별 학습 도감" if study_mode else "전장 선택 · 원정 기록",Rect2(111,83,size_now.x-380,33),20,UIStyle.MUTED).name="CatalogSubtitle"
+	_japanese_label("言葉図鑑" if study_mode else "戦記　出陣之書",Rect2(110,18,size_now.x-380,78),32,UIStyle.TEXT).name="CatalogTitle"
+	_label("전장별 학습 도감" if study_mode else "전장 선택 · 원정 기록",Rect2(111,99,size_now.x-380,33),20,UIStyle.MUTED).name="CatalogSubtitle"
 	_button("전장 복귀" if battle_active else "돌아가기",Rect2(size_now.x-232,33,190,45),func():
 		if battle_active:
 			resume_requested.emit()
@@ -320,19 +327,25 @@ func _build_catalog() -> void:
 		show_campaign_map(str(available_now[selected_stage].id) if selected_stage>=0 and selected_stage<available_now.size() else "")
 	)
 	atlas_entry.name="CatalogCampaignMap"
+	atlas_entry.disabled=maps.is_empty()
 	atlas_entry.tooltip_text="全国地図 · ぜんこくちず · 실제 전투 위치와 당시 지명"
 	for tier in range(4):
-		var button = _button(TIER_NAMES[tier],Rect2(42+tier*220,129,206,46),func(): selected_stage=0; show_catalog(tier,study_mode))
+		var button = _button(TIER_NAMES[tier],Rect2(42+tier*220,145,206,64),func(): selected_stage=0; show_catalog(tier,study_mode))
 		if tier==selected_tier:
-			button.add_theme_stylebox_override("normal",UIStyle.textured_button("normal",false,true))
+			button.add_theme_stylebox_override("normal",UIStyle.selected())
 	var available = maps.filter(func(stage): return str(stage.tier)==TIERS[selected_tier])
+	if available.is_empty():
+		selected_stage = 0
+		_label("전장 재설계 중",Rect2(42,231,size_now.x-84,58),30,UIStyle.BRASS).name="CatalogEmptyTitle"
+		_label("현재 플레이 가능한 전장이 없습니다.\n역사 검증과 공간 설계를 마친 전장을 다시 추가할 예정입니다." if maps.is_empty() else "이 등급의 전장을 준비하고 있습니다.",Rect2(42,283,size_now.x-84,104),22,UIStyle.TEXT).name="CatalogEmptyStatus"
+		return
 	selected_stage = clampi(selected_stage,0,available.size()-1)
 	_surface(Rect2(32,189,358,size_now.y-237),"paper",.12)
 	var scroll = ScrollContainer.new()
 	scroll.name = "StageCatalogScroll"
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	scroll.position = Vector2(42,200)
-	scroll.size = Vector2(338,size_now.y-258)
+	scroll.position = Vector2(42,230)
+	scroll.size = Vector2(338,size_now.y-288)
 	add_child(scroll)
 	var list = VBoxContainer.new()
 	list.add_theme_constant_override("separation",4)
@@ -346,7 +359,7 @@ func _build_catalog() -> void:
 		var unlocked: bool = progress.map_unlocked(str(stage.id))
 		if not unlocked:
 			row.text += " · 잠김"
-			row.add_theme_color_override("font_color",Color("a0927a"))
+			row.add_theme_color_override("font_color",Color(UIStyle.DISABLED))
 		row.reparent(list,false)
 		row.custom_minimum_size = Vector2(318,70)
 		row.alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -354,11 +367,11 @@ func _build_catalog() -> void:
 		row.add_theme_font_size_override("font_size",20)
 		row.tooltip_text = progress.map_lock_reason(str(stage.id)) if not unlocked else "완료" if progress.map_cleared(str(stage.id)) else "출진 가능"
 		if i==selected_stage:
-			row.add_theme_stylebox_override("normal",UIStyle.textured_button("normal",false,true))
+			row.add_theme_stylebox_override("normal",UIStyle.selected())
 	scroll.call_deferred("ensure_control_visible",list.get_child(selected_stage))
 	var chosen: Dictionary = available[selected_stage]
 	var selected_story: Dictionary = _story(str(chosen.id))
-	var preview_rect = Rect2(410,200,size_now.x-452,size_now.y-488)
+	var preview_rect = Rect2(410,230,size_now.x-452,size_now.y-518)
 	var landscape: Control = BattlefieldPreview.new()
 	landscape.name="CatalogBattlefieldPreview"
 	landscape.configure(chosen)
@@ -386,13 +399,13 @@ func _build_catalog() -> void:
 			mode.tooltip_text = "학습·일시 정지를 뺀 1× 전투 시간 · 2×에서는 실제 시간이 짧아집니다."
 			mode.add_theme_font_size_override("font_size",20)
 			if minutes==battle_minutes:
-				mode.add_theme_stylebox_override("normal",UIStyle.textured_button("normal",false,true))
-				mode.add_theme_stylebox_override("disabled",UIStyle.textured_button("normal",false,true))
+				mode.add_theme_stylebox_override("normal",UIStyle.selected())
+				mode.add_theme_stylebox_override("disabled",UIStyle.selected())
 		var narrative_height: float=minf(174,preview_rect.size.y*.52)
 		var narrative_rect: Rect2=Rect2(preview_rect.position.x+12,preview_rect.end.y-narrative_height-12,preview_rect.size.x-24,narrative_height)
 		var narrative_panel: Panel=_surface(narrative_rect,"lacquer",.15)
 		narrative_panel.name="StageHistoricalNarrativePanel"
-		narrative_panel.add_theme_stylebox_override("panel",UIStyle.frame("211910f5",UIStyle.LINE))
+		narrative_panel.add_theme_stylebox_override("panel",UIStyle.frame(UIStyle.SURFACE,UIStyle.LINE))
 		var narrative_scroll: ScrollContainer=ScrollContainer.new()
 		narrative_scroll.name="StageHistoricalNarrativeScroll"
 		narrative_scroll.position=narrative_rect.position+Vector2(16,12)
@@ -447,7 +460,7 @@ func _build_catalog() -> void:
 	start.name="CatalogSortie"
 	start.disabled = not progress.map_unlocked(str(chosen.id))
 	start.tooltip_text = progress.map_lock_reason(str(chosen.id)) if start.disabled else ""
-	start.add_theme_stylebox_override("normal",UIStyle.textured_button("normal",true))
+	start.add_theme_stylebox_override("normal",UIStyle.primary())
 	if start.disabled:
 		var locked_caption = _label(progress.map_lock_reason(str(chosen.id)),Rect2(preview_rect.position+Vector2(16,70),Vector2(preview_rect.size.x-32,64)),22,"e8c29c")
 		locked_caption.name = "MapUnlockRequirement"
@@ -476,6 +489,9 @@ func _atlas_select(stage_id: String) -> void:
 		selected_stage=indices.y
 
 func _build_atlas() -> void:
+	if maps.is_empty():
+		_build_catalog()
+		return
 	var geography: Dictionary={}
 	var path: String="res://native/campaign_geography.json"
 	if FileAccess.file_exists(path):
@@ -520,7 +536,7 @@ func _build_settings() -> void:
 	notes.add_theme_stylebox_override("panel",UIStyle.textured_panel("paper",Color("ddceb1")))
 	add_child(notes)
 	UIStyle.ornament(self,Rect2(80,62,58,58),"crest")
-	_japanese_label("設定",Rect2(163,63,650,60),40,UIStyle.TEXT).name="SettingsTitle"
+	_japanese_label("設定",Rect2(163,45,650,98),40,UIStyle.TEXT).name="SettingsTitle"
 	_label("환경 설정 · 음악과 일본어 음성",Rect2(80,155,800,45),22,UIStyle.MUTED).name="SettingsSubtitle"
 	var music_on = bool(progress.data.settings.get("music",true))
 	var voice_on = voice_available and bool(progress.data.settings.get("voice",true))

@@ -29,6 +29,9 @@ const UnitGrowth = preload("res://native/unit_growth.gd")
 const MAX_SIMULATION_STEP: float = .05
 const ENGAGED_MARCH_FACTOR: float = 1.35
 const RECRUITMENT_CAPACITY: int = 24
+# Input tolerance matches the existing field actor pickup radius. Recruitment
+# origins have positions, not authored build zones; this does not add terrain.
+const MARCH_DEPLOYMENT_PICK_RADIUS: float = .055
 const ENEMY_PATH_ROLE: String = "path_assault"
 const ENEMY_EMPLACEMENT_ROLE: String = "emplacement_assault"
 const EMPLACEMENT_ENEMY_KINDS: Array = ["enemy_archer","enemy_gunner","enemy_samurai"]
@@ -47,6 +50,7 @@ const HEALTHBAR_BACKGROUND_COLOR: String = "15232b"
 var config: Dictionary = {}
 var field_rect: Rect2 = Rect2(300, 100, 960, 600)
 var input_enabled: bool = true
+var ui_deployment_active: bool = false
 var running: bool = false
 var paused: bool = false
 var between_waves: bool = false
@@ -128,6 +132,7 @@ var placement_cursor_visible: bool = false
 var placement_art: Dictionary = {}
 var recruitment_queue: Array = []
 var render_projection_provider: Control
+var circle_floor_faces: Array = []
 var field_input_clip: Control
 var ambush_warnings: Array=[]
 var next_ambush_id: int=1
@@ -155,7 +160,7 @@ func emplacement_protection_active() -> bool:
 	return roster_configured and not unlocked_roster.has("naginata")
 
 func can_enemy_target_unit(unit: Dictionary) -> bool:
-	if unit.is_empty() or float(unit.get("hp",0))<=0: return false
+	if unit.is_empty() or float(unit.get("hp",0))<=0 or bool(unit.get("consumed",false)): return false
 	return not emplacement_protection_active() or str(unit.get("type","")) not in ["archer","gunner","monk","naginata"]
 
 func enemy_role_contract(kind: String) -> Dictionary:
@@ -279,7 +284,13 @@ func screen_to_local_point(screen_point: Vector2) -> Vector2:
 	return get_global_transform_with_canvas().affine_inverse()*screen_point
 
 func screen_to_field_point(screen_point: Vector2) -> Vector2:
+	if _uses_world_projection():
+		var picked: Dictionary=render_projection_provider.screen_to_model_point(screen_point)
+		return picked.get("position",Vector2(NAN,NAN)) if bool(picked.get("valid",false)) else Vector2(NAN,NAN)
 	return model_point((screen_to_local_point(screen_point)-field_rect.position)/field_rect.size)
+
+func _uses_world_projection() -> bool:
+	return is_instance_valid(render_projection_provider) and render_projection_provider.has_method("uses_world_geometry") and bool(render_projection_provider.uses_world_geometry())
 
 func view_point(canonical_point: Vector2) -> Vector2:
 	return BattlefieldPresentation.to_view(canonical_point,presentation_mirrored)
@@ -301,6 +312,8 @@ func screen_point_in_field(screen_point: Vector2) -> bool:
 	return true
 
 func field_point_to_screen(point: Vector2) -> Vector2:
+	if _uses_world_projection():
+		return render_projection_provider.get_global_transform_with_canvas()*render_projection_provider.model_to_field_point(point)
 	return get_global_transform_with_canvas()*_screen(point)
 
 func set_input_enabled(value: bool) -> void:
@@ -330,6 +343,7 @@ func load_map(map_config: Dictionary, duration_minutes: int = 0) -> void:
 	battle_generation+=1
 	_cancel_all_recruitment("map_change",false)
 	config = map_config.duplicate(true)
+	_cache_circle_floor()
 	presentation_mirrored = BattlefieldPresentation.mirror_for_stage(config)
 	battle_minutes = BattleDuration.normalize_minutes(duration_minutes) if duration_minutes!=0 else 0
 	battle_plan.clear()
@@ -370,6 +384,7 @@ func load_map(map_config: Dictionary, duration_minutes: int = 0) -> void:
 	paths.clear()
 	zones.clear()
 	pending.clear()
+	ui_deployment_active = false
 	placement_cursor_visible = false
 	placement_cursor = Vector2(-1,-1)
 	selected_id = -1
@@ -514,26 +529,98 @@ func _dispatch_marching(choice: Dictionary, cost: int, permanent_level: int, pat
 	var template: Dictionary={"id":-1,"type":choice.id,"name":evolution.name,"jp":evolution.jp,"reading":evolution.reading,"cost":cost,"campaignLevel":permanent_level,"evolution":int(evolution.stage),"definition":choice.duplicate(true)}
 	return _enqueue_recruitment(template,base,base.position)
 
+func _deployment_template(unit_id: String) -> Dictionary:
+	var definition: Dictionary = {}
+	if roster_configured:
+		if not unlocked_roster.has(unit_id) or not recruit_catalog.has(unit_id): return {}
+		definition = recruit_catalog[unit_id]
+	else:
+		for candidate in UNIT_TYPES:
+			if str(candidate.id)==unit_id: definition=candidate;break
+	if definition.is_empty(): return {}
+	var permanent_level: int = clampi(int(campaign_levels.get(unit_id,1)),1,10)
+	var evolution: Dictionary = _evolution_for(definition,permanent_level)
+	return {"id":-1,"type":unit_id,"name":evolution.name,"jp":evolution.jp,"reading":evolution.reading,"paid":0,"cost":recruit_cost(unit_id),"preview":true,"campaignLevel":permanent_level,"evolution":int(evolution.stage),"definition":definition.duplicate(true)}
+
+func _deployment_rejected(result: Dictionary, message: String) -> Dictionary:
+	result["ok"] = false
+	result["valid"] = false
+	result["message"] = message
+	result["reason"] = message
+	return result
+
+func deployment_preview(unit_id: String, position_norm: Vector2, path_id: String = "") -> Dictionary:
+	# Explicit-unit queries never select a card, alter pending, reserve IDs,
+	# publish events, or spend. The legacy click preview remains independent.
+	var result: Dictionary = {"ok":false,"active":true,"valid":false,"visible":input_enabled and not finished and not battle_closed,"type":unit_id,"requestedPosition":_normalized_position(position_norm),"position":_normalized_position(position_norm),"message":"","reason":""}
+	result.merge(placement_contract(unit_id))
+	if finished or battle_closed or config.is_empty(): return _deployment_rejected(result,"전투가 종료되었거나 준비되지 않았습니다.")
+	if not input_enabled: return _deployment_rejected(result,"현재 화면에서는 병력을 배치할 수 없습니다.")
+	if not position_norm.is_finite() or position_norm.x<0.0 or position_norm.x>1.0 or position_norm.y<0.0 or position_norm.y>1.0:
+		return _deployment_rejected(result,"전장 안의 유효한 위치를 선택하십시오.")
+	var template: Dictionary = _deployment_template(unit_id)
+	if template.is_empty(): return _deployment_rejected(result,"아직 해금되지 않았거나 존재하지 않는 병력입니다.")
+	var cost: int = int(template.cost)
+	result.merge({"cost":cost,"affordable":gold>=cost,"quantity":unit_skills.recruit_quantity(unit_id,int(template.campaignLevel)),"evolution":int(template.evolution),"campaignLevel":int(template.campaignLevel),"name":str(template.name),"jp":str(template.jp),"reading":str(template.reading),"range":float(_stats(template).range)})
+	if recruitment_queue.size()>=RECRUITMENT_CAPACITY: return _deployment_rejected(result,"생산 대기열이 가득 찼습니다.")
+	if cost<=0 or gold<cost: return _deployment_rejected(result,"배치에 필요한 금화가 부족합니다.")
+	if not GroundCombat.is_marching(unit_id):
+		result.merge(_stationary_placement_preview(template,position_norm,true),true)
+		result["ok"] = bool(result.valid)
+		result["message"] = str(result.reason)
+		return result
+	var path_index: int = -1
+	if not path_id.is_empty():
+		for index in range(paths.size()):
+			if str(paths[index].get("id",index))==path_id: path_index=index;break
+		if path_index<0: return _deployment_rejected(result,"출진할 수 있는 육지 경로를 선택하십시오.")
+	var base: Dictionary = ground_combat.select_march_base(path_index)
+	if base.is_empty(): return _deployment_rejected(result,"출진할 수 있는 육지 경로를 선택하십시오.")
+	result.merge({"position":_normalized_position(base.position),"basePosition":_normalized_position(base.position),"baseId":str(base.baseId),"baseNameKo":str(base.baseNameKo),"pathId":str(base.pathId),"pathIndex":int(base.pathIndex),"dropRadius":MARCH_DEPLOYMENT_PICK_RADIUS})
+	if position_norm.distance_to(base.position)>MARCH_DEPLOYMENT_PICK_RADIUS or not ground_combat.land_segment_safe(position_norm,position_norm,0.0):
+		return _deployment_rejected(result,"선택한 출진로의 아군 기지에 놓으십시오.")
+	result["ok"] = true
+	result["valid"] = true
+	return result
+
+func submit_deployment(unit_id: String, position_norm: Vector2, path_id: String = "") -> Dictionary:
+	# No cached preview can authorize payment. Re-read every rule at commit,
+	# then use the existing single-order queue transaction without legacy setup.
+	var result: Dictionary = deployment_preview(unit_id,position_norm,path_id)
+	if not bool(result.ok): return result
+	var template: Dictionary = _deployment_template(unit_id)
+	var destination: Dictionary = ground_combat.select_march_base(int(result.pathIndex)) if GroundCombat.is_marching(unit_id) else _eligible_zone(position_norm,unit_id)
+	if template.is_empty() or destination.is_empty(): return _deployment_rejected(result,"배치 조건이 바뀌었습니다. 다시 선택하십시오.")
+	var job_id: int = next_recruitment_id
+	if not _enqueue_recruitment(template,destination,_point(result.position)):
+		return _deployment_rejected(result,"배치 조건이 바뀌었습니다. 다시 선택하십시오.")
+	result["jobId"] = job_id
+	queue_redraw()
+	return result
+
 func placement_preview(position_norm: Vector2) -> Dictionary:
 	if pending.is_empty(): return {"active":false,"valid":false,"visible":false,"reason":""}
-	var cost: int = int(pending.get("cost",pending.get("paid",0)))
-	var affordable: bool = not bool(pending.get("preview",false)) or gold>=cost
-	var result: Dictionary = {"active":true,"valid":false,"visible":placement_cursor_visible and input_enabled and not finished,"affordable":affordable,"type":str(pending.type),"evolution":int(pending.get("evolution",0)),"campaignLevel":int(pending.get("campaignLevel",1)),"cost":cost,"requestedPosition":_normalized_position(position_norm),"position":_normalized_position(position_norm),"range":float(_stats(pending).range),"reason":""}
-	result.merge(placement_contract(str(pending.type)))
+	return _stationary_placement_preview(pending,position_norm,placement_cursor_visible and not ui_deployment_active)
+
+func _stationary_placement_preview(template: Dictionary, position_norm: Vector2, cursor_visible: bool) -> Dictionary:
+	var cost: int = int(template.get("cost",template.get("paid",0)))
+	var affordable: bool = not bool(template.get("preview",false)) or gold>=cost
+	var result: Dictionary = {"active":true,"valid":false,"visible":cursor_visible and input_enabled and not finished,"affordable":affordable,"type":str(template.type),"evolution":int(template.get("evolution",0)),"campaignLevel":int(template.get("campaignLevel",1)),"cost":cost,"requestedPosition":_normalized_position(position_norm),"position":_normalized_position(position_norm),"range":float(_stats(template).range),"reason":""}
+	result.merge(placement_contract(str(template.type)))
 	if finished: result.reason="전투가 종료되었습니다.";return result
 	if not position_norm.is_finite(): result.reason="유효한 위치를 선택하십시오.";return result
 	if recruitment_queue.size()>=RECRUITMENT_CAPACITY: result.reason="생산 대기열이 가득 찼습니다.";return result
-	if roster_configured and (not recruit_catalog.has(str(pending.type)) or not unlocked_roster.has(str(pending.type))): result.reason="아직 해금되지 않은 병력입니다.";return result
+	if roster_configured and (not recruit_catalog.has(str(template.type)) or not unlocked_roster.has(str(template.type))): result.reason="아직 해금되지 않은 병력입니다.";return result
 	if not affordable: result.reason="배치에 필요한 금화가 부족합니다.";return result
-	var build_zone: Dictionary = _eligible_zone(position_norm,str(pending.type))
+	var build_zone: Dictionary = _eligible_zone(position_norm,str(template.type))
 	if build_zone.is_empty(): result.reason=str(result.placementHintKo);return result
 	var actual: Vector2 = _placement_position(position_norm,build_zone)
 	result.position = _normalized_position(actual)
 	if str(build_zone.get("placementRole",""))=="ambush":
-		result.merge({"ambushSiteId":str(build_zone.id),"siteNameKo":str(build_zone.nameKo),"homePosition":_normalized_position(actual),"ambushRadius":float(_stats(pending).range)})
+		result.merge({"ambushSiteId":str(build_zone.id),"siteNameKo":str(build_zone.nameKo),"homePosition":_normalized_position(actual),"ambushRadius":float(_stats(template).range)})
 	for unit in units:
 		if GroundCombat.is_marching(str(unit.type)): continue
-		if _reserved_position(unit).distance_to(actual)<.052 or (bool(pending.get("preview",false)) and unit.position.distance_to(actual)<.052):
+		if _reserved_position(unit).distance_to(actual)<.052 or (bool(template.get("preview",false)) and unit.position.distance_to(actual)<.052):
 			result.reason="다른 병력과 조금 떨어뜨려 배치하십시오."
 			return result
 	for job in recruitment_queue:
@@ -541,7 +628,7 @@ func placement_preview(position_norm: Vector2) -> Dictionary:
 		if job.position.distance_to(actual)<.0521:
 			result.reason="생산 중인 병력의 예약 지점입니다. 다른 곳을 선택하십시오."
 			return result
-	var probe: Dictionary = pending.duplicate()
+	var probe: Dictionary = template.duplicate()
 	probe.position = actual
 	probe.elevation = int(build_zone.get("elevation",0))
 	result.range = float(_stats(probe).range)
@@ -623,12 +710,19 @@ func _cancel_all_recruitment(reason: String, publish: bool = true) -> int:
 
 func close_battle() -> void:
 	if battle_closed: return
+	var generation: int=battle_generation
 	battle_closed=true
+	ui_deployment_active=false
 	battle_support.cease()
 	running=false
 	paused=false
 	cancel_recruit()
 	_cancel_all_recruitment("battle_closed")
+	if generation!=battle_generation: return
+	for unit in units:
+		if str(unit.type)=="ninja" and float(unit.get("hp",0))>0: ground_combat.mark_ninja_consumed(unit,"battle_closed")
+	_remove_consumed_units()
+	if generation!=battle_generation: return
 	_refresh_placement_hints()
 	_emit_state()
 
@@ -694,30 +788,27 @@ func order_assassination(enemy_id: int, unit_id: int = -1) -> Dictionary:
 	if not input_enabled or paused or between_waves or finished:
 		result.reasonKo="전투가 재개된 뒤 암살 대상을 지정하십시오.";return result
 	var unit: Dictionary=_selected() if unit_id<0 else ground_combat._unit(unit_id)
-	if unit.is_empty() or not GroundCombat.is_ambush(str(unit.type)) or float(unit.get("hp",0))<=0:
+	if unit.is_empty() or not GroundCombat.is_ambush(str(unit.type)) or float(unit.get("hp",0))<=0 or bool(unit.get("consumed",false)):
 		result.reasonKo="배치된 닌자를 먼저 선택하십시오.";return result
-	if str(unit.get("combatState",""))=="ambush_return":
-		result.reasonKo="닌자가 원래 엄폐 지점으로 복귀 중입니다.";return result
 	if str(unit.get("animation","idle"))=="attack":
 		result.reasonKo="닌자가 현재 공격을 마친 뒤 대상을 지정하십시오.";return result
 	var target: Dictionary=_enemy(enemy_id)
-	if target.is_empty() or float(target.hp)<=0 or not bool(target.get("fortification",false)):
-		result.reasonKo="살아 있는 적 사격진지를 지정하십시오.";return result
+	if not ground_combat.is_tower_attacker(target):
+		result.reasonKo="살아 있는 적 고정 타워형 진지를 지정하십시오.";return result
 	var radius: float=float(_stats(unit).range)*2.0
 	if int(target.pathIndex)!=int(unit.postPathIndex) or unit.homePosition.distance_to(target.position)>radius:
 		result.reasonKo="엄폐 지점과 같은 길의 가까운 적 사격진지만 암살할 수 있습니다.";return result
-	var distance: float=ground_combat.enemy_distance(target)
-	if distance<float(unit.routeMin) or distance>float(unit.routeMax) or not ground_combat.land_route_safe(int(unit.postPathIndex),float(unit.homeDistance),distance):
+	if not ground_combat.ninja_mission_target_valid(unit,target) or not ground_combat.ninja_route_valid(unit,target):
 		result.reasonKo="물이나 막힌 지형을 건너 적 사격진지로 갈 수 없습니다.";return result
 	if int(unit.get("priorityTargetId",-1))==enemy_id:
 		result.reasonKo="이미 그 사격진지를 암살 대상으로 지정했습니다.";result["duplicate"]=true;return result
 	if int(unit.get("priorityTargetId",-1))>=0:
-		result.reasonKo="현재 암살을 마치고 엄폐 지점으로 복귀한 뒤 대상을 바꾸십시오.";return result
+		result.reasonKo="소모성 닌자는 한 번 지정한 암살 임무를 다른 대상으로 바꿀 수 없습니다.";return result
 	unit["priorityTargetId"]=enemy_id
 	unit["targetId"]=enemy_id
 	unit["ambushStrikeDone"]=false
 	unit["combatState"]="ambush_approach"
-	result.merge({"accepted":true,"unitId":int(unit.id),"targetId":enemy_id,"assassinationRadius":radius,"reasonKo":"적 사격진지로 달려가 공격한 뒤 원래 엄폐 지점으로 복귀합니다."},true)
+	result.merge({"accepted":true,"unitId":int(unit.id),"targetId":enemy_id,"assassinationRadius":radius,"reasonKo":"적 타워형 진지를 암살합니다. 임무가 끝나거나 표적을 잃으면 퇴장하며 재사용할 수 없습니다."},true)
 	_combat_event("assassination_ordered",unit,target,{"message":str(result.reasonKo)})
 	_emit_state()
 	queue_redraw()
@@ -794,6 +885,7 @@ func bridge_label() -> String:
 	return "제 %d" % (bridge_index + 1)
 
 func _input(event: InputEvent) -> void:
+	if ui_deployment_active: return
 	# Pointer motion must precede GUI handling: a toolbar Control may consume
 	# it before _unhandled_input, while the map ghost still needs to disappear.
 	if not input_enabled or finished: return
@@ -804,7 +896,7 @@ func _input(event: InputEvent) -> void:
 		if actor_overlay!=null: actor_overlay.queue_redraw()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not input_enabled or finished:
+	if not input_enabled or finished or ui_deployment_active:
 		return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT and not pending.is_empty():
 		cancel_recruit()
@@ -821,7 +913,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			var assassin: Dictionary=_selected()
 			if not assassin.is_empty() and GroundCombat.is_ambush(str(assassin.type)):
 				for enemy in enemies:
-					if bool(enemy.get("fortification",false)) and float(enemy.hp)>0 and enemy.position.distance_to(normalized)<.045:
+					if ground_combat.is_tower_attacker(enemy) and enemy.position.distance_to(normalized)<.045:
 						var ordered: Dictionary=order_assassination(int(enemy.id))
 						if not bool(ordered.accepted): _event("assassination",str(ordered.reasonKo))
 						get_viewport().set_input_as_handled()
@@ -883,6 +975,7 @@ func _advance_simulation_step(delta: float) -> void:
 	battle_support.step(delta)
 	_update_learning_supports(delta)
 	_advance_actor_animations(delta)
+	if generation!=battle_generation or finished or battle_closed: return
 	bridge_cooldown = maxf(0.0, bridge_cooldown - delta)
 	_update_map_mode(delta)
 	battle_refill_clock=maxf(0.0,battle_refill_clock-delta)
@@ -907,6 +1000,8 @@ func _advance_simulation_step(delta: float) -> void:
 		spawn_clock += _spawn_interval()
 	if _is_timed_battle() and spawn_queue.is_empty(): spawn_clock=maxf(0.0,spawn_clock)
 	ground_combat.step(delta)
+	_remove_consumed_units()
+	if generation!=battle_generation or finished or battle_closed: return
 	movement_ranges.clear()
 	for unit in units:
 		if ground_combat.active_support(unit): movement_ranges[int(unit.id)] = float(_stats(unit).range)+.025
@@ -920,6 +1015,8 @@ func _advance_simulation_step(delta: float) -> void:
 		return
 	_update_units(delta)
 	_update_projectiles(delta)
+	_remove_consumed_units()
+	if generation!=battle_generation or finished or battle_closed: return
 	if friendly_casualties_pending:
 		_remove_fallen_units()
 		friendly_casualties_pending=false
@@ -952,6 +1049,32 @@ func _advance_simulation_step(delta: float) -> void:
 			_refill_timed_wave()
 	elif spawn_queue.is_empty() and enemies.is_empty() and ambush_warnings.is_empty():
 		_complete_wave()
+
+func _remove_consumed_units() -> void:
+	var generation: int=battle_generation
+	var was_closed: bool=battle_closed
+	var survivors: Array=[]
+	var departed: Array=[]
+	for unit in units:
+		if not bool(unit.get("consumed",false)):
+			survivors.append(unit)
+			continue
+		departed.append(unit)
+		unit["attackPlan"]={}
+		for enemy in enemies:
+			if int(enemy.get("blockedBy",-1))==int(unit.id):
+				enemy["blockedBy"]=-1
+				enemy["counterPlan"]={}
+			if int(enemy.get("stationaryTargetId",-1))==int(unit.id):
+				_begin_hunter_return(enemy)
+		if selected_id==int(unit.id): selected_id=-1
+	if departed.is_empty(): return
+	units=survivors
+	_refresh_placement_hints()
+	# Consumption is an irreversible departure, not a casualty or a refund.
+	for unit in departed:
+		_combat_event("unit_consumed",unit,{}, {"side":"friendly","consumeReason":str(unit.get("consumeReason","mission_ended")),"targetId":int(unit.get("consumedTargetId",-1)),"deploymentKind":"ambush","message":"%s 임무 종료 · 소모" % unit.name})
+		if generation!=battle_generation or (battle_closed and not was_closed): return
 
 func _remove_fallen_units() -> void:
 	var previous_count: int=units.size()
@@ -1744,7 +1867,7 @@ func _update_units(delta: float) -> void:
 				if unit.position.distance_to(enemy.position) > float(stats.range): continue
 				var progress: float = float(enemy.pointIndex) / paths[int(enemy.pathIndex)].points.size()
 				if progress > best_progress: best_progress=progress;target=enemy
-		if target.is_empty():
+		if target.is_empty() or not ground_combat.primary_target_allowed(unit,target,"prepare"):
 			continue
 		unit["aim"] = (target.position - unit.position).normalized()
 		unit["cooldown"] = float(stats.interval)
@@ -1756,6 +1879,7 @@ func _update_units(delta: float) -> void:
 		unit["attackPlan"] = unit_skills.prepare_attack(unit,target,damage,_impact_time(str(unit.type))*duration/_animation_duration("attack"))
 
 func _advance_actor_animations(delta: float) -> void:
+	var generation: int=battle_generation
 	for unit in units:
 		unit["animationClock"] = float(unit.get("animationClock", 0.0)) + delta
 		unit["pulseClock"] = maxf(0.0, float(unit.get("pulseClock", 0.0)) - delta)
@@ -1769,6 +1893,7 @@ func _advance_actor_animations(delta: float) -> void:
 			var plan: Dictionary = unit.get("attackPlan", {})
 			if not plan.is_empty() and float(unit.animationClock) >= float(plan.get("releaseTime", 0.25)):
 				_release_unit_attack(unit, plan)
+				if generation!=battle_generation or battle_closed: return
 				if bool(plan.get("guardDash",false)) and not unit.get("guardDashData",{}).is_empty():
 					unit_skills.finish_guard_dash(unit,false)
 					unit.guardDashData={}
@@ -1785,14 +1910,24 @@ func _advance_actor_animations(delta: float) -> void:
 		enemy["slowClock"] = maxf(0.0, float(enemy.get("slowClock", 0.0)) - delta)
 
 func _release_unit_attack(unit: Dictionary, plan: Dictionary) -> void:
-	if str(unit.type)=="monk" or float(unit.get("hp",0))<=0: return
+	if str(unit.type)=="monk" or float(unit.get("hp",0))<=0 or bool(unit.get("consumed",false)): return
+	if not plan.get("skillMeta",{}).is_empty() and not unit_skills._valid_meta(plan.skillMeta): return
 	if bool(plan.get("nativeReleaseConsumed",false)): return
+	var generation: int=battle_generation
 	plan["nativeReleaseConsumed"]=true
 	var ground: bool = GroundCombat.is_ground(str(unit.type))
 	var frontline: bool = GroundCombat.is_frontline(str(unit.type))
 	if frontline and not ground_combat.can_fight(unit): return
 	var target: Dictionary = _enemy(int(plan.targetId))
 	var stats: Dictionary = _stats(unit)
+	if str(unit.type) in ["naginata","ninja"]:
+		var original_target_valid: bool=ground_combat.primary_target_allowed(unit,target,"release")
+		if bool(plan.get("guardDash",false)) and int(unit.get("guardDashTargetId",-1))!=int(plan.targetId): original_target_valid=false
+		if not original_target_valid:
+			if str(unit.type)=="ninja":
+				var reason: String="target_defeated" if not target.is_empty() and float(target.get("hp",0))<=0 else "target_lost"
+				ground_combat.mark_ninja_consumed(unit,reason)
+			return
 	if target.is_empty() or float(target.hp) <= 0.0:
 		if frontline:
 			target = ground_combat.attack_target(unit) if not bool(plan.get("charge",false)) else {}
@@ -1811,12 +1946,16 @@ func _release_unit_attack(unit: Dictionary, plan: Dictionary) -> void:
 		if not ground_combat.shares_contact_front(unit,target) or unit.position.distance_to(target.position) > ground_combat.reach(unit)*1.1 or not ground_combat.land_segment_safe(unit.position,target.position):
 			return
 		_combat_event("shot",unit,target,_skill_event_fields(plan))
+		if generation!=battle_generation or battle_closed: return
 		var actual_damage: float = _damage_enemy(target, damage, str(unit.type),source)
-		if GroundCombat.is_ambush(str(unit.type)) and (int(unit.get("priorityTargetId",-1))<0 or float(target.hp)<=0): unit["ambushStrikeDone"]=true
+		if generation!=battle_generation or battle_closed: return
 		if bool(plan.get("charge",false)):
 			_combat_event("charge_impact",unit,target,{"damage":actual_damage,"position":_normalized_position(target.position)})
+			if generation!=battle_generation or battle_closed: return
 		effects.append({"position":target.position,"time":0.0,"duration":0.18,"color":Color("e8d8b4"),"kind":"hit"})
 		unit_skills.after_release(unit,target,plan)
+		if str(unit.type)=="ninja" and float(target.hp)<=0:
+			ground_combat.mark_ninja_consumed(unit,"target_defeated")
 		if bool(plan.get("guardDash",false)):
 			unit_skills.finish_guard_dash(unit,true)
 			unit.guardDashData={}
@@ -1826,6 +1965,7 @@ func _release_unit_attack(unit: Dictionary, plan: Dictionary) -> void:
 		var shot: Dictionary={"position":unit.position,"targetId":target.id,"targetPos":target.position,"damage":damage,"type":unit.type,"sourceId":unit.id,"sourcePosition":unit.position,"sourceUnit":source,"speed":2.7 if str(unit.type)=="gunner" else .65,"age":0.0}
 		projectiles.append(unit_skills.decorate_projectile(shot,unit,plan))
 		_combat_event("shot",unit,target,_skill_event_fields(plan))
+		if generation!=battle_generation or battle_closed: return
 		unit_skills.after_release(unit,target,plan)
 
 func _skill_event_fields(context: Dictionary) -> Dictionary:
@@ -2001,6 +2141,7 @@ func _enemy_visible(enemy: Dictionary) -> bool:
 
 func _complete_wave() -> void:
 	if finished or wave<=completed_wave or wave<=0: return
+	var generation: int=battle_generation
 	var timed: bool = _is_timed_battle()
 	if timed and elapsed<float(_timed_wave().get("endSeconds",battle_plan.targetSeconds))-.0000001: return
 	# The last combat step can contain an escape as well as the deadline.
@@ -2010,7 +2151,10 @@ func _complete_wave() -> void:
 			_finish(false)
 			return
 	completed_wave=wave
-	if not timed: ground_combat.cease_combat()
+	if not timed:
+		ground_combat.cease_combat()
+		_remove_consumed_units()
+		if generation!=battle_generation or battle_closed: return
 	gold += 40 + wave * 3
 	var supply: Dictionary = _trait().get("waveGold", {})
 	if not supply.is_empty() and wave % maxi(1, int(supply.get("every", 1))) == 0:
@@ -2019,6 +2163,7 @@ func _complete_wave() -> void:
 		_event("trait-supply", "작전 보급 · 금화 +%d" % amount)
 	var final_wave: bool = elapsed>=float(battle_plan.targetSeconds)-.0000001 if timed else wave>=total_waves
 	_event("waveend","",{"side":"system","final":final_wave,"kills":kills})
+	if generation!=battle_generation or battle_closed: return
 	if final_wave:
 		_finish(true)
 		return
@@ -2030,14 +2175,20 @@ func _complete_wave() -> void:
 func _finish(won: bool) -> void:
 	if finished:
 		return
+	var generation: int=battle_generation
 	finished=true
 	battle_support.cease()
 	victory = won
 	ambush_warnings.clear()
 	_cancel_all_recruitment("battle_finished")
+	if generation!=battle_generation or battle_closed: return
 	cancel_recruit()
+	if generation!=battle_generation or battle_closed: return
 	_remove_fallen_units()
+	if generation!=battle_generation or battle_closed: return
 	ground_combat.cease_combat()
+	_remove_consumed_units()
+	if generation!=battle_generation or battle_closed: return
 	running = false
 	paused = false
 	between_waves = false
@@ -2231,6 +2382,9 @@ func _point(value) -> Vector2:
 	return Vector2(float(value.get("x", 0.0)), float(value.get("y", 0.0)))
 
 func _screen(p: Vector2) -> Vector2:
+	if _uses_world_projection():
+		var projected: Vector2=render_projection_provider.model_to_field_point(p)
+		return get_global_transform_with_canvas().affine_inverse()*render_projection_provider.get_global_transform_with_canvas()*projected
 	return field_rect.position + view_point(p) * field_rect.size
 
 func _unit_public(unit: Dictionary) -> Dictionary:
@@ -2271,9 +2425,13 @@ func _unit_public(unit: Dictionary) -> Dictionary:
 	result["gatherRemaining"]=float(unit.get("gatherRemaining",0))
 	result["gatherGroupId"]=int(unit.get("gatherGroupId",0))
 	if str(unit.type)=="monk": result["supportRadius"]=float(stats.range)
-	if str(unit.type)=="naginata": result.merge({"homePosition":_normalized_position(unit.get("homePosition",unit.get("position",Vector2.ZERO))),"guardRadius":float(unit.get("guardRadius",stats.range))},true)
+	if str(unit.type)=="naginata":
+		var zone: Dictionary=unit.get("guardZone",{})
+		var public_zone: Dictionary={"center":_normalized_position(ground_combat._zone_point(zone.get("center",unit.get("homePosition",Vector2.ZERO)))),"radius":float(zone.get("radius",unit.get("guardRadius",.15))),"polygon":[]}
+		for point in zone.get("polygon",[]): public_zone.polygon.append(_normalized_position(ground_combat._zone_point(point)))
+		result.merge({"homePosition":_normalized_position(unit.get("homePosition",unit.get("position",Vector2.ZERO))),"guardRadius":float(unit.get("guardRadius",stats.range)),"defenseZone":public_zone,"recognitionRadius":float(stats.range),"occupancyRadius":float(unit.get("occupancyRadius",.008))},true)
 	if GroundCombat.is_ambush(str(unit.type)):
-		result.merge({"ambushSiteId":str(unit.get("postId","")),"homePosition":_normalized_position(unit.get("homePosition",unit.get("position",Vector2.ZERO))),"ambushRadius":float(unit.get("guardRadius",stats.range)),"assassinationRadius":float(stats.range)*2.0,"priorityTargetId":int(unit.get("priorityTargetId",-1))})
+		result.merge({"ambushSiteId":str(unit.get("postId","")),"homePosition":_normalized_position(unit.get("homePosition",unit.get("position",Vector2.ZERO))),"ambushRadius":float(stats.range)*2.0,"assassinationRadius":float(stats.range)*2.0,"priorityTargetId":int(unit.get("priorityTargetId",-1)),"consumable":true,"consumed":bool(unit.get("consumed",false)),"consumeReason":str(unit.get("consumeReason",""))})
 	if str(unit.type)=="commander":
 		result["chargeUnlocked"]=unit_skills.can_charge(unit)
 		result["chargeDamage"] = float(stats.damage)*2.2 if bool(result.chargeUnlocked) else 0.0
@@ -2719,7 +2877,7 @@ func _draw_zones(target: Node2D = null) -> void:
 	_draw_placement_ghost(canvas)
 
 func _draw_placement_ghost(canvas: Node2D) -> void:
-	if pending.is_empty() or not placement_cursor_visible or not input_enabled or finished:
+	if pending.is_empty() or not placement_cursor_visible or not input_enabled or finished or ui_deployment_active:
 		return
 	var preview: Dictionary = placement_preview(placement_cursor)
 	var valid: bool = bool(preview.valid)
@@ -2774,14 +2932,204 @@ func _draw_placement_ghost(canvas: Node2D) -> void:
 		canvas.draw_string_outline(ui_font,label_position,label,HORIZONTAL_ALIGNMENT_LEFT,-1,16,2,Color(.03,.04,.03,.90))
 		canvas.draw_string(ui_font,label_position,label,HORIZONTAL_ALIGNMENT_LEFT,-1,16,color)
 
-func _draw_world_circle(center: Vector2, radius: float, fill: Color, outline: Color, target: Node2D = null, line_width: float = 1.2) -> void:
-	var canvas: Node2D=target if target!=null else self
-	var points: PackedVector2Array = PackedVector2Array()
+func _cache_circle_floor() -> void:
+	circle_floor_faces.clear()
+	var geometry: Variant=config.get("worldGeometry",{})
+	if not geometry is Dictionary or geometry.is_empty(): return
+	var bounds: Variant=geometry.get("simulationBounds",{})
+	if not bounds is Dictionary: return
+	for key in ["x","z","width","depth"]:
+		var value: Variant=bounds.get(key)
+		if not (value is int or value is float) or not is_finite(float(value)): return
+	var width: float=float(bounds.get("width",0))
+	var depth: float=float(bounds.get("depth",0))
+	if width<=0 or depth<=0: return
+	var extents: Vector2=Vector2(width,depth)
+	if not extents.is_finite() or extents.x<=0 or extents.y<=0: return
+	width=extents.x; depth=extents.y
+	var vertices: Variant=geometry.get("vertices",[])
+	var indices: Variant=geometry.get("triangles",[])
+	if not vertices is Array or not indices is Array or indices.size()%3!=0: return
+	var origin: Vector2=Vector2(float(bounds.x),float(bounds.z))
+	var faces: Array=[]
+	for offset in range(0,indices.size()-2,3):
+		var polygon: PackedVector2Array=PackedVector2Array()
+		for corner in range(3):
+			var raw_index: Variant=indices[offset+corner]
+			if not (raw_index is int or raw_index is float) or not is_finite(float(raw_index)) or float(raw_index)!=floorf(float(raw_index)): return
+			var index: int=int(raw_index)
+			if index<0 or index>=vertices.size(): return
+			var vertex: Variant=vertices[index]
+			if not vertex is Dictionary: return
+			for key in ["x","z"]:
+				var value: Variant=vertex.get(key)
+				if not (value is int or value is float) or not is_finite(float(value)): return
+			# Match the authored mesh's float32 X/Z and scalar normalization.
+			var world_xz: Vector2=Vector2(float(vertex.x),float(vertex.z))
+			var point: Vector2=Vector2((world_xz.x-origin.x)/width,(world_xz.y-origin.y)/depth)
+			if not point.is_finite(): return
+			polygon.append(point)
+		var twice_area: float=absf((float(polygon[1].x)-float(polygon[0].x))*(float(polygon[2].y)-float(polygon[0].y))-(float(polygon[1].y)-float(polygon[0].y))*(float(polygon[2].x)-float(polygon[0].x)))
+		var longest_edge: float=maxf(polygon[0].distance_to(polygon[1]),maxf(polygon[1].distance_to(polygon[2]),polygon[2].distance_to(polygon[0])))
+		if twice_area==0 or longest_edge==0: return
+		# Native clipping rounds on a 1e-5 grid. Thin authored faces need direct
+		# half-plane clipping so their visible range pieces cannot collapse.
+		faces.append({"polygon":polygon,"rect":Rect2(polygon[0],Vector2.ZERO).expand(polygon[1]).expand(polygon[2]),"thin":twice_area/longest_edge<=.00008,"winding":signf((float(polygon[1].x)-float(polygon[0].x))*(float(polygon[2].y)-float(polygon[0].y))-(float(polygon[1].y)-float(polygon[0].y))*(float(polygon[2].x)-float(polygon[0].x)))})
+	circle_floor_faces=faces
+
+func _circle_points_on_face(points: PackedVector2Array, face: PackedVector2Array) -> PackedVector2Array:
+	# Geometry2D's clipping grid can move an edge beyond the original triangle.
+	# Restore only those displayed points to that same authored face; physics,
+	# placement and navigation tolerances remain independent of this correction.
+	var a: Vector2=face[0]; var b: Vector2=face[1]; var c: Vector2=face[2]
+	var ab_x: float=float(b.x)-float(a.x); var ab_y: float=float(b.y)-float(a.y)
+	var ac_x: float=float(c.x)-float(a.x); var ac_y: float=float(c.y)-float(a.y)
+	var denominator: float=ab_x*ac_y-ab_y*ac_x
+	if not is_finite(denominator) or denominator==0: return PackedVector2Array()
+	var world_projection: bool=_uses_world_projection()
+	var restored: PackedVector2Array=PackedVector2Array()
+	for point in points:
+		var ap_x: float=float(point.x)-float(a.x); var ap_y: float=float(point.y)-float(a.y)
+		var second: float=(ap_x*ac_y-ap_y*ac_x)/denominator
+		var third: float=(ab_x*ap_y-ab_y*ap_x)/denominator
+		var first: float=1-second-third
+		if first>=0 and second>=0 and third>=0 and (not world_projection or render_projection_provider.model_to_field_point(point).is_finite()):
+			restored.append(point)
+			continue
+		# Euclidean edge projection stays local even for thin triangles; clamped
+		# barycentric weights could move a near-edge point far along that edge.
+		var nearest: Vector2=point
+		var nearest_distance: float=INF
+		var geometric_distance: float=INF
+		var candidates: Array=[]
+		for edge in range(3):
+			var start: Vector2=face[edge]; var end: Vector2=face[(edge+1)%3]
+			var edge_x: float=float(end.x)-float(start.x); var edge_y: float=float(end.y)-float(start.y)
+			var length_squared: float=edge_x*edge_x+edge_y*edge_y
+			if length_squared==0: continue
+			var along: float=clampf(((float(point.x)-float(start.x))*edge_x+(float(point.y)-float(start.y))*edge_y)/length_squared,0,1)
+			var projected: Vector2=Vector2(float(start.x)+edge_x*along,float(start.y)+edge_y*along)
+			var distance: float=point.distance_squared_to(projected)
+			geometric_distance=minf(geometric_distance,distance)
+			candidates.append({"point":projected,"distance":distance})
+		# Recheck float32 reconstruction through the real height-backed provider.
+		# A different far edge must not replace an unrepresentable nearby point.
+		var local_limit: float=pow(sqrt(geometric_distance)+.000001,2)
+		for candidate in candidates:
+			if float(candidate.distance)>local_limit: continue
+			if world_projection and not render_projection_provider.model_to_field_point(candidate.point).is_finite(): continue
+			if float(candidate.distance)<nearest_distance:
+				nearest=candidate.point; nearest_distance=float(candidate.distance)
+		if not is_finite(nearest_distance): return PackedVector2Array()
+		restored.append(nearest)
+	return restored
+
+func _circle_edge_distance(point: Vector2, face: Dictionary, edge: int) -> float:
+	var a: Vector2=face.polygon[edge]; var b: Vector2=face.polygon[(edge+1)%3]
+	return float(face.winding)*((float(b.x)-float(a.x))*(float(point.y)-float(a.y))-(float(b.y)-float(a.y))*(float(point.x)-float(a.x)))
+
+func _circle_interpolate(a: Vector2, b: Vector2, fraction: float) -> Vector2:
+	return Vector2(float(a.x)+(float(b.x)-float(a.x))*fraction,float(a.y)+(float(b.y)-float(a.y))*fraction)
+
+func _circle_clip_thin_disk(disk: PackedVector2Array, face: Dictionary) -> PackedVector2Array:
+	var polygon: PackedVector2Array=disk
+	for edge in range(3):
+		if polygon.is_empty(): break
+		var clipped: PackedVector2Array=PackedVector2Array()
+		var previous: Vector2=polygon[polygon.size()-1]
+		var previous_distance: float=_circle_edge_distance(previous,face,edge)
+		for point in polygon:
+			var distance: float=_circle_edge_distance(point,face,edge)
+			if (distance>=0)!=(previous_distance>=0):
+				clipped.append(_circle_interpolate(previous,point,previous_distance/(previous_distance-distance)))
+			if distance>=0: clipped.append(point)
+			previous=point; previous_distance=distance
+		polygon=clipped
+	return _circle_points_on_face(polygon,face.polygon)
+
+func _circle_clip_thin_arc(a: Vector2, b: Vector2, face: Dictionary) -> PackedVector2Array:
+	var lower: float=0; var upper: float=1
+	for edge in range(3):
+		var start: float=_circle_edge_distance(a,face,edge)
+		var end: float=_circle_edge_distance(b,face,edge)
+		if start<0 and end<0: return PackedVector2Array()
+		if start<0: lower=maxf(lower,start/(start-end))
+		elif end<0: upper=minf(upper,start/(start-end))
+		if lower>=upper: return PackedVector2Array()
+	return _circle_points_on_face(PackedVector2Array([_circle_interpolate(a,b,lower),_circle_interpolate(a,b,upper)]),face.polygon)
+
+func _world_circle_surface_layout(center: Vector2, radius: float, include_fill: bool = true) -> Dictionary:
+	var result: Dictionary={"fills":[],"arcs":[]}
+	if not center.is_finite() or not is_finite(radius) or radius<=0: return result
+	var perimeter: PackedVector2Array=PackedVector2Array()
 	for index in range(49):
 		var angle: float = TAU * index / 48.0
-		points.append(_screen(center + Vector2(cos(angle),sin(angle)) * radius))
-	canvas.draw_colored_polygon(points, fill)
-	canvas.draw_polyline(points, outline, line_width, true)
+		perimeter.append(center+Vector2(cos(angle),sin(angle))*radius)
+	var disk: PackedVector2Array=perimeter.slice(0,48)
+	var bounds: Rect2=Rect2(center-Vector2.ONE*radius,Vector2.ONE*radius*2)
+	for face in circle_floor_faces:
+		if not bounds.intersects(face.rect,true): continue
+		if bool(face.thin):
+			if include_fill:
+				var polygon: PackedVector2Array=_circle_clip_thin_disk(disk,face)
+				if polygon.size()>=3: result.fills.append(polygon)
+			for index in range(perimeter.size()-1):
+				var arc: PackedVector2Array=_circle_clip_thin_arc(perimeter[index],perimeter[index+1],face)
+				if arc.size()>=2: result.arcs.append(arc)
+			continue
+		# Clip the disk and its open perimeter independently. Floor boundaries
+		# close only filled regions; they must never become range-outline chords.
+		if include_fill:
+			for polygon in Geometry2D.intersect_polygons(disk,face.polygon):
+				result.fills.append(_circle_points_on_face(polygon,face.polygon))
+		for arc in Geometry2D.intersect_polyline_with_polygon(perimeter,face.polygon):
+			result.arcs.append(_circle_points_on_face(arc,face.polygon))
+	return result
+
+func _project_circle_points(model_points: PackedVector2Array) -> PackedVector2Array:
+	var projected: PackedVector2Array=PackedVector2Array()
+	for point in model_points:
+		var pixel: Vector2=_screen(point)
+		if not pixel.is_finite(): return PackedVector2Array()
+		projected.append(pixel)
+	return projected
+
+func _prepare_circle_fill(points: PackedVector2Array) -> PackedVector2Array:
+	if points.size()<3: return PackedVector2Array()
+	var origin: Vector2=points[0]
+	var local_points: PackedVector2Array=PackedVector2Array()
+	for point in points:
+		if not point.is_finite(): return PackedVector2Array()
+		var local: Vector2=point-origin
+		if local_points.is_empty() or local!=local_points[local_points.size()-1]: local_points.append(local)
+	if local_points.size()>1 and local_points[0]==local_points[local_points.size()-1]: local_points.remove_at(local_points.size()-1)
+	# Small clipped pieces at large screen coordinates can lose their signed
+	# area in canvas triangulation. Translate for tessellation, then restore
+	# that exact origin in the draw command; no range area is scaled or hidden.
+	if local_points.size()<3 or Geometry2D.triangulate_polygon(local_points).is_empty(): return PackedVector2Array()
+	return local_points
+
+func _draw_world_circle(center: Vector2, radius: float, fill: Color, outline: Color, target: Node2D = null, line_width: float = 1.2) -> void:
+	var canvas: Node2D=target if target!=null else self
+	if _uses_world_projection():
+		var layout: Dictionary=_world_circle_surface_layout(center,radius,fill.a>0)
+		for polygon in layout.fills:
+			var projected: PackedVector2Array=_project_circle_points(polygon)
+			var local_points: PackedVector2Array=_prepare_circle_fill(projected)
+			if local_points.size()>=3:
+				canvas.draw_set_transform(projected[0])
+				canvas.draw_colored_polygon(local_points,fill)
+				canvas.draw_set_transform(Vector2.ZERO)
+		for arc in layout.arcs:
+			var projected: PackedVector2Array=_project_circle_points(arc)
+			if projected.size()>=2: canvas.draw_polyline(projected,outline,line_width,true)
+		return
+	var points: PackedVector2Array=PackedVector2Array()
+	for index in range(49):
+		var angle: float=TAU*index/48.0
+		points.append(_screen(center+Vector2(cos(angle),sin(angle))*radius))
+	canvas.draw_colored_polygon(points,fill)
+	canvas.draw_polyline(points,outline,line_width,true)
 
 func enemy_role_marker_geometry(enemy: Dictionary) -> Dictionary:
 	var scale: float=_depth_scale(float(enemy.position.y))*(three_d_actor_scale if three_d_enabled else 1.0)

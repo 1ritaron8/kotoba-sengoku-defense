@@ -1,0 +1,7 @@
+{
+  "status": "PRODUCTION_FAILED_NO_AUTO_RETRY",
+  "type": "ValueError",
+  "reason": "Approved reference not packed in workshop",
+  "blender": "5.2.2 LTS",
+  "game_writes": 0
+}

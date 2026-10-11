@@ -2,6 +2,8 @@ extends SceneTree
 
 const Ruby = preload("res://native/ruby_label.gd")
 const Readings = preload("res://native/ruby_readings.gd")
+const Front = preload("res://native/front_end.gd")
+const Store = preload("res://native/progress.gd")
 var checks: int = 0
 var failures: Array[String] = []
 
@@ -69,7 +71,33 @@ func verify_compact(word: Dictionary, width: float, points: int, spacing: float=
 		check(absf((readings[0].bounds.position.x+readings[-1].bounds.end.x)*.5-width*.5)<.1,"Overhanging reading row stays centred above the whole word")
 	label.free()
 
+func verify_home_dictionary() -> void:
+	var menu=Front.new()
+	menu.progress=Store.new()
+	menu.campaign_story=JSON.parse_string(FileAccess.get_file_as_string("res://native/campaign_story.json"))
+	root.add_child(menu)
+	menu.show_home()
+	var label=menu.get_node("HomeDictionary/MenuRuby")
+	var layout: Dictionary=label.get_text_layout()
+	var bodies: Array=[]
+	var readings: Array=[]
+	for run in layout.runs:
+		if run.role=="body": bodies.append(run)
+		elif run.role=="reading": readings.append(run)
+	check(bodies.size()==4 and readings.size()==4,"Actual home dictionary splits all four kanji and readings")
+	var expected_body: Array=["言","葉","図","鑑"]
+	var expected_reading: Array=["こと","ば","ず","かん"]
+	for index in range(mini(4,mini(bodies.size(),readings.size()))):
+		check(bodies[index].text==expected_body[index] and readings[index].text==expected_reading[index],"Home dictionary retains accurate individual readings")
+		check(bodies[index].color==label.reading_group_palette[index%2] and readings[index].color==bodies[index].color,"Home dictionary gold/blue alternation reaches final 鑑")
+		if index>0:check(absf(bodies[index].bounds.position.x-bodies[index-1].bounds.end.x)<.1,"Home dictionary kanji remain contiguous")
+	menu.free()
+
 func _initialize() -> void:
+	call_deferred("run")
+
+func run() -> void:
+	verify_home_dictionary()
 	verify_label({"jp":"手加減","reading":"てかげん"},["て","か","げん"])
 	verify_label({"jp":"鉄砲兵","reading":"てっぽうへい"},["てっ","ぽう","へい"])
 	verify_label({"jp":"地面","reading":"じめん","parts":[{"text":"地面","reading":"じめん"}]},["じ","めん"])

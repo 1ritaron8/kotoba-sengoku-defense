@@ -1,0 +1,676 @@
+{
+  "version": 1,
+  "checkedDate": "2026-10-06",
+  "recordedOnly": true,
+  "voiceActor": "ユーフルカ / YouFulca",
+  "language": "ja-JP",
+  "recordingType": "Human voice; official voice_assets page states every distributed voice is YouFulca's own voice.",
+  "toneBasis": "Official cool/solitary/rival and samurai game-announcer categories. No artificial pitch reduction. This environment cannot audition audio input; final tone suitability is not claimed from an auditory review.",
+  "credit": "音声：ユーフルカ https://youfulca.com/",
+  "sources": [
+    {
+      "id": "youfulca-narration",
+      "title": "ゲーム用ナレーション / 試合（サムライ、和風）",
+      "author": "ユーフルカ",
+      "sourceUrl": "https://youfulca.com/2022/08/07/game_narration/",
+      "voiceEvidenceUrl": "https://youfulca.com/voice_assets/",
+      "license": "YouFulca official free asset terms; commercial game embedding permitted, copyright retained.",
+      "licenseUrl": "https://youfulca.com/kiyaku_jp/",
+      "credit": "音声：ユーフルカ https://youfulca.com/",
+      "commercialGameAllowed": true,
+      "standaloneRedistributionAllowed": false,
+      "modifications": "None; original WAV preserved. Runtime playback gain only.",
+      "pageEvidence": "res://assets/narration/sources/youfulca-narration.html",
+      "pageSha256": "C1A2C4161D846D04BAC461071027893FC1B0C188FA10C1101178F64EA960C4E7",
+      "licenseEvidence": "res://assets/narration/sources/youfulca-license.html",
+      "licenseSha256": "8807BBBE6D39E7E4677BF069A058499C846A210BD44B19790CE30F55292B1C0A",
+      "humanEvidence": "res://assets/narration/sources/youfulca-voice.html",
+      "humanEvidenceSha256": "4BA1655C31F08CFA5100AB25C07F31C63226DECD3509C8CF7BB729100D585DBE"
+    },
+    {
+      "id": "youfulca-cool",
+      "title": "クール・孤高・ライバルタイプ",
+      "author": "ユーフルカ",
+      "sourceUrl": "https://youfulca.com/2022/08/06/cool/",
+      "voiceEvidenceUrl": "https://youfulca.com/voice_assets/",
+      "license": "YouFulca official free asset terms; commercial game embedding permitted, copyright retained.",
+      "licenseUrl": "https://youfulca.com/kiyaku_jp/",
+      "credit": "音声：ユーフルカ https://youfulca.com/",
+      "commercialGameAllowed": true,
+      "standaloneRedistributionAllowed": false,
+      "modifications": "None; original WAV preserved. Runtime playback gain only.",
+      "pageEvidence": "res://assets/narration/sources/youfulca-cool.html",
+      "pageSha256": "AF1AF59F980584BC0B6F08E9605FF5F70B30234D5105BFFBD1917760C8AFFFB5",
+      "licenseEvidence": "res://assets/narration/sources/youfulca-license.html",
+      "licenseSha256": "8807BBBE6D39E7E4677BF069A058499C846A210BD44B19790CE30F55292B1C0A",
+      "humanEvidence": "res://assets/narration/sources/youfulca-voice.html",
+      "humanEvidenceSha256": "4BA1655C31F08CFA5100AB25C07F31C63226DECD3509C8CF7BB729100D585DBE"
+    }
+  ],
+  "licenseFiles": [
+    "res://assets/narration/NOTICE.txt"
+  ],
+  "events": {
+    "battle_start": {
+      "clips": [
+        "march"
+      ],
+      "priority": 70,
+      "cooldown": 20,
+      "maxAge": 7
+    },
+    "wave_start": {
+      "clips": [
+        "begin"
+      ],
+      "priority": 45,
+      "cooldown": 45,
+      "maxAge": 4
+    },
+    "strong_enemy": {
+      "clips": [
+        "strong_enemy"
+      ],
+      "priority": 80,
+      "cooldown": 45,
+      "maxAge": 6
+    },
+    "danger": {
+      "clips": [
+        "danger"
+      ],
+      "priority": 85,
+      "cooldown": 45,
+      "maxAge": 5
+    },
+    "rally": {
+      "clips": [
+        "resolve"
+      ],
+      "priority": 55,
+      "cooldown": 60,
+      "maxAge": 6
+    },
+    "wave_clear": {
+      "clips": [
+        "move_on"
+      ],
+      "priority": 35,
+      "cooldown": 45,
+      "maxAge": 4
+    },
+    "victory": {
+      "clips": [
+        "victory"
+      ],
+      "priority": 100,
+      "cooldown": 1,
+      "maxAge": 10,
+      "terminal": true
+    },
+    "narrow_victory": {
+      "clips": [
+        "wounded_victory"
+      ],
+      "priority": 100,
+      "cooldown": 1,
+      "maxAge": 10,
+      "terminal": true
+    },
+    "defeat": {
+      "clips": [
+        "defeat"
+      ],
+      "priority": 100,
+      "cooldown": 1,
+      "maxAge": 10,
+      "terminal": true
+    },
+    "retry": {
+      "clips": [
+        "retry"
+      ],
+      "priority": 45,
+      "cooldown": 10,
+      "maxAge": 5
+    },
+    "reinforcement": {
+      "clips": [
+        "challenge"
+      ],
+      "priority": 55,
+      "cooldown": 40,
+      "maxAge": 5
+    },
+    "duel": {
+      "clips": [
+        "fight"
+      ],
+      "priority": 70,
+      "cooldown": 40,
+      "maxAge": 4
+    },
+    "battle_honor": {
+      "clips": [
+        "honor"
+      ],
+      "priority": 70,
+      "cooldown": 30,
+      "maxAge": 7
+    },
+    "halt": {
+      "clips": [
+        "halt"
+      ],
+      "priority": 60,
+      "cooldown": 40,
+      "maxAge": 5
+    }
+  },
+  "clips": [
+    {
+      "id": "honor",
+      "sourceId": "youfulca-narration",
+      "originalFile": "Narration-SAMURAI00.wav",
+      "jp": "いざ尋常に…",
+      "reading": "いざじんじょうに…",
+      "ko": "자, 정정당당하게…",
+      "parts": [
+        {
+          "text": "いざ"
+        },
+        {
+          "text": "尋常",
+          "reading": "じんじょう"
+        },
+        {
+          "text": "に…"
+        }
+      ],
+      "event": "battle_honor",
+      "gainDb": -7.0,
+      "path": "res://assets/narration/clips/Narration-SAMURAI00.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/Narration-SAMURAI00.wav",
+      "sha256": "b016854682e87c137a4cc5cccff9cd7a04057b8bec1b663803078bde75bb8c2c",
+      "bytes": 106910,
+      "seconds": 1.209795918367347,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.1788321842934945,
+      "peak": 0.82891845703125,
+      "pitchEstimateHz": 148.48484848484847,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "fight",
+      "sourceId": "youfulca-narration",
+      "originalFile": "Narration-SAMURAI_Fight.wav",
+      "jp": "勝負！！",
+      "reading": "しょうぶ！！",
+      "ko": "승부다!",
+      "parts": [
+        {
+          "text": "勝負",
+          "reading": "しょうぶ"
+        },
+        {
+          "text": "！！"
+        }
+      ],
+      "event": "duel",
+      "gainDb": -8.0,
+      "path": "res://assets/narration/clips/Narration-SAMURAI_Fight.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/Narration-SAMURAI_Fight.wav",
+      "sha256": "e5f4564843ef997677aebf70c8f37eceb314f12c6aa90690ad6c551e83f0e6f3",
+      "bytes": 70862,
+      "seconds": 0.8010884353741496,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.26484814248031097,
+      "peak": 0.98529052734375,
+      "pitchEstimateHz": 222.72727272727272,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "begin",
+      "sourceId": "youfulca-narration",
+      "originalFile": "Narration-SAMURAI_Start.wav",
+      "jp": "始め！！",
+      "reading": "はじめ！！",
+      "ko": "시작하라!",
+      "parts": [
+        {
+          "text": "始",
+          "reading": "はじ"
+        },
+        {
+          "text": "め！！"
+        }
+      ],
+      "event": "wave_start",
+      "gainDb": -8.0,
+      "path": "res://assets/narration/clips/Narration-SAMURAI_Start.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/Narration-SAMURAI_Start.wav",
+      "sha256": "58e40170cf44f70646b83a3aec44c05e246586fe79fac4fade96e3c541edc2af",
+      "bytes": 59086,
+      "seconds": 0.6675736961451247,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.2460578894196946,
+      "peak": 0.98858642578125,
+      "pitchEstimateHz": 200.45454545454544,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "halt",
+      "sourceId": "youfulca-narration",
+      "originalFile": "Narration-SAMURAI_Over01.wav",
+      "jp": "それまで！",
+      "reading": "それまで！",
+      "ko": "거기까지!",
+      "parts": [
+        {
+          "text": "それまで！"
+        }
+      ],
+      "event": "halt",
+      "gainDb": -7.0,
+      "path": "res://assets/narration/clips/Narration-SAMURAI_Over01.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/Narration-SAMURAI_Over01.wav",
+      "sha256": "ccd7d72eb5f73c88c4d8aff555a6b94b4d1f1a4b698b0d95fa927241d332bda1",
+      "bytes": 73422,
+      "seconds": 0.8301133786848073,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.22687550527800868,
+      "peak": 0.955841064453125,
+      "pitchEstimateHz": 200.45454545454544,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "victory",
+      "sourceId": "youfulca-narration",
+      "originalFile": "Narration-SAMURAI_Over02.wav",
+      "jp": "勝負あり！！",
+      "reading": "しょうぶあり！！",
+      "ko": "승부가 났다!",
+      "parts": [
+        {
+          "text": "勝負",
+          "reading": "しょうぶ"
+        },
+        {
+          "text": "あり！！"
+        }
+      ],
+      "event": "victory",
+      "gainDb": -7.0,
+      "path": "res://assets/narration/clips/Narration-SAMURAI_Over02.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/Narration-SAMURAI_Over02.wav",
+      "sha256": "395b2b7627964f35d9131c5c2270b2f78da055a27058d4ff989dee5abe52562e",
+      "bytes": 93390,
+      "seconds": 1.0565079365079366,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.2883838195592778,
+      "peak": 0.98858642578125,
+      "pitchEstimateHz": 200.45454545454544,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "retry",
+      "sourceId": "youfulca-narration",
+      "originalFile": "Narration-Hanyou_Continue_01.wav",
+      "jp": "もう一度挑戦するか？",
+      "reading": "もういちどちょうせんするか？",
+      "ko": "다시 한번 도전하겠나?",
+      "parts": [
+        {
+          "text": "もう"
+        },
+        {
+          "text": "一度",
+          "reading": "いちど"
+        },
+        {
+          "text": "挑戦",
+          "reading": "ちょうせん"
+        },
+        {
+          "text": "するか？"
+        }
+      ],
+      "event": "retry",
+      "gainDb": -7.0,
+      "path": "res://assets/narration/clips/Narration-Hanyou_Continue_01.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/Narration-Hanyou_Continue_01.wav",
+      "sha256": "031a40f0b523c0956a7924f4a0eee23d974f4ab80c9d23c96966fc16acb727b0",
+      "bytes": 136910,
+      "seconds": 1.5499319727891157,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.15235314722432006,
+      "peak": 0.7283935546875,
+      "pitchEstimateHz": 154.1958041958042,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "challenge",
+      "sourceId": "youfulca-cool",
+      "originalFile": "01_cool_before.wav",
+      "jp": "相手をしてやろう",
+      "reading": "あいてをしてやろう",
+      "ko": "상대해 주겠다.",
+      "parts": [
+        {
+          "text": "相手",
+          "reading": "あいて"
+        },
+        {
+          "text": "をしてやろう"
+        }
+      ],
+      "event": "reinforcement",
+      "gainDb": -5.0,
+      "path": "res://assets/narration/clips/01_cool_before.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/01_cool_before.wav",
+      "sha256": "ce2c169a19daa626372aa8770ca54bfbfa24db15c86def4f7bd38521ac7b847f",
+      "bytes": 102726,
+      "seconds": 1.1623582766439908,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.1375490785700713,
+      "peak": 0.89068603515625,
+      "pitchEstimateHz": 160.36363636363637,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "march",
+      "sourceId": "youfulca-cool",
+      "originalFile": "03_cool_before.wav",
+      "jp": "いくぞ！手加減はしない",
+      "reading": "いくぞ！てかげんはしない",
+      "ko": "간다! 봐주지 않겠다.",
+      "parts": [
+        {
+          "text": "いくぞ！"
+        },
+        {
+          "text": "手加減",
+          "reading": "てかげん"
+        },
+        {
+          "text": "はしない"
+        }
+      ],
+      "event": "battle_start",
+      "gainDb": -5.0,
+      "path": "res://assets/narration/clips/03_cool_before.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/03_cool_before.wav",
+      "sha256": "7a259de4bc982120f8fc575b0d005d7f4e225c4c7f13118a93332c9f4d091b10",
+      "bytes": 149166,
+      "seconds": 1.6888888888888889,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.1199560561258981,
+      "peak": 0.98858642578125,
+      "pitchEstimateHz": 160.62062937062936,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "strong_enemy",
+      "sourceId": "youfulca-cool",
+      "originalFile": "04_cool_before.wav",
+      "jp": "油断するな、相当の使い手だぞ",
+      "reading": "ゆだんするな、そうとうのつかいてだぞ",
+      "ko": "방심하지 마라. 상당한 실력자다.",
+      "parts": [
+        {
+          "text": "油断",
+          "reading": "ゆだん"
+        },
+        {
+          "text": "するな、"
+        },
+        {
+          "text": "相当",
+          "reading": "そうとう"
+        },
+        {
+          "text": "の"
+        },
+        {
+          "text": "使",
+          "reading": "つか"
+        },
+        {
+          "text": "い"
+        },
+        {
+          "text": "手",
+          "reading": "て"
+        },
+        {
+          "text": "だぞ"
+        }
+      ],
+      "event": "strong_enemy",
+      "gainDb": -5.0,
+      "path": "res://assets/narration/clips/04_cool_before.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/04_cool_before.wav",
+      "sha256": "0d56991a2b469bdeb55c11cae19859fd043cac5e924e5f5fbf6f00b48c7d25b9",
+      "bytes": 255186,
+      "seconds": 2.8909297052154197,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.0856843169798127,
+      "peak": 0.832763671875,
+      "pitchEstimateHz": 148.48484848484847,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "danger",
+      "sourceId": "youfulca-cool",
+      "originalFile": "05_cool_before.wav",
+      "jp": "ぐ…これでは分が悪すぎる！",
+      "reading": "ぐ…これではぶがわるすぎる！",
+      "ko": "큭… 이래서는 너무 불리하다!",
+      "parts": [
+        {
+          "text": "ぐ…これでは"
+        },
+        {
+          "text": "分",
+          "reading": "ぶ"
+        },
+        {
+          "text": "が"
+        },
+        {
+          "text": "悪",
+          "reading": "わる"
+        },
+        {
+          "text": "すぎる！"
+        }
+      ],
+      "event": "danger",
+      "gainDb": -5.5,
+      "path": "res://assets/narration/clips/05_cool_before.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/05_cool_before.wav",
+      "sha256": "9052507e3368e114b4bfdabfe6d7cd70c080fb3a34c8a51d10407b19a1d52570",
+      "bytes": 258330,
+      "seconds": 2.926575963718821,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.1288951551147466,
+      "peak": 0.96783447265625,
+      "pitchEstimateHz": 182.23140495867767,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "resolve",
+      "sourceId": "youfulca-cool",
+      "originalFile": "06_cool_before.wav",
+      "jp": "負けない…負けられない！",
+      "reading": "まけない…まけられない！",
+      "ko": "지지 않는다… 질 수 없다!",
+      "parts": [
+        {
+          "text": "負",
+          "reading": "ま"
+        },
+        {
+          "text": "けない…"
+        },
+        {
+          "text": "負",
+          "reading": "ま"
+        },
+        {
+          "text": "けられない！"
+        }
+      ],
+      "event": "rally",
+      "gainDb": -5.5,
+      "path": "res://assets/narration/clips/06_cool_before.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/06_cool_before.wav",
+      "sha256": "f7bb3416786bb1874b449518aa5dced479b6b68f9b071785d1cf82859d51beb3",
+      "bytes": 190998,
+      "seconds": 2.1631746031746033,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.11332597096215127,
+      "peak": 0.98858642578125,
+      "pitchEstimateHz": 148.48484848484847,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "defeat",
+      "sourceId": "youfulca-cool",
+      "originalFile": "27_cool_down.wav",
+      "jp": "ここまでか…！",
+      "reading": "ここまでか…！",
+      "ko": "여기까지인가…!",
+      "parts": [
+        {
+          "text": "ここまでか…！"
+        }
+      ],
+      "event": "defeat",
+      "gainDb": -5.0,
+      "path": "res://assets/narration/clips/27_cool_down.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/27_cool_down.wav",
+      "sha256": "c99cc4975d3a5f5cf9f4a0beb5efbd69f174f95efe1ab964cfe6506b422f5870",
+      "bytes": 68046,
+      "seconds": 0.7691609977324263,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.16536288098452243,
+      "peak": 0.988555908203125,
+      "pitchEstimateHz": 229.27807486631013,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "move_on",
+      "sourceId": "youfulca-cool",
+      "originalFile": "30_cool_win.wav",
+      "jp": "さあ、先を急ぐぞ",
+      "reading": "さあ、さきをいそぐぞ",
+      "ko": "자, 서둘러 앞으로 가자.",
+      "parts": [
+        {
+          "text": "さあ、"
+        },
+        {
+          "text": "先",
+          "reading": "さき"
+        },
+        {
+          "text": "を"
+        },
+        {
+          "text": "急",
+          "reading": "いそ"
+        },
+        {
+          "text": "ぐぞ"
+        }
+      ],
+      "event": "wave_clear",
+      "gainDb": -5.0,
+      "path": "res://assets/narration/clips/30_cool_win.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/30_cool_win.wav",
+      "sha256": "8ed392263d300a788de37b2283e355ddc3597067e10ff3f0f4b2a50ce06364e0",
+      "bytes": 161016,
+      "seconds": 1.8232426303854876,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.07326895028586365,
+      "peak": 0.70489501953125,
+      "pitchEstimateHz": 154.1958041958042,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    },
+    {
+      "id": "wounded_victory",
+      "sourceId": "youfulca-cool",
+      "originalFile": "32_cool_win.wav",
+      "jp": "ち…満身創痍だな…",
+      "reading": "ち…まんしんそういだな…",
+      "ko": "쳇… 온몸이 상처투성이군…",
+      "parts": [
+        {
+          "text": "ち…"
+        },
+        {
+          "text": "満身創痍",
+          "reading": "まんしんそうい"
+        },
+        {
+          "text": "だな…"
+        }
+      ],
+      "event": "narrow_victory",
+      "gainDb": -5.0,
+      "path": "res://assets/narration/clips/32_cool_win.wav",
+      "downloadUrl": "https://youfulca.com/wp-content/uploads/2022/08/32_cool_win.wav",
+      "sha256": "ec50ba09562ec8853f724cca7985acf868334ac67833b15eb15671417ff261ad",
+      "bytes": 240014,
+      "seconds": 2.7189115646258504,
+      "sampleRate": 44100,
+      "channels": 1,
+      "bits": 16,
+      "rms": 0.0679076317713946,
+      "peak": 0.68634033203125,
+      "pitchEstimateHz": 143.1818181818182,
+      "pitchEstimateMethod": "65-240Hz normalized autocorrelation, voiced40ms windows; octave errors possible, no artistic-tone claim"
+    }
+  ],
+  "candidateNotes": [
+    {
+      "source": "https://booth.pm/ja/items/6511773",
+      "result": "Free download redirected to https://booth.pm/users/sign_in. Not downloaded; no account created."
+    },
+    {
+      "source": "https://creator-sozai.com/voice/",
+      "result": "Male01 listing exists, but named human performer and substantive license were not established. Not adopted."
+    },
+    {
+      "source": "https://taiyakimh.wixsite.com/taiyakiya/bravevoice-top",
+      "result": "Human-volunteer commercial-use project with mandatory actor credit; not needed after direct named YouFulca recordings were obtained."
+    }
+  ]
+}

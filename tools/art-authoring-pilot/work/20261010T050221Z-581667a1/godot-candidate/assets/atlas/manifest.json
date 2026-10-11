@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "title": "Blue Marble: Next Generation — July 2004 base map",
+  "author": "Reto Stöckli / NASA Earth Observatory",
+  "path": "res://assets/atlas/world-july-2004.jpg",
+  "source": "https://science.nasa.gov/earth/earth-observatory/blue-marble-next-generation/base-map/",
+  "download": "https://assets.science.nasa.gov/content/dam/science/esd/eo/images/bmng/bmng-base/july/world.200407.3x5400x2700.jpg",
+  "license": "NASA Images and Media Usage Guidelines",
+  "licenseUrl": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+  "credit": "NASA Earth Observatory. Blue Marble: Next Generation by Reto Stöckli.",
+  "creditText": "NASA Earth Observatory. Blue Marble: Next Generation by Reto Stöckli.",
+  "use": "Factual geographic background within an offline historical learning game; no NASA logo, person, endorsement claim or promotional use.",
+  "changes": "Original JPEG bytes retained unchanged. The game displays a coordinate-aligned region of Japan and adds its own campaign markers at runtime.",
+  "coordinateSystem": "Equirectangular global raster; longitude -180..180, latitude 90..-90.",
+  "pixelSize": [5400, 2700],
+  "bytes": 1617810,
+  "sha256": "f55226d46d27e05511f2118dc6aa24f5dbf9b6b2cddc87cc6e0e7dd067c00b11",
+  "observedYear": 2004,
+  "historicalNoteKo": "일본의 실제 지리적 위치를 보여 주는 현대 위성 관측 합성 영상입니다. 전국시대의 도시·성곽·해안선을 복원한 사진은 아닙니다.",
+  "checkedDate": "2026-10-06"
+}

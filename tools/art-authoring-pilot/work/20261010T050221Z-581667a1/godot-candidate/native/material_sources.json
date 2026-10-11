@@ -1,0 +1,94 @@
+{
+  "materials": [
+    {
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/metal_plate_02/metal_plate_02_nor_gl_1k.jpg",
+          "path": "res://assets/materials/metal_plate_02/nor_gl.jpg",
+          "bytes": 183264,
+          "md5": "ce8198004fd9409f592a7f024be0c01e",
+          "channel": "nor_gl"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/metal_plate_02/metal_plate_02_rough_1k.jpg",
+          "path": "res://assets/materials/metal_plate_02/rough.jpg",
+          "bytes": 911772,
+          "md5": "1fa97d5031aa575656a316bfd404ca4d",
+          "channel": "rough"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/metal_plate_02/metal_plate_02_diff_1k.jpg",
+          "path": "res://assets/materials/metal_plate_02/diff.jpg",
+          "bytes": 625917,
+          "md5": "531b7e067dc537e0b3c7962175e04ffd",
+          "channel": "diff"
+        }
+      ],
+      "id": "metal_plate_02",
+      "use": "Surface colour, normal and roughness maps with game-authored colour tint and UV scale.",
+      "licenseUrl": "https://polyhaven.com/license",
+      "license": "CC0-1.0",
+      "source": "https://polyhaven.com/a/metal_plate_02"
+    },
+    {
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/denim_fabric/denim_fabric_nor_gl_1k.jpg",
+          "path": "res://assets/materials/denim_fabric/nor_gl.jpg",
+          "bytes": 474669,
+          "md5": "9008fe723671f9cb3e6d0889eab9adb0",
+          "channel": "nor_gl"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/denim_fabric/denim_fabric_rough_1k.jpg",
+          "path": "res://assets/materials/denim_fabric/rough.jpg",
+          "bytes": 467773,
+          "md5": "7eebb4a6185f2e6805976bc356dd1b41",
+          "channel": "rough"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/denim_fabric/denim_fabric_diff_1k.jpg",
+          "path": "res://assets/materials/denim_fabric/diff.jpg",
+          "bytes": 886486,
+          "md5": "3835b5e277dd99784bfe68d985da14ae",
+          "channel": "diff"
+        }
+      ],
+      "id": "denim_fabric",
+      "use": "Surface colour, normal and roughness maps with game-authored colour tint and UV scale.",
+      "licenseUrl": "https://polyhaven.com/license",
+      "license": "CC0-1.0",
+      "source": "https://polyhaven.com/a/denim_fabric"
+    },
+    {
+      "files": [
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_leather/brown_leather_nor_gl_1k.jpg",
+          "path": "res://assets/materials/brown_leather/nor_gl.jpg",
+          "bytes": 863280,
+          "md5": "b63ae0121a415c23d74eed0b07fc6065",
+          "channel": "nor_gl"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_leather/brown_leather_rough_1k.jpg",
+          "path": "res://assets/materials/brown_leather/rough.jpg",
+          "bytes": 686142,
+          "md5": "0f3a0148c8d2d25fbeca67e64e79bca0",
+          "channel": "rough"
+        },
+        {
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/brown_leather/brown_leather_albedo_1k.jpg",
+          "path": "res://assets/materials/brown_leather/diff.jpg",
+          "bytes": 503348,
+          "md5": "080b3bf1372766ff2c7ff121ed07b5e8",
+          "channel": "diff"
+        }
+      ],
+      "id": "brown_leather",
+      "use": "Surface colour, normal and roughness maps with game-authored colour tint and UV scale.",
+      "licenseUrl": "https://polyhaven.com/license",
+      "license": "CC0-1.0",
+      "source": "https://polyhaven.com/a/brown_leather"
+    }
+  ]
+}

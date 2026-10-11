@@ -1,6 +1,6 @@
 extends RefCounted
 ## One growth rule for combat, healing, defense and the barracks preview.
-const BASE_HEALTH: Dictionary = {"archer":105.0,"spear":140.0,"samurai":175.0,"naginata":135.0,"monk":125.0,"ninja":100.0,"commander":210.0,"gunner":105.0}
+const BASE_HEALTH: Dictionary = {"archer":105.0,"spear":140.0,"samurai":175.0,"naginata":135.0,"monk":125.0,"ninja":160.0,"commander":210.0,"gunner":105.0}
 const BASE_ARMOR: Dictionary = {"archer":.10,"spear":.18,"samurai":.24,"naginata":.10,"monk":.10,"ninja":.10,"commander":.18,"gunner":.10}
 const LEVEL_ARMOR_GAIN: float = .006
 const MAX_ARMOR: float = .65

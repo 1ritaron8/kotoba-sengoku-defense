@@ -80,8 +80,8 @@ func _layout_cities() -> void:
 		var point: Vector2=Vector2(city.lon,city.lat)
 		if point.x<bounds.x or point.x>bounds.y or point.y<bounds.z or point.y>bounds.w: continue
 		var anchor: Vector2=project(point)
-		var label_width: float=maxf(GameFonts.japanese().get_string_size(city.jp,HORIZONTAL_ALIGNMENT_LEFT,-1,22).x,GameFonts.body().get_string_size("("+city.ko+")",HORIZONTAL_ALIGNMENT_LEFT,-1,20).x)+12
-		var label_size: Vector2=Vector2(label_width,68)
+		var label_width: float=maxf(GameFonts.japanese().get_string_size(city.jp,HORIZONTAL_ALIGNMENT_LEFT,-1,22).x,GameFonts.body().get_string_size("("+city.ko+")",HORIZONTAL_ALIGNMENT_LEFT,-1,20).x)+32
+		var label_size: Vector2=Vector2(label_width,92)
 		var offsets: Array=[Vector2(10,-72),Vector2(10,8),Vector2(-label_size.x-10,-72),Vector2(-label_size.x-10,8),Vector2(10,-144),Vector2(-label_size.x-10,84)]
 		var chosen: Rect2=Rect2()
 		for offset in offsets:
@@ -188,7 +188,7 @@ func _choose_known_stage(requested: String) -> void:
 	chapter_index=int((int(stage(selected_stage_id).get("stageNumber",1))-1)/10)
 
 func _label(parent: Node, text: String, points: int = 20, ink: Color = Color(UIStyle.TEXT), initial_width: float = 340) -> Label:
-	var label: Label=Label.new()
+	var label: Label=UIStyle.TooltipLabel.new()
 	# Give autowrap a real line width before text enters the tree. Otherwise a
 	# fresh Label can retain its width-zero minimum height at first presentation.
 	label.size.x=initial_width
@@ -202,7 +202,7 @@ func _label(parent: Node, text: String, points: int = 20, ink: Color = Color(UIS
 	return label
 
 func _button(parent: Node, text: String, callback: Callable) -> Button:
-	var button: Button=Button.new()
+	var button: Button=UIStyle.TooltipButton.new()
 	button.text=text
 	button.custom_minimum_size=Vector2(0,44)
 	button.add_theme_font_override("font",GameFonts.body())
@@ -341,10 +341,10 @@ func _rebuild() -> void:
 	background.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	add_child(background)
 	var title: Label=_label(self,"全国地図 · 전국 원정 지도",30)
-	title.position=Vector2(24,18)
-	title.size=Vector2(size.x-48,42)
+	title.position=Vector2(24,8)
+	title.size=Vector2(size.x-48,76)
 	var note: Label=_label(self,"한자: 현대 도시 · 실선: 전장 위치 · 청록 점선: 가까운 도시 연결",20,Color(UIStyle.MUTED),size.x-48)
-	note.position=Vector2(24,66)
+	note.position=Vector2(24,82)
 	note.size=Vector2(size.x-48,36)
 	var campaign_zoom: Button=_button(self,"원정 지역",func(): all_japan=false; _rebuild())
 	campaign_zoom.name="CampaignZoom"
@@ -393,7 +393,7 @@ func _rebuild() -> void:
 		city_label.add_theme_color_override("font_outline_color",Color("f4e9ce"))
 		city_label.add_theme_constant_override("outline_size",6)
 		city_label.position=city.rect.position
-		city_label.size=Vector2(city.rect.size.x,34)
+		city_label.size=Vector2(city.rect.size.x,62)
 		city_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		var city_korean: Label=_label(self,"("+str(city.ko)+")",20,Color("244d49"),city.rect.size.x)
 		city_korean.name="AtlasCityKo_"+city.jp
@@ -401,7 +401,7 @@ func _rebuild() -> void:
 		city_korean.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
 		city_korean.add_theme_color_override("font_outline_color",Color("f4e9ce"))
 		city_korean.add_theme_constant_override("outline_size",6)
-		city_korean.position=city.rect.position+Vector2(0,34)
+		city_korean.position=city.rect.position+Vector2(0,62)
 		city_korean.size=Vector2(city.rect.size.x,34)
 	for group in pin_groups:
 		var id: String=str(group[0])

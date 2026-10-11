@@ -1,0 +1,135 @@
+{
+  "task": "BLENDER-ASSET-PRODUCTION-01",
+  "status": "STOPPED_REPORT_COMPLETE",
+  "start_utc": "2026-10-10T05:16:08Z",
+  "production_stop_utc": "2026-10-10T06:01:08Z",
+  "hard_stop_utc": "2026-10-10T06:16:08Z",
+  "sole_godot_executor": "HQ",
+  "install_authority": "explicit latest user attachment",
+  "prepared_checks": {
+    "stage_match": true,
+    "reference_match": true
+  },
+  "engine_launches": [
+    {
+      "phase": "import",
+      "pid": 11072,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\import-receipt.json",
+      "accepted": true
+    },
+    {
+      "phase": "syntax",
+      "pid": 30684,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\syntax-receipt.json",
+      "accepted": true
+    },
+    {
+      "phase": "game",
+      "pid": 22956,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\game-receipt.json",
+      "accepted": true
+    },
+    {
+      "phase": "material-probe-check",
+      "pid": 2108,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\material-probe-check-receipt.json",
+      "accepted": true
+    },
+    {
+      "phase": "material-probe",
+      "pid": 39868,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\material-probe-receipt.json",
+      "accepted": true
+    },
+    {
+      "phase": "correction-import",
+      "pid": 32740,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\correction-import-receipt.json",
+      "accepted": true
+    },
+    {
+      "phase": "correction-game",
+      "pid": 21812,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\correction-game-receipt.json",
+      "accepted": true
+    }
+  ],
+  "blender_launches": [
+    {
+      "phase": "version",
+      "exit_code": 0,
+      "version": "5.2.2 LTS",
+      "build": "d13f752e3b9c"
+    },
+    {
+      "phase": "bootstrap",
+      "exit_code": 0,
+      "output": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\bootstrap-63fec784",
+      "blend_bytes": 246286
+    },
+    {
+      "phase": "produce",
+      "pid": 21892,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\produce-receipt.json",
+      "accepted": false
+    },
+    {
+      "phase": "bootstrap-recheck",
+      "exit_code": 0,
+      "output": "tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\bootstrap-bfa1e3dd",
+      "reason": "retain packed reference datablock with fake user; initial produce stopped before assetcreation"
+    },
+    {
+      "phase": "produce-recheck",
+      "pid": 5876,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\produce-recheck-receipt.json",
+      "accepted": true
+    },
+    {
+      "phase": "correction-produce",
+      "pid": 31000,
+      "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\correction-produce-receipt.json",
+      "accepted": true
+    }
+  ],
+  "preserve": "liveR8,currentcandidate,saves,Git,security",
+  "installed": {
+    "package": "BlenderFoundation.Blender",
+    "version": "5.2.2 LTS",
+    "path": "C:/Program Files/Blender Foundation/Blender 5.2/blender.exe",
+    "url": "https://download.blender.org/release/Blender5.2/blender-5.2.2-windows-x64.msi",
+    "winget_exit": 0,
+    "hash_verified_by_winget": true
+  },
+  "unit_tests": {
+    "initial_environment_failures": 7,
+    "workspace_temp_environment_failures": 7,
+    "escalated_passed": 13,
+    "failed": 0,
+    "product_code_changes": 0
+  },
+  "tool_repairs": [
+    {
+      "file": "authoring.py",
+      "change": "image.use_fake_user=True",
+      "actual_failure": "reference image purged when unreferenced datablock saved",
+      "recheck_unit_passed": 13
+    }
+  ],
+  "prelaunch_failures": [
+    {
+      "phase": "import",
+      "engine_launched": false,
+      "reason": "HQ invoked before asynchronous copy completed; dependency guard stopped before engine",
+      "correction": "waited for copy completion"
+    }
+  ],
+  "game_source_count": 3684,
+  "game_qa_source_count": 65,
+  "ended_utc": "2026-10-10T06:08:41.157512+00:00",
+  "art_acceptance": "FAIL_FINAL_REFERENCE_MATCH_NOT_PROMOTED",
+  "art_corrections_used": 1,
+  "automatic_followup": false,
+  "final_report": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\HQ_BLENDER_REPORT.txt",
+  "all_engines_stopped": true
+}

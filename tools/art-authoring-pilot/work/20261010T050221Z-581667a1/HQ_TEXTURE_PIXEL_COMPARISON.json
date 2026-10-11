@@ -1,0 +1,66 @@
+[
+  {
+    "asset": "broadleaf-leafscale-albedo",
+    "same_pixels": true,
+    "images": [
+      {
+        "path": "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/textures/broadleaf-leafscale-albedo.png",
+        "pixels_sha256": "26f5baaf69500d2832d74d0815f02c6c18a5440cbc62fb74ba0b7051d392295b",
+        "size": [
+          256,
+          256
+        ],
+        "mean_RGB_255": [
+          102.33969116210938,
+          116.98344421386719,
+          73.09893798828125
+        ]
+      },
+      {
+        "path": "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/godot-candidate/assets/blender-pilot/asset_broadleaf-leafscale-albedo.png",
+        "pixels_sha256": "26f5baaf69500d2832d74d0815f02c6c18a5440cbc62fb74ba0b7051d392295b",
+        "size": [
+          256,
+          256
+        ],
+        "mean_RGB_255": [
+          102.33969116210938,
+          116.98344421386719,
+          73.09893798828125
+        ]
+      }
+    ]
+  },
+  {
+    "asset": "compacted-dirt-litter-albedo",
+    "same_pixels": true,
+    "images": [
+      {
+        "path": "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/textures/compacted-dirt-litter-albedo.png",
+        "pixels_sha256": "17812e22620a0dc1eb59562aa7ebf9715a78fe6cb7f9f2b1c5d025a36556f1f4",
+        "size": [
+          512,
+          512
+        ],
+        "mean_RGB_255": [
+          99.5130386352539,
+          82.8436050415039,
+          61.197689056396484
+        ]
+      },
+      {
+        "path": "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/godot-candidate/assets/blender-pilot/asset_compacted-dirt-litter-albedo.png",
+        "pixels_sha256": "17812e22620a0dc1eb59562aa7ebf9715a78fe6cb7f9f2b1c5d025a36556f1f4",
+        "size": [
+          512,
+          512
+        ],
+        "mean_RGB_255": [
+          99.5130386352539,
+          82.8436050415039,
+          61.197689056396484
+        ]
+      }
+    ]
+  }
+]

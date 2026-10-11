@@ -1,0 +1,248 @@
+[
+  {
+    "id": "basic-forest",
+    "title": "마루네 요새 · 구릉 접근",
+    "shortName": "마루네",
+    "japanese": "丸根砦・丘の攻防",
+    "reading": "まるねとりで・おかのこうぼう",
+    "mode": "ambush",
+    "color": "#27413a",
+    "accent": "#86a783",
+    "words": "방향 · 위치 · 이동",
+    "icon": "山",
+    "theme": "forest",
+    "tier": "basic",
+    "tierIndex": 0,
+    "level": 1,
+    "difficulty": 1,
+    "totalWaves": 10,
+    "initialGold": 280,
+    "recruitCost": 60,
+    "unitLimit": 14,
+    "recommendedWords": 15,
+    "reviewWords": 15,
+    "unlocked": true,
+    "stageNumber": 1,
+    "music": "res://assets/music/stages/basic-forest-yuruyakanakaze.mp3",
+    "trait": {
+      "stageId": "basic-forest",
+      "id": "basic-forest-operation",
+      "nameJP": "尾張国・丸根砦",
+      "reading": "おわりのくに・まるねとりで",
+      "nameKO": "마루네 전장 운용",
+      "descriptionKO": "궁병은 지정 사격 진지에 배치하고 전진 병종은 기지에서 출진합니다. 장도병은 방어 구역 안에서 진지를 호위합니다. 전장 효과: 궁병 피해량 10% 증가.",
+      "unitBonuses": [
+        {
+          "type": "archer",
+          "damageFactor": 1.1
+        }
+      ]
+    },
+    "description": "마루네 요새의 전방 접근로를 지키며 후방 철수를 엄호합니다. 궁병은 사격 진지에 배치하고 창병은 기지에서 출진합니다.",
+    "paths": [
+      {
+        "id": "marune-approach",
+        "objectiveId": "main",
+        "points": [
+          {
+            "x": 0.7529729729729729,
+            "y": 0.3192592592592593
+          },
+          {
+            "x": 0.6675675675675675,
+            "y": 0.3888888888888889
+          },
+          {
+            "x": 0.572972972972973,
+            "y": 0.45925925925925926
+          },
+          {
+            "x": 0.5,
+            "y": 0.5370370370370371
+          },
+          {
+            "x": 0.2864864864864865,
+            "y": 0.6111111111111112
+          },
+          {
+            "x": 0.1837837837837838,
+            "y": 0.5940740740740741
+          }
+        ]
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "label": "丸根砦",
+        "hp": 26,
+        "x": 0.1837837837837838,
+        "y": 0.5940740740740741
+      }
+    ],
+    "buildZones": [
+      {
+        "id": "left-shoulder-pad",
+        "nameKo": "좌측 사격 진지",
+        "x": 0.3783783783783784,
+        "y": 0.41851851851851857,
+        "r": 0.025,
+        "elevation": 0,
+        "label": "흙 진지",
+        "terrain": "earth"
+      },
+      {
+        "id": "right-shoulder-pad",
+        "nameKo": "우측 사격 진지",
+        "x": 0.6567567567567568,
+        "y": 0.5888888888888889,
+        "r": 0.025,
+        "elevation": 0,
+        "label": "흙 진지",
+        "terrain": "earth"
+      },
+      {
+        "id": "inside-auxiliary-pad",
+        "nameKo": "진지 내부 보조 사격점",
+        "x": 0.13783783783783782,
+        "y": 0.6111111111111112,
+        "r": 0.0115,
+        "elevation": 0,
+        "label": "흙 진지",
+        "terrain": "earth"
+      }
+    ],
+    "obstacles": [],
+    "camera": {
+      "allowZoom": false
+    },
+    "tactics": {
+      "nameKo": "전방 방어와 철수 엄호",
+      "descriptionKo": "마루네 요새의 전방 접근로를 지키며 후방 철수를 엄호합니다. 궁병은 사격 진지에 배치하고 창병은 기지에서 출진합니다.",
+      "hintKo": "궁병은 접근로 옆 사격 진지에 배치하고 창병은 기존 출진 지점에서 전진시킵니다. 후방 퇴로는 철수 방향을 보여 줍니다.",
+      "groundPosts": [
+        {
+          "id": "basic-forest-ground-1",
+          "nameKo": "1번 육로 수비점",
+          "r": 0.025,
+          "guardRadius": 0.145,
+          "mobilityFactor": 1.0,
+          "capacityBonus": 1,
+          "pathIndex": 0,
+          "segmentIndex": 0,
+          "t": 0.22
+        },
+        {
+          "id": "basic-forest-ground-2",
+          "nameKo": "2번 육로 수비점",
+          "r": 0.055,
+          "guardRadius": 0.145,
+          "mobilityFactor": 1.0,
+          "capacityBonus": 1,
+          "pathIndex": 0,
+          "segmentIndex": 0,
+          "t": 0.76
+        },
+        {
+          "id": "basic-forest-ground-3",
+          "nameKo": "1번 육로 수비점",
+          "r": 0.025,
+          "guardRadius": 0.16,
+          "mobilityFactor": 1.0,
+          "capacityBonus": 1,
+          "pathIndex": 0,
+          "segmentIndex": 1,
+          "t": 0.22
+        },
+        {
+          "id": "basic-forest-ground-4",
+          "nameKo": "1번 육로 수비점",
+          "r": 0.025,
+          "guardRadius": 0.16,
+          "mobilityFactor": 1.0,
+          "capacityBonus": 1,
+          "pathIndex": 0,
+          "segmentIndex": 1,
+          "t": 0.76
+        },
+        {
+          "id": "basic-forest-ground-extra-5",
+          "nameKo": "육로 수비·지원점 5",
+          "r": 0.025,
+          "guardRadius": 0.145,
+          "mobilityFactor": 1.0,
+          "capacityBonus": 1,
+          "pathIndex": 0,
+          "segmentIndex": 2,
+          "t": 0.22
+        },
+        {
+          "id": "basic-forest-ground-extra-6",
+          "nameKo": "육로 수비·지원점 6",
+          "r": 0.025,
+          "guardRadius": 0.145,
+          "mobilityFactor": 1.0,
+          "capacityBonus": 1,
+          "pathIndex": 0,
+          "segmentIndex": 3,
+          "t": 0.44
+        },
+        {
+          "id": "basic-forest-ground-extra-7",
+          "nameKo": "육로 수비·지원점 7",
+          "r": 0.055,
+          "guardRadius": 0.145,
+          "mobilityFactor": 1.0,
+          "capacityBonus": 1,
+          "pathIndex": 0,
+          "segmentIndex": 3,
+          "t": 0.6
+        },
+        {
+          "id": "basic-forest-ground-extra-8",
+          "nameKo": "육로 수비·지원점 8",
+          "r": 0.025,
+          "guardRadius": 0.145,
+          "mobilityFactor": 1.0,
+          "capacityBonus": 1,
+          "pathIndex": 0,
+          "segmentIndex": 3,
+          "t": 0.76
+        }
+      ]
+    },
+    "historicalBattlefield": {
+      "learningSupportAnchors": {
+        "basic-forest-context-1": {
+          "x": 0.20154111457849178,
+          "y": 0.5970197833345607
+        },
+        "basic-forest-context-2": {
+          "x": 0.20154111457849178,
+          "y": 0.5970197833345607
+        },
+        "basic-forest-context-3": {
+          "x": 0.20154111457849178,
+          "y": 0.5970197833345607
+        }
+      }
+    },
+    "remasterSource": {
+      "candidateId": "reference-scene-01",
+      "candidatePath": "res://assets/battlefields-remaster/reference-scene-01.json",
+      "classification": {
+        "compactFortIdentity": "VERIFIED municipal oval fort identity;reported36x28metres are not this game mesh scale",
+        "absoluteSiteElevation": "VERIFIED35m;not relative terrain height",
+        "timberEarthGateShelterTentSupplies": "INFERRED reconstruction",
+        "localReliefWeatherGateAttackDirection": "GAME_ADAPTATION / UNKNOWN",
+        "outerDitchIdentity": "VERIFIED reported moat;dry shallow appearance and gate soil connection are GAME_ADAPTATION",
+        "mission": "Retain current Stage01 withdrawal cover;historical fort fall remains unchanged"
+      },
+      "groundPostAnchorsSource": "visualComposition.groundPostAnchors",
+      "groundPostAnchorsDigestFormat": "UTF-8 compact JSON, ensure_ascii=false",
+      "alignmentReferenceSha256": "1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc",
+      "binding": "Main resolves sole authored scene before ordinary selection; serialized spatial coordinates are baseline registration and are rebound from source"
+    },
+    "authoredScenePath": "res://assets/battlefields-remaster/reference-scene-01.json"
+  }
+]

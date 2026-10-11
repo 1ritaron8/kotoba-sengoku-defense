@@ -3,6 +3,7 @@ extends VBoxContainer
 signal volume_changed(key: String, value: float)
 
 const GameFonts = preload("res://native/game_fonts.gd")
+const UIStyle = preload("res://native/sengoku_ui.gd")
 const CHANNELS: Array = [
 	{"key":"masterVolume", "label":"전체", "default":1.0},
 	{"key":"musicVolume", "label":"배경음악", "default":1.0},
@@ -18,7 +19,7 @@ func configure(settings: Dictionary) -> void:
 		remove_child(child)
 		child.queue_free()
 	sliders.clear()
-	var heading = Label.new()
+	var heading = UIStyle.TooltipLabel.new()
 	heading.text = "音量 · 음량"
 	heading.add_theme_font_override("font",GameFonts.heading())
 	heading.add_theme_font_size_override("font_size",24)

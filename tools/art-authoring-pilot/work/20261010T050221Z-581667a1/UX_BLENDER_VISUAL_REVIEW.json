@@ -1,0 +1,81 @@
+{
+  "task": "BLENDER-ASSET-PRODUCTION-01",
+  "review_number": 1,
+  "created_utc": "2026-10-10T05:50:34.571424+00:00",
+  "status": "PARTIAL; NOT_FINAL_REFERENCE_MATCH; ONE_AUTHORIZED_FORM_CORRECTION_REQUIRED",
+  "evidence": [
+    {
+      "path": "C:\\JP_DF\\docs\\map-remaster-reference\\10-stage01-approved-composition.png",
+      "sha256": "1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc",
+      "viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\prototypes-render.png",
+      "sha256": "e604bceef26291202c294cd7b03476cee0b7ef01c3accfa13a44ca5f58b05076",
+      "viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1440x900.png",
+      "sha256": "6f74af7d7d5d5d8d08a336a27319156720f968552cc45195bf66b4327b667761",
+      "viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1280x800.png",
+      "sha256": "a1f0076acf8d20936c1910ccd74578eebab3df709cd4ac24ba4076fd4ee023a8",
+      "viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1440x900.png",
+      "sha256": "6d8516bff437acb1625ed699c3db45d5ac0018147081af55652f427923416576",
+      "viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1280x800.png",
+      "sha256": "c4ddbc5c08a9c8a06ea8152db0b646e0a8c7d1e0a086f66f351a29c7d44ba615",
+      "viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\blender-assets-showcase-all8-common-camera-1440x900.png",
+      "sha256": "e77240c7ba6edd0125883eb4806ba88372b27c1a7b31db2039ab8468750ab71a",
+      "viewed": true
+    }
+  ],
+  "findings": [
+    {
+      "target": "Broadleaf_A/B/C and Shrub_A/B",
+      "result": "PARTIAL",
+      "observation": "Actual connected tapered trunks/forks and individually modeled folded leaves are visible. Tree crowns consist of separated small terminal puffs with large exposed central branch skeletons; reference has dense, broad, asymmetric middle crowns and connected trunks visible mainly below. Shrubs have similar central gaps.",
+      "authorized_correction": "Increase overlapping leaf-scale masses and irregular middle crown coverage, retain real branch connections, each asset below8500triangles; no canopy PNG."
+    },
+    {
+      "target": "FiringPad",
+      "result": "FAIL_FORM",
+      "observation": "Blender render and Godot all8 showcase both show an excessively broad continuous pale stone annulus. Reference shows raised earth with sparse embedded stones and staked sides.",
+      "authorized_correction": "Dirt material on entire raised bank, few irregular embedded stones, preserve physical raised sides and exact90degree opening."
+    },
+    {
+      "target": "Native leaf appearance",
+      "result": "FAIL_COLOR_PARITY_CAUSE_UNCONFIRMED",
+      "observation": "Same new trees are dark muted olive in actual Blender render but very pale whitegreen in both native mapready resolutions, both paid battle captures and showcase. Imported material diagnosis belongs to FUN.",
+      "authorized_correction": "No gamma, palette, lighting or brightness workaround by UX; await confirmed import/material diagnosis."
+    },
+    {
+      "target": "Combat visibility1440x900 and1280x800",
+      "result": "PASS_OBSERVED_SUBSET",
+      "observation": "Paid battle captures show two blue pad actors, one blue road actor, red approaching actors and healthbars separately readable; route stays open. Existing tooltip overlaps lower right scenery but does not hide the shown road actors. This is a single static subset, not full occlusion/performance acceptance."
+    },
+    {
+      "target": "Palisade and GroundSample",
+      "result": "PARTIAL",
+      "observation": "Palisade has an actual central opening with separate rails and posts. GroundSample is a showcase material patch; terrain lighting/composition and material color parity still differ from approved image. No authority to declare final art approval."
+    }
+  ],
+  "correction_count_before": 0,
+  "authorized_correction_count": 1,
+  "scope_owner": "UX produce_assets.py and assets/correction + textures/correction only; HQ executes native tools; FUN owns native material diagnosis",
+  "exports": "Triangulate actual export meshes before GLB; preserve original editable meshes in AUTHORING_SOURCE_EDITABLE",
+  "source_and_contract_checks": "Actual production result reports workshop exact4217vertices8144triangles, packed reference hash, ORTHO23.5/elevation44. Godot normals/UV/tangents and all8bounds PASS reported by HQ; UX does not reattribute these as own runtime checks.",
+  "final_art_approval": "USER_ONLY;not granted by this review",
+  "first_pass_preserved": true,
+  "engine_launches_by_UX": 0
+}

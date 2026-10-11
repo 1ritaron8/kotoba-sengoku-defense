@@ -1,0 +1,33 @@
+{
+  "scope": "ISOLATED QA FIXTURE / NOT STAGE01 / NOT APPROVED ART / NEVER REGISTER",
+  "presentation": {
+    "musicFromAuthoredStageId": "basic-forest",
+    "contextMissionId": "basic-forest-context-1",
+    "contextTargetBindings": {
+      "zone-09": {"position": {"x": 0.3, "y": 0.35}, "world": {"x": -3.6, "y": 0.36, "z": -1.8}},
+      "zone-11": {"position": {"x": 0.5, "y": 0.5}, "world": {"x": 0.0, "y": 0.6, "z": 0.0}},
+      "zone-08": {"position": {"x": 0.7, "y": 0.65}, "world": {"x": 3.6, "y": 0.84, "z": 1.8}}
+    },
+    "scope": "Explicit new QA floor anchors for one controlled renderer fixture. Preserve authored mission/target/answer IDs and readings; not production Stage01/40-map bindings. Authored music credit only; playback disabled."
+  },
+  "stage": {
+    "id": "qa-common-first-world-boundary",
+    "qaOnly": true,
+    "stageNumber": 1,
+    "theme": "forest",
+    "initialGold": 1000,
+    "unitLimit": 12,
+    "totalWaves": 100,
+    "paths": [{"id": "qa-route", "objectiveId": "main", "points": [{"x": 0.2, "y": 0.5}, {"x": 0.8, "y": 0.5}]}],
+    "objectives": [{"id": "main", "x": 0.8, "y": 0.5, "hp": 1000}],
+    "buildZones": [{"id": "qa-firing", "x": 0.5, "y": 0.65, "r": 0.12}],
+    "tactics": {"groundPosts": [{"id": "qa-defense", "pathIndex": 0, "segmentIndex": 0, "t": 0.5, "r": 0.14, "guardRadius": 0.2, "mobilityFactor": 1.0}]},
+    "worldGeometry": {
+      "schemaVersion": 1,
+      "simulationBounds": {"x": -9, "z": -6, "width": 18, "depth": 12},
+      "vertices": [{"x": -9, "y": 0, "z": -6}, {"x": 9, "y": 1.2, "z": -6}, {"x": -9, "y": 0, "z": 6}, {"x": 9, "y": 1.2, "z": 6}],
+      "triangles": [0, 2, 1, 1, 2, 3],
+      "blockedPolygons": []
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "task": "BLENDER-ASSET-PRODUCTION-01",
+  "status": "QA_SCRIPT_READY_FOR_HQ_CHECK",
+  "created_utc": "2026-10-10T05:40:11.134929+00:00",
+  "qa_script": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\qa_blender_assets.gd",
+  "qa_sha256": "9e3f3134c2aa135b9c955a760558a337186577aa96046096b04eace9b04b7f98",
+  "qa_bytes": 32112,
+  "engine_launches_by_QA": 0,
+  "product_edits_by_QA": 0,
+  "historical_QA_edits": 0,
+  "allowed_result_path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\QA_BLENDER_RESULT.json",
+  "runtime_raw_result": "user://QA_BLENDER_RESULT.json in HQ isolated evidence/game APPDATA; partial saves after imported inspection and every raw PNG",
+  "runtime_validation": "PENDING HQ sole engine check-only/native; static checks are not runtime approval",
+  "required_game_freeze": {
+    "default": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\GAME_SOURCE_FREEZE.json",
+    "schema": {
+      "sources": "absolute isolated critical file path -> SHA256; res:// keys also supported",
+      "qa_sha256": "optional exact external script SHA",
+      "all_isolated_sources": "HQ independent guard; not rehashed every capture"
+    },
+    "override": "--game-source-freeze=<JSON inside this work>"
+  },
+  "profile_guard": "Exact isolated godot-candidate, APPDATA/LOCALAPPDATA equal and within work/evidence/game*, user:// inside same profile, native display",
+  "asset_freeze_checked_now": {
+    "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\ASSET_SOURCE_FREEZE.json",
+    "source_count": 17,
+    "all_match": true
+  },
+  "static_checks": [
+    "Unique function declarations; lexical brackets/strings balance",
+    "Direct ART helper inheritance; old suites/controlled colour/ninja calls absent",
+    "Copied previously engine-verified narrow ingress and first field selection helpers; current isolated guard replaces old candidate/deadline",
+    "Absolute Windows manifest paths canonicalized for critical source coverage",
+    "All8 named asset contract roots found in frozen integration bindings",
+    "Existing authored asset source hashes all match; no assets edited",
+    "Actual ARRAY_TANGENT presence recorded rather than asserting exporter warning is failure",
+    "Actual HQ GAME_SOURCE_FREEZE now exists: all65 critical isolated sources match; stage prepared bytes exact",
+    "Context receiver belongs only to separate showcase viewport and is freed before actual native resume; current lexical check passes"
+  ],
+  "scope": [
+    "Actual PackedScene load8unique roots; mesh vertex/normal/UV/triangle counts; PBR material images; actual imported tangent availability; bounds/origin/Y-up checks",
+    "Normal Home/catalog/briefing native buttons; immediate full READY1440x900/1280x800",
+    "Real pause; separately labeled full1440x900 isolated8module original-scale showcase at contractpositions; common cloned camera/sun/fill/Environment; full FiringPad/Palisade/GroundSample; restore native Main by actual resume",
+    "Game imported6tree3shrub anchors/providerY/base soil and preserved sole floor readback; Palisade optional showcase-only on declared terrain mismatch",
+    "Two actual paid archer and two spear orders, first native field selection, both attack and real damage evidence",
+    "Same actual enemyID from first offscreen rendered body to visible approach; natural context+quiz answer/return without retry",
+    "Same-paused-clock paid battle full1440x900/1280x800 captures; HUD/learning unhidden",
+    "Prefer40eligible natural seconds;minimum30;maximum60;300second natural loop; both-endpoint/epoch exclusions; frame/GPU/drawcalls/actor ranges and >50ms stalls",
+    "Authored assets and isolated critical hashes startup/end; immediate partial JSON/PNG preservation",
+    "HQ-requested QA-only20x14 context receiver at y=-.03; cloned imported CompactedDirt_ImagePBR and .31 cycles/world; receiver shadow castingOFF; actual cloned sun produces model contact shadows; never alters gameplay floor"
+  ],
+  "limitations": [
+    "No visual/reference approval from check counts; UX actual image review then user final approval",
+    "Normal map FiringPad full module and GroundSample intentionally showcase-only; no second floor or baked road tiling",
+    "No full60FPS or matched-condition improvement% claim",
+    "Inherited1280tooltip not closed",
+    "Mesh tangent presence is measured; material normal appearance separately reviewed"
+  ],
+  "next_action": "HQ write GAME_SOURCE_FREEZE.json with absolute critical paths and qa_sha256; sole engine check-only then native; UX reviews actual captures. QA stops here unless exact execution issue delegated.",
+  "game_freeze_checked_now": {
+    "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\GAME_SOURCE_FREEZE.json",
+    "critical_source_count": 65,
+    "all_match": true,
+    "stage_matches_prepared_source_exactly": true
+  },
+  "prepared_utc": "2026-10-10T05:41:35.661139+00:00"
+}

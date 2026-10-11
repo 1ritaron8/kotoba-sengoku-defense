@@ -1,0 +1,164 @@
+{
+  "round": "BLENDER-ASSET-PRODUCTION-01",
+  "owner": "FUNCTIONAL",
+  "status": "READY_BASE_SOIL_MATERIAL_CORRECTED_PENDING_UX_EXPORT_HQ_EXECUTION",
+  "work": "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1",
+  "source_candidate": "C:/JP_DF/tests/profiles/r8-lag-01/candidate",
+  "isolated_candidate": "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/godot-candidate",
+  "execution_owner": "HQ only; FUNCTIONAL does not launch Blender/Godot or run copy/integration",
+  "coordinate_contract": {
+    "unit": "one Blender metre = one Godot world unit",
+    "context_conversion": "Godot(x,y,z) -> Blender(x,-z,y); inverse Blender(x,y,z) -> Godot(x,z,-y)",
+    "export": "ASSET_EXPORT, GLB, export_yup=True, no camera/light/animation/context geometry; imported GLB is already Godot Y-up, never add a second axis conversion",
+    "roots": [
+      "Broadleaf_A",
+      "Broadleaf_B",
+      "Broadleaf_C",
+      "Shrub_A",
+      "Shrub_B",
+      "FiringPad",
+      "Palisade",
+      "GroundSample"
+    ],
+    "root_origin": "local (0,0,0); tree/shrub trunk contact, palisade horizontal midpoint at foot; preserve any exporter basis/ancestor transforms",
+    "materials": "UV + POSITION + NORMAL; image-backed self-contained GLB; original source_color/PBR import, no new brightness/gamma compensation"
+  },
+  "representative_section": {
+    "tree_ids": [
+      "woodland-trunk-07",
+      "woodland-trunk-08",
+      "woodland-trunk-09",
+      "woodland-trunk-10",
+      "woodland-trunk-11",
+      "woodland-trunk-12"
+    ],
+    "shrub_ids": [
+      "grouped-understory-02",
+      "grouped-understory-03",
+      "grouped-understory-04"
+    ],
+    "mapping": "Broadleaf_A/B/C repeated twice at exact current trunk XZ and provider floor Y; uniform size fitted to existing representative tree height. Shrub_A/B at exact current shrub anchors, existing displayed height. Only replaced entries are omitted from old render batch generation; all source blockers, count, route and floor inputs stay exact.",
+    "palisade_fence_id": "aligned-stockade-03",
+    "palisade_mapping": "Current segment [-5.2,0.08] to [-6.15,0.18], current height .94. Imported centered local-X module fitted between those existing endpoints. Existing gate segment untouched. If base-height difference exceeds .12 world, keep old segment and report showcase-only.",
+    "ground_mapping": "Find exact CompactedDirt_ImagePBR material under imported FiringPad, require baked compacted soil/litter without a road stripe; bind its albedo and available normal to duplicate existing AuthoredGround material. GroundSample complete curved road/grass/litter transition is showcase-only. Existing shader, UV density, route/grass masks, color boundary, vertices and collision unchanged."
+  },
+  "firing_pad": {
+    "id": "left-shoulder-pad",
+    "center_world_xz": [
+      -2.25,
+      -1.1
+    ],
+    "deck_world_y": 0.83,
+    "top_radii_world_xz": [
+      0.6475,
+      0.4725
+    ],
+    "bank_radii_world_xz": [
+      1.92,
+      1.64
+    ],
+    "existing_ranged_radius_normalized": 0.025,
+    "numeric_gameplay_elevation": 0,
+    "pickets": "19 current crest stakes,270 degree ellipse;90 degree entrance toward closest route; do not rotate or close the existing gap",
+    "integration_gate": "Full exported deck/skirt cannot overlay the sole provider terrain without duplicate faces. Preserve the complete FiringPad as an isolated showcase unless it exposes a dedicated render-only crest subtree with exact existing ellipse/open entrance and no deck/ground/side triangles. This script leaves the full prototype showcase-only; no game rules or provider geometry changed."
+  },
+  "writes_when_HQ_runs": [
+    "isolated godot-candidate copied from current candidate, excluding .godot/.git/runtime saves",
+    "isolated native/remaster_visual_slice.gd minimal imported-node binding",
+    "isolated assets/blender-pilot/asset.glb and bindings.json",
+    "work integration_result.json with source hashes and structural checks"
+  ],
+  "preserved": [
+    "current candidate and live R8 bytes",
+    "worldGeometry and physical obstacle anchors",
+    "placement and route/input/learning rules",
+    "common orthographic23.5/elevation44 camera",
+    "common actor scale/color boundary",
+    "other existing artwork"
+  ],
+  "risks_and_remaining": [
+    "GLB and producer root hierarchy are not yet exported; named-root/bounds/UV/material contract must pass before any copy.",
+    "Existing authoring exporter originally selects MESH only; ensure named asset EMPTY roots/ancestors survive export, or integrate will fail instead of guessing names.",
+    "Tree/shrub shadows and occlusion, imported alpha settings, frame/GPU cost and normal gameplay need HQ's actual Compatibility run.",
+    "FiringPad full deck/skirt intentionally remains showcase-only because matching a real current floor cannot be inferred from a circle prototype.",
+    "UX must export named CompactedDirt_ImagePBR on FiringPad with baked unstriped soil/litter base; pre-copy GLB check rejects missing name or baked image. Image content still requires actual visual check."
+  ],
+  "worker_engine_launches": 0,
+  "worker_integration_executions": 0,
+  "script_sha256": "f81d7e57013a75b702bc158d1425ecd7835846a29d385b06ac1a354d3d043430",
+  "static_validation": {
+    "python_syntax": "PASS",
+    "six_existing_source_anchors": "PASS;in-memory only",
+    "copied_or_patched_candidate_files": 0,
+    "engine_launches": 0,
+    "isolated_destination_exists": false,
+    "ground_material_named_lookup": "PASS;FiringPad/exact CompactedDirt_ImagePBR",
+    "ground_shader_code_unchanged": "PASS;sampler resources only"
+  },
+  "ground_density_contract": "Retain existing soil_uv p*.31 (3.225806 world units/tile) with map-camera finish or p*.40 (2.5 world units/tile) otherwise. Base texture has no baked road stripe. No GroundSample UV/world extent or FiringPad deck UV density is borrowed; no shader code or common color edits. Packed G roughness is not bound as R.",
+  "showcase_for_QA": {
+    "before_normal_gameplay": true,
+    "root_names": [
+      "Broadleaf_A",
+      "Broadleaf_B",
+      "Broadleaf_C",
+      "Shrub_A",
+      "Shrub_B",
+      "FiringPad",
+      "Palisade",
+      "GroundSample"
+    ],
+    "positions_godot_x_y_z": [
+      [
+        -7.5,
+        0,
+        -2.5
+      ],
+      [
+        -2.5,
+        0,
+        -2.5
+      ],
+      [
+        2.5,
+        0,
+        -2.5
+      ],
+      [
+        7.5,
+        0,
+        -2.5
+      ],
+      [
+        -7.5,
+        0,
+        2.5
+      ],
+      [
+        -2.5,
+        0,
+        2.5
+      ],
+      [
+        2.5,
+        0,
+        2.5
+      ],
+      [
+        7.5,
+        0,
+        2.5
+      ]
+    ],
+    "scale": [
+      1,
+      1,
+      1
+    ],
+    "hierarchy": "Find each exact named root recursively inside imported asset.glb; preserve ancestor/export basis via relative transform. Hide common library; duplicate each selected root into a wrapper at indicated origin. FiringPad and GroundSample full meshes shown here only.",
+    "camera": "existing common ortho23.5/elevation44, same sun/environment; camera/light changes not required",
+    "bounds": "integration_result.asset.roots provides actual glTF/Godot-Y-up min/max/size, triangles, node counts and GroundSample UV density after HQ executes; not guessed dimensions"
+  },
+  "hq_command": "python C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/integrate_assets.py --asset <exported asset.glb inside this work>",
+  "frozen_utc": "2026-10-10T05:30:12.571965+00:00"
+}

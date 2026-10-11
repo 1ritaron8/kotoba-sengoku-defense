@@ -1,0 +1,21 @@
+{
+  "vertices": 4217,
+  "triangles": 8144,
+  "max_coordinate_error": 0.0,
+  "coordinate_transform": "Godot(x,y,z) -> Blender(x,-z,y), inverse(x,z,-y)",
+  "all_faces_reversed_for_Blender_CCW": true,
+  "source_camera": {
+    "projection": "orthographic",
+    "keepAspect": "keep-width",
+    "size": 23.5,
+    "elevationDegrees": 44,
+    "azimuthDegrees": 0,
+    "worldTarget": [
+      -0.25,
+      0.45,
+      -0.25
+    ]
+  },
+  "actual_blender_camera": "pending bpy source inspection during asset production",
+  "role": "context only, excluded from ASSET_EXPORT"
+}

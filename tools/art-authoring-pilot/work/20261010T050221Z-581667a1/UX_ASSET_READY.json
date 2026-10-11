@@ -1,0 +1,147 @@
+{
+  "task": "BLENDER-ASSET-PRODUCTION-01",
+  "status": "ONE_CORRECTION_FROZEN_READY_FOR_HQ_RUN_AFTER_NATIVE_EXIT",
+  "created_utc": "2026-10-10T05:52:28.914917+00:00",
+  "script": "C:\\JP_DF\\tools\\art-authoring-pilot\\produce_assets.py",
+  "script_sha256": "438624819bc679918a298ad24b7ee827da8eab38267f1b47849489bbc0e83e1d",
+  "static_syntax": "PASS;AST parse;no bpy execution by UX",
+  "workshop": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\bootstrap-bfa1e3dd\\workshop.blend",
+  "run": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1",
+  "HQ_only_command_arguments": [
+    "--workshop",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\bootstrap-bfa1e3dd\\workshop.blend",
+    "--run",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1",
+    "--correction"
+  ],
+  "engine_owner": "HQ",
+  "UX_Blender_Godot_launches": 0,
+  "author_product_writes_stopped": true,
+  "outputs_pending_execution": {
+    "blend": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\correction\\authored_assets.blend",
+    "glb": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\correction\\stage01_assets.glb",
+    "Blender_render": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\correction\\prototypes-render.png",
+    "actual_result": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\correction\\PRODUCTION_RESULT.json",
+    "baked_leafscale": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\correction\\broadleaf-leafscale-albedo.png",
+    "baked_ground": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\correction\\dirt-grass-litter-albedo.png",
+    "baked_base_dirt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\correction\\compacted-dirt-litter-albedo.png"
+  },
+  "root_nodes": [
+    "Broadleaf_A",
+    "Broadleaf_B",
+    "Broadleaf_C",
+    "Shrub_A",
+    "Shrub_B",
+    "FiringPad",
+    "Palisade",
+    "GroundSample"
+  ],
+  "contract": {
+    "roots": "ASSET_EXPORT EMPTY roots identity0,0,0/scale1;MESH children included in use_selection. Display duplicates in PRESENTATION_NO_EXPORT only.",
+    "coordinates": "Metricmetres;BlenderZup->GLBGodotYup via export_yup;do not apply second axis conversion.",
+    "tree_variants": "Connected editable trunk/limbs/forks;27overlapping terminal/interior leaf-scale clusters per tree;real folded leaf meshes;actual normalized height/radius;no wholecanopy images;max8500tri enforced.",
+    "shrubs": "Two editable variants18overlapping leaf-scale clusters each;connected woody stems;no canopy cards.",
+    "pad": "Actual source topellipse.6475/.4725,bankfoot1.92/1.64,stakearc.96/.70,19stakes/270degrees+90degreeopening. Localrise is measured sourcecrest.83 minusmeanbankrimY;record exactrequiredrootY in actualresult. Fullmodule showcase-only;never second floor/collision overprovider. Correction:entire raised bank dirt;8sparse embedded irregular stones;opening and source dimensions unchanged.",
+    "palisade": "LocalX3.2m module,central1.0m actualgap,rails stopatopening;FUN maps existingsegment only inisolatedcopy.",
+    "ground": "FiringPad material CompactedDirt_ImagePBR is separate baked compacted-dirt-litter-albedo.png with NO roadshape orgrass;FUNbinds thatbaseimage whileexistinggame masks remain. GroundSample is a full curvedroad/grass/litter bakedpatch and showcase-only;never globally tile its roadpattern.",
+    "materials": "Image-backed PrincipledBSDF basecolor/normal/roughness. Leaf albedo emission-baked from smallscale olivevein recipe,not lighting. Ground emitted source-scan blend baked toPNG;procedural bake source nodes not export materials. Self-contained GLB packed images.",
+    "workshop_validation": "At runtime exact4217verts8144triangles,allsource(x,-z,y)vertexmap,ORTHO23.5/elevation44,actual packed reference rawbyteSHA. Contextmesh neverexported.",
+    "render": "Actual1440x900 CyclesCPU24samples assetbench at44degrees;doesnotclaimgame camera/lightparity. NativeGodotimages required. Canonical export originals hide_set(True) after export;linked bench duplicates remain visible in saved .blend.",
+    "source_editability": "ASSET_EXPORT real mesh UV/material edits;AUTHORING_SOURCE_EDITABLE copies;Blender Text recipes;preserve packed .blend.",
+    "performance": "Actualmeshtriangle/materialcounts only pendingHQ;noFPS claim.",
+    "exports": "All8export meshes triangulated via bmesh beforeGLB;originalfaces/UV in all8editable masters preserved. No material/light/color changes."
+  },
+  "corrections_used": 0,
+  "maximum_corrections": 1,
+  "correction_output": "Explicit--correction writes assets/correction and textures/correction,preserving firstpass;no automaticretry.",
+  "installation": "HQ reported officialBlender5.2.2LTS path;UX has not launched installer orengine.",
+  "not_complete_yet": [
+    "Actualbpyproduction",
+    "Actualrender visualinspection",
+    "GLB/actualGodotCompatibility import and same-camera/native review",
+    "Observed frame/GPU cost and scoped gameplay"
+  ],
+  "no_game_files_modified": true,
+  "next_action": "HQ runs frozen f499f11d... producer with repaired bootstrap-bfa1e3dd/workshop.blend;UX does not edit producer until actualrun ends. Actual Blender render and Godot acceptance pending.",
+  "pre_execution_contract_fixes": "Actual bootstrapvalidation already added;separate baked base dirt+fullGroundSample transition,canonical roots hiddenafterexport. Initial production,not artcorrection.",
+  "documentation": [
+    "https://docs.blender.org/api/current/bpy.ops.export_scene.html",
+    "https://docs.blender.org/api/current/bpy.types.PackedFile.html",
+    "https://docs.blender.org/api/current/bpy.ops.object.html"
+  ],
+  "previous_workshop": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\bootstrap-63fec784\\workshop.blend",
+  "workshop_sha256": "5b2d409a81c1863dcae7ab294489a7c263915a5d58dee9dfa9717c2051773770",
+  "updated_utc": "2026-10-10T05:33:03.293829+00:00",
+  "bootstrap_incident": "First production stopped during actual packed-reference validation before geometry;HQ repaired bootstrap image fakeuser persistence. Original PRODUCTION_ERROR.json retained;not an artcorrection.",
+  "initial_script_sha256_preserved": "f499f11d9fc9058a9935e9eaeb85b1aef160f71f409fc237a8eaaf87e96f2c29",
+  "correction": true,
+  "formal_review": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\UX_BLENDER_VISUAL_REVIEW.json",
+  "pure_geometry_validation": {
+    "method": "AST-extracted Geometry/foliage/pad using purePython vector arithmetic;not a Blender or Godot runtime claim",
+    "status": "PASS",
+    "records": [
+      {
+        "root": "Broadleaf_A",
+        "triangles": 7570,
+        "vertices": 8927,
+        "leaves": 1688,
+        "clusters": 27,
+        "height": 3.1,
+        "max_xy_radius": 1.6
+      },
+      {
+        "root": "Broadleaf_B",
+        "triangles": 7442,
+        "vertices": 8767,
+        "leaves": 1656,
+        "clusters": 27,
+        "height": 2.72,
+        "max_xy_radius": 1.72
+      },
+      {
+        "root": "Broadleaf_C",
+        "triangles": 7502,
+        "vertices": 8842,
+        "leaves": 1671,
+        "clusters": 27,
+        "height": 3.35,
+        "max_xy_radius": 1.45
+      },
+      {
+        "root": "Shrub_A",
+        "triangles": 4056,
+        "vertices": 4734,
+        "leaves": 886,
+        "clusters": 18,
+        "height": 0.86,
+        "max_xy_radius": 0.68
+      },
+      {
+        "root": "Shrub_B",
+        "triangles": 3996,
+        "vertices": 4659,
+        "leaves": 871,
+        "clusters": 18,
+        "height": 1.08,
+        "max_xy_radius": 0.8
+      },
+      {
+        "root": "FiringPad",
+        "triangles": 1600,
+        "dirt_bank_faces": 144,
+        "individual_stones": 8,
+        "opening_degrees": 90
+      },
+      {
+        "root": "palisade_geometry",
+        "triangles": 764
+      },
+      {
+        "root": "ground_geometry",
+        "triangles": 768
+      }
+    ]
+  },
+  "first_pass_preserved": true,
+  "remaining": "HQ must execute one correction, verify actual Blender/GLB/Godot; FUN diagnoses pale imported material independently. No final art approval."
+}

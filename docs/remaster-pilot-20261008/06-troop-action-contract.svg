@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1600" viewBox="0 0 1760 1600" role="img" aria-labelledby="title desc">
+  <title id="title">병종 행동과 모션 표현 계약 개념도</title>
+  <desc id="desc">장도병의 인식 범위와 방어 경계, 내부 안전 통로, 점유 면적, 대기·복귀점을 구분한 개념도입니다. 닌자는 기능팀의 후속 단일 사용 타워 암살 계약을 따릅니다. 이 도면은 새 Stage 01 맵 좌표·지형·카메라 또는 실제 웨이브 검증을 확정하지 않습니다.</desc>
+  <defs>
+    <marker id="approach-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#7ed6cc"/></marker>
+    <marker id="return-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#d5ba7c"/></marker>
+    <pattern id="obstacle" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M-3 3L3 -3M0 12L12 0M9 15L15 9" stroke="#a4afb5" stroke-width="1.2" opacity=".4"/></pattern>
+  </defs>
+  <style>
+    text { font-family: "Malgun Gothic", "Noto Sans KR", Arial, sans-serif; fill: #e7e4d5; }
+    .title { font-size: 32px; font-weight: 700; }
+    .heading { font-size: 23px; font-weight: 600; }
+    .body { font-size: 19px; }
+    .small { font-size: 17px; fill: #aebfb8; }
+    .gold { fill: #d5ba7c; }
+    .blue { fill: #8abada; }
+    .green { fill: #7ed6cc; }
+    .red { fill: #da8279; }
+    .mono { font-family: Consolas, monospace; font-size: 17px; }
+  </style>
+  <rect width="1760" height="1600" fill="#11191b"/>
+  <text x="40" y="43" class="small gold">06 / 공통 전투 표현 · 2026-10-08 KST</text>
+  <text x="40" y="88" class="title">행동이 읽히는 병종 모션</text>
+  <text x="40" y="124" class="body">기능 상태와 실제 사건을 표시합니다. 아래 도형은 동작 계약을 설명하는 개념도입니다.</text>
+  <text x="1720" y="43" text-anchor="end" class="small">맵 좌표·지형·카메라 미확정 / 컷씬 제외</text>
+
+  <rect x="40" y="156" width="1050" height="830" rx="10" fill="#192326" stroke="#334449"/>
+  <text x="64" y="194" class="heading gold">장도병 · 방어 구역 내부에서 접근·교전·복귀</text>
+  <text x="64" y="228" class="small">인식되더라도 구역을 나가야 접근할 수 있는 대상은 추격하지 않습니다.</text>
+
+  <!-- Arbitrary schematic geometry; never a Stage 01 coordinate contract. -->
+  <circle cx="440" cy="535" r="280" fill="#8abada" fill-opacity=".025" stroke="#8abada" stroke-width="3" stroke-dasharray="10 9"/>
+  <path d="M230 355H650V645H730V755H230Z" fill="#7ed6cc" fill-opacity=".08" stroke="#7ed6cc" stroke-width="4"/>
+  <path d="M250 375H630V665H710V735H250Z" fill="none" stroke="#7ed6cc" stroke-opacity=".35" stroke-width="1.5" stroke-dasharray="4 7"/>
+  <text x="251" y="729" class="body green">방어 경계 · 이동 허용 구역</text>
+  <text x="86" y="283" class="body blue">인식 범위</text>
+  <path d="M191 278L258 322" stroke="#8abada" stroke-width="1.5" fill="none"/>
+  <text x="752" y="782" class="small green">중심점 + 점유 면적</text>
+  <path d="M743 774L710 741" stroke="#7ed6cc" stroke-width="1.5" fill="none"/>
+
+  <path d="M440 535V415H580" fill="none" stroke="#7ed6cc" stroke-width="45" stroke-linejoin="round" stroke-linecap="round" opacity=".11"/>
+  <path d="M440 517V415H560" fill="none" stroke="#7ed6cc" stroke-width="4" stroke-linejoin="round" marker-end="url(#approach-arrow)"/>
+  <path d="M560 439H463V535" fill="none" stroke="#d5ba7c" stroke-width="3" stroke-dasharray="7 6" stroke-linejoin="round" marker-end="url(#return-arrow)"/>
+  <text x="301" y="409" class="small green">안전 통로</text>
+  <text x="478" y="575" class="small gold">안전 경로로 복귀</text>
+
+  <rect x="508" y="464" width="108" height="77" rx="4" fill="#263137" stroke="#859396"/>
+  <rect x="508" y="464" width="108" height="77" rx="4" fill="url(#obstacle)"/>
+  <text x="562" y="495" text-anchor="middle" class="small">통행 불가</text>
+  <text x="562" y="520" text-anchor="middle" class="small">장애물 예시</text>
+
+  <path d="M286 623L322 598L358 623" fill="none" stroke="#d5ba7c" stroke-width="5" stroke-linejoin="round"/>
+  <rect x="293" y="625" width="58" height="59" fill="#354033" stroke="#d5ba7c" stroke-width="2"/>
+  <text x="322" y="705" text-anchor="middle" class="body gold">아군 타워</text>
+
+  <circle cx="440" cy="535" r="20" fill="#192326" stroke="#7ed6cc" stroke-width="2"/>
+  <circle cx="440" cy="535" r="11" fill="#7ed6cc"/>
+  <path d="M413 535H467M440 508V562" stroke="#d5ba7c" stroke-width="1.5"/>
+  <text x="349" y="583" class="body gold">대기·복귀점</text>
+  <text x="349" y="608" class="mono">homePosition</text>
+
+  <circle cx="580" cy="415" r="14" fill="#7ed6cc" fill-opacity=".2" stroke="#7ed6cc" stroke-width="2"/>
+  <circle cx="580" cy="415" r="6" fill="#7ed6cc"/>
+  <path d="M586 415H601" stroke="#e7e4d5" stroke-width="2.5"/>
+  <path d="M615 401L629 415L615 429L601 415Z" fill="#da8279"/>
+  <text x="615" y="326" text-anchor="middle" class="small red">기지 공격자</text>
+  <path d="M615 332V397" stroke="#da8279" stroke-width="1.5"/>
+  <text x="514" y="385" class="small green">구역 안에서 교전</text>
+
+  <path d="M694 426L708 440L694 454L680 440Z" fill="#da8279"/>
+  <path d="M631 440H674" fill="none" stroke="#da8279" stroke-width="2.5" stroke-dasharray="5 5"/>
+  <path d="M641 429L661 451M661 429L641 451" stroke="#da8279" stroke-width="4"/>
+  <path d="M715 440H752" stroke="#da8279" stroke-width="1.5"/>
+  <text x="765" y="429" class="body red">인식되지만 추격 불가</text>
+  <text x="765" y="460" class="small">접근하려면 경계 밖으로</text>
+  <text x="765" y="486" class="small">나가야 하는 대상의 예시</text>
+
+  <rect x="774" y="561" width="286" height="151" rx="7" fill="#11191b" stroke="#405259"/>
+  <circle cx="806" cy="598" r="13" fill="#7ed6cc" fill-opacity=".15" stroke="#7ed6cc" stroke-width="2"/>
+  <circle cx="806" cy="598" r="4" fill="#7ed6cc"/>
+  <text x="833" y="605" class="small">병사 점유 면적</text>
+  <text x="794" y="643" class="mono">occupancyRadius</text>
+  <text x="794" y="677" class="small">이동 구간 전체를 확인합니다.</text>
+  <path d="M723 685H756" fill="none" stroke="#7ed6cc" stroke-width="1.5"/>
+
+  <path d="M64 856H1066" stroke="#334449"/>
+  <text x="64" y="891" class="body">경계 → 내부 접근·기존 돌진 → 교전 → 원위치 복귀</text>
+  <text x="64" y="929" class="small">도면의 통로는 안전한 접근·복귀를 설명합니다. 실제 이동은 guard_path와 경계 판정에 따릅니다.</text>
+  <text x="64" y="962" class="small">새 Stage 01의 배치·거리·경사·방어 구역 형태를 확정한 도면이 아닙니다.</text>
+
+  <rect x="1110" y="156" width="610" height="178" rx="10" fill="#192326" stroke="#334449"/>
+  <text x="1134" y="194" class="heading">범위 표시는 필요한 순간에만</text>
+  <text x="1134" y="238" class="body">배치·선택·명령 확인 시 관련 범위를 표시합니다.</text>
+  <text x="1134" y="276" class="body">인식 범위와 이동 경계는 서로 다르게 표시합니다.</text>
+  <text x="1134" y="312" class="small">비선택 병사의 상시 범위 표시는 켜지 않습니다.</text>
+
+  <rect x="1110" y="354" width="610" height="346" rx="10" fill="#192326" stroke="#d5ba7c"/>
+  <text x="1134" y="393" class="heading gold">닌자 · 기능팀의 후속 단일 사용 계약</text>
+  <text x="1134" y="436" class="body">생산 → 타워형 표적 하나 확정 → 접근 → 타격</text>
+  <text x="1134" y="472" class="body">표적 파괴·소멸·무효·접근 불가·생산 시 표적 부재:</text>
+  <text x="1134" y="508" class="body">기능 판정으로 소모하며 다른 표적을 재사냥하지 않습니다.</text>
+  <text x="1134" y="548" class="mono green">unit_consumed → 퇴장·페이드</text>
+  <text x="1134" y="584" class="small">사건 수신 후 표시하며, 연출이 소모를 결정하지 않습니다.</text>
+  <text x="1134" y="624" class="small red">엄폐 대기·복귀·재사용·제한 반격 제안은 대체되었습니다.</text>
+  <text x="1134" y="660" class="small">소모에 환불·사망·시체·추가 보상을 붙이지 않습니다.</text>
+  <text x="1134" y="686" class="small">일반 보병 자동 사냥 연출은 사용하지 않습니다.</text>
+
+  <rect x="1110" y="720" width="610" height="266" rx="10" fill="#192326" stroke="#334449"/>
+  <text x="1134" y="758" class="heading">발생 순간은 기능 상태가 결정합니다</text>
+  <text x="1134" y="803" class="body">공격 준비: attackPlan / releaseTime</text>
+  <text x="1134" y="840" class="body">발사·타격: 실제 shot / hit 사건</text>
+  <text x="1134" y="877" class="body">치료: 실제 heal 사건의 대상·회복량</text>
+  <text x="1134" y="914" class="small">현재 HP 회복은 치료 몸짓 시작과 함께 발생합니다.</text>
+  <text x="1134" y="950" class="small">피격·취소·사망은 기존 상태와 사건을 표시합니다.</text>
+  <text x="1134" y="977" class="small red">모션 코드가 피해·발사체·회복을 만들지 않습니다.</text>
+
+  <rect x="40" y="1006" width="1680" height="441" rx="10" fill="#192326" stroke="#334449"/>
+  <text x="64" y="1044" class="heading">8개 병종 · 기본 모션과 확인점</text>
+  <text x="64" y="1080" class="small gold">병종</text>
+  <text x="226" y="1080" class="small gold">상태 흐름</text>
+  <text x="1080" y="1080" class="small gold">확인점</text>
+  <path d="M64 1096H1696M64 1138H1696M64 1180H1696M64 1222H1696M64 1264H1696M64 1306H1696M64 1348H1696M64 1390H1696" stroke="#334449"/>
+  <text x="64" y="1126" class="body">궁병</text><text x="226" y="1126" class="body">경계 → 조준·활 당김 → 발사 → 회수</text><text x="1080" y="1126" class="body">활시위 해제와 실제 화살 출발 일치</text>
+  <text x="64" y="1168" class="body">창병</text><text x="226" y="1168" class="body">집결·행군 → 정지·대치 → 찌르기 → 회수 → 행군</text><text x="1080" y="1168" class="body">실제 정지·이동·공격 방향 확인</text>
+  <text x="64" y="1210" class="body">사무라이</text><text x="226" y="1210" class="body">행군 → 대치 → 베기 → 회수</text><text x="1080" y="1210" class="body">몸·무기·실제 표적 방향 일치</text>
+  <text x="64" y="1252" class="body">조총병</text><text x="226" y="1252" class="body">고정 경계 → 조준 → 발사·반동 → 재장전 표현</text><text x="1080" y="1252" class="body">재장전 길이로 공격 주기 변경 금지</text>
+  <text x="64" y="1294" class="body">장도병</text><text x="226" y="1294" class="body">경계 → 구역 내부 접근 → 장도 교전 → 복귀</text><text x="1080" y="1294" class="body">돌진·점유 면적 포함 전 경로 경계 준수</text>
+  <text x="64" y="1336" class="body">승병</text><text x="226" y="1336" class="body">고정 대기 → 치료 준비·시전 → 회수</text><text x="1080" y="1336" class="body">실제 치료 대상·HP 회복 순간 확인</text>
+  <text x="64" y="1378" class="body">기마 무장</text><text x="226" y="1378" class="body">기마 이동 → 교전·기존 돌격 → 이동 재개</text><text x="1080" y="1378" class="body">말의 발걸음과 실제 이동 속도 일치</text>
+  <text x="64" y="1420" class="body">닌자</text><text x="226" y="1420" class="body">생산·단일 표적 확정 → 접근 → 타격 → 소모 사건 후 퇴장</text><text x="1080" y="1420" class="body">기존 공격 주기 / 타워 암살 단일 사용</text>
+
+  <text x="40" y="1492" class="body gold">검증 대기: 실제 웨이브의 평지·경사·정지·회전에서 연속 이동을 확인해야 합니다.</text>
+  <text x="40" y="1530" class="small">고각 화면의 병종·상태 식별, 발 접촉, 무기·구조물 관통, 몸·타격 방향을 확인합니다. 고정 포즈만으로 완료하지 않습니다.</text>
+  <text x="40" y="1568" class="small">설계 자료 작성·구문 확인과 실제 게임·자연 웨이브 검증은 별도의 완료 조건입니다.</text>
+</svg>

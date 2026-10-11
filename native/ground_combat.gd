@@ -1,8 +1,8 @@
 extends RefCounted
 const UnitGrowth = preload("res://native/unit_growth.gd")
-## Authored-route marching, stationary support and short land-only ambush sorties.
+## Authored-route marching, bounded emplacement guards and consumable assassins.
 const GROUND_TYPES: Array = ["spear","samurai","naginata","monk","ninja","commander"]
-const HEALTH: Dictionary = {"archer":105.0,"spear":140.0,"samurai":175.0,"naginata":135.0,"monk":125.0,"ninja":100.0,"commander":210.0,"gunner":105.0}
+const HEALTH: Dictionary = {"archer":105.0,"spear":140.0,"samurai":175.0,"naginata":135.0,"monk":125.0,"ninja":160.0,"commander":210.0,"gunner":105.0}
 const CAPACITY: Dictionary = {"spear":2,"samurai":1,"naginata":2,"monk":1,"ninja":1,"commander":1,"gunner":1}
 const REACH: Dictionary = {"spear":0.041,"samurai":0.034,"naginata":0.045,"monk":0.036,"ninja":0.031,"commander":0.042,"gunner":0.030}
 # Original ninja meshes need about .100 of normalized head/weapon clearance
@@ -35,11 +35,11 @@ static func placement_contract(type_name: String) -> Dictionary:
 	if type_name=="gunner":
 		return {"deploymentKind":"placed","movementRoleKo":"배치형","placementRole":"ground","placementMode":"frontline_shooter","combatRole":"frontline_shooter","roleKo":"전선 고정 사격","placementHintKo":"철포병은 청록색 전선에 배치해 짧은 거리에서 고정 사격합니다."}
 	if type_name=="ninja":
-		return {"deploymentKind":"ambush","movementRoleKo":"기습형","placementRole":"ambush","placementMode":"concealed_ambush","combatRole":"ground","roleKo":"외곽 엄폐 · 근접 기습","placementHintKo":"닌자는 보라색 외곽 엄폐 지점에 배치합니다. 가까운 적을 기습한 뒤 원래 자리로 돌아옵니다.","markerColor":"b997ff"}
+		return {"deploymentKind":"ambush","movementRoleKo":"기습형","placementRole":"ambush","placementMode":"concealed_ambush","combatRole":"ground","roleKo":"소모성 진지 암살","placementHintKo":"닌자는 보라색 기습 지점에서 적 고정 진지를 암살합니다. 임무 종료나 접근 실패 시 사라지며 재사용할 수 없습니다.","markerColor":"b997ff"}
 	if type_name=="monk":
 		return {"deploymentKind":"support","movementRoleKo":"지원형","placementRole":"ground","placementMode":"frontline_support","combatRole":"support","roleKo":"고정 치료 · 아군 지원","placementHintKo":"승병은 청록색 지원 지점에서 아군을 치료합니다. 봉으로 공격하지 않습니다.","markerColor":"73e5d2"}
 	if type_name=="naginata":
-		return {"deploymentKind":"guard","movementRoleKo":"호위형","placementRole":"ground","placementMode":"emplacement_guard","combatRole":"guard","roleKo":"사격 진지 호위 · 장도 쓸기","placementHintKo":"장도병은 청록색 수비선에 배치합니다. 가까운 궁병·조총병을 호위하고 위험이 사라지면 원래 자리로 돌아옵니다.","markerColor":"73e5d2"}
+		return {"deploymentKind":"guard","movementRoleKo":"호위형","placementRole":"ground","placementMode":"emplacement_guard","combatRole":"guard","roleKo":"사격 진지 호위 · 장도 쓸기","placementHintKo":"장도병은 아군 진지 방어 구역 안에서 기지 공격자를 저지합니다. 구역 밖으로 추격하지 않고 표적을 잃으면 원위치로 복귀합니다.","markerColor":"73e5d2"}
 	return {"deploymentKind":"marching","movementRoleKo":"전진형","placementRole":"marching","placementMode":"base_march","combatRole":"cavalry" if type_name=="commander" else "ground","roleKo":"기지 출진 · 기마 전진" if type_name=="commander" else "기지 출진 · 근접 전진","placementHintKo":"소집 주문 후 아군 기지에서 생산합니다. 짧게 집결한 뒤 적 진입구 방향으로 전진합니다."}
 
 func bind(value: Node2D) -> void:
@@ -76,16 +76,17 @@ func land_segment_safe(start: Vector2, end: Vector2, margin: float = .008) -> bo
 		if center.distance_to(Geometry2D.get_closest_point_to_segment(center,start,end))<=float(obstacle.get("r",0))+margin: return false
 	return not structure_segment_clear.is_valid() or bool(structure_segment_clear.call(start,end,margin))
 
-func land_route_safe(path_index: int, start_distance: float, end_distance: float) -> bool:
+func land_route_safe(path_index: int, start_distance: float, end_distance: float, margin: float = .008) -> bool:
+	if path_index<0 or path_index>=cumulative.size() or cumulative[path_index].is_empty(): return false
 	var lower: float=minf(start_distance,end_distance)
 	var upper: float=maxf(start_distance,end_distance)
 	var previous: Vector2=route_point(path_index,lower)
 	for distance in cumulative[path_index]:
 		if float(distance)<=lower or float(distance)>=upper: continue
 		var next: Vector2=route_point(path_index,float(distance))
-		if not land_segment_safe(previous,next): return false
+		if not land_segment_safe(previous,next,margin): return false
 		previous=next
-	return land_segment_safe(previous,route_point(path_index,upper))
+	return land_segment_safe(previous,route_point(path_index,upper),margin)
 
 func ambush_position_legal(point: Vector2, entry: Vector2) -> bool:
 	if point.x<.04 or point.x>.96 or point.y<AMBUSH_MIN_FOOT_Y or point.y>.94 or battle._on_road(point): return false
@@ -384,6 +385,12 @@ func initialize_unit(unit: Dictionary, post: Dictionary) -> void:
 		unit["routeMax"]=float(cumulative[int(unit.postPathIndex)][maxi(0,cumulative[int(unit.postPathIndex)].size()-2)])
 	unit["routeMax"]=maxf(float(unit.homeDistance),float(unit.routeMax)-.03)
 	unit["targetId"]=-1
+	if str(unit.type)=="naginata":
+		# The movement boundary is authored independently of recognition/range.
+		unit["guardZone"]=post.get("defenseZone",{"center":unit.homePosition,"radius":float(unit.guardRadius)}).duplicate(true)
+		unit["occupancyRadius"]=maxf(.001,float(post.get("occupancyRadius",.008)))
+		unit["guardTrail"]=[unit.homePosition]
+		unit["guardDashData"]={}
 	if is_ambush(str(unit.type)):
 		unit["homeDistance"]=float(post.homeDistance)
 		unit["routeDistance"]=float(post.homeDistance)
@@ -393,10 +400,12 @@ func initialize_unit(unit: Dictionary, post: Dictionary) -> void:
 		var land: Vector2=_land_bounds(int(unit.postPathIndex),float(unit.homeDistance))
 		unit["routeMin"]=maxf(float(unit.routeMin),land.x)
 		unit["routeMax"]=minf(float(unit.routeMax),land.y)
-		unit["combatState"]="ambush_wait"
+		unit["combatState"]="ambush_seek"
 		unit["onAmbushRoute"]=false
 		unit["ambushStrikeDone"]=false
 		unit["priorityTargetId"]=-1
+		unit["occupancyRadius"]=maxf(.001,float(post.get("occupancyRadius",.008)))
+		unit["consumed"]=false
 
 func refresh_health(unit: Dictionary) -> void:
 	var ratio: float=float(unit.get("hp",max_health(unit)))/maxf(1.0,float(unit.get("maxHp",max_health(unit))))
@@ -466,6 +475,7 @@ func _walk(unit: Dictionary, target_distance: float, delta: float, factor: float
 
 func _on_unit_injured(unit: Dictionary) -> void:
 	if float(unit.get("hp",0))<=0:
+		if not unit.get("guardDashData",{}).is_empty(): battle.unit_skills.finish_guard_dash(unit,false);unit["guardDashData"]={}
 		unit["combatState"]="dead"
 		unit["attackPlan"]={}
 		unit["targetId"]=-1
@@ -513,43 +523,227 @@ func _gather_step(unit: Dictionary, delta: float) -> void:
 		ally["combatState"]="march"
 		_set_animation(ally,"walk")
 
+func is_base_attacker(enemy: Dictionary) -> bool:
+	if enemy.is_empty() or float(enemy.get("hp",0))<=0: return false
+	return str(enemy.get("combatRole",battle.enemy_role_contract(str(enemy.get("kind","raider"))).combatRole))=="emplacement_assault"
+
+func is_tower_attacker(enemy: Dictionary) -> bool:
+	# Enemy kind and scenery alone never establish a fixed attackable tower.
+	return is_base_attacker(enemy) and bool(enemy.get("fortification",false)) and bool(enemy.get("stationaryEnemy",false)) and not bool(enemy.get("ingressActive",false))
+
+func _zone_point(value: Variant, fallback: Vector2 = Vector2.ZERO) -> Vector2:
+	if value is Vector2: return value
+	if value is Dictionary: return Vector2(float(value.get("x",fallback.x)),float(value.get("y",fallback.y)))
+	return fallback
+
+func _guard_polygon(unit: Dictionary) -> PackedVector2Array:
+	var points: PackedVector2Array=[]
+	for point in unit.get("guardZone",{}).get("polygon",[]): points.append(_zone_point(point))
+	return points
+
+func guard_point_inside(unit: Dictionary, point: Vector2) -> bool:
+	if not point.is_finite(): return false
+	var footprint: float=float(unit.get("occupancyRadius",.008))
+	var zone: Dictionary=unit.get("guardZone",{})
+	var polygon: PackedVector2Array=_guard_polygon(unit)
+	if polygon.size()>=3:
+		if not Geometry2D.is_point_in_polygon(point,polygon): return false
+		for index in range(polygon.size()):
+			if point.distance_to(Geometry2D.get_closest_point_to_segment(point,polygon[index],polygon[(index+1)%polygon.size()]))<footprint-.000001: return false
+		return true
+	var center: Vector2=_zone_point(zone.get("center",unit.get("homePosition",Vector2.ZERO)))
+	var radius: float=float(zone.get("radius",unit.get("guardRadius",.15)))
+	return radius>=footprint and center.distance_to(point)<=radius-footprint+.000001
+
+func _guard_segment_safe(unit: Dictionary, start: Vector2, end: Vector2) -> bool:
+	if not guard_point_inside(unit,start) or not guard_point_inside(unit,end): return false
+	var footprint: float=float(unit.get("occupancyRadius",.008))
+	if not land_segment_safe(start,end,footprint): return false
+	var polygon: PackedVector2Array=_guard_polygon(unit)
+	# Endpoint containment is insufficient for a concave polygon or a body
+	# passing close to its edge. Test the entire swept capsule against edges.
+	for index in range(polygon.size()):
+		var a: Vector2=polygon[index]
+		var b: Vector2=polygon[(index+1)%polygon.size()]
+		if Geometry2D.segment_intersects_segment(start,end,a,b)!=null: return false
+		var clearance: float=minf(a.distance_to(Geometry2D.get_closest_point_to_segment(a,start,end)),b.distance_to(Geometry2D.get_closest_point_to_segment(b,start,end)))
+		clearance=minf(clearance,minf(start.distance_to(Geometry2D.get_closest_point_to_segment(start,a,b)),end.distance_to(Geometry2D.get_closest_point_to_segment(end,a,b))))
+		if clearance<footprint-.000001: return false
+	return true
+
+func guard_path(unit: Dictionary, start: Vector2, end: Vector2) -> Array:
+	if _guard_segment_safe(unit,start,end): return [start,end]
+	# Recorded actual safe strides provide a return corridor. Authored guard
+	# waypoints may join it; every graph edge still passes full body clearance.
+	var nodes: Array=[start,end]
+	for point in unit.get("guardTrail",[]):
+		var candidate: Vector2=_zone_point(point)
+		if guard_point_inside(unit,candidate) and not nodes.has(candidate): nodes.append(candidate)
+	for point in unit.get("guardZone",{}).get("waypoints",[]):
+		var candidate: Vector2=_zone_point(point)
+		if guard_point_inside(unit,candidate) and not nodes.has(candidate): nodes.append(candidate)
+	# A concave authored defense polygon can require a bend even on otherwise
+	# clear land. Its inward offset supplies body-safe corner candidates.
+	var polygon: PackedVector2Array=_guard_polygon(unit)
+	if polygon.size()>=3:
+		for inset in Geometry2D.offset_polygon(polygon,-float(unit.get("occupancyRadius",.008))-.001):
+			for point in inset:
+				if guard_point_inside(unit,point) and not nodes.has(point): nodes.append(point)
+	var distances: Array=[]
+	var previous: Array=[]
+	var visited: Array=[]
+	for index in range(nodes.size()): distances.append(INF);previous.append(-1);visited.append(false)
+	distances[0]=0.0
+	for iteration in range(nodes.size()):
+		var current: int=-1
+		var best: float=INF
+		for index in range(nodes.size()):
+			if not bool(visited[index]) and float(distances[index])<best: current=index;best=float(distances[index])
+		if current<0: break
+		if current==1:
+			var result: Array=[end]
+			while current!=0:
+				current=int(previous[current])
+				if current<0: return []
+				result.push_front(nodes[current])
+			return result
+		visited[current]=true
+		for next in range(nodes.size()):
+			if bool(visited[next]) or next==current or not _guard_segment_safe(unit,nodes[current],nodes[next]): continue
+			var cost: float=best+(nodes[current] as Vector2).distance_to(nodes[next])
+			if cost<float(distances[next]): distances[next]=cost;previous[next]=current
+	return []
+
+func _guard_strike_point(unit: Dictionary, enemy: Dictionary) -> Vector2:
+	if unit.position.distance_to(enemy.position)<=reach(unit)*.95 and _guard_segment_safe(unit,unit.position,unit.position): return unit.position
+	var from_target: Vector2=(unit.position-enemy.position).normalized()
+	if from_target.length_squared()<.5: from_target=(unit.homePosition-enemy.position).normalized()
+	var best: Vector2=Vector2(INF,INF)
+	var best_length: float=INF
+	for factor in [.5,.9]:
+		for angle in [0.0,PI*.25,-PI*.25,PI*.5,-PI*.5,PI*.75,-PI*.75,PI]:
+			var point: Vector2=enemy.position+from_target.rotated(float(angle))*reach(unit)*float(factor)
+			if not land_segment_safe(point,enemy.position,0.0): continue
+			var route: Array=guard_path(unit,unit.position,point)
+			if route.is_empty(): continue
+			var length: float=0.0
+			for index in range(route.size()-1): length+=(route[index] as Vector2).distance_to(route[index+1])
+			if length<best_length: best=point;best_length=length
+	return best
+
+func guard_target_valid(unit: Dictionary, enemy: Dictionary, for_strike: bool = false) -> bool:
+	if not is_base_attacker(enemy) or float(unit.get("hp",0))<=0 or battle._sailing_visual(enemy) or not battle._enemy_visible(enemy): return false
+	if int(enemy.get("pathIndex",-1))!=int(unit.get("postPathIndex",-2)): return false
+	if unit.homePosition.distance_to(enemy.position)>float(battle._stats(unit).range): return false
+	if not guard_point_inside(unit,unit.position): return false
+	if for_strike:
+		return unit.position.distance_to(enemy.position)<=reach(unit)*1.1 and land_segment_safe(unit.position,enemy.position,0.0)
+	var point: Vector2=_guard_strike_point(unit,enemy)
+	return not guard_path(unit,unit.position,point).is_empty() and land_segment_safe(point,enemy.position,0.0)
+
+func ninja_route_valid(unit: Dictionary, enemy: Dictionary) -> bool:
+	var path_index: int=int(unit.get("postPathIndex",-1))
+	if path_index<0 or path_index>=battle.paths.size() or path_index>=cumulative.size(): return false
+	var footprint: float=float(unit.get("occupancyRadius",.008))
+	var distance: float=enemy_distance(enemy)
+	if distance<float(unit.get("routeMin",0)) or distance>float(unit.get("routeMax",0)): return false
+	if not land_segment_safe(unit.homePosition,unit.entryPosition,footprint): return false
+	if not land_route_safe(path_index,float(unit.homeDistance),distance,footprint): return false
+	var point: Vector2=route_point(path_index,distance)
+	return point.distance_to(enemy.position)<=reach(unit)*.95 and land_segment_safe(point,enemy.position,0.0)
+
+func ninja_mission_target_valid(unit: Dictionary, enemy: Dictionary, for_strike: bool = false) -> bool:
+	if bool(unit.get("consumed",false)) or not is_tower_attacker(enemy) or float(unit.get("hp",0))<=0 or not battle._enemy_visible(enemy) or battle._sailing_visual(enemy): return false
+	if int(unit.get("priorityTargetId",-1))>=0 and int(enemy.get("id",-2))!=int(unit.priorityTargetId): return false
+	if int(enemy.get("pathIndex",-1))!=int(unit.get("postPathIndex",-2)): return false
+	if unit.homePosition.distance_to(enemy.position)>float(battle._stats(unit).range)*2.0 or not ninja_route_valid(unit,enemy): return false
+	if for_strike: return unit.position.distance_to(enemy.position)<=reach(unit)*1.1 and land_segment_safe(unit.position,enemy.position,0.0)
+	return true
+
+func primary_target_allowed(unit: Dictionary, target: Dictionary, stage: String = "prepare") -> bool:
+	if bool(unit.get("consumed",false)): return false
+	if str(unit.get("type",""))=="naginata": return guard_target_valid(unit,target,stage=="release")
+	if is_ambush(str(unit.get("type",""))): return ninja_mission_target_valid(unit,target,stage=="release")
+	return true
+
+func mark_ninja_consumed(unit: Dictionary, reason: String) -> void:
+	if bool(unit.get("consumed",false)): return
+	unit["consumed"]=true
+	unit["consumeReason"]=reason
+	var mission_id: int=int(unit.get("priorityTargetId",-1))
+	unit["consumedTargetId"]=mission_id if mission_id>=0 else int(unit.get("targetId",-1))
+	unit["priorityTargetId"]=-1
+	unit["targetId"]=-1
+	unit["attackPlan"]={}
+	unit["ambushStrikeDone"]=false
+	unit["combatState"]="consumed"
+	_set_animation(unit,"idle")
+
 func _guard_target(unit: Dictionary) -> Dictionary:
 	var best: Dictionary={}
 	var nearest: float=INF
-	var radius: float=maxf(float(unit.guardRadius),float(battle._stats(unit).range))
 	for enemy in battle.enemies:
-		if float(enemy.hp)<=0 or int(enemy.pathIndex)!=int(unit.postPathIndex) or battle._sailing_visual(enemy) or not battle._enemy_visible(enemy): continue
-		if unit.homePosition.distance_to(enemy.position)>radius or not land_segment_safe(unit.homePosition,enemy.position): continue
+		if not guard_target_valid(unit,enemy): continue
 		var distance: float=unit.position.distance_to(enemy.position)
 		if distance<nearest: nearest=distance;best=enemy
 	return best
 
 func _guard_walk(unit: Dictionary, destination: Vector2, delta: float, factor: float = 1.0) -> bool:
-	var radius: float=maxf(float(unit.guardRadius),float(battle._stats(unit).range))
-	var offset: Vector2=destination-unit.homePosition
-	var desired: Vector2=unit.homePosition+offset.limit_length(radius)
+	var route: Array=guard_path(unit,unit.position,destination)
+	if route.size()<2: unit["movementBlocked"]=true;_set_animation(unit,"idle");return false
+	unit["movementBlocked"]=false
+	var desired: Vector2=route[1]
 	var previous: Vector2=unit.position
 	var next: Vector2=previous.move_toward(desired,.042*1.4*float(unit.mobilityFactor)*factor*delta)
-	if not land_segment_safe(previous,next): return false
+	if not _guard_segment_safe(unit,previous,next): unit["movementBlocked"]=true;_set_animation(unit,"idle");return false
 	unit.position=next
+	if str(unit.get("combatState",""))!="guard_return":
+		var trail: Array=unit.get("guardTrail",[unit.homePosition])
+		if trail.size()>=2 and _guard_segment_safe(unit,trail[-2],next): trail[-1]=next
+		elif trail.is_empty() or (trail[-1] as Vector2).distance_to(next)>.003: trail.append(next)
+		unit["guardTrail"]=trail
 	var direction: Vector2=next-previous
 	if direction.length_squared()>.000000001:
 		unit.aim=direction.normalized()
 		_set_animation(unit,"walk")
 		battle._track_footstep(unit,previous,"friendly")
 	else: _set_animation(unit,"idle")
-	return next.distance_squared_to(desired)<.00000001
+	return next.distance_squared_to(destination)<.00000001
 
 func _guard_step(unit: Dictionary, delta: float) -> void:
 	if float(unit.get("hp",0))<=0: _on_unit_injured(unit);return
-	if str(unit.get("animation","idle"))=="attack": return
-	var target: Dictionary=_guard_target(unit)
 	var dash: Dictionary=unit.get("guardDashData",{})
+	var target: Dictionary={}
+	var returning: bool=str(unit.get("combatState","guard"))=="guard_return"
+	var previous_target_id: int=int(unit.get("targetId",-1))
+	if previous_target_id>=0:
+		target=battle._enemy(previous_target_id)
+		if not guard_target_valid(unit,target): returning=true;target={}
+	if not dash.is_empty():
+		target=battle._enemy(int(unit.get("guardDashTargetId",-1)))
+		if not guard_target_valid(unit,target):
+			battle.unit_skills.finish_guard_dash(unit,false)
+			unit.guardDashData={}
+			dash={}
+			target={}
+			returning=true
+	if str(unit.get("animation","idle"))=="attack":
+		var prepared: Dictionary=battle._enemy(int(unit.get("attackPlan",{}).get("targetId",unit.get("targetId",-1))))
+		if not returning and guard_target_valid(unit,prepared,true): return
+		unit["attackPlan"]={}
+		_set_animation(unit,"idle")
+		if not dash.is_empty(): battle.unit_skills.finish_guard_dash(unit,false);unit.guardDashData={};dash={}
+		returning=true
+	if not returning and target.is_empty(): target=_guard_target(unit)
+	if returning: target={}
 	if target.is_empty():
 		if not dash.is_empty(): battle.unit_skills.finish_guard_dash(unit,false);unit.guardDashData={}
 		unit.targetId=-1
 		unit.combatState="guard_return"
-		if _guard_walk(unit,unit.homePosition,delta): unit.combatState="guard";_set_animation(unit,"idle")
+		if _guard_walk(unit,unit.homePosition,delta):
+			unit.combatState="guard"
+			unit["guardTrail"]=[unit.homePosition]
+			_set_animation(unit,"idle")
 		return
 	unit.targetId=int(target.id)
 	var distance: float=unit.position.distance_to(target.position)
@@ -559,7 +753,7 @@ func _guard_step(unit: Dictionary, delta: float) -> void:
 		else: dash={}
 	if distance>reach(unit)*.95:
 		unit.combatState="guard_dash" if not dash.is_empty() else "guard_advance"
-		var desired: Vector2=target.position+(unit.position-target.position).normalized()*reach(unit)*.5
+		var desired: Vector2=_guard_strike_point(unit,target)
 		_guard_walk(unit,desired,delta,float(dash.get("speedFactor",1.0)))
 		return
 	unit.aim=(target.position-unit.position).normalized()
@@ -579,25 +773,21 @@ func _guard_step(unit: Dictionary, delta: float) -> void:
 
 func _ambush_enemy(unit: Dictionary) -> Dictionary:
 	var priority: Dictionary=battle._enemy(int(unit.get("priorityTargetId",-1)))
-	if not priority.is_empty() and float(priority.hp)>0 and bool(priority.get("fortification",false)) and int(priority.pathIndex)==int(unit.postPathIndex) and unit.homePosition.distance_to(priority.position)<=float(battle._stats(unit).range)*2.0:
-		var distance: float=enemy_distance(priority)
-		if distance>=float(unit.routeMin) and distance<=float(unit.routeMax): return priority
+	if ninja_mission_target_valid(unit,priority): return priority
 	if int(unit.get("priorityTargetId",-1))>=0: return {}
 	var best: Dictionary={}
 	var nearest: float=INF
 	for enemy in battle.enemies:
-		if float(enemy.hp)<=0 or int(enemy.pathIndex)!=int(unit.postPathIndex) or not battle._enemy_visible(enemy) or battle._sailing_visual(enemy): continue
-		var distance: float=enemy_distance(enemy)
-		if distance<float(unit.routeMin) or distance>float(unit.routeMax): continue
+		if not ninja_mission_target_valid(unit,enemy): continue
 		var from_home: float=unit.homePosition.distance_to(enemy.position)
-		if from_home>float(unit.guardRadius): continue
 		if from_home<nearest: nearest=from_home;best=enemy
 	return best
 
 func _ambush_walk_point(unit: Dictionary, target: Vector2, delta: float) -> bool:
 	var previous: Vector2=unit.position
 	var next: Vector2=previous.move_toward(target,.052*1.4*float(unit.mobilityFactor)*delta)
-	if not land_segment_safe(previous,next): return false
+	if not land_segment_safe(previous,target,float(unit.get("occupancyRadius",.008))): unit["movementBlocked"]=true;_set_animation(unit,"idle");return false
+	unit["movementBlocked"]=false
 	unit["position"]=next
 	if next.distance_squared_to(previous)>.000000001:
 		unit["aim"]=(next-previous).normalized()
@@ -610,8 +800,11 @@ func _ambush_walk_route(unit: Dictionary, target_distance: float, delta: float) 
 	var desired: float=clampf(target_distance,float(unit.routeMin),float(unit.routeMax))
 	var distance: float=move_toward(float(unit.routeDistance),desired,.052*1.4*float(unit.mobilityFactor)*delta)
 	var previous: Vector2=unit.position
-	var next: Vector2=route_point(int(unit.postPathIndex),distance)
-	if not land_segment_safe(previous,next): return false
+	var path_index: int=int(unit.postPathIndex)
+	var next: Vector2=route_point(path_index,distance)
+	var footprint: float=float(unit.get("occupancyRadius",.008))
+	if not land_route_safe(path_index,float(unit.routeDistance),desired,footprint) or not land_segment_safe(previous,next,footprint): unit["movementBlocked"]=true;_set_animation(unit,"idle");return false
+	unit["movementBlocked"]=false
 	unit["routeDistance"]=distance
 	unit["position"]=next
 	if next.distance_squared_to(previous)>.000000001:
@@ -622,36 +815,43 @@ func _ambush_walk_route(unit: Dictionary, target_distance: float, delta: float) 
 	return absf(distance-desired)<.0001
 
 func _ambush_step(unit: Dictionary, delta: float) -> void:
-	if str(unit.get("animation","idle"))=="attack": return
-	if bool(unit.get("ambushStrikeDone",false)): unit["combatState"]="ambush_return"
-	if str(unit.combatState)=="ambush_return":
-		unit["targetId"]=-1
-		unit["attackPlan"]={}
-		if bool(unit.onAmbushRoute):
-			if _ambush_walk_route(unit,float(unit.homeDistance),delta): unit["onAmbushRoute"]=false
+	if bool(unit.get("consumed",false)): return
+	var target: Dictionary={}
+	var mission_id: int=int(unit.get("priorityTargetId",-1))
+	if mission_id>=0:
+		target=battle._enemy(mission_id)
+		if target.is_empty(): mark_ninja_consumed(unit,"target_lost");return
+		if float(target.get("hp",0))<=0: mark_ninja_consumed(unit,"target_defeated");return
+		if not ninja_mission_target_valid(unit,target):
+			mark_ninja_consumed(unit,"unreachable" if is_tower_attacker(target) and not ninja_route_valid(unit,target) else "target_lost")
 			return
-		if _ambush_walk_point(unit,unit.homePosition,delta):
-			unit["combatState"]="ambush_wait"
-			unit["ambushStrikeDone"]=false
-			unit["priorityTargetId"]=-1
-			unit["routeDistance"]=float(unit.homeDistance)
-			_set_animation(unit,"idle")
-		return
-	var target: Dictionary=_ambush_enemy(unit)
-	if target.is_empty():
-		unit["targetId"]=-1
-		if unit.position.distance_squared_to(unit.homePosition)>.00000001: unit["combatState"]="ambush_return"
-		else: unit["combatState"]="ambush_wait";_set_animation(unit,"idle")
-		return
+	else:
+		target=_ambush_enemy(unit)
+		if target.is_empty():
+			var failure_reason: String="no_target"
+			for candidate in battle.enemies:
+				if not is_tower_attacker(candidate) or int(candidate.get("pathIndex",-1))!=int(unit.get("postPathIndex",-2)) or not battle._enemy_visible(candidate) or battle._sailing_visual(candidate): continue
+				if unit.homePosition.distance_to(candidate.position)>float(battle._stats(unit).range)*2.0: continue
+				if not ninja_route_valid(unit,candidate):
+					failure_reason="unreachable"
+					unit["priorityTargetId"]=int(candidate.id)
+					break
+			mark_ninja_consumed(unit,failure_reason)
+			return
+		unit["priorityTargetId"]=int(target.id)
 	unit["targetId"]=int(target.id)
+	if str(unit.get("animation","idle"))=="attack": return
 	unit["combatState"]="ambush_approach"
 	if not bool(unit.onAmbushRoute):
 		if _ambush_walk_point(unit,unit.entryPosition,delta): unit["onAmbushRoute"]=true
+		elif bool(unit.get("movementBlocked",false)): mark_ninja_consumed(unit,"unreachable")
 		return
 	if unit.position.distance_to(target.position)>reach(unit)*.95:
 		var distance: float=enemy_distance(target)
 		var desired: float=distance+reach(unit)*.5 if float(unit.routeDistance)>=distance else distance-reach(unit)*.5
+		if route_point(int(unit.postPathIndex),desired).distance_to(target.position)>reach(unit)*.95: desired=distance
 		_ambush_walk_route(unit,desired,delta)
+		if bool(unit.get("movementBlocked",false)): mark_ninja_consumed(unit,"unreachable")
 		return
 	unit["aim"]=(target.position-unit.position).normalized()
 	unit["combatState"]="engaged"
@@ -708,14 +908,14 @@ func _assign_blocks() -> void:
 	for enemy in battle.enemies:
 		var previous_blocker: int=int(enemy.get("blockedBy",-1))
 		var defender: Dictionary=_unit(previous_blocker)
-		if defender.is_empty() or not can_fight(defender) or not battle.can_enemy_engage_unit(enemy,defender,true) or float(enemy.hp)<=0 or battle._sailing_visual(enemy) or not shares_contact_front(defender,enemy) or defender.position.distance_to(enemy.position)>reach(defender)*1.05:
+		if defender.is_empty() or not can_fight(defender) or not primary_target_allowed(defender,enemy,"release") or not battle.can_enemy_engage_unit(enemy,defender,true) or float(enemy.hp)<=0 or battle._sailing_visual(enemy) or not shares_contact_front(defender,enemy) or defender.position.distance_to(enemy.position)>reach(defender)*1.05:
 			enemy["blockedBy"]=-1
 			if previous_blocker>=0: enemy["counterPlan"]={}
 		else: defender["blockCount"]=int(defender.blockCount)+1
 	for enemy in battle.enemies:
 		if int(enemy.get("blockedBy",-1))>=0 or float(enemy.hp)<=0 or battle._sailing_visual(enemy): continue
 		for defender in battle.units:
-			if not is_frontline(str(defender.type)) or not can_fight(defender) or not battle.can_enemy_engage_unit(enemy,defender,true) or int(defender.blockCount)>=capacity(defender): continue
+			if not is_frontline(str(defender.type)) or not can_fight(defender) or not primary_target_allowed(defender,enemy,"release") or not battle.can_enemy_engage_unit(enemy,defender,true) or int(defender.blockCount)>=capacity(defender): continue
 			if not shares_contact_front(defender,enemy) or enemy.position.distance_to(defender.position)>reach(defender): continue
 			enemy["blockedBy"]=int(defender.id)
 			defender["blockCount"]=int(defender.blockCount)+1
@@ -723,21 +923,50 @@ func _assign_blocks() -> void:
 
 func blocked(enemy: Dictionary) -> bool:
 	var unit: Dictionary=_unit(int(enemy.get("blockedBy",-1)))
-	return not unit.is_empty() and can_fight(unit) and battle.can_enemy_engage_unit(enemy,unit,true) and shares_contact_front(unit,enemy) and unit.position.distance_to(enemy.position)<=reach(unit)*1.05
+	return not unit.is_empty() and can_fight(unit) and primary_target_allowed(unit,enemy,"release") and battle.can_enemy_engage_unit(enemy,unit,true) and shares_contact_front(unit,enemy) and unit.position.distance_to(enemy.position)<=reach(unit)*1.05
+
+func _counter_target_valid(enemy: Dictionary, unit: Dictionary) -> bool:
+	if not battle.can_enemy_engage_unit(enemy,unit,true): return false
+	if str(unit.get("type","")) not in ["naginata","ninja"]: return true
+	if bool(battle.battle_closed) or bool(battle.finished): return false
+	if not is_same(battle._enemy(int(enemy.get("id",-1))),enemy) or not is_same(_unit(int(unit.get("id",-1))),unit): return false
+	var own_range: float=float(enemy.get("attackRange",enemy.get("meleeRange",.032)))
+	return float(enemy.get("hp",0))>0 and enemy.position.distance_to(unit.position)<=own_range and land_segment_safe(enemy.position,unit.position,0.0)
 
 func counterattack(enemy: Dictionary, delta: float, target: Dictionary = {}) -> void:
+	if bool(enemy.get("counterReleaseInProgress",false)): return
 	var unit: Dictionary=target if not target.is_empty() else _unit(int(enemy.get("blockedBy",-1)))
-	if not battle.can_enemy_engage_unit(enemy,unit,true):
+	if not _counter_target_valid(enemy,unit):
 		enemy["counterPlan"]={}
+		# Friendly reach establishes a block, not the enemy's own hit distance.
+		# A living melee hunter can close the remaining gap on clear land.
+		if str(unit.get("type","")) in ["naginata","ninja"] and battle.can_enemy_engage_unit(enemy,unit,true) and float(enemy.get("hp",0))>0 and not bool(enemy.get("stationaryEnemy",false)) and not enemy.has("attackRange") and is_same(battle._enemy(int(enemy.get("id",-1))),enemy) and is_same(_unit(int(unit.get("id",-1))),unit) and land_segment_safe(enemy.position,unit.position,0.0):
+			var own_range: float=float(enemy.get("meleeRange",.032))
+			if enemy.position.distance_to(unit.position)>own_range:
+				var destination: Vector2=unit.position+(enemy.position-unit.position).normalized()*own_range*.8125
+				battle._enemy_threat_walk(enemy,destination,delta)
 		return
+	if str(unit.get("type","")) in ["naginata","ninja"]: enemy["rangedPlan"]={}
 	battle._turn_enemy(enemy,unit.position-enemy.position,delta)
 	enemy["attackCooldown"]=maxf(0,float(enemy.get("attackCooldown",0))-delta)
 	var plan: Dictionary=enemy.get("counterPlan",{})
 	if not plan.is_empty() and int(plan.get("targetId",int(unit.id)))!=int(unit.id): enemy.counterPlan={};plan={}
 	if not plan.is_empty() and float(enemy.animationClock)>=float(plan.releaseTime):
-		battle._combat_event("shot",enemy,unit)
-		battle._damage_friendly(unit,float(plan.damage),enemy)
-		enemy["counterPlan"]={}
+		if not _counter_target_valid(enemy,unit): enemy["counterPlan"]={};return
+		if str(unit.get("type","")) in ["naginata","ninja"]:
+			# A synchronous event listener may reenter combat or reset the map.
+			# Consume this counter event before notification, then validate again.
+			var generation: int=int(battle.battle_generation)
+			enemy["counterPlan"]={}
+			enemy["counterReleaseInProgress"]=true
+			battle._combat_event("shot",enemy,unit)
+			if generation==int(battle.battle_generation) and _counter_target_valid(enemy,unit): battle._damage_friendly(unit,float(plan.damage),enemy)
+			enemy["counterReleaseInProgress"]=false
+			if generation!=int(battle.battle_generation) or not _counter_target_valid(enemy,unit): return
+		else:
+			battle._combat_event("shot",enemy,unit)
+			battle._damage_friendly(unit,float(plan.damage),enemy)
+			enemy["counterPlan"]={}
 	if float(unit.get("hp",0))<=0: return
 	if float(enemy.attackCooldown)<=0:
 		enemy["animation"]="attack"
@@ -752,6 +981,9 @@ func attack_target(unit: Dictionary) -> Dictionary:
 	if str(unit.type)=="monk": return {}
 	if not can_fight(unit): return {}
 	if is_ambush(str(unit.type)) and (str(unit.combatState)!="engaged" or bool(unit.get("ambushStrikeDone",false))): return {}
+	if str(unit.type)=="naginata" or is_ambush(str(unit.type)):
+		var primary: Dictionary=battle._enemy(int(unit.get("priorityTargetId",unit.get("targetId",-1))) if is_ambush(str(unit.type)) else int(unit.get("targetId",-1)))
+		return primary if primary_target_allowed(unit,primary,"release") else {}
 	var shooter: bool=str(unit.type)=="gunner"
 	if shooter and str(unit.get("animation","idle"))=="walk": return {}
 	var hit_range: float=float(battle._stats(unit).range) if shooter else reach(unit)
@@ -768,7 +1000,7 @@ func attack_target(unit: Dictionary) -> Dictionary:
 
 func stance(unit: Dictionary) -> String:
 	if is_ambush(str(unit.type)):
-		return {"ambush_wait":"엄폐 기습 대기","ambush_approach":"엄폐에서 기습 접근","engaged":"단검 기습","ambush_return":"원래 엄폐 지점 복귀","dead":"전사"}.get(str(unit.get("combatState","ambush_wait")),"기습 준비")
+		return {"ambush_seek":"암살 표적 확인","ambush_approach":"적 고정 진지 접근","engaged":"단검 암살","consumed":"임무 종료 · 소모됨","dead":"전사"}.get(str(unit.get("combatState","ambush_seek")),"기습 준비")
 	if str(unit.type)=="monk": return "고정 치료 · 아군 지원" if float(unit.get("hp",0))>0 else "전사"
 	if str(unit.type)=="naginata":
 		return {"guard":"사격 진지 호위 대기","guard_advance":"수비선 안 접근","guard_engaged":"호위선 쓸기","guard_dash":"마나 돌진","guard_return":"원래 호위점 복귀","dead":"전사"}.get(str(unit.get("combatState","guard")),"호위 준비")
@@ -789,7 +1021,7 @@ func cease_combat() -> void:
 		if is_marching(str(unit.type)):
 			unit["combatState"]="march" if float(unit.get("hp",0))>0 else "dead"
 		elif is_ambush(str(unit.type)):
-			unit["combatState"]="ambush_return" if unit.position.distance_squared_to(unit.homePosition)>.00000001 else "ambush_wait"
+			mark_ninja_consumed(unit,"battle_ended")
 		elif is_frontline(str(unit.type)) and str(unit.combatState)!="recover":
 			unit["combatState"]="guard"
 	for enemy in battle.enemies:

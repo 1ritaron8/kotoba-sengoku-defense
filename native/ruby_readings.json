@@ -9451,5 +9451,824 @@
   "displayCorrections": {
     "値段\tのねだん": "ねだん",
     "品物\tしなも": "しなもの"
+  },
+  "uiWords": {
+    "戦国": [
+      {
+        "text": "戦国",
+        "reading": "せんごく"
+      }
+    ],
+    "言葉": [
+      {
+        "text": "言葉",
+        "reading": "ことば"
+      }
+    ],
+    "旅": [
+      {
+        "text": "旅",
+        "reading": "たび"
+      }
+    ],
+    "戦場": [
+      {
+        "text": "戦場",
+        "reading": "せんじょう"
+      }
+    ],
+    "戦国時代": [
+      {
+        "text": "戦国時代",
+        "reading": "せんごくじだい"
+      }
+    ],
+    "初陣": [
+      {
+        "text": "初陣",
+        "reading": "ういじん"
+      }
+    ],
+    "修練": [
+      {
+        "text": "修練",
+        "reading": "しゅうれん"
+      }
+    ],
+    "熟練": [
+      {
+        "text": "熟練",
+        "reading": "じゅくれん"
+      }
+    ],
+    "決戦": [
+      {
+        "text": "決戦",
+        "reading": "けっせん"
+      }
+    ],
+    "天下統一": [
+      {
+        "text": "天下統一",
+        "reading": "てんかとういつ"
+      }
+    ],
+    "戦記": [
+      {
+        "text": "戦記",
+        "reading": "せんき"
+      }
+    ],
+    "出陣之書": [
+      {
+        "text": "出陣之書",
+        "reading": "しゅつじんのしょ"
+      }
+    ],
+    "戦支度": [
+      {
+        "text": "戦支度",
+        "reading": "いくさじたく"
+      }
+    ],
+    "設定": [
+      {
+        "text": "設定",
+        "reading": "せってい"
+      }
+    ],
+    "兵舎": [
+      {
+        "text": "兵舎",
+        "reading": "へいしゃ"
+      }
+    ],
+    "鍛錬": [
+      {
+        "text": "鍛錬",
+        "reading": "たんれん"
+      }
+    ],
+    "演武": [
+      {
+        "text": "演武",
+        "reading": "えんぶ"
+      }
+    ],
+    "全国地図": [
+      {
+        "text": "全国地図",
+        "reading": "ぜんこくちず"
+      }
+    ],
+    "言葉図鑑": [
+      {
+        "text": "言葉図鑑",
+        "reading": "ことばずかん"
+      }
+    ],
+    "音量": [
+      {
+        "text": "音量",
+        "reading": "おんりょう"
+      }
+    ],
+    "伝令": [
+      {
+        "text": "伝令",
+        "reading": "でんれい"
+      }
+    ],
+    "援軍の要請": [
+      {
+        "text": "援軍の要請",
+        "reading": "えんぐんのようせい"
+      }
+    ],
+    "第": [
+      {
+        "text": "第",
+        "reading": "だい"
+      }
+    ],
+    "陣": [
+      {
+        "text": "陣",
+        "reading": "じん"
+      }
+    ],
+    "敵襲": [
+      {
+        "text": "敵襲",
+        "reading": "てきしゅう"
+      }
+    ],
+    "一": [
+      {
+        "text": "一",
+        "reading": "いち"
+      }
+    ],
+    "二": [
+      {
+        "text": "二",
+        "reading": "に"
+      }
+    ],
+    "三": [
+      {
+        "text": "三",
+        "reading": "さん"
+      }
+    ],
+    "四": [
+      {
+        "text": "四",
+        "reading": "よん"
+      }
+    ],
+    "札幌": [
+      {
+        "text": "札幌",
+        "reading": "さっぽろ"
+      }
+    ],
+    "仙台": [
+      {
+        "text": "仙台",
+        "reading": "せんだい"
+      }
+    ],
+    "東京": [
+      {
+        "text": "東京",
+        "reading": "とうきょう"
+      }
+    ],
+    "名古屋": [
+      {
+        "text": "名古屋",
+        "reading": "なごや"
+      }
+    ],
+    "京都": [
+      {
+        "text": "京都",
+        "reading": "きょうと"
+      }
+    ],
+    "大阪": [
+      {
+        "text": "大阪",
+        "reading": "おおさか"
+      }
+    ],
+    "福岡": [
+      {
+        "text": "福岡",
+        "reading": "ふくおか"
+      }
+    ],
+    "戦国絵巻、天下統一への道。": [
+      {
+        "text": "戦国絵巻",
+        "reading": "せんごくえまき"
+      },
+      {
+        "text": "、"
+      },
+      {
+        "text": "天下統一",
+        "reading": "てんかとういつ"
+      },
+      {
+        "text": "への"
+      },
+      {
+        "text": "道",
+        "reading": "みち"
+      },
+      {
+        "text": "。"
+      }
+    ],
+    "陣を守り抜いた": [
+      {
+        "text": "陣",
+        "reading": "じん"
+      },
+      {
+        "text": "を"
+      },
+      {
+        "text": "守",
+        "reading": "まも"
+      },
+      {
+        "text": "り"
+      },
+      {
+        "text": "抜",
+        "reading": "ぬ"
+      },
+      {
+        "text": "いた"
+      }
+    ],
+    "弓兵": [
+      {
+        "text": "弓",
+        "reading": "きゅう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "熟練弓兵": [
+      {
+        "text": "熟練弓兵",
+        "reading": "じゅくれんきゅうへい"
+      }
+    ],
+    "弓侍": [
+      {
+        "text": "弓侍",
+        "reading": "ゆみざむらい"
+      }
+    ],
+    "槍兵": [
+      {
+        "text": "槍",
+        "reading": "そう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "熟練槍兵": [
+      {
+        "text": "熟練槍兵",
+        "reading": "じゅくれんそうへい"
+      }
+    ],
+    "槍奉行": [
+      {
+        "text": "槍奉行",
+        "reading": "やりぶぎょう"
+      }
+    ],
+    "侍": [
+      {
+        "text": "侍",
+        "reading": "さむらい"
+      }
+    ],
+    "武士": [
+      {
+        "text": "武士",
+        "reading": "ぶし"
+      }
+    ],
+    "剣豪": [
+      {
+        "text": "剣豪",
+        "reading": "けんごう"
+      }
+    ],
+    "鉄砲兵": [
+      {
+        "text": "鉄砲",
+        "reading": "てっぽう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "鉄砲足軽": [
+      {
+        "text": "鉄砲足軽",
+        "reading": "てっぽうあしがる"
+      }
+    ],
+    "鉄砲組頭": [
+      {
+        "text": "鉄砲組頭",
+        "reading": "てっぽうくみがしら"
+      }
+    ],
+    "薙刀兵": [
+      {
+        "text": "薙刀",
+        "reading": "なぎなた"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "薙刀武者": [
+      {
+        "text": "薙刀武者",
+        "reading": "なぎなたむしゃ"
+      }
+    ],
+    "薙刀達人": [
+      {
+        "text": "薙刀達人",
+        "reading": "なぎなたたつじん"
+      }
+    ],
+    "僧兵": [
+      {
+        "text": "僧",
+        "reading": "そう"
+      },
+      {
+        "text": "兵",
+        "reading": "へい"
+      }
+    ],
+    "熟練僧兵": [
+      {
+        "text": "熟練僧兵",
+        "reading": "じゅくれんそうへい"
+      }
+    ],
+    "僧兵頭": [
+      {
+        "text": "僧兵頭",
+        "reading": "そうへいがしら"
+      }
+    ],
+    "武将": [
+      {
+        "text": "武",
+        "reading": "ぶ"
+      },
+      {
+        "text": "将",
+        "reading": "しょう"
+      }
+    ],
+    "騎馬武者": [
+      {
+        "text": "騎馬武者",
+        "reading": "きばむしゃ"
+      }
+    ],
+    "騎馬大将": [
+      {
+        "text": "騎馬大将",
+        "reading": "きばたいしょう"
+      }
+    ],
+    "忍者": [
+      {
+        "text": "忍",
+        "reading": "にん"
+      },
+      {
+        "text": "者",
+        "reading": "じゃ"
+      }
+    ],
+    "上忍": [
+      {
+        "text": "上忍",
+        "reading": "じょうにん"
+      }
+    ],
+    "忍頭": [
+      {
+        "text": "忍頭",
+        "reading": "しのびがしら"
+      }
+    ],
+    "浅野長政": [
+      {
+        "text": "浅野長政",
+        "reading": "あさの ながまさ"
+      }
+    ],
+    "加藤清正": [
+      {
+        "text": "加藤清正",
+        "reading": "かとう きよまさ"
+      }
+    ],
+    "福島正則": [
+      {
+        "text": "福島正則",
+        "reading": "ふくしま まさのり"
+      }
+    ],
+    "石田三成": [
+      {
+        "text": "石田三成",
+        "reading": "いしだ みつなり"
+      }
+    ],
+    "加藤嘉明": [
+      {
+        "text": "加藤嘉明",
+        "reading": "かとう よしあき"
+      }
+    ],
+    "安国寺恵瓊": [
+      {
+        "text": "安国寺恵瓊",
+        "reading": "あんこくじ えけい"
+      }
+    ],
+    "黒田官兵衛": [
+      {
+        "text": "黒田官兵衛",
+        "reading": "くろだ かんべえ"
+      }
+    ],
+    "蜂須賀正勝": [
+      {
+        "text": "蜂須賀正勝",
+        "reading": "はちすか まさかつ"
+      }
+    ],
+    "蜂須賀家政": [
+      {
+        "text": "蜂須賀家政",
+        "reading": "はちすか いえまさ"
+      }
+    ],
+    "むつき醒": [
+      {
+        "text": "むつき醒",
+        "reading": "むつきせい"
+      }
+    ],
+    "甘茶": [
+      {
+        "text": "甘茶",
+        "reading": "あまちゃ"
+      }
+    ],
+    "緩やかな風": [
+      {
+        "text": "緩やかな風",
+        "reading": "ゆるやかなかぜ"
+      }
+    ],
+    "流る": [
+      {
+        "text": "流る",
+        "reading": "ながる"
+      }
+    ],
+    "市": [
+      {
+        "text": "市",
+        "reading": "いち"
+      }
+    ],
+    "打千鳴": [
+      {
+        "text": "打千鳴",
+        "reading": "うちなり"
+      }
+    ],
+    "幕末舞曲": [
+      {
+        "text": "幕末舞曲",
+        "reading": "ばくまつぶきょく"
+      }
+    ],
+    "戦": [
+      {
+        "text": "戦",
+        "reading": "いくさ"
+      }
+    ],
+    "神々の宿る場所": [
+      {
+        "text": "神々の宿る場所",
+        "reading": "かみがみのやどるばしょ"
+      }
+    ],
+    "柏木": [
+      {
+        "text": "柏木",
+        "reading": "かしわぎ"
+      }
+    ],
+    "国土地理院": [
+      {
+        "text": "国土地理院",
+        "reading": "こくどちりいん"
+      }
+    ],
+    "地名検索": [
+      {
+        "text": "地名検索",
+        "reading": "ちめいけんさく"
+      }
+    ],
+    "地点注記": [
+      {
+        "text": "地点注記",
+        "reading": "ちてんちゅうき"
+      }
+    ],
+    "利用": [
+      {
+        "text": "利用",
+        "reading": "りよう"
+      }
+    ],
+    "日本歴史地名大系": [
+      {
+        "text": "日本歴史地名大系",
+        "reading": "にほんれきしちめいたいけい"
+      }
+    ],
+    "施設": [
+      {
+        "text": "施設",
+        "reading": "しせつ"
+      }
+    ],
+    "地点項目": [
+      {
+        "text": "地点項目",
+        "reading": "ちてんこうもく"
+      }
+    ],
+    "作成": [
+      {
+        "text": "作成",
+        "reading": "さくせい"
+      }
+    ],
+    "龍ノ舞": [
+      {
+        "text": "龍",
+        "reading": "りゅう"
+      },
+      {
+        "text": "ノ"
+      },
+      {
+        "text": "舞",
+        "reading": "まい"
+      }
+    ],
+    "補給任務": [
+      {
+        "text": "補給任務",
+        "reading": "ほきゅうにんむ"
+      }
+    ],
+    "聞き取り": [
+      {
+        "text": "聞き取り",
+        "reading": "ききとり"
+      }
+    ],
+    "音楽": [
+      {
+        "text": "音楽",
+        "reading": "おんがく"
+      }
+    ],
+    "音声": [
+      {
+        "text": "音声",
+        "reading": "おんせい"
+      }
+    ],
+    "効果音": [
+      {
+        "text": "効果音",
+        "reading": "こうかおん"
+      }
+    ],
+    "選択": [
+      {
+        "text": "選択",
+        "reading": "せんたく"
+      }
+    ],
+    "出陣": [
+      {
+        "text": "出陣",
+        "reading": "しゅつじん"
+      }
+    ],
+    "勝利": [
+      {
+        "text": "勝利",
+        "reading": "しょうり"
+      }
+    ],
+    "撤退": [
+      {
+        "text": "撤退",
+        "reading": "てったい"
+      }
+    ],
+    "続行": [
+      {
+        "text": "続行",
+        "reading": "ぞっこう"
+      }
+    ],
+    "作戦会議": [
+      {
+        "text": "作戦会議",
+        "reading": "さくせんかいぎ"
+      }
+    ],
+    "本陣へ": [
+      {
+        "text": "本陣へ",
+        "reading": "ほんじんへ"
+      }
+    ],
+    "兵営": [
+      {
+        "text": "兵営",
+        "reading": "へいえい"
+      }
+    ],
+    "解禁試験": [
+      {
+        "text": "解禁試験",
+        "reading": "かいきんしけん"
+      }
+    ],
+    "軍資金": [
+      {
+        "text": "軍資金",
+        "reading": "ぐんしきん"
+      }
+    ],
+    "の記録": [
+      {
+        "text": "の記録",
+        "reading": "のきろく"
+      }
+    ],
+    "名詞": [
+      {
+        "text": "名詞",
+        "reading": "めいし"
+      }
+    ],
+    "五段": [
+      {
+        "text": "五段",
+        "reading": "ごだん"
+      }
+    ],
+    "一段": [
+      {
+        "text": "一段",
+        "reading": "いちだん"
+      }
+    ],
+    "来る": [
+      {
+        "text": "来る",
+        "reading": "くる"
+      }
+    ],
+    "来て": [
+      {
+        "text": "来て",
+        "reading": "きて"
+      }
+    ],
+    "静か": [
+      {
+        "text": "静か",
+        "reading": "しずか"
+      }
+    ],
+    "静かな": [
+      {
+        "text": "静かな",
+        "reading": "しずかな"
+      }
+    ],
+    "大きいです": [
+      {
+        "text": "大きいです",
+        "reading": "おおきいです"
+      }
+    ],
+    "小さい": [
+      {
+        "text": "小さい",
+        "reading": "ちいさい"
+      }
+    ],
+    "先に": [
+      {
+        "text": "先に",
+        "reading": "さきに"
+      }
+    ],
+    "場合": [
+      {
+        "text": "場合",
+        "reading": "ばあい"
+      }
+    ],
+    "一方で": [
+      {
+        "text": "一方で",
+        "reading": "いっぽうで"
+      }
+    ],
+    "限り": [
+      {
+        "text": "限り",
+        "reading": "かぎり"
+      }
+    ],
+    "次に": [
+      {
+        "text": "次に",
+        "reading": "つぎに"
+      }
+    ],
+    "た後": [
+      {
+        "text": "た後",
+        "reading": "たあと"
+      }
+    ]
+  },
+  "uiReadingPolicy": "Exact contextual display phrases and unchanged authored unit/hero readings only; no guessed character fallback. All visible Kanji must have visible kana annotations. Additional exact UI and grammar phrases cover the observed first full integration gaps; existing authored curriculum confirms 撤退/小さい/勝利/静か/来る.",
+  "uiReadingSources": [
+    "https://www.kanjipedia.jp/kotoba/0003276700",
+    "https://kotobank.jp/word/%E4%BF%AE%E7%B7%B4-527891",
+    "https://www.city.sapporo.jp/",
+    "https://peritune.com/about/",
+    "https://sei-peri.seesaa.net/",
+    "https://amachamusic.chagasi.com/about.html",
+    "https://amachamusic.chagasi.com/music_yuruyakanakaze.html",
+    "https://shw.in/sozai/",
+    "https://shw.in/old/wagakki.php",
+    "https://www.gsi.go.jp/KIDS/KIDS05_00002.html",
+    "https://geoshape.ex.nii.ac.jp/nrct-poi/",
+    "https://ndlsearch.ndl.go.jp/books/R100000001-I19111009210041276",
+    "https://www.kanjipedia.jp/kanji/0002694300",
+    "https://amachamusic.chagasi.com/music_ryunomai.html"
+  ],
+  "uiReadingNotes": {
+    "龍ノ舞": "Contextual title reading inferred from creator official ryunomai URL and standard 龍=りゅう / 舞=まい. Creator does not print the full title in kana; source title/audio/metadata are unchanged.",
+    "出陣之書": "Authored menu title. 之 is the attributive の here, confirmed by Japan Kanji Aptitude Testing Foundation dictionary.",
+    "日本歴史地名大系": "Title kana ニホン レキシ チメイ タイケイ verified in NDL bibliographic record."
   }
 }

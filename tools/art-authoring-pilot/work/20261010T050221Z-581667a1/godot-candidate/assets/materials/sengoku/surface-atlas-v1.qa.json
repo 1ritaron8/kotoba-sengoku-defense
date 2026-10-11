@@ -1,0 +1,66 @@
+{
+  "rawCopyUnchanged": true,
+  "sourceSHA256": "4E67C13A7EE139002C2CDAF0467159DC7A3A99ABDEB49A9B9C13FFFEE5A02E7E",
+  "format": "PNG 24-bit RGB",
+  "width": 1254,
+  "columns": 2,
+  "tiles": [
+    {
+      "edgeMeanAbsoluteDifferenceRGB_Y": 19.9,
+      "y": 0,
+      "name": "iron",
+      "meanRGB": [
+        41.79,
+        41.67,
+        43.34
+      ],
+      "edgeMeanAbsoluteDifferenceRGB_X": 22.26,
+      "size": 627,
+      "x": 0
+    },
+    {
+      "edgeMeanAbsoluteDifferenceRGB_Y": 27.86,
+      "y": 0,
+      "name": "hemp",
+      "meanRGB": [
+        144.92,
+        139.24,
+        132.99
+      ],
+      "edgeMeanAbsoluteDifferenceRGB_X": 28.04,
+      "size": 627,
+      "x": 627
+    },
+    {
+      "edgeMeanAbsoluteDifferenceRGB_Y": 19.42,
+      "y": 627,
+      "name": "leather",
+      "meanRGB": [
+        67.03,
+        47.89,
+        38.86
+      ],
+      "edgeMeanAbsoluteDifferenceRGB_X": 22.96,
+      "size": 627,
+      "x": 0
+    },
+    {
+      "edgeMeanAbsoluteDifferenceRGB_Y": 14.92,
+      "y": 627,
+      "name": "skin",
+      "meanRGB": [
+        188.03,
+        138.65,
+        108.59
+      ],
+      "edgeMeanAbsoluteDifferenceRGB_X": 11.42,
+      "size": 627,
+      "x": 627
+    }
+  ],
+  "rows": 2,
+  "tileSize": 627,
+  "height": 1254,
+  "sha256": "4E67C13A7EE139002C2CDAF0467159DC7A3A99ABDEB49A9B9C13FFFEE5A02E7E",
+  "inspection": "Four correct material quadrants; no border/gutter/text/object/face; nearly flat neutral macro illumination. Surface grooves retain local baked micro shading as generated. Exact seamless wrap is not proven and opposing-edge deltas are recorded."
+}

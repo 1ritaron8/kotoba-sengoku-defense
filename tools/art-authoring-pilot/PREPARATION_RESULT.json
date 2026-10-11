@@ -1,0 +1,22 @@
+{
+  "task_id": "ASSET-AUTHORING-01",
+  "status": "TOOLING_AND_CONTEXT_READY_BLENDER_INSTALLATION_PENDING",
+  "kit_root": "C:\\JP_DF\\tools\\art-authoring-pilot",
+  "prepared_run": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1",
+  "portable_unit_tests": {"passed": 13, "failed": 0, "remote_python": "3.13.14"},
+  "actual_preparation": {"vertices": 4217, "triangles": 8144, "reference_hash_matches": true, "geometry_role": "CONTEXT_ONLY_NOT_FINAL_ART"},
+  "blender": {"found_in_checked_locations": false, "installed_this_turn": false, "bootstrap_executed": false, "export_executed": false},
+  "source_guard": {"checked_core_game_and_candidate_files": 4, "changed": 0},
+  "network_uploads": 0,
+  "paid_generations": 0,
+  "engine_launches": 0,
+  "HQ_dispatch": "NOT_SENT",
+  "game_or_save_writes": 0,
+  "new_artwork_created": false,
+  "tooling_hashes": {
+    "authoring.py": "4590a4695bc05fc1d819bfef921350ecb01c378334dab227bbc05e52a0338aea",
+    "test_authoring.py": "adff1f569b08943cca86e715d12550f98c128c4d182828ac875ddebb6f7c4ffd",
+    "TASK.yaml": "19fb3f1f513556854b697b7a5f6ef944bfd1c415fa411d43233fea2107611da2"
+  },
+  "next_action": "Obtain explicit approval for official Blender installation, then create the workshop and produce actual tree/platform/ground assets within the existing scoped pilot. No MCP installation or external-service upload is implied."
+}

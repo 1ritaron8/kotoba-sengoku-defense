@@ -35,6 +35,9 @@ var target_anchors: Array = []
 var correct_target: String = ""
 var flow_paused: bool = false
 var stage_texture: Texture2D
+var world_texture: Texture2D
+var world_projection: Callable
+var world_focus_projection: Callable
 var stage_id: String = ""
 var presentation_mirrored: bool = false
 var _background_stage: Dictionary = {}
@@ -90,6 +93,9 @@ func _ready() -> void:
 	clear()
 
 func set_stage_background(path: String, stage: Dictionary = {}) -> void:
+	world_texture = null
+	world_projection = Callable()
+	world_focus_projection = Callable()
 	_background_stage = stage
 	if _background_stage.is_empty() and not path.is_empty():
 		for candidate in _stage_definitions().values():
@@ -98,6 +104,23 @@ func set_stage_background(path: String, stage: Dictionary = {}) -> void:
 				break
 	_sync_presentation(mission)
 	queue_redraw()
+
+func set_world_presentation(stage: Dictionary, texture: Texture2D, projection: Callable, focus_projection: Callable = Callable()) -> void:
+	_background_stage = stage
+	world_texture = texture
+	world_projection = projection
+	world_focus_projection = focus_projection
+	_sync_presentation(mission)
+
+func refresh_world_presentation() -> void:
+	if world_projection.is_valid():
+		_sync_presentation(mission)
+
+func _target_view_point(canonical: Vector2) -> Vector2:
+	if world_projection.is_valid():
+		var projected: Vector2 = world_projection.call(canonical)
+		return projected
+	return view_point(canonical)
 
 static func _stage_definitions() -> Dictionary:
 	if _presentation_stages.is_empty():
@@ -130,12 +153,18 @@ func _sync_presentation(value: Dictionary) -> void:
 		if image != null:
 			image.flip_h = presentation_mirrored
 			if index < value.get("targets",[]).size():
-				image.texture = _target_crop(Presentation.point(value.targets[index].get("position",{})))
+				image.texture = _target_crop(Presentation.point(value.targets[index].get("position",{})),str(value.targets[index].get("id","")))
 		if index < value.get("targets",[]).size():
-			target_anchors[index] = view_point(Presentation.point(value.targets[index].get("position",{})))
+			target_anchors[index] = _target_view_point(Presentation.point(value.targets[index].get("position",{})))
 	queue_redraw()
 
 func _sync_stage_art(stage: Dictionary) -> void:
+	if stage.get("worldGeometry") is Dictionary and not stage.worldGeometry.is_empty():
+		# The current authored floor and scenery are rendered by the real camera.
+		stage_texture = world_texture
+		stage_art = {"mode":"authored-world","stageId":str(stage.get("id","")),"liveViewport":world_texture!=null}
+		_stage_art_signature = ""
+		return
 	# The deployed map omits legacy photo resources. Resolve exactly the same
 	# manifest-backed artwork as the physical battlefield, including its hash
 	# and source-geometry checks; never substitute an unrelated/raw preview.
@@ -155,11 +184,34 @@ func _sync_stage_art(stage: Dictionary) -> void:
 	if str(stage_art.get("mode","")) == "rendered" and bool(stage_art.get("sourceDataVerified",false)):
 		stage_texture = BattlefieldMaterials.rendered_art_texture(path,str(stage_art.get("artSha256","")))
 
-func _target_crop(canonical: Vector2) -> AtlasTexture:
+func _target_crop(canonical: Vector2, target_id: String = "") -> AtlasTexture:
 	if stage_texture == null: return null
 	var source_size: Vector2 = stage_texture.get_size()
+	if source_size.x<=0 or source_size.y<=0: return null
 	var crop_size: Vector2 = source_size*Vector2(.34,.42)
-	var center: Vector2 = canonical*source_size
+	var texture_anchor: Vector2 = canonical
+	if world_projection.is_valid():
+		# Authored landmarks need a local view; a wide crop can show the same
+		# nearby camp for both the woodland and the stream-bank choices.
+		crop_size = source_size*Vector2(.18,.24)
+		# Camera projection is already mirrored for display; the texture is raw.
+		texture_anchor = Presentation.to_model(_target_view_point(canonical),presentation_mirrored)
+		# The crop may focus on an authored canopy or bank above/beyond the
+		# ground marker. It never changes picking, answers or support origins.
+		var cue: Dictionary = _background_stage.get("visualComposition",{}).get("contextAnchors",{}).get(target_id,{})
+		var focus: Variant = cue.get("displayFocusWorld",[])
+		if world_focus_projection.is_valid() and focus is Array and focus.size()==3:
+			var focus_point := Vector3(float(focus[0]),float(focus[1]),float(focus[2]))
+			if focus_point.is_finite():
+				var projected: Vector2 = world_focus_projection.call(focus_point)
+				if projected.is_finite(): texture_anchor = Presentation.to_model(projected,presentation_mirrored)
+		var scale_value: Variant = cue.get("displayCropSizeNormalized",[])
+		if scale_value is Array and scale_value.size()==2:
+			var crop_scale := Vector2(float(scale_value[0]),float(scale_value[1]))
+			if crop_scale.is_finite() and crop_scale.x>0 and crop_scale.y>0 and crop_scale.x<=1 and crop_scale.y<=1:
+				crop_size = source_size*crop_scale
+	if not texture_anchor.is_finite(): return null
+	var center: Vector2 = texture_anchor*source_size
 	var crop = AtlasTexture.new()
 	crop.atlas = stage_texture
 	crop.region = Rect2(Vector2(clampf(center.x-crop_size.x*.5,0,source_size.x-crop_size.x),clampf(center.y-crop_size.y*.5,0,source_size.y-crop_size.y)),crop_size)
@@ -183,7 +235,7 @@ func _panel(textured: bool = true) -> Panel:
 	return node
 
 func _label(parent: Control, value: String, point_size: int, color: Color) -> Label:
-	var node = Label.new()
+	var node = UIStyle.TooltipLabel.new()
 	node.text = value
 	node.add_theme_font_override("font",GameFonts.body())
 	node.add_theme_font_size_override("font_size",point_size)
@@ -193,7 +245,7 @@ func _label(parent: Control, value: String, point_size: int, color: Color) -> La
 	return node
 
 func _button(parent: Control, value: String, callback: Callable) -> Button:
-	var node = Button.new()
+	var node = UIStyle.TooltipButton.new()
 	node.text = value
 	node.add_theme_font_override("font",GameFonts.body())
 	node.add_theme_font_size_override("font_size",20)
@@ -299,7 +351,7 @@ func begin_choice(value: Dictionary, can_listen: bool) -> void:
 	# Give wrapped text its real width before the first long instruction;
 	# otherwise Label can retain the height measured at its initial zero width.
 	feedback.size = Vector2(maxf(100,size.x-60),60)
-	feedback.text = "요청에 맞는 목적지를 선택하면 전장에 맞는 지원을 무작위로 받습니다."
+	_set_feedback_text("요청에 맞는 목적지를 선택하면 전장에 맞는 지원을 무작위로 받습니다.")
 	feedback.add_theme_color_override("font_color",Color(UIStyle.TEXT))
 	hint_button.disabled = false
 	listen_button.disabled = not can_listen
@@ -326,7 +378,7 @@ func _build_targets(interactive: bool) -> void:
 			var picture = TextureRect.new()
 			picture.name = "DestinationImage"
 			picture.flip_h = presentation_mirrored
-			picture.texture = _target_crop(Vector2(float(target.position.x),float(target.position.y)))
+			picture.texture = _target_crop(Vector2(float(target.position.x),float(target.position.y)),str(target.get("id","")))
 			picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 			picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -367,7 +419,7 @@ func _build_targets(interactive: bool) -> void:
 			button.add_child(label)
 		button.tooltip_text = "" if interactive else str(label_word.get("ko",""))
 		target_buttons.append(button)
-		target_anchors.append(view_point(Vector2(float(target.position.x),float(target.position.y))))
+		target_anchors.append(_target_view_point(Vector2(float(target.position.x),float(target.position.y))))
 		index += 1
 
 func _choose(target_id: String) -> void:
@@ -375,13 +427,21 @@ func _choose(target_id: String) -> void:
 		return
 	target_chosen.emit(target_id)
 
+func _set_feedback_text(value: String) -> void:
+	var context: Array=[reveal_item,question_item,mission.get("report",{})]
+	for target in mission.get("targets",[]): context.append(target.get("label",{}))
+	for item in mission.get("choiceItems",{}).values(): context.append(item)
+	feedback.set("ruby_context_words",context)
+	feedback.text=value
+	feedback.call("refresh_ruby")
+
 func show_hint() -> void:
 	if not choosing or resolved:
 		return
 	hinted = true
 	report_text.set_word(reveal_item,36,true)
 	hint_button.disabled = true
-	feedback.text = "원문을 확인했습니다. 정답이면 약한 전장 지원을 받습니다.\n다음에 혼자 답하면 기억 확인에 반영됩니다."
+	_set_feedback_text("원문을 확인했습니다. 정답이면 약한 전장 지원을 받습니다.\n다음에 혼자 답하면 기억 확인에 반영됩니다.")
 	_arrange()
 
 func set_interaction_enabled(enabled: bool) -> void:
@@ -395,7 +455,7 @@ func set_interaction_enabled(enabled: bool) -> void:
 func show_result(correct: bool, value: String, selected_id: String = "") -> void:
 	resolved = true
 	report_text.set_word(reveal_item,36,true)
-	feedback.text = value
+	_set_feedback_text(value)
 	feedback.add_theme_color_override("font_color",Color("a9d4ca") if correct else Color("dfb5a4"))
 	hint_button.disabled = true
 	continue_button.text = "전투로 복귀  ›"
@@ -429,7 +489,9 @@ func _arrange() -> void:
 		report_heading.position = Vector2(12,5)
 		report_heading.size = Vector2(banner_width-24,30)
 		report_heading.add_theme_font_size_override("font_size",20)
-		report_text.position = Vector2(12,38)
+		if report_heading.has_method("refresh_ruby"): report_heading.call("refresh_ruby")
+		report_heading.size.y = maxf(30,report_heading.get_combined_minimum_size().y)
+		report_text.position = Vector2(12,report_heading.position.y+report_heading.size.y+8)
 		report_text.size.x = banner_width-24
 		var face: Font = GameFonts.japanese()
 		var span: float = face.get_string_size(str(mission.get("report",{}).get("jp","")),HORIZONTAL_ALIGNMENT_LEFT,-1,24).x
@@ -438,7 +500,7 @@ func _arrange() -> void:
 			report_text.set_word(mission.get("report",{}),point_size,true)
 		report_text._sync_minimum_height()
 		report_text.size.y = report_text.custom_minimum_size.y
-		report_card.size = Vector2(banner_width,report_text.size.y+44)
+		report_card.size = Vector2(banner_width,report_text.position.y+report_text.size.y+6)
 		queue_redraw()
 		return
 	var content_width: float = minf(1184,size.x-96)
@@ -452,9 +514,11 @@ func _arrange() -> void:
 	announcement_anchor.size = Vector2(announcement_width,112)
 	announcement_anchor.show()
 	report_heading.size = Vector2(heading_width,32)
-	task_caption.position = Vector2(0,40)
+	if report_heading.has_method("refresh_ruby"): report_heading.call("refresh_ruby")
+	report_heading.size.y = maxf(32,report_heading.get_combined_minimum_size().y)
+	task_caption.position = Vector2(0,report_heading.size.y+8)
 	task_caption.size = Vector2(heading_width,66)
-	report_text.position = Vector2(0,124)
+	report_text.position = Vector2(0,maxf(124,task_caption.position.y+task_caption.size.y+18))
 	report_text.size.x = content_width
 	if report_text.base_size!=36:
 		report_text.set_word(reveal_item if hinted or resolved else question_item,36,true)
@@ -462,7 +526,7 @@ func _arrange() -> void:
 	report_text.size.y = report_text.custom_minimum_size.y
 	question_sheet.position = report_text.position-Vector2(12,6)
 	question_sheet.size = report_text.size+Vector2(24,12)
-	report_card.size = Vector2(content_width,report_text.custom_minimum_size.y+130)
+	report_card.size = Vector2(content_width,report_text.position.y+report_text.custom_minimum_size.y+6)
 	feedback.position = Vector2(14,8)
 	feedback.size.x = content_width-28
 	var feedback_height: float = maxf(54,feedback.get_minimum_size().y)

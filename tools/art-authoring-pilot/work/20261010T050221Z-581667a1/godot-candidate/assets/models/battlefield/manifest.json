@@ -1,0 +1,176 @@
+{
+  "models": [
+    {
+      "path": "res://assets/models/battlefield/pine_sapling_small/pine_sapling_small_1k.gltf",
+      "source": "https://polyhaven.com/a/pine_sapling_small",
+      "files": [
+        {
+          "path": "res://assets/models/battlefield/pine_sapling_small/pine_sapling_small_1k.gltf",
+          "md5": "237a7672645631550ae571743aa9f55b",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/pine_sapling_small/pine_sapling_small_1k.gltf",
+          "bytes": 11442
+        },
+        {
+          "path": "res://assets/models/battlefield/pine_sapling_small/textures/pine_sapling_small_twig_arm_1k.jpg",
+          "md5": "b5062030fc42ec7bd12eb3f052054104",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_twig_arm_1k.jpg",
+          "bytes": 394056
+        },
+        {
+          "path": "res://assets/models/battlefield/pine_sapling_small/textures/pine_sapling_small_twig_diff_1k.jpg",
+          "md5": "dacc918bb421968e9ccc1956d78a2dbe",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_twig_diff_1k.jpg",
+          "bytes": 477942
+        },
+        {
+          "path": "res://assets/models/battlefield/pine_sapling_small/textures/pine_sapling_small_bark_nor_gl_1k.jpg",
+          "md5": "bb6e3a6eea777d992cef48fabfdc538c",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_bark_nor_gl_1k.jpg",
+          "bytes": 1016849
+        },
+        {
+          "path": "res://assets/models/battlefield/pine_sapling_small/pine_sapling_small.bin",
+          "md5": "76dd1802d8de128c812f2e124a258b35",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/pine_sapling_small/pine_sapling_small.bin",
+          "bytes": 17771796
+        },
+        {
+          "path": "res://assets/models/battlefield/pine_sapling_small/textures/pine_sapling_small_bark_diff_1k.jpg",
+          "md5": "7d3a558ed614c7e75594c7be3bf80311",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_bark_diff_1k.jpg",
+          "bytes": 725265
+        },
+        {
+          "path": "res://assets/models/battlefield/pine_sapling_small/textures/pine_sapling_small_bark_arm_1k.jpg",
+          "md5": "21d1abd15e40951825a4f3da110b20ea",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_bark_arm_1k.jpg",
+          "bytes": 801278
+        },
+        {
+          "path": "res://assets/models/battlefield/pine_sapling_small/textures/pine_sapling_small_twig_nor_gl_1k.jpg",
+          "md5": "eebc5a81f8f6231d8e18ec4ad7292798",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/pine_sapling_small/pine_sapling_small_twig_nor_gl_1k.jpg",
+          "bytes": 692711
+        }
+      ],
+      "license": "CC0",
+      "id": "pine_sapling_small"
+    },
+    {
+      "path": "res://assets/models/battlefield/boulder_01/boulder_01_1k.gltf",
+      "source": "https://polyhaven.com/a/boulder_01",
+      "files": [
+        {
+          "path": "res://assets/models/battlefield/boulder_01/boulder_01_1k.gltf",
+          "md5": "26e2eef4a1f68c9557c65cd375b21d6c",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/boulder_01/boulder_01_1k.gltf",
+          "bytes": 2773
+        },
+        {
+          "path": "res://assets/models/battlefield/boulder_01/textures/boulder_01_arm_1k.jpg",
+          "md5": "d632159982cc3121ed3d69b89a122146",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/boulder_01/boulder_01_arm_1k.jpg",
+          "bytes": 659386
+        },
+        {
+          "path": "res://assets/models/battlefield/boulder_01/textures/boulder_01_diff_1k.jpg",
+          "md5": "25f8a843f13369d56d37f49db05ea8c3",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/boulder_01/boulder_01_diff_1k.jpg",
+          "bytes": 987467
+        },
+        {
+          "path": "res://assets/models/battlefield/boulder_01/boulder_01.bin",
+          "md5": "27a19fa031d8b4c3a09261f19c444dc5",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/boulder_01/boulder_01.bin",
+          "bytes": 2938808
+        },
+        {
+          "path": "res://assets/models/battlefield/boulder_01/textures/boulder_01_nor_gl_1k.jpg",
+          "md5": "0c4da644d901144b53e4fe2446f3c389",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/boulder_01/boulder_01_nor_gl_1k.jpg",
+          "bytes": 1183552
+        }
+      ],
+      "license": "CC0",
+      "id": "boulder_01"
+    },
+    {
+      "path": "res://assets/models/battlefield/shrub_01/shrub_01_1k.gltf",
+      "source": "https://polyhaven.com/a/shrub_01",
+      "files": [
+        {
+          "path": "res://assets/models/battlefield/shrub_01/shrub_01_1k.gltf",
+          "md5": "4ac1312e5ea687b321b78382f5f209c8",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/shrub_01/shrub_01_1k.gltf",
+          "bytes": 2895
+        },
+        {
+          "path": "res://assets/models/battlefield/shrub_01/textures/shrub_01_nor_gl_1k.jpg",
+          "md5": "985fa065ed411dc49e07d564330555ac",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/shrub_01/shrub_01_nor_gl_1k.jpg",
+          "bytes": 746497
+        },
+        {
+          "path": "res://assets/models/battlefield/shrub_01/shrub_01.bin",
+          "md5": "baf77d162f397f43fa4737b545d73e1a",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/shrub_01/shrub_01.bin",
+          "bytes": 5239664
+        },
+        {
+          "path": "res://assets/models/battlefield/shrub_01/textures/shrub_01_arm_1k.jpg",
+          "md5": "1682705926a9fc60ab34d079564f1a9e",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/shrub_01/shrub_01_arm_1k.jpg",
+          "bytes": 386309
+        },
+        {
+          "path": "res://assets/models/battlefield/shrub_01/textures/shrub_01_diff_1k.jpg",
+          "md5": "c5ac2665a0e2b4f11fd20b3296d62fe2",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/shrub_01/shrub_01_diff_1k.jpg",
+          "bytes": 502162
+        }
+      ],
+      "license": "CC0",
+      "id": "shrub_01"
+    },
+    {
+      "path": "res://assets/models/battlefield/grass_medium_01/grass_medium_01_1k.gltf",
+      "source": "https://polyhaven.com/a/grass_medium_01",
+      "files": [
+        {
+          "path": "res://assets/models/battlefield/grass_medium_01/grass_medium_01_1k.gltf",
+          "md5": "28dd8247f3faa749bf87a0b84be01e7e",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/grass_medium_01/grass_medium_01_1k.gltf",
+          "bytes": 27110
+        },
+        {
+          "path": "res://assets/models/battlefield/grass_medium_01/textures/grass_medium_01_nor_gl_1k.jpg",
+          "md5": "fcf43dd1253f56e4c361079f34155c37",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/grass_medium_01/grass_medium_01_nor_gl_1k.jpg",
+          "bytes": 956166
+        },
+        {
+          "path": "res://assets/models/battlefield/grass_medium_01/textures/grass_medium_01_diff_1k.jpg",
+          "md5": "6b18ed50d776fd20c1304d9994bd764e",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/grass_medium_01/grass_medium_01_diff_1k.jpg",
+          "bytes": 395673
+        },
+        {
+          "path": "res://assets/models/battlefield/grass_medium_01/textures/grass_medium_01_arm_1k.jpg",
+          "md5": "37ed2730a507b681af2e9f9f7ef3ae5e",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/grass_medium_01/grass_medium_01_arm_1k.jpg",
+          "bytes": 679518
+        },
+        {
+          "path": "res://assets/models/battlefield/grass_medium_01/grass_medium_01.bin",
+          "md5": "e0527a0561c2dae5b7b5c1b478d8c6bf",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/grass_medium_01/grass_medium_01.bin",
+          "bytes": 1006632
+        }
+      ],
+      "license": "CC0",
+      "id": "grass_medium_01"
+    }
+  ],
+  "licenseUrl": "https://polyhaven.com/license",
+  "license": "CC0"
+}

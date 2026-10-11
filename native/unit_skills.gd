@@ -214,6 +214,8 @@ func _prune_history(history: Dictionary) -> void:
 
 func prepare_attack(unit: Dictionary, target: Dictionary, damage: float, release_time: float, charge: bool = false) -> Dictionary:
 	if not _active_battle() or not _alive(unit) or target.is_empty() or float(target.get("hp",0))<=0 or str(unit.get("type",""))=="monk" or not is_finite(damage) or damage<=0: return {}
+	if not battle.ground_combat.primary_target_allowed(unit,target,"prepare"): return {}
+	if bool(unit.get("guardDashActive",false)) and int(unit.get("guardDashTargetId",-1))!=int(target.get("id",-2)): return {}
 	_attack_serial+=1
 	var ids: Array=skill_ids(unit)
 	var flags: Dictionary={"volley":has_skill(unit,"archer_volley"),"fireArrow":has_skill(unit,"archer_fire"),"barrage":has_skill(unit,"archer_barrage"),"poisonTip":has_skill(unit,"spear_poison"),"pierce":has_skill(unit,"spear_pierce") or has_skill(unit,"gunner_pierce"),"guardCharge":bool(unit.get("guardDashActive",false))}
@@ -391,6 +393,7 @@ func _secondary_source(source: Dictionary, meta: Dictionary, suffix: String, id:
 	return result
 
 func _pierce(source: Dictionary, primary: Dictionary, damage: float, length: float, width: float, factor: float, meta: Dictionary, id: String) -> void:
+	var operation_generation: int=generation
 	var start: Vector2=_position(source)
 	var impact: Vector2=_position(primary)
 	var direction: Vector2=(impact-start).normalized()
@@ -405,18 +408,23 @@ func _pierce(source: Dictionary, primary: Dictionary, damage: float, length: flo
 		candidates.append({"enemy":enemy,"distance":behind})
 	candidates.sort_custom(func(a: Dictionary,b: Dictionary): return float(a.distance)<float(b.distance))
 	for index in range(mini(SECONDARY_LIMIT,candidates.size())):
+		if operation_generation!=generation: return
 		var enemy: Dictionary=candidates[index].enemy
 		var actor: Dictionary=_secondary_source(source,meta,":pierce"+str(enemy.id),id)
 		var actual: float=battle._damage_enemy(enemy,damage*factor,str(source.type),actor)
+		if operation_generation!=generation: return
 		if actual>0: _event("skill_hit",actor,enemy,{"skillId":id,"effectKind":"pierce","damage":actual,"flags":{"pierce":true}})
 
 func _area_damage(source: Dictionary, position: Vector2, excluded_id: int, damage: float, radius: float, meta: Dictionary, id: String, effect: String, path_index: int = -1) -> void:
+	var operation_generation: int=generation
 	var count: int=0
 	for enemy in battle.enemies:
+		if operation_generation!=generation: return
 		if count>=SECONDARY_LIMIT: break
 		if int(enemy.id)==excluded_id or float(enemy.hp)<=0 or (path_index>=0 and int(enemy.pathIndex)!=path_index) or _position(enemy).distance_to(position)>radius: continue
 		var actor: Dictionary=_secondary_source(source,meta,":area"+str(enemy.id),id)
 		var actual: float=battle._damage_enemy(enemy,damage,str(source.type),actor)
+		if operation_generation!=generation: return
 		if actual>0:
 			count+=1
 			_event("skill_hit",actor,enemy,{"skillId":id,"effectKind":effect,"damage":actual,"position":battle._normalized_position(position),"radius":radius,"flags":{"barrage":effect=="barrage","sweep":effect=="sweep"}})
@@ -427,8 +435,7 @@ func can_charge(unit: Dictionary) -> bool:
 func guard_dash(unit: Dictionary, target: Dictionary) -> Dictionary:
 	var result: Dictionary={"active":false,"speedFactor":1.0,"damageFactor":1.0,"skillId":""}
 	if not _active_battle() or not _alive(unit) or not has_skill(unit,"naginata_guard_charge") or target.is_empty() or float(target.get("hp",0))<=0 or bool(unit.get("guardDashActive",false)) or float(unit.get("skillMana",0))<GUARD_MANA_MAX: return result
-	var home: Dictionary={"position":unit.get("homePosition",unit.get("position",Vector2.ZERO))}
-	if int(target.get("pathIndex",-1))!=int(unit.get("postPathIndex",-2)) or not _connected(home,target,float(unit.get("guardRadius",.18))): return result
+	if not battle.ground_combat.guard_target_valid(unit,target,false): return result
 	var cluster: int=0
 	for enemy in battle.enemies:
 		if float(enemy.hp)>0 and int(enemy.pathIndex)==int(target.pathIndex) and _position(enemy).distance_to(_position(target))<=GUARD_CLUSTER_RADIUS: cluster+=1

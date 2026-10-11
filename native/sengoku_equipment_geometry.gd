@@ -183,10 +183,9 @@ static func _build_weapon(builders: Dictionary, type: String, stage: int) -> voi
 			var p0: Vector3 = Vector3(0.13*sin(t0*PI),-length*0.44+t0*length,0)
 			var p1: Vector3 = Vector3(0.13*sin(t1*PI),-length*0.44+t1*length,0)
 			_rod(builders,"weapon","wood",p0,p1,0.013+stage*0.001,0.82)
-		_rod(builders,"weapon","cord",Vector3(0,-length*0.44,0),Vector3(0,length*0.56,0),0.0016,0.89)
+		# The actor owns the posed string and nocked arrow in the existing
+		# skin palette; permanently batched copies would survive a real shot.
 		_rod(builders,"weapon","leather",Vector3(0.127,-0.045,0),Vector3(0.127,0.065,0),0.017,0.85)
-		_rod(builders,"handR","wood",Vector3(0,-0.034,-0.02),Vector3(0,-0.034,-0.68),0.004,0.93)
-		_rod(builders,"handR","metal",Vector3(0,-0.034,-0.68),Vector3(0,-0.034,-0.74),0.012,0.88,0.0)
 	elif type=="spear":
 		_rod(builders,"weapon","wood",Vector3(0,-0.72,0),Vector3(0,1.0+stage*0.025,0),0.015,0.85)
 		_blade(builders,"weapon",[Vector3(0,0.970,0.010),Vector3(0,1.024,0.032),Vector3(0,1.120+stage*0.020,0.025),Vector3(0,1.310+stage*0.035,0.0005)],Vector3.ZERO,0.006)

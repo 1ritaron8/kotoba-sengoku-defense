@@ -39,6 +39,8 @@ var motion_debug: Dictionary:
 	set(value):
 		_motion_debug = value
 var contact_vertices: Dictionary = {}
+var terrain_hoof_supports: Dictionary = {}
+var hoof_lifts: PackedFloat32Array = PackedFloat32Array([0.0,0.0,0.0,0.0])
 var motion_transition: Dictionary = {}
 var motion_transition_time: float = 0.0
 var landing_transition: Dictionary = {}
@@ -87,7 +89,7 @@ func configure(type_name: String, is_hostile: bool = false, seed_value: int = 1,
 func _geometry_cache_identity() -> String:
 	# Barracks commanders override the identity; field soldiers keep their
 	# existing geometry cache and can never borrow a named commander's face.
-	return "%s-%s-%s-%d-v14" % [unit_type,hostile,hero_detail,evolution_stage]
+	return "%s-%s-%s-%d-v15" % [unit_type,hostile,hero_detail,evolution_stage]
 
 func _bone(name_value: String, parent_name: String, origin: Vector3) -> Node3D:
 	var joint: Node3D = Node3D.new()
@@ -114,6 +116,12 @@ func _build_rig() -> void:
 		_bone("shin"+suffix,"thigh"+suffix,Vector3(0,-0.42*HUMAN_HEIGHT_RATIO,0))
 		_bone("foot"+suffix,"shin"+suffix,Vector3(0,-0.425*HUMAN_HEIGHT_RATIO,0))
 	_bone("weapon","handL" if unit_type == "archer" else "handR",Vector3(0,-0.035,-0.025))
+	if unit_type == "archer":
+		# These small attachments share the existing skinned palette/batches.
+		# Their pose can change without rebuilding geometry or creating a shot.
+		_bone("bowStringLower","weapon",Vector3.ZERO)
+		_bone("bowStringUpper","weapon",Vector3.ZERO)
+		_bone("nockedArrow","weapon",Vector3.ZERO)
 	boat = _bone("boat","",Vector3.ZERO)
 	boat.visible = false
 	for side in [-1,1]:
@@ -340,6 +348,15 @@ func _build_geometry() -> void:
 	_build_face()
 	for piece in Equipment.build(unit_type,evolution_stage,hero_detail):
 		_append(str(piece.bone),str(piece.material),piece.mesh)
+	if unit_type == "archer":
+		for key in ["bowStringLower","bowStringUpper"]:
+			_rod(key,"cord",Vector3(0,-.5,0),Vector3(0,.5,0),.0016)
+		_rod("nockedArrow","wood",Vector3.ZERO,Vector3(0,0,-.66),.004)
+		_append("nockedArrow","metal",_cylinder(.012,0,.06,6),Vector3(0,0,-.69),Vector3(-PI/2,0,0))
+		var feather: BoxMesh = BoxMesh.new()
+		feather.size = Vector3(.025,.003,.050)
+		_append("nockedArrow","cloth",feather,Vector3(0,0,-.04))
+		_append("nockedArrow","cloth",feather,Vector3(0,0,-.04),Vector3(0,0,PI/2))
 	_build_boat()
 	if unit_type == "commander":
 		_build_mount()
@@ -428,11 +445,6 @@ func apply_state(data: Dictionary) -> void:
 	var torso_height: float = .21*HUMAN_HEIGHT_RATIO+(.0015*idle if animation=="idle" else 0.0)
 	if bones.torso.position.y!=torso_height:
 		bones.torso.position.y = torso_height
-	var hit_clock: float = float(data.get("hitClock",0.0))
-	if hit_clock > 0.0 and animation != "death" and not full_body_walk:
-		var recoil: float = sin(clampf(hit_clock/0.12,0,1)*PI)
-		bones.torso.rotation.z += recoil*0.026
-		bones.head.rotation.x += recoil*0.018
 	for side in [-1,1]:
 		var suffix: String = "L" if side < 0 else "R"
 		var stride: float = 0.0
@@ -495,26 +507,32 @@ func apply_state(data: Dictionary) -> void:
 		bones.oarL.rotation = Vector3(0,sin((clock+phase)*3.0)*0.32,-0.08)
 		bones.oarR.rotation = Vector3(0,-sin((clock+phase)*3.0)*0.32,0.08)
 	_animate_full_body(data,animation,clock,phase,sailing)
+	_pose_hit(data,animation)
 	if unit_type == "gunner" and not sailing and animation != "death":
-		_pose_matchlock(float(_attack_phases(data,clock).time) if animation=="attack" else 0.0)
+		_pose_matchlock(data,animation,clock)
 	elif unit_type in ["spear","samurai","naginata","monk","enemy_light"] and not sailing and animation != "death":
 		_pose_braced_weapon(data,clock if animation=="attack" else 0.0)
 	_blend_motion_pose(data)
 	if not motion_transition.is_empty():
 		if unit_type=="gunner":
-			_pose_matchlock(float(_attack_phases(data,clock).time) if animation=="attack" else 0.0)
+			_pose_matchlock(data,animation,clock)
 		elif unit_type in ["spear","samurai","naginata","monk","enemy_light"]:
 			_pose_braced_weapon(data,clock if animation=="attack" else 0.0)
 	if unit_type == "monk" and animation not in ["death", "walk"] and not sailing:
 		_pose_support(data, animation, clock)
 	_blend_landing_pose(data)
 	_settle_feet_on_terrain(data)
+	if unit_type == "archer":
+		_pose_bow_motion(data,animation,clock,sailing)
 	if skinned_renderer!=null:
 			skinned_renderer.sync_pose(self)
 
 func _settle_feet_on_terrain(data: Dictionary) -> void:
 	var sampler: Callable=data.get("groundHeightSampler",Callable())
-	if not sampler.is_valid() or unit_type=="commander" or bool(data.get("sailing",false)) or str(data.get("animation",""))!="walk": return
+	if not sampler.is_valid() or bool(data.get("sailing",false)) or str(data.get("animation",""))=="death": return
+	if unit_type=="commander":
+		_settle_hooves_on_terrain(sampler)
+		return
 	# The original shoe is built from these eight authored sole sections.
 	# Their left/right underside supports cover its heel, ball and toe without
 	# sampling every upper-shoe/cord vertex. The edge lower bound is at most
@@ -523,21 +541,78 @@ func _settle_feet_on_terrain(data: Dictionary) -> void:
 		for section in HumanBody.FOOT_PROFILE:
 			terrain_sole_supports.append(Vector3(-section.y,section.z,section.x))
 			terrain_sole_supports.append(Vector3(section.y,section.z,section.x))
-	# Keep gait, pitch and planted X/Z; only correct the ankle through the
-	# existing IK when its sole support enters terrain. Route roots stay fixed.
+	# Keep gait, pitch and planted X/Z. If a stopped guard pose raises the
+	# hips beyond a planted ankle's reach, lower only the local pelvis enough
+	# for the existing leg IK; the logical route root never moves.
+	var placements: Array[Dictionary] = []
+	var pelvis_drop: float = 0.0
+	var inverse: Transform3D = global_transform.affine_inverse()
 	for suffix in ["L","R"]:
 		var key: String="foot"+suffix
 		var foot: Node3D=bones[key]
+		var planted: bool = str(data.get("animation","idle"))!="walk" or bool(_motion_debug.get("leftStance" if suffix=="L" else "rightStance",true))
+		var lift: float = _terrain_shoe_lift(foot,sampler,planted)
+		if not is_finite(lift): lift=0.0
+		var target: Vector3 = inverse*(foot.global_position+Vector3.UP*(lift+.0005 if absf(lift)>.0005 else 0.0))
+		var rotation_value: Vector3 = (global_basis.inverse()*foot.global_basis).get_euler()
+		placements.append({"suffix":suffix,"foot":foot,"target":target,"rotation":rotation_value,"planted":planted,"lift":lift})
+		if planted:
+			var hip: Vector3 = inverse*bones["thigh"+suffix].global_position
+			var delta: Vector3 = hip-target
+			var reach: float = bones["shin"+suffix].position.length()+foot.position.length()-.001
+			var vertical_reach: float = sqrt(maxf(.001,reach*reach-delta.x*delta.x-delta.z*delta.z))
+			pelvis_drop = maxf(pelvis_drop,delta.y-vertical_reach+.001)
+	if pelvis_drop>.0005:
+		rig.position.y -= minf(.18,pelvis_drop)
+	for placement in placements:
+		var foot: Node3D = placement.foot
+		var rotation_value: Vector3 = placement.rotation
+		if pelvis_drop>.0005 or absf(float(placement.lift))>.0005:
+			_solve_leg(str(placement.suffix),placement.target,rotation_value.x,rotation_value.y)
+		for attempt in range(3):
+			var lift: float = _terrain_shoe_lift(foot,sampler,bool(placement.planted))
+			if not is_finite(lift) or absf(lift)<=.0005: break
+			var target: Vector3 = inverse*(foot.global_position+Vector3.UP*(lift+.0005))
+			_solve_leg(str(placement.suffix),target,rotation_value.x,rotation_value.y)
+
+func _terrain_shoe_lift(foot: Node3D, sampler: Callable, planted: bool) -> float:
+	# A stationary/planted foot also lowers onto the downhill side;
+	# a swinging foot keeps its authored clearance unless it penetrates.
+	var lift: float = -INF if planted else 0.0
+	for vertex in terrain_sole_supports:
+		var point: Vector3 = foot.global_transform*vertex
+		var ground: float = float(sampler.call(point))
+		if is_finite(ground): lift=maxf(lift,ground-point.y)
+	return lift
+
+func _settle_hooves_on_terrain(sampler: Callable) -> void:
+	var actor_scale: float = maxf(.0001,global_basis.get_scale().y)
+	for leg in range(4):
+		var key: String = "horse_calf%d" % leg
+		var calf: Node3D = bones[key]
+		if not terrain_hoof_supports.has(key):
+			_contact_minimum(key)
+			var supports: PackedVector3Array = PackedVector3Array()
+			for vertex in contact_vertices[key]:
+				if vertex.y<=-.401:
+					supports.append(vertex)
+			terrain_hoof_supports[key] = supports
+		# Preserve the existing trot/gallop's actual hoof lift, then put its
+		# real underside over the terrain at the unchanged route/root position.
+		var clearance: float = (.005+hoof_lifts[leg])*actor_scale
 		for attempt in range(4):
-			var lift: float=0.0
-			for vertex in terrain_sole_supports:
-				var point: Vector3=foot.global_transform*vertex
-				var ground: float=float(sampler.call(point))
-				if is_finite(ground): lift=maxf(lift,ground-point.y)
-			if lift<=.0005: break
-			var target: Vector3=global_transform.affine_inverse()*(foot.global_position+Vector3.UP*(lift+.0005))
-			var rotation_value: Vector3=(global_basis.inverse()*foot.global_basis).get_euler()
-			_solve_leg(suffix,target,rotation_value.x,rotation_value.y)
+			var correction: float = -INF
+			for vertex in terrain_hoof_supports[key]:
+				var point: Vector3 = calf.global_transform*vertex
+				var ground: float = float(sampler.call(point))
+				if is_finite(ground):
+					correction = maxf(correction,ground+clearance-point.y)
+			if not is_finite(correction) or absf(correction)<=.0005:
+				break
+			var endpoint: Vector3 = calf.global_transform*Vector3(0,-.376,0)
+			var target: Vector3 = global_transform.affine_inverse()*(endpoint+Vector3.UP*correction)
+			var floor_height: float = _contact_minimum(key)+correction/actor_scale
+			_solve_horse_leg(leg,target,floor_height)
 
 func _blend_landing_pose(data: Dictionary) -> void:
 	if landing_transition.is_empty(): return
@@ -614,11 +689,76 @@ func _blend_motion_pose(data: Dictionary) -> void:
 				bones[key].global_basis = foot.basis
 
 func _attack_phases(data: Dictionary, clock: float) -> Dictionary:
-	# Release remains at the engine's exact normalized frame: 4/6 for bow and
-	# katana, 3/6 for other weapons, including a shortened ninja attack.
-	var t: float = clampf(clock/maxf(0.05,float(data.get("attackDuration",0.5))),0,1)
-	var impact: float = 2.0/3.0 if unit_type in ["archer","samurai"] else 0.5
-	return {"time":t,"impact":impact,"preparation":smoothstep(0,impact*.55,t),"drive":smoothstep(impact*.55,impact,t),"recovery":smoothstep(impact+.04,1,t)}
+	# Live states carry the actual gameplay release timestamp. Catalogue and
+	# older QA states retain their established normalized frame as a fallback.
+	var duration: float = maxf(.05,float(data.get("attackDuration",.5)))
+	var t: float = clampf(clock/duration,0,1)
+	var fallback: float = 2.0/3.0 if unit_type in ["archer","samurai"] else .5
+	var impact: float = clampf(float(data.get("releaseTime",duration*fallback))/duration,.001,.999)
+	var cancelled: bool = bool(data.get("attackCancelled",false)) and not bool(data.get("attackReleased",false))
+	return {"time":t,"impact":impact,"preparation":smoothstep(0,impact*.55,t),"drive":0.0 if cancelled else smoothstep(impact*.55,impact,t),"recovery":smoothstep(impact if cancelled else minf(.999,impact+.04),1,t)}
+
+func _attack_released(data: Dictionary, clock: float) -> bool:
+	if bool(data.get("attackCancelled",false)) and not bool(data.get("attackReleased",false)):
+		return false
+	if data.has("attackReleased"):
+		return bool(data.attackReleased)
+	var duration: float = maxf(.05,float(data.get("attackDuration",.5)))
+	return clock >= duration*float(_attack_phases(data,clock).impact)
+
+func _pose_hit(data: Dictionary, animation: String) -> void:
+	if animation == "death":
+		return
+	var remaining: float = clampf(float(data.get("hitClock",0.0))/.12,0.0,1.0)
+	var reaction: float = sin(remaining*PI)
+	if reaction <= .00001:
+		return
+	# An upper-body flinch only: no translation, stopped gait, stun, or knockback.
+	bones.torso.rotation.z += reaction*.095
+	bones.head.rotation.x += reaction*.070
+	bones.head.rotation.z -= reaction*.035
+	_motion_debug["hitReaction"] = reaction
+
+func _pose_bow_motion(data: Dictionary, animation: String, clock: float, sailing: bool) -> void:
+	var phase: Dictionary = _attack_phases(data,clock)
+	var attacking: bool = animation == "attack" and not sailing
+	var released: bool = attacking and _attack_released(data,clock)
+	var loaded: float = float(phase.preparation)*(1.0-float(phase.recovery)) if attacking else 0.0
+	var drawn_nock: Vector3 = Vector3(0,.015,.18*loaded)
+	var string_nock: Vector3 = drawn_nock
+	if attacking:
+		# The pulling hand follows the actual string while loading, then keeps
+		# its draw position as the released string snaps independently.
+		bones.weapon.global_basis = bones.weapon.global_basis.orthonormalized().slerp(global_basis.orthonormalized(),loaded)
+		var arm_rotation: Vector3 = bones.armR.rotation
+		var fore_rotation: Vector3 = bones.foreR.rotation
+		var hand_rotation: Vector3 = bones.handR.rotation
+		_solve_arm("R",bones.weapon.global_transform*drawn_nock,global_basis*Basis.from_euler(Vector3(PI/2,0,0)))
+		bones.armR.rotation = arm_rotation.lerp(bones.armR.rotation,loaded)
+		bones.foreR.rotation = fore_rotation.lerp(bones.foreR.rotation,loaded)
+		bones.handR.rotation = hand_rotation.lerp(bones.handR.rotation,loaded)
+		if released:
+			var release_seconds: float = float(phase.impact)*maxf(.05,float(data.get("attackDuration",.5)))
+			var since_release: float = maxf(0.0,clock-release_seconds)
+			string_nock.z = sin(since_release*190.0)*.013*(1.0-smoothstep(0,.06,since_release))
+	var length: float = 1.14+float(evolution_stage)*.09
+	var bow_shown: bool = bones.weapon.visible and not sailing
+	_set_bow_string("bowStringLower",Vector3(0,-length*.44,0),string_nock,bow_shown)
+	_set_bow_string("bowStringUpper",string_nock,Vector3(0,length*.56,0),bow_shown)
+	bones.nockedArrow.position = drawn_nock
+	var nocked: bool = attacking and not released and bow_shown
+	bones.nockedArrow.visible = nocked
+	# The flat skin palette does not inherit Node3D visibility. Keep an
+	# invisible attachment subpixel there while the detailed mesh is hidden.
+	bones.nockedArrow.scale = Vector3.ONE if nocked else Vector3.ONE*.00001
+	_motion_debug.merge({"bowDraw":loaded,"bowReleased":released,"nockedArrow":nocked,"bowStringNock":string_nock},true)
+
+func _set_bow_string(key: String, start: Vector3, end: Vector3, shown: bool) -> void:
+	var direction: Vector3 = end-start
+	var orientation: Basis = Basis(Quaternion(Vector3.UP,direction.normalized()))
+	var size: Vector3 = Vector3(1,direction.length(),1) if shown else Vector3.ONE*.00001
+	bones[key].transform = Transform3D(orientation.scaled(size),(start+end)*.5)
+	bones[key].visible = shown
 
 func _attack_rotation(rest: Vector3, prepared: Vector3, contact: Vector3, phase: Dictionary) -> Vector3:
 	return rest.lerp(prepared,float(phase.preparation)).lerp(contact,float(phase.drive)).lerp(rest,float(phase.recovery))
@@ -733,6 +873,9 @@ func _pose_support(data: Dictionary, animation: String, clock: float) -> void:
 	bones.torso.rotation.x += -.035*offering
 	bones.head.rotation.x += .025*offering
 	_motion_debug["supportGesture"] = offering
+	# The gameplay heal arrives at the start of this gesture. Record its
+	# receipt/target without inventing a delayed recovery or another heal.
+	_motion_debug.merge({"healCommitted":float(data.get("healAmount",0.0))>0.0,"healAmount":float(data.get("healAmount",0.0)),"healTargetId":int(data.get("healingTargetId",0)),"healCommittedAt":float(data.get("healCommittedAt",0.0))},true)
 
 func _solve_arm(suffix: String, palm_target: Vector3, wrist_basis: Basis) -> void:
 	var arm: Node3D = bones["arm"+suffix]
@@ -757,18 +900,30 @@ func _solve_arm(suffix: String, palm_target: Vector3, wrist_basis: Basis) -> voi
 	fore.basis = upper_basis.inverse()*lower_basis
 	hand.basis = lower_basis.inverse()*torso_inverse.basis*wrist_basis
 
-func _pose_matchlock(progress: float) -> void:
-	var recovery: float = smoothstep(0.68,1.0,progress)
-	var preparation: float = smoothstep(0,0.32,progress)
-	var raised: float = preparation*(1-recovery)
-	var recoil: float = sin(clampf((progress-0.5)/0.14,0,1)*PI)
+func _pose_matchlock(data: Dictionary, animation: String, clock: float) -> void:
+	var phase: Dictionary = _attack_phases(data,clock)
+	var attacking: bool = animation == "attack"
+	var raised: float = float(phase.preparation)*(1.0-float(phase.recovery)) if attacking else 0.0
+	var since_release: float = float(phase.time)-float(phase.impact)
+	var recoil: float = sin(clampf(since_release/.14,0,1)*PI) if attacking and _attack_released(data,clock) else 0.0
+	var reloading: bool = animation not in ["attack","walk","death"] and (bool(data.get("reloadActive",false)) or str(data.get("motionPhase","")) in ["reload","reloading"])
+	var reload_progress: float = clampf(float(data.get("reloadProgress",0.0)),0,1)
+	var servicing: float = smoothstep(0,.16,reload_progress)*(1.0-smoothstep(.82,1.0,reload_progress)) if reloading else 0.0
 	var grip_local: Vector3 = Vector3(0.04,lerpf(-0.04,0.025,raised),lerpf(-0.12,-0.20,raised)+recoil*0.008)
+	grip_local.y -= servicing*.055
+	grip_local.z += servicing*.045
 	var right_grip: Vector3 = bones.torso.global_transform*grip_local
 	var wrist_basis: Basis = global_basis*Basis.from_euler(Vector3(PI/2,0,0))
 	_solve_arm("R",right_grip,wrist_basis)
-	bones.weapon.global_basis = global_basis*Basis.from_euler(Vector3(-PI/2+0.10*(1-raised),0,0))
+	bones.weapon.global_basis = global_basis*Basis.from_euler(Vector3(-PI/2+.10*(1-raised)+servicing*.55,servicing*.08,0))
 	var left_grip: Vector3 = bones.weapon.global_transform*Vector3(0,0.14,0)
+	if reloading:
+		# Charge near the muzzle, run the loading stroke, then return to the
+		# support grip during the original cooldown. This adds no action delay.
+		var loading_stroke: float = sin(clampf((reload_progress-.28)/.45,0,1)*PI)*.09
+		left_grip = left_grip.lerp(bones.weapon.global_transform*Vector3(.025,.36-loading_stroke,-.025),servicing)
 	_solve_arm("L",left_grip,wrist_basis)
+	_motion_debug.merge({"reloading":reloading,"reloadProgress":reload_progress,"matchlockRecoil":recoil},true)
 
 func _ankle_height(pitch: float) -> float:
 	return HumanBody.ankle_height(pitch)
@@ -1051,7 +1206,9 @@ func _animate_mount(cycle: float, clock: float, phase_offset_value: float, anima
 	rig.rotation = Vector3(lerpf(-.014*sin(gait*2),rocking*.65-.025,running) if moving else 0.0,0,.007*sin(gait) if moving else 0.0)
 	if moving:
 		bones.torso.rotation.x = (-.025-rocking*.45)*running
+		bones.torso.rotation.z = 0.0
 		bones.head.rotation.x = .035*running+rocking*.30
+		bones.head.rotation.z = 0.0
 	if animation == "attack":
 		var phases: Dictionary = _attack_phases(data,clock)
 		var push: float = float(phases.drive)*(1.0-float(phases.recovery))
@@ -1070,6 +1227,7 @@ func _animate_mount(cycle: float, clock: float, phase_offset_value: float, anima
 		var gallop_offset: float = [-.38,.44,0.0,-.18][leg]
 		var leg_phase: float = cycle+lerpf(trot_offset,gallop_offset,running)
 		var target: Vector3 = _horse_contact(leg,leg_phase,data) if moving else Vector3(-0.19 if leg%2 == 0 else 0.19,0.060,-0.31 if leg<2 else 0.33)
+		hoof_lifts[leg] = maxf(0.0,target.y-.060)
 		_solve_horse_leg(leg,target)
 	bones.horse_neck.rotation.x = -.060*sin(gait)-rocking*.6 if moving else breathing*.015
 	bones.horse_head.rotation.x = .035*sin(gait)+rocking*.45 if moving else breathing*.018

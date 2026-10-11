@@ -47,7 +47,7 @@ func _ready() -> void:
 	hide()
 
 func _label(point_size: int, ink: Color) -> Label:
-	var node = Label.new()
+	var node = UIStyle.TooltipLabel.new()
 	node.add_theme_font_override("font",font)
 	node.add_theme_font_size_override("font_size",point_size)
 	node.add_theme_color_override("font_color",ink)
@@ -61,11 +61,17 @@ func _arrange() -> void:
 		return
 	var width: float = minf(580,size.x-64)
 	banner.position = Vector2((size.x-width)*.5,size.y*.36)
-	banner.size = Vector2(width,112)
 	heading.position = Vector2(16,15)
-	heading.size = Vector2(width-32,42)
-	caption.position = Vector2(16,66)
-	caption.size = Vector2(width-32,30)
+	heading.size.x = width-32
+	heading.call("refresh_ruby")
+	var heading_height: float = maxf(42,heading.get_combined_minimum_size().y)
+	heading.size = Vector2(width-32,heading_height)
+	caption.position = Vector2(16,heading.position.y+heading_height+9)
+	caption.size.x = width-32
+	caption.call("refresh_ruby")
+	var caption_height: float = maxf(30,caption.get_combined_minimum_size().y)
+	caption.size = Vector2(width-32,caption_height)
+	banner.size = Vector2(width,maxf(112,caption.position.y+caption_height+16))
 
 func accepts_answers() -> bool:
 	return phase == "choice"
@@ -151,6 +157,7 @@ func present(screen: Control, choices: Array, actions: Control, title: String, a
 	footer.modulate.a = 0
 	heading.text = title
 	caption.text = "전투 잠시 멈춤 · 카드를 선택하십시오" if not already_resolved else "전투 잠시 멈춤 · 임무 결과 확인"
+	_arrange()
 	shade.color.a = 0
 	banner.modulate.a = 0
 	banner.show()

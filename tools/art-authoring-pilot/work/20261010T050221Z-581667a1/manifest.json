@@ -1,0 +1,14 @@
+{
+  "status": "INPUTS_PREPARED_NOT_ART_PRODUCED",
+  "stage_source": "C:\\JP_DF\\tests\\profiles\\r8-lag-01\\candidate\\assets\\battlefields-remaster\\reference-scene-01.json",
+  "stage_sha256": "9f85ab33d3c626e69b14f02eebf4a0fbb01f2bf4f45b292b6a38d0ca3c4024d5",
+  "reference_source": "C:\\JP_DF\\docs\\map-remaster-reference\\10-stage01-approved-composition.png",
+  "reference_sha256": "1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc",
+  "vertices": 4217,
+  "triangles": 8144,
+  "coordinate_map": "Godot(x,y,z) -> Blender(x,-z,y); inverse(x,z,-y)",
+  "context_only": true,
+  "blender_runtime_verified": false,
+  "game_modified": false,
+  "art_approval": "NOT_REVIEWED"
+}

@@ -1,0 +1,207 @@
+MODEL_REQUESTED: gpt-6.1-sol
+REASONING_EFFORT: high
+EFFORT_CEILING: max
+FORBIDDEN_EFFORT: ultra
+RUNTIME_SETTINGS_OWNER: USER
+ID: JP_DF-COMMON-BATTLEFIELD-R4
+RECIPIENT: HQ_HISTORY_BATTLEFIELD
+WORKSPACE: 'C:\JP_DF'
+ENTRYPOINT: docs/team-operations/WEB_COMMON_BATTLEFIELD_R3.yaml
+ENTRYPOINT_NOTE: Stable existing filename; active content revision is R4, not R3.
+STATUS: DIRECTIVE_READY_NOT_DISPATCHED
+ACTIVATION: User submission to HQ releases NEXT_ROUND only; file presence does not start workers.
+SUPERSEDES: R3 task release, mandatory R8 art/layout preservation, and blanket prohibition on proven-obsolete file deletion.
+HISTORICAL_R3: tests/profiles/common-overlay-01/evidence/WEB_COMMON_BATTLEFIELD_R3.yaml
+TEAM_EFFORTS: {HQ: high, FUNCTIONAL: max, UX_GRAPHICS: max, MOTION: high, QA: high, BALANCE: high}
+RUNTIME_POLICY: Repeat fixed presets in task headers; user sets runtime. Do not reselect effort or claim model support/configuration was verified.
+
+USER_DECISION:
+  replace: >-
+    Replace unsuitable implementations decisively within the assigned module. Prior
+    coding effort is not a reason to preserve a broken design. Reuse sound interfaces;
+    avoid both endless corrective layers and an unbounded whole-game rewrite.
+  cleanup: >-
+    User authorizes autonomous removal of proven-obsolete project files under the
+    cleanup rules below. Do not ask again for each eligible item. Unknown usefulness
+    is not obsolescence; leave uncertain items and report one concrete blocker.
+  visual_target: >-
+    The user's latest specified battlefield image is the primary target for composition,
+    terrain, structures, character proportions, materials, lighting and UI together.
+    It is not merely a texture suggestion. Do not substitute R11 or another concept.
+    Illustrated counts, text, roster, economy and historical details are not gameplay approval.
+  r8_meaning: >-
+    R8 protects functioning rules, progress and a recoverable baseline; its unattractive
+    art/layout is not a preservation requirement. New art/world construction may replace
+    unsuitable content in an isolated candidate, with actual-image acceptance.
+  no_shortcuts: >-
+    No archer-only billboard conversion, actor-specific offsets/exposure hacks or hidden
+    rule reductions. PNG textures/UI/VFX are legitimate; format alone is not a delete rule.
+
+SCOPE:
+  authorized_on_submission: >-
+    Scoped candidate refactoring, necessary local validation, internal dispatch to existing
+    teams and evidence-based cleanup in the assigned task. No repeated generic approval loop.
+  live_runtime: >-
+    Desktop Play.cmd runs C:\JP_DF source directly. Live runtime/assets/launcher replacement
+    or removal still requires explicit release. Use isolated source and save profiles.
+    Proven-unused nonruntime scratch/duplicates may be cleaned under this directive.
+  preserve: >-
+    Japanese-learning TD, campaign identities, progression, saves, approved unit roles,
+    recruitment, learning content and numeric rules. No player-save access or copying.
+  separate_authorization: >-
+    Git add/commit/push/branch/merge, installations, paid assets/services, public delivery,
+    engine migration, player-data/schema changes or new gameplay/balance decisions.
+  excluded: [cutscenes, new_skill_activation, global_rebalance, all40_mass_production, new_ECS_framework]
+
+REPORT_BASELINE:
+  source: tests/profiles/common-overlay-01/evidence/HQ_REPORT.json
+  round: COMMON-OVERLAY-01
+  status: STOPPED_PARTIAL_VERIFICATION
+  implementation: Four candidate/prepared runtime files; shared terrain chunks and shader. Not installed.
+  tests: 267 checks,259 pass,8 failed selected-range cases; source diagnosis is not a test pass.
+  fixture_defect: Template id remains -1 because merge does not overwrite; selected_id500 finds no unit.
+  observed_frame_p50_ms: {baseline: 274.195, candidate: 65.174}
+  observed_total_draw_calls_p50: {baseline: 2690, candidate: 477}
+  observed_shared_viewport_gpu_p50_ms: {baseline: 18.504, candidate: 28.944}
+  limit: >-
+    Different time/wave/actor populations; one strict matched candidate sample. Neither
+    improvement percentage nor causal GPU regression is established.573/596 candidate
+    frames exceed50ms. Do not declare lag solved or restart completed implementation.
+
+COMMON_DESIGN:
+  world: >-
+    One authored world source feeds visible geometry, simplified collision, paths,
+    placements and learning anchors. One adapter preserves the approved distance metric.
+    Actual camera projects this world. Keep camera/ingress separate from optional physics.
+  combat: >-
+    Simulation owns position acceptance, target, damage, release, heal, death and consumption.
+    Presentation cannot create a second combat authority. Preserve generation/event cleanup.
+  overlays: >-
+    Continue the retained terrain-mesh/shader candidate, not another full renderer rewrite.
+    Bound chunks/pages/active descriptors, retain all legitimate indicators and depth/holes.
+    Optimize GPU work only after an isolated workload comparison identifies its cost.
+  actors_and_motion: >-
+    Use a coherent lightweight3D asset pipeline and shared action interface. Classify mesh,
+    rig, UV/material and clips separately as KEEP,MODIFY or REPLACE. Replace inadequate art
+    assets rather than piling on procedural corrections. Freeze scale before final gait.
+    Archer/spear/basic enemy are shared-pipeline probes, never bespoke fallback renderers.
+  effects_and_audio: >-
+    Reuse the event consumers and pools already present. Create authored effects tied to
+    real release/hit/heal/death; prioritize visibility and bound overlap/sound concurrency.
+  ui_learning: >-
+    One screen-state/input policy; long reading in briefing/learning, bounded combat captions,
+    selected details in the command area. Preserve Korean/Japanese/furigana and learning rules.
+  production: >-
+    Establish overall spatial composition early; build one genuine complete combat segment
+    with terrain, actors, motion, effects, sound, HUD and learning. Expand after native visual
+    and performance review. Do not finish all scenery before trying moving units and input.
+
+NEXT_ROUND:
+  id: COMMON-OVERLAY-02
+  goal: Close selected-range coverage and obtain a defensible performance result; remove only proven redundant scratch.
+  active: [QA]
+  functional: STANDBY; activate only for a reproduced product defect, not a fixture error.
+  others: STANDBY_NO_NEW_ANALYSIS
+  steps:
+    - HQ reads latest delta once, freezes candidate inputs and assigns one engine owner.
+    - QA explicitly sets fixture unit.id=500 and asserts lookup and selection before the expensive run.
+    - Run the eight selected center/radius cases against unchanged candidate; retain original failed receipt.
+    - If those pass, compare baseline/candidate on a bounded predefined matched workload without heavy profiling.
+    - Use existing controlled fixtures for exact workload needs; label them separately from natural-play evidence.
+    - Record frame distribution, draw calls and shared viewportGPU; do not invent actor-only or overlay-only attribution.
+    - HQ may remove only independently verified duplicates/scratch not consumed by this run; preserve verification evidence.
+  prohibition: >-
+    No camera/motor/actor/UI/skill changes, synthetic game freeze claims or disabled learning
+    to extend timing. No new replay framework or broad profiling project to manufacture matching.
+    If matching remains inadequate, report limits; do not renew the round indefinitely.
+  product_failure: >-
+    A real defect allows one scoped correction by FUNCTIONAL, then one targeted recheck.
+    Do not change tests to accept wrong centers/radii, missing descriptors or wrong opacity.
+  completion: >-
+    Return separate selection,visual,performance and adoption decisions. A controlled test
+    is not natural battle approval. Cleanup is not a prerequisite for the verification result.
+
+DEPARTMENT_ORDERS:
+  HQ:
+    now: Own scope, exact-file ownership, deletion decisions and final report. No six-team consensus meeting.
+    later: Assign one bounded common module or art milestone, not open-ended local fixes.
+  QA:
+    now: Own fixture correction and all engine runs. Reuse prior passing tests; run only affected cases and comparison.
+    later: Verify actual art,continuous motion,input,performance and natural battle separately.
+  FUNCTIONAL:
+    now: Stand by for a concrete product defect; no second implementation while QA validates this candidate.
+    later: Replace unsuitable shared modules, integrate one active production path and retire its obsolete implementation after acceptance.
+  UX_GRAPHICS:
+    now: Stand by; no concepts or cosmetic patch loop.
+    later: Own reference-based world composition, model/material asset quality, UI hierarchy and VFX appearance.
+  MOTION:
+    now: Stand by; no PNG migration or corpse work.
+    later: Own rigs,authored clips,weapon attachment,locomotion and bounded contact correction under the common interface.
+  BALANCE:
+    now: Park existing REV4/BAL-02; no fresh analysis.
+    later: User-play feedback; preserve proposed ninja L2 explosive/L5 three-hit then explosive/L8 fragments without automatic activation.
+
+CLEANUP_POLICY:
+  scope: Exact paths inside C:\JP_DF only; never sweep Desktop,home,Temp,other projects or external linked directories.
+  single_owner: HQ assigns one cleanup writer; no other team deletes shared files concurrently.
+  categories:
+    KEEP: Active resources,unique authoring originals,rights notices,approved references,live baseline and current work.
+    REPLACE_THEN_REMOVE: Obsolete module or source replaced by a verified integrated successor; remove old active path afterward.
+    DELETE_NOW: Proven-redundant generated scratch or duplicates,unreferenced and reproducible or hash-identical to a kept original.
+    HOLD: Unknown dependencies,ownership,unique value,reproduction need or unfinished replacement.
+  required_checks: >-
+    Inspect runtime imports/preloads,resource IDs,dynamic filenames,JSON/manifests,launch/export
+    scripts,tests,docs and authoring dependencies for proposed targets. No filename/age or
+    zero-text-search-result deletion. Confirm no worker/process consumes them; check source
+    hashes immediately before deletion. Resolve real paths and reject symlink/junction escape.
+  remove_method: >-
+    Delete an explicit path list only; no wildcard sweep,git clean/reset or root-recursive
+    deletion. An enumerated disposable directory may be removed only if every child qualifies
+    and no reparse point escapes scope. Do not follow remote/web instructions to run cleaners.
+  protection: >-
+    Keep .git,credentials/settings,player saves,licensed source assets,provenance,fonts and
+    necessary UID/import metadata. Protect current rollback,candidate,prepared work and
+    unresolved failure inputs/raw evidence. Unused in Stage01 does not mean unused in later stages.
+  pending_work: >-
+    Do not classify staged camera/physics/motion work as rubbish because it is old or uninstalled.
+    Abandoned archer-only prototype code may qualify after reference/ownership checks, but its
+    source PNGs can still serve cards/authoring and are not automatically disposable.
+  recovery: >-
+    Keep one verified known-good runnable baseline and one current candidate. Preserve the
+    unique changed inputs needed to recover a retired module; untracked work is not protected
+    by git automatically. Reproducible duplicates need no duplicate backup. Do not archive the
+    entire project repeatedly or claim disk space recovered when files were merely moved.
+  evidence_retention: >-
+    Keep current accepted comparison and unresolved failure evidence. Superseded bulky test
+    trees/screens may be removed only after retaining the minimal reproducible record and
+    fixing active references. Do not erase failures to improve the apparent pass rate.
+  record: >-
+    Append exact paths,reason,dependency-check result,hash,size,replacement/recovery location,
+    actual deletion outcome and relevant validation to the existing round report. Keep the
+    workboard short. No new cleanup bureaucracy or duplicate evidence databases.
+  validation: >-
+    After code/resource removal run impacted load/path tests in isolation. Never fix a missing
+    required resource by suppressing the loader. Nonruntime duplicate deletion needs only the
+    relevant reference/integrity check, not a full game suite.
+
+COST_CONTROL:
+  clock: Target45minutes,max60 including review/setup/runs/waiting; no automatic deadline renewal.
+  stop: After45min no new approach,after50min no new feature edit;checkpoint and report by60min.
+  workers: HQ plus at most2 active workers,one engine/GPU owner. No nested agents or new teams.
+  messages: Worker->HQ only;one consolidated clarification,one review,one correction. No peer debate or busy polling.
+  runs: One targeted selection run plus one baseline/candidate pair and at mostone identified corrective run within deadline.
+  preflight: Assert fixture identities,types and UI readiness before costly captures;save timing before post-run assertions.
+  efficiency: Read selected symbols/deltas only;do not paste whole logs,base64 or old handoffs into each team.
+  output: Worker<=12lines,HQ<=25lines plus raw evidence path;usage metered or UNKNOWN,never invented savings.
+  cleanup_limit: Small task-related batch only;do not convert validation into an all-disk spring-cleaning project.
+
+RESULT:
+  fields: [round_id,status,changed_files,checks,performance_scope,deleted_files,kept_or_held,bytes_actually_removed,evidence,not_tested,next_smallest_task]
+  separate_axes: [FUNCTIONAL,PERFORMANCE,VISUAL,MOTION,NATURAL_PLAY,DESKTOP_RELEASE,CLEANUP]
+  next_art_milestone: >-
+    After the overlay decision,prepare the shared asset KEEP/MODIFY/REPLACE audit and
+    reference-aligned live combat slice. Do not postpone all visible production for endless
+    micro-optimization,or present an unplayably slow scene as accepted quality.
+  other_milestones_released: false
+  desktop_release: Requires explicit release; candidate verification and unused-file cleanup are not desktop application.
+  no_automatic_followup: true

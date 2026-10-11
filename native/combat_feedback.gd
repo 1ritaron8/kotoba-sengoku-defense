@@ -1,4 +1,11 @@
 extends Node2D
+
+const RubyText = preload("res://native/ruby_label.gd")
+const RubyReadings = preload("res://native/ruby_readings.gd")
+const GameFonts = preload("res://native/game_fonts.gd")
+const BattlefieldHUD = preload("res://native/battlefield_hud.gd")
+const BANNER_PADDING: float = 8.0
+var _banner_layouts: Dictionary={}
 ## Committed combat feedback. This node never changes simulation or rewards.
 signal emplacement_alerted(event: Dictionary)
 const MAX_MARKS: int = 96
@@ -334,7 +341,111 @@ func _puff(point: Vector2, radius: Vector2, colour: Color) -> void:
 	var region: Rect2 = Rect2((clipped.position-rect.position)/rect.size*32,clipped.size/rect.size*32)
 	draw_texture_rect_region(_soft_texture,clipped,region,colour)
 
+func annotated_text_layout(value: String, size_value: int, available_width: float = -1.0) -> Dictionary:
+	var width: float = floorf(minf(520,battle.field_rect.size.x-16) if available_width<0 else maxf(48,available_width))
+	var key: String=str([value,width,size_value])
+	if not _banner_layouts.has(key):
+		var ruby: Control=RubyText.new()
+		ruby.font=GameFonts.body()
+		ruby.reading_font=GameFonts.reading()
+		ruby.wrap_japanese=true
+		ruby.min_reading_size=16
+		ruby.colour_reading_groups=false
+		ruby.size.x=width
+		ruby.set_text(value,size_value)
+		if _banner_layouts.size()>=16: _banner_layouts.clear()
+		_banner_layouts[key]=ruby.get_text_layout()
+		ruby.free()
+	return _banner_layouts[key]
+
+func _annotated_bounds(layout: Dictionary) -> Rect2:
+	var bounds: Rect2 = Rect2()
+	var first: bool = true
+	for run in layout.get("runs",[]):
+		var run_bounds: Rect2 = run.bounds
+		if first:
+			bounds = run_bounds
+			first = false
+		else:
+			bounds = bounds.merge(run_bounds)
+	return bounds
+
+func _clear_banner_regions(field: Rect2, occupied: Array[Rect2]) -> Array[Rect2]:
+	var regions: Array[Rect2] = [field.grow(-BANNER_PADDING)]
+	for obstacle in occupied:
+		var remaining: Array[Rect2] = []
+		for region in regions:
+			var cut: Rect2 = region.intersection(obstacle.grow(BANNER_PADDING))
+			if not cut.has_area():
+				remaining.append(region)
+				continue
+			# Four disjoint pieces keep allocation bounded and outside the
+			# complete visible panel rather than only its title or portrait.
+			var pieces: Array[Rect2] = [
+				Rect2(region.position,Vector2(region.size.x,cut.position.y-region.position.y)),
+				Rect2(Vector2(region.position.x,cut.end.y),Vector2(region.size.x,region.end.y-cut.end.y)),
+				Rect2(Vector2(region.position.x,cut.position.y),Vector2(cut.position.x-region.position.x,cut.size.y)),
+				Rect2(Vector2(cut.end.x,cut.position.y),Vector2(region.end.x-cut.end.x,cut.size.y))
+			]
+			for piece in pieces:
+				if piece.has_area(): remaining.append(piece)
+		regions = remaining
+	return regions
+
+# Public presentation evidence for native captures: every body/reading run uses
+# the returned origin, and the backdrop includes their complete measured bounds.
+func banner_presentation() -> Dictionary:
+	if banner.is_empty() or not is_instance_valid(battle): return {}
+	var field: Rect2 = BattlefieldHUD.visible_field_rect(self,Rect2(Vector2.ZERO,battle.field_rect.size))
+	var occupied: Array[Rect2] = BattlefieldHUD.visible_occupied_rects(self,field)
+	var regions: Array[Rect2] = _clear_banner_regions(field,occupied)
+	var preferred_x: float = field.get_center().x
+	var chosen: Dictionary = {}
+	var best_score: float = INF
+	for region in regions:
+		var width: float = minf(520,region.size.x-BANNER_PADDING*2)
+		if width<48: continue
+		var layout: Dictionary = annotated_text_layout(banner,19,width)
+		var text_bounds: Rect2 = _annotated_bounds(layout)
+		var box_size: Vector2 = text_bounds.size+Vector2.ONE*BANNER_PADDING*2
+		if box_size.x>region.size.x or box_size.y>region.size.y: continue
+		var left: float = clampf(preferred_x-box_size.x*.5,region.position.x,region.end.x-box_size.x)
+		var rect: Rect2 = Rect2(Vector2(left,region.position.y),box_size)
+		var score: float = (rect.position.y-field.position.y)*4+absf(rect.get_center().x-preferred_x)+text_bounds.size.y
+		if score>=best_score: continue
+		best_score = score
+		chosen = {"rect":rect,"origin":rect.position+Vector2.ONE*BANNER_PADDING-text_bounds.position,"layout":layout,"field":field,"occupied":occupied,"fits":true}
+	if not chosen.is_empty(): return chosen
+	# If the caller covers the entire field, retain the complete message and
+	# expose a failed allocation rather than hiding content or shrinking fonts.
+	var fallback_layout: Dictionary = annotated_text_layout(banner,19,maxf(48,field.size.x-BANNER_PADDING*4))
+	var fallback_bounds: Rect2 = _annotated_bounds(fallback_layout)
+	var fallback_size: Vector2 = fallback_bounds.size+Vector2.ONE*BANNER_PADDING*2
+	var fallback_rect: Rect2 = Rect2(field.position+Vector2((field.size.x-fallback_size.x)*.5,BANNER_PADDING),fallback_size)
+	return {"rect":fallback_rect,"origin":fallback_rect.position+Vector2.ONE*BANNER_PADDING-fallback_bounds.position,"layout":fallback_layout,"field":field,"occupied":occupied,"fits":false,"reason":"No clear region fits the complete annotated banner."}
+
+func _draw_banner(alpha: float) -> void:
+	var presentation: Dictionary = banner_presentation()
+	if presentation.is_empty(): return
+	var rect: Rect2 = presentation.rect
+	draw_rect(rect,Color(0.055,0.07,0.067,alpha*.93))
+	draw_rect(rect,Color(0.67,0.57,0.36,alpha*.75),false,1.0)
+	for run in presentation.layout.runs:
+		var face: Font = GameFonts.reading() if run.role=="reading" else GameFonts.body()
+		var point: Vector2 = presentation.origin+run.position
+		draw_string_outline(face,point,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),1,Color(0.025,0.026,0.022,alpha*.85))
+		draw_string(face,point,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),Color(0.96,0.91,0.79,alpha))
+
 func _ink(value: String, colour: Color, point: Vector2, size_value: int) -> void:
+	if RubyReadings.contains_kanji(value):
+		var width: float=minf(520,battle.field_rect.size.x-16)
+		var layout: Dictionary=annotated_text_layout(value,size_value)
+		var origin: Vector2=Vector2(clampf(point.x-width*.5,3,maxf(3,battle.field_rect.size.x-width-3)),3)
+		for run in layout.runs:
+			var face: Font=GameFonts.reading() if run.role=="reading" else GameFonts.body()
+			draw_string_outline(face,origin+run.position,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),1,Color(0.025,0.026,0.022,colour.a*.85))
+			draw_string(face,origin+run.position,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),colour)
+		return
 	var face: Font = font if font!=null else ThemeDB.fallback_font
 	var width: float = face.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,size_value).x
 	point.x = clampf(point.x-width*0.5,3,maxf(3,battle.field_rect.size.x-width-3))
@@ -496,11 +607,8 @@ func _draw() -> void:
 		var alpha: float = danger_clock/0.45
 		draw_rect(Rect2(Vector2.ONE*2,battle.field_rect.size-Vector2.ONE*4),Color(0.70,0.18,0.12,alpha*0.34),false,2)
 	if banner_clock>0:
-		var center: Vector2 = Vector2(battle.field_rect.size.x*0.73,31)
 		var alpha: float = minf(1,banner_clock*3)
-		_line(center-Vector2(128,8),center-Vector2(104,8),Color(0.67,0.57,0.36,alpha*0.7),1)
-		_line(center+Vector2(104,-8),center+Vector2(128,-8),Color(0.67,0.57,0.36,alpha*0.7),1)
-		_ink(banner,Color(0.92,0.85,0.68,alpha),center,19)
+		_draw_banner(alpha)
 
 func diagnostics() -> Dictionary:
 	var kinds: Dictionary = {}

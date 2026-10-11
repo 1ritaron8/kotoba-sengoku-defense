@@ -1,0 +1,267 @@
+{
+  "actual_cloned_environment": {
+    "ambient_color": "(0.6745, 0.7176, 0.7059, 1.0)",
+    "ambient_energy": 0.680000007152557,
+    "exposure": 1.0,
+    "fill_energy": 0.200000002980232,
+    "fog": true,
+    "sun_color": "(0.8941, 0.8667, 0.7882, 1.0)",
+    "sun_energy": 1.0,
+    "sun_rotation": "(-48.0, -38.0, 0.0)",
+    "tonemap": 3
+  },
+  "captures": [
+    "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/evidence/material-probe/lit-common-environment.png",
+    "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/evidence/material-probe/unlit-common-environment.png",
+    "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/evidence/material-probe/unlit-neutral-control.png"
+  ],
+  "product_writes": 0,
+  "renderer": "gl_compatibility",
+  "rows": [
+    {
+      "albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+      "family": "Broadleaf_LeafScale_ImagePBR_OPAQUE",
+      "lit": [
+        0.717082142829895,
+        0.790807783603668,
+        0.528690934181213
+      ],
+      "mode": "standard",
+      "roughness": 0.939999997615814,
+      "screen": [
+        428.936187744141,
+        256.976196289063
+      ],
+      "source_texture": "res://assets/blender-pilot/asset_broadleaf-leafscale-albedo.png",
+      "specular": 0.5,
+      "unlit_common": [
+        0.495737999677658,
+        0.576630473136902,
+        0.328043580055237
+      ],
+      "unlit_neutral": [
+        0.398917347192764,
+        0.45683479309082,
+        0.28446152806282
+      ]
+    },
+    {
+      "albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+      "family": "Broadleaf_LeafScale_ImagePBR_OPAQUE",
+      "lit": [
+        0.716919243335724,
+        0.790566921234131,
+        0.528221786022186
+      ],
+      "mode": "boundary",
+      "roughness": 0.939999997615814,
+      "screen": [
+        735.319152832031,
+        256.976196289063
+      ],
+      "source_texture": "res://assets/blender-pilot/asset_broadleaf-leafscale-albedo.png",
+      "specular": 0.5,
+      "unlit_common": [
+        0.495350003242493,
+        0.576250731945038,
+        0.327856034040451
+      ],
+      "unlit_neutral": [
+        0.398970395326614,
+        0.456863075494766,
+        0.284355342388153
+      ]
+    },
+    {
+      "albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+      "family": "Broadleaf_LeafScale_ImagePBR_OPAQUE",
+      "lit": [
+        0.237651005387306,
+        0.308757901191711,
+        0.163863971829414
+      ],
+      "mode": "linear_output_test_only",
+      "roughness": 0.939999997615814,
+      "screen": [
+        1041.7021484375,
+        256.976196289063
+      ],
+      "source_texture": "res://assets/blender-pilot/asset_broadleaf-leafscale-albedo.png",
+      "specular": 0.5,
+      "unlit_common": [
+        0.0621040724217892,
+        0.120939441025257,
+        0.000412152381613851
+      ],
+      "unlit_neutral": [
+        0.124326474964619,
+        0.171833470463753,
+        0.0489437058568001
+      ]
+    },
+    {
+      "albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+      "family": "CompactedDirt_ImagePBR",
+      "lit": [
+        0.692060351371765,
+        0.594344556331635,
+        0.426890194416046
+      ],
+      "mode": "standard",
+      "roughness": 1.0,
+      "screen": [
+        428.936187744141,
+        440.806091308594
+      ],
+      "source_texture": "res://assets/blender-pilot/asset_compacted-dirt-litter-albedo.png",
+      "specular": 0.5,
+      "unlit_common": [
+        0.469116747379303,
+        0.367635637521744,
+        0.244302272796631
+      ],
+      "unlit_neutral": [
+        0.393686026334763,
+        0.326460421085358,
+        0.241523057222366
+      ]
+    },
+    {
+      "albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+      "family": "CompactedDirt_ImagePBR",
+      "lit": [
+        0.685404598712921,
+        0.584950506687164,
+        0.413314253091812
+      ],
+      "mode": "boundary",
+      "roughness": 1.0,
+      "screen": [
+        735.319152832031,
+        440.806091308594
+      ],
+      "source_texture": "res://assets/blender-pilot/asset_compacted-dirt-litter-albedo.png",
+      "specular": 0.5,
+      "unlit_common": [
+        0.469169914722443,
+        0.367656081914902,
+        0.244196146726608
+      ],
+      "unlit_neutral": [
+        0.393661379814148,
+        0.326456427574158,
+        0.241478160023689
+      ]
+    },
+    {
+      "albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+      "family": "CompactedDirt_ImagePBR",
+      "lit": [
+        0.201075449585915,
+        0.159832358360291,
+        0.119812905788422
+      ],
+      "mode": "linear_output_test_only",
+      "roughness": 1.0,
+      "screen": [
+        1041.7021484375,
+        440.806091308594
+      ],
+      "source_texture": "res://assets/blender-pilot/asset_compacted-dirt-litter-albedo.png",
+      "specular": 0.5,
+      "unlit_common": [
+        0.049984272569418,
+        0.00510089099407196,
+        0.0
+      ],
+      "unlit_neutral": [
+        0.119898542761803,
+        0.0732280313968658,
+        0.026993740350008
+      ]
+    },
+    {
+      "albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+      "family": "DryStone_ImagePBR",
+      "lit": [
+        0.896888792514801,
+        0.86525946855545,
+        0.79438191652298
+      ],
+      "mode": "standard",
+      "roughness": 0.939999997615814,
+      "screen": [
+        428.936187744141,
+        624.635864257813
+      ],
+      "source_texture": "res://assets/blender-pilot/asset_rock_boulder_dry_diff_1k.jpg",
+      "specular": 0.5,
+      "unlit_common": [
+        0.725749492645264,
+        0.677459418773651,
+        0.622602820396423
+      ],
+      "unlit_neutral": [
+        0.57680869102478,
+        0.532936751842499,
+        0.48484069108963
+      ]
+    },
+    {
+      "albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+      "family": "DryStone_ImagePBR",
+      "lit": [
+        0.897059619426727,
+        0.865472137928009,
+        0.794501125812531
+      ],
+      "mode": "boundary",
+      "roughness": 0.939999997615814,
+      "screen": [
+        735.319152832031,
+        624.635864257813
+      ],
+      "source_texture": "res://assets/blender-pilot/asset_rock_boulder_dry_diff_1k.jpg",
+      "specular": 0.5,
+      "unlit_common": [
+        0.725692689418793,
+        0.677570283412933,
+        0.622880280017853
+      ],
+      "unlit_neutral": [
+        0.576992630958557,
+        0.533022582530975,
+        0.485007852315903
+      ]
+    },
+    {
+      "albedo_color": "(1.0, 1.0, 1.0, 1.0)",
+      "family": "DryStone_ImagePBR",
+      "lit": [
+        0.519138634204865,
+        0.451084762811661,
+        0.352727293968201
+      ],
+      "mode": "linear_output_test_only",
+      "roughness": 0.939999997615814,
+      "screen": [
+        1041.7021484375,
+        624.635864257813
+      ],
+      "source_texture": "res://assets/blender-pilot/asset_rock_boulder_dry_diff_1k.jpg",
+      "specular": 0.5,
+      "unlit_common": [
+        0.312532365322113,
+        0.246045216917992,
+        0.180778577923775
+      ],
+      "unlit_neutral": [
+        0.298200666904449,
+        0.250125288963318,
+        0.201516106724739
+      ]
+    }
+  ],
+  "scope": "Controlled material probe;not normal gameplay",
+  "status": "MEASURED_REQUIRES_REVIEW"
+}

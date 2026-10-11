@@ -1,0 +1,15 @@
+{
+  "protected_final": {
+    "current_candidate_files": 3667,
+    "changed": [],
+    "live137_changed": [],
+    "prepared4_changed": []
+  },
+  "isolated_correction_changed_files": [
+    "assets/blender-pilot/asset.glb",
+    "assets/blender-pilot/bindings.json"
+  ],
+  "importer_extracted_image_changes": [],
+  "textures_exact_after_import": true,
+  "sole_expected_changes": true
+}

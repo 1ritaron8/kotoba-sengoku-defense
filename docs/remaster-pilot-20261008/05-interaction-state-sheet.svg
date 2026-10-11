@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1160" viewBox="0 0 1440 1160" role="img">
+<title>Marune UI drag queue and language state sheet</title>
+<defs><pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M-2 2L2 -2M0 10L10 0M8 12L12 8" stroke="#da8279" stroke-width="1" opacity=".35"/></pattern><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker></defs>
+<style>text{font-family:Malgun Gothic,Yu Gothic,Meiryo,Arial,sans-serif;} .mono{font-family:Consolas,monospace;}</style>
+<rect x="0.00" y="0.00" width="1440.00" height="1160.00" rx="0" fill="#11191b" stroke="none" stroke-width="1" opacity="1"/>
+<text x="36.00" y="47.00" fill="#d5ba7c" font-size="14" font-weight="600" text-anchor="start" opacity="1">05  /  STAGE 01 · MARUNE</text>
+<text x="36.00" y="87.00" fill="#e7e4d5" font-size="30" font-weight="650" text-anchor="start" opacity="1">상태 시트 · 드래그와 모집</text>
+<text x="36.00" y="118.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Designed acceptance states / all values remain runtime-bound / actual game verification is separate</text>
+<text x="1404.00" y="47.00" fill="#aebfb8" font-size="14" font-weight="400" text-anchor="end" opacity="1">DESIGN r1 · 2026-10-08 KST</text>
+<rect x="36.00" y="157.00" width="674.00" height="267.00" rx="8" fill="#192326" stroke="#d5ba7c" stroke-width="1" opacity="1"/>
+<text x="56.00" y="192.00" fill="#d5ba7c" font-size="19" font-weight="600" text-anchor="start" opacity="1">01 VALID ARCHER DROP</text>
+<text x="56.00" y="232.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">궁병 · 弓兵 · きゅうへい</text>
+<text x="56.00" y="268.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">황금 사격 진지 · 배치 가능</text>
+<text x="56.00" y="304.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">60 비용 · 주문 1건</text>
+<text x="56.00" y="340.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Start/preview: no money, queue or save mutation.</text>
+<text x="56.00" y="376.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Release: revalidate → submit once → accepted feedback.</text>
+<rect x="730.00" y="157.00" width="674.00" height="267.00" rx="8" fill="#192326" stroke="#da8279" stroke-width="1" opacity="1"/>
+<text x="750.00" y="192.00" fill="#da8279" font-size="19" font-weight="600" text-anchor="start" opacity="1">02 INVALID / UI / OFF FIELD</text>
+<text x="750.00" y="232.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">배치 불가 · 사격 진지를 선택하십시오</text>
+<text x="750.00" y="268.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">목책 / 해자 / 장애물 위에는 배치 불가</text>
+<text x="750.00" y="304.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">HUD 위 놓기: 취소</text>
+<text x="750.00" y="340.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Cross starting HUD: keep drag, hide world preview.</text>
+<text x="750.00" y="376.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Release invalid/UI/off field: no charge/order/reservation.</text>
+<rect x="36.00" y="446.00" width="674.00" height="267.00" rx="8" fill="#192326" stroke="#7ed6cc" stroke-width="1" opacity="1"/>
+<text x="56.00" y="481.00" fill="#7ed6cc" font-size="19" font-weight="600" text-anchor="start" opacity="1">03 MARCHING SPEAR</text>
+<text x="56.00" y="521.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">창병 · 槍兵 · そうへい</text>
+<text x="56.00" y="557.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">기지 출진 · 전진형</text>
+<text x="56.00" y="593.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">경로0 / O1 기지에서 생산</text>
+<text x="56.00" y="629.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Drop selects eligible base; not a fixed spear position.</text>
+<text x="56.00" y="665.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">A drop creates one order, not a guaranteed one actor.</text>
+<rect x="730.00" y="446.00" width="674.00" height="267.00" rx="8" fill="#192326" stroke="#d5ba7c" stroke-width="1" opacity="1"/>
+<text x="750.00" y="481.00" fill="#d5ba7c" font-size="19" font-weight="600" text-anchor="start" opacity="1">04 FULL ACTOR CAPACITY</text>
+<text x="750.00" y="521.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">병력 14 / 14 · 모집 큐 3 / 24</text>
+<text x="750.00" y="557.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">생산 완료 · 병력 자리 대기</text>
+<text x="750.00" y="593.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">취소 시 지불한 비용 전액 환급</text>
+<text x="750.00" y="629.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Actor cap does not make an otherwise valid order fail.</text>
+<text x="750.00" y="665.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Spear lv5+: cost90 and two actors from one order.</text>
+<rect x="36.00" y="735.00" width="674.00" height="267.00" rx="8" fill="#192326" stroke="#da8279" stroke-width="1" opacity="1"/>
+<text x="56.00" y="770.00" fill="#da8279" font-size="19" font-weight="600" text-anchor="start" opacity="1">05 QUEUE FULL / LIVE CHANGE</text>
+<text x="56.00" y="810.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">모집 큐 24 / 24 · 주문 불가</text>
+<text x="56.00" y="846.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">군자금 부족 / 진지 점유 · 다시 확인</text>
+<text x="56.00" y="882.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">실패하면 비용과 예약 변화 없음</text>
+<text x="56.00" y="918.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">During drag: state can change; release revalidates.</text>
+<text x="56.00" y="954.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Production runs concurrently; do not depict serial jobs.</text>
+<rect x="730.00" y="735.00" width="674.00" height="267.00" rx="8" fill="#192326" stroke="#8abada" stroke-width="1" opacity="1"/>
+<text x="750.00" y="770.00" fill="#8abada" font-size="19" font-weight="600" text-anchor="start" opacity="1">06 FOCUS / MODAL / RESULT</text>
+<text x="750.00" y="810.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">드래그 취소 · 표시와 임시 선택 정리</text>
+<text x="750.00" y="846.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">학습 / 메뉴 / 다른 전장 전환</text>
+<text x="750.00" y="882.00" fill="#e7e4d5" font-size="17" font-weight="400" text-anchor="start" opacity="1">임무 성공 · 철수 엄호 완료</text>
+<text x="750.00" y="918.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Drag is pure; deliberate click and R keep legacy commands.</text>
+<text x="750.00" y="954.00" fill="#aebfb8" font-size="17" font-weight="400" text-anchor="start" opacity="1">Escape/focus/modal cancels drag; historic fall remains.</text>
+<text x="36.00" y="1060.00" fill="#aebfb8" font-size="18" font-weight="400" text-anchor="start" opacity="1">Returning profiles retain every earned unlock and permanent level; Stage01 does not reset the roster.</text>
+<text x="36.00" y="1091.00" fill="#aebfb8" font-size="18" font-weight="400" text-anchor="start" opacity="1">This sheet is editable design evidence. Design render pass is separate from code pass, GPU capture and natural-play verification.</text>
+</svg>

@@ -1,0 +1,521 @@
+{
+  "task": "BLENDER-ASSET-PRODUCTION-01",
+  "status": "LOCAL_AUTHORING_AND_NATIVE_INTEGRATION_PROVEN;ART_NOT_ACCEPTED;NOT_PROMOTED",
+  "reported_utc": "2026-10-10T06:07:05.522012+00:00",
+  "start_utc": "2026-10-10T05:16:08Z",
+  "production_stop_utc": "2026-10-10T06:01:08Z",
+  "hard_stop_utc": "2026-10-10T06:16:08Z",
+  "summary": "공식 Blender 설치, 실제 편집 가능한 8종 원본·GLB·이미지 생성, 격리 Godot 전장 연결과 관련 기능 검증 완료. 목표 이미지의 최종 미술 품질은 미달이므로 기존 후보 또는 R8에 채택하지 않음.",
+  "installed": {
+    "package": "BlenderFoundation.Blender",
+    "version": "5.2.2 LTS",
+    "path": "C:/Program Files/Blender Foundation/Blender 5.2/blender.exe",
+    "url": "https://download.blender.org/release/Blender5.2/blender-5.2.2-windows-x64.msi",
+    "winget_exit": 0,
+    "hash_verified_by_winget": true
+  },
+  "version_actual": "5.2.2 LTS;build d13f752e3b9c;actual --version exit0",
+  "reference": {
+    "path": "C:/JP_DF/docs/map-remaster-reference/10-stage01-approved-composition.png",
+    "sha256": "1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc",
+    "role": "Stage01 final composition and quality target;not mood-only"
+  },
+  "artifacts": {
+    "blend": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\correction\\authored_assets.blend",
+    "blend_sha256": "536b9fe8cf29e4cb4b4f3cce3c5cddce73400e96de5512f19604aa013e7991df",
+    "GLB": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\correction\\stage01_assets.glb",
+    "GLB_details": {
+      "bytes": 12478308,
+      "sha256": "2b2b787433e6ec07ce1bfc3ce35478966d9adebc43c727a8d60290bc0468dd7b",
+      "meshes": 8,
+      "triangles": 33698,
+      "material_primitives": 15,
+      "images": 11,
+      "self_contained": true,
+      "named_roots": [
+        "Broadleaf_A",
+        "Broadleaf_B",
+        "Broadleaf_C",
+        "Shrub_A",
+        "Shrub_B",
+        "FiringPad",
+        "Palisade",
+        "GroundSample"
+      ],
+      "scope": "GLB structural preflight;Godot/visual/performance acceptance pending HQ"
+    },
+    "Blender_render": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\correction\\prototypes-render.png",
+    "production_result": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\correction\\PRODUCTION_RESULT.json",
+    "first_pass_preserved": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets",
+    "first_import_and_freezes_backup": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\first-pass-before-asset-correction",
+    "textures": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\textures\\correction"
+  },
+  "asset_kinds": [
+    "Broadleaf_A",
+    "Broadleaf_B",
+    "Broadleaf_C",
+    "Shrub_A",
+    "Shrub_B",
+    "FiringPad",
+    "Palisade",
+    "GroundSample"
+  ],
+  "editability": "ASSET_EXPORT has8 identity roots/actual mesh UV materials; AUTHORING_SOURCE_EDITABLE keeps masters; saved recipes and packed image inputs. Export meshes triangulated, masters retained. Leaves are opaque folded leaf-scale geometry, not wholecanopy PNG cards.",
+  "workshop_verified": {
+    "terrain_vertices": 4217,
+    "terrain_triangles": 8144,
+    "all_vertex_coordinates_match": true,
+    "coordinate_map": "Godot(x,y,z)->Blender(x,-z,y)",
+    "camera_projection": "ORTHO",
+    "camera_width": 23.5,
+    "camera_elevation": 43.999997496153945,
+    "packed_reference_sha256": "1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc",
+    "context_excluded_from_export": true
+  },
+  "actual_Blender_image_scope": "Actual background Blender CyclesCPU24sample1440x900 render;not a Blender GUI screenshot. Bench ortho16.5/elevation44 differs from game23.5;bench illumination differs. No visual parity claimed.",
+  "isolated_candidate": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\godot-candidate",
+  "product_intended_changes": [
+    "godot-candidate/native/remaster_visual_slice.gd",
+    "godot-candidate/assets/blender-pilot/asset.glb",
+    "godot-candidate/assets/blender-pilot/bindings.json"
+  ],
+  "import_generated_files": "11 extracted GLB textures and6 .uid metadata in isolated copy; .godot/import metadata excluded from source counts. Correction reimport left extracted image bytes exact.",
+  "correction_product_changes": [
+    "assets/blender-pilot/asset.glb",
+    "assets/blender-pilot/bindings.json"
+  ],
+  "tool_changes": [
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\authoring.py",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\produce_assets.py",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\integrate_assets.py",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\run_production.py",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\qa_blender_assets.gd",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\qa_material_probe.gd"
+  ],
+  "integration_scope": "6 existing-position trees,3 existing-position shrubs,1 existing palisade segment and image-backed base soil material connected. Full FiringPad and GroundSample are native isolated showcase only;not installed as second gameplay floor. Existing stage/physical obstacles/routes/learning anchors exact.",
+  "functional": {
+    "status": "FUNCTIONAL_PASS_VISUAL_REVIEW_PENDING",
+    "checks": 320,
+    "failures": [],
+    "pending": [],
+    "paid_produced": {
+      "archer": 2,
+      "spear": 2
+    },
+    "paid_attack_events": {
+      "archer": true,
+      "spear": true
+    },
+    "natural_damage_observed": true,
+    "damage_scope": "Attack events for both paid types verified;does not separately certify archer HP impact correctness.",
+    "first_field_selection": [
+      {
+        "accepted": true,
+        "after_id": 2,
+        "before_id": 5,
+        "clock": 14.1608293333333,
+        "expected_paid_id": 2,
+        "first_attempt": true,
+        "point": "(599.4894, 374.9508)",
+        "selected_HUD": {
+          "text": "병영 Lv.1\n공격 17 / 초당 19.4",
+          "visible": true
+        },
+        "type": "archer"
+      },
+      {
+        "accepted": true,
+        "after_id": 4,
+        "before_id": 2,
+        "clock": 14.2912646666667,
+        "expected_paid_id": 4,
+        "first_attempt": true,
+        "point": "(982.8687, 363.7669)",
+        "selected_HUD": {
+          "text": "병영 Lv.1\n공격 16 / 초당 26.7",
+          "visible": true
+        },
+        "type": "spear"
+      }
+    ],
+    "same_enemy_offscreen_to_visible": true,
+    "context_returns": 2,
+    "quiz_returns": 1,
+    "source_unchanged": true,
+    "raw": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\QA_BLENDER_RESULT.json",
+    "first_raw": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game\\Godot\\app_userdata\\말의 전장\\QA_BLENDER_RESULT.json",
+    "screenshots_each_run": 11
+  },
+  "visual_results": [
+    {
+      "item": "숲 윤곽·가지/잎",
+      "result": "PARTIAL",
+      "finding": "실제 연결된 줄기·가지,넓은 비대칭 수형과 중간 수관 채움 확인. 한 번 보완하여 첫 모델의 큰 빈틈 감소. 실제 게임에서 잎이 극도로 옅고 기존 녹색 수관과 분리되어 최종 기준 미달. 6그루 시험이므로 전체 숲 연결감 완성 아님."
+    },
+    {
+      "item": "지면·길 경계",
+      "result": "PARTIAL/FAIL_REFERENCE",
+      "finding": "베이크된 다져진 흙·낙엽 이미지 실제 연결. 전체 전환 패치는 쇼케이스만. 실제 전장의 밝고 균일한 길·반복 얼룩과 기준 대비 질감 차이 잔존."
+    },
+    {
+      "item": "사격대 높이·측면·접촉",
+      "result": "PROTOTYPE_PARTIAL",
+      "finding": "실제 흙 둔덕 높이·측면,기둥·레일·열린 진입부 존재. 연속된 밝은 돌 고리를 제거하고8개 불규칙 돌로 보완. 전체 사격대는 쇼케이스만 검증;실제 전장 사격대 교체·접촉 그림자 완성 주장 안 함."
+    },
+    {
+      "item": "목책·시설",
+      "result": "PARTIAL",
+      "finding": "실제 기둥·가로 연결과 중앙1m빈틈,레일 단절 확인. 기존 구간1곳 연동. 요새 전면 시야 유지,전체 요새 고품질 완성 아님."
+    },
+    {
+      "item": "병사·세계 명암 일관성",
+      "result": "FAIL_REFERENCE",
+      "finding": "병사 크기·팔레트·카메라·조명 유지. 두 해상도에서 병사·길·요새 식별 가능. 새 잎의 창백함으로 공통 미술 일관성 실패."
+    },
+    {
+      "item": "그림자/효과",
+      "result": "UNRESOLVED",
+      "finding": "실제 Compatibility에서 확인. 기존 조명·ACES·약한 안개 유지;SSAO나새효과 성공 주장 없음. 기존 바닥 자체 그림자OFF 절충 미해결. 새 자산의 자연스러운 바닥 접촉 그림자는 합격 처리하지 않음."
+    },
+    {
+      "item": "UI",
+      "result": "OUT_OF_SCOPE_UNRESOLVED",
+      "finding": "HUD·학습 문구를 숨기지 않은 전체 원본 캡처. 1280 선택 패널/툴팁 가림 잔존;수정 완료 주장 없음."
+    }
+  ],
+  "material_color_evidence": {
+    "source_image_to_GLB_to_Godot_RGB": "leaf/soil/stone exact pixel equality",
+    "controlled_native_probe": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\material-probe\\material-probe.json",
+    "leaf_standard_vs_validated_boundary_max_channel_diff": {
+      "lit": 0.000469,
+      "neutral_unlit": 0.000107
+    },
+    "soil_lit_difference": 0.013576,
+    "soil_caveat": "roughness texture vs scalar control confound;not gamma defect proof",
+    "conclusion": "No common color-boundary defect measured;no gamma conversion or product light/palette workaround added. Native pale foliage remains unresolved artistic material response issue. Direct-linear darker control is incorrect for current boundary and was not applied.",
+    "GLB_specular_note": "GLBspecularFactor.32 vsGodotmetallic_specular.5 observed;causal contribution not isolated/proven."
+  },
+  "performance": {
+    "first_pass": {
+      "eligible_seconds": 43.2331121111111,
+      "scope": "Inherited actual rendered both-endpoint flags and measurement epoch; screenshots/resize/pause/learning/showcase excluded; positive shared viewport GPU times only; no full60FPS or matched-condition improvement claim",
+      "hardware": {
+        "CPU": "13th Gen Intel(R) Core(TM) i5-1340P",
+        "GPU": "Intel(R) Iris(R) Xe Graphics",
+        "display": "Windows",
+        "engine": {
+          "build": "official",
+          "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (official)",
+          "timestamp": 0
+        },
+        "method": "gl_compatibility"
+      },
+      "metrics": {
+        "actor_nodes_max": 15,
+        "actor_nodes_min": 5,
+        "ally_count_max": 4,
+        "ally_count_min": 3,
+        "enemy_count_max": 11,
+        "enemy_count_min": 1,
+        "frame_ms": {
+          "max": 231.936,
+          "mean": 33.8328697017268,
+          "p50": 32.161,
+          "p95": 60.528,
+          "p99": 83.766,
+          "samples": 1274
+        },
+        "shared_draw_calls": {
+          "max": 488,
+          "mean": 462.464678178964,
+          "p50": 460,
+          "p95": 484,
+          "p99": 488,
+          "samples": 1274
+        },
+        "shared_gpu_ms": {
+          "max": 79.5630035400391,
+          "mean": 20.0746099181602,
+          "p50": 18.4820003509521,
+          "p95": 28.9500007629395,
+          "p99": 37.9959983825684,
+          "samples": 1274
+        },
+        "stalls_over50ms": 98
+      }
+    },
+    "one_correction": {
+      "eligible_seconds": 40.0038907532463,
+      "scope": "Inherited actual rendered both-endpoint flags and measurement epoch; screenshots/resize/pause/learning/showcase excluded; positive shared viewport GPU times only; no full60FPS or matched-condition improvement claim",
+      "hardware": {
+        "CPU": "13th Gen Intel(R) Core(TM) i5-1340P",
+        "GPU": "Intel(R) Iris(R) Xe Graphics",
+        "display": "Windows",
+        "engine": {
+          "build": "official",
+          "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+          "hex": 263938,
+          "major": 4,
+          "minor": 7,
+          "patch": 2,
+          "status": "stable",
+          "string": "4.7.2-stable (official)",
+          "timestamp": 0
+        },
+        "method": "gl_compatibility"
+      },
+      "metrics": {
+        "actor_nodes_max": 16,
+        "actor_nodes_min": 5,
+        "ally_count_max": 4,
+        "ally_count_min": 3,
+        "enemy_count_max": 12,
+        "enemy_count_min": 1,
+        "frame_ms": {
+          "max": 231.366,
+          "mean": 34.461319792567,
+          "p50": 32.082,
+          "p95": 62.673,
+          "p99": 81.036,
+          "samples": 1157
+        },
+        "shared_draw_calls": {
+          "max": 492,
+          "mean": 463.346585998271,
+          "p50": 460,
+          "p95": 484,
+          "p99": 488,
+          "samples": 1157
+        },
+        "shared_gpu_ms": {
+          "max": 75.8960037231445,
+          "mean": 19.6478660636249,
+          "p50": 18.5459995269775,
+          "p95": 25.2310009002686,
+          "p99": 31.8330001831055,
+          "samples": 1157
+        },
+        "stalls_over50ms": 115
+      }
+    },
+    "comparison": "Actor count/timing differ;no percent improvement claim,no fullgame60FPS claim,no oldR6 benchmark. GPU is positive asynchronous shared terrain/troop viewport API timing,not fullapp or guaranteed matching CPUframeID.",
+    "adoption": "Not promoted:visual coherence fails;frame p95>60ms and50ms stalls remain,performance budget not certified."
+  },
+  "actual_captures": [
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\assets\\correction\\prototypes-render.png",
+      "sha256": "d11a0b01b0865af199707a22aa90242bc5a6ecfa2ff195844c16e78f86effb63",
+      "dimensions": "prototypes-render.png",
+      "HQ_viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1440x900.png",
+      "sha256": "cecaa47cf2ed118cb6654f229d31c7f4b0299e506e31e2f789ca03d683e3a952",
+      "dimensions": "blender-assets-map-ready-1440x900.png",
+      "HQ_viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1280x800.png",
+      "sha256": "330e734ee3b3172877afa5f099c9d11f3eb1dd2cb691c72e05158fe8b35d18aa",
+      "dimensions": "blender-assets-map-ready-1280x800.png",
+      "HQ_viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1440x900.png",
+      "sha256": "34c848631da5d374c3726ee72e55ba78316d4d434932caca06045fa6ffcaaffa",
+      "dimensions": "blender-assets-paid-battle-1440x900.png",
+      "HQ_viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1280x800.png",
+      "sha256": "8d3860c91287adbd35f01b6f7cfc6cd33d67605211d5a9fdb158ab514207baf5",
+      "dimensions": "blender-assets-paid-battle-1280x800.png",
+      "HQ_viewed": true
+    },
+    {
+      "path": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-showcase-all8-common-camera-1440x900.png",
+      "sha256": "33aae248fa219816fd84db67e12cc0e6cc7140373d56f4b64c5745d60e470d5a",
+      "dimensions": "blender-assets-showcase-all8-common-camera-1440x900.png",
+      "HQ_viewed": true
+    }
+  ],
+  "all_final_capture_paths": [
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-held-placement-preview-1440x900.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1280x800.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-map-ready-1440x900.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-natural-context-1440x900-210f8213.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-natural-context-1440x900-2c07cb8c.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-natural-quiz-1440x900-b5fd84b3.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1280x800.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-paid-battle-1440x900.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-same-enemy-1-offscreen-1440x900.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-same-enemy-1-visible-approach-1440x900.png",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\game-correction\\Godot\\app_userdata\\말의 전장\\blender-assets-showcase-all8-common-camera-1440x900.png"
+  ],
+  "launches": {
+    "Godot_explicit_count": 7,
+    "Godot": [
+      {
+        "phase": "import",
+        "pid": 11072,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\import-receipt.json",
+        "accepted": true
+      },
+      {
+        "phase": "syntax",
+        "pid": 30684,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\syntax-receipt.json",
+        "accepted": true
+      },
+      {
+        "phase": "game",
+        "pid": 22956,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\game-receipt.json",
+        "accepted": true
+      },
+      {
+        "phase": "material-probe-check",
+        "pid": 2108,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\material-probe-check-receipt.json",
+        "accepted": true
+      },
+      {
+        "phase": "material-probe",
+        "pid": 39868,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\material-probe-receipt.json",
+        "accepted": true
+      },
+      {
+        "phase": "correction-import",
+        "pid": 32740,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\correction-import-receipt.json",
+        "accepted": true
+      },
+      {
+        "phase": "correction-game",
+        "pid": 21812,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\correction-game-receipt.json",
+        "accepted": true
+      }
+    ],
+    "Blender_explicit_command_count": 6,
+    "Blender": [
+      {
+        "phase": "version",
+        "exit_code": 0,
+        "version": "5.2.2 LTS",
+        "build": "d13f752e3b9c"
+      },
+      {
+        "phase": "bootstrap",
+        "exit_code": 0,
+        "output": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\bootstrap-63fec784",
+        "blend_bytes": 246286
+      },
+      {
+        "phase": "produce",
+        "pid": 21892,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\produce-receipt.json",
+        "accepted": false
+      },
+      {
+        "phase": "bootstrap-recheck",
+        "exit_code": 0,
+        "output": "tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\bootstrap-bfa1e3dd",
+        "reason": "retain packed reference datablock with fake user; initial produce stopped before assetcreation"
+      },
+      {
+        "phase": "produce-recheck",
+        "pid": 5876,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\produce-recheck-receipt.json",
+        "accepted": true
+      },
+      {
+        "phase": "correction-produce",
+        "pid": 31000,
+        "receipt": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\correction-produce-receipt.json",
+        "accepted": true
+      }
+    ],
+    "additional_install_time_process_observation": "Transient blender process PID41020 observed around installation,exited before bootstrap;commandline/role not retained. Listed separately;do not mistake six explicit commands for proof no other process existed.",
+    "prelaunch_failure_no_engine": [
+      {
+        "phase": "import",
+        "engine_launched": false,
+        "reason": "HQ invoked before asynchronous copy completed; dependency guard stopped before engine",
+        "correction": "waited for copy completion"
+      }
+    ],
+    "workers_engine_launches": 0
+  },
+  "tool_tests": {
+    "initial_environment_failures": 7,
+    "workspace_temp_environment_failures": 7,
+    "escalated_passed": 13,
+    "failed": 0,
+    "product_code_changes": 0
+  },
+  "actual_tool_repair": [
+    {
+      "file": "authoring.py",
+      "change": "image.use_fake_user=True",
+      "actual_failure": "reference image purged when unreferenced datablock saved",
+      "recheck_unit_passed": 13
+    }
+  ],
+  "failures_and_limits": [
+    "First unused packed reference was purged on save;fixed by image.use_fake_user=True;13unit tests rechecked. First production stopped before geometry,failed evidence preserved.",
+    "Initial sandbox temporary-folder permission errors resolved with reviewed scoped execution;no tool approval rejection.",
+    "Material-only diagnostic exited0 but4ObjectDB instances and1resource warning at shutdown;main gameplay runs no such error.",
+    "Native foliage/reference art fails;new local source workflow proven butfinalmapnotcompleted.",
+    "Full FiringPad/GroundSample gameplay integration deliberately absent to preserve sole terrain/placement provider.",
+    "No Blender GUI screenshot;actual Cycles render and .blend provided.",
+    "1280UIocclusion andexisting floor self-shadowOFF remain."
+  ],
+  "preservation": {
+    "protected_final": {
+      "current_candidate_files": 3667,
+      "changed": [],
+      "live137_changed": [],
+      "prepared4_changed": []
+    },
+    "isolated_correction_changed_files": [
+      "assets/blender-pilot/asset.glb",
+      "assets/blender-pilot/bindings.json"
+    ],
+    "importer_extracted_image_changes": [],
+    "textures_exact_after_import": true,
+    "sole_expected_changes": true
+  },
+  "saves": "All Godot launches use private APPDATA/LOCALAPPDATA inside this work;actual player saves not copied or selected. DesktopR8/Git/security untouched. Only authorized official Blender installation performed.",
+  "operation": "Reused existingHQ/UX/FUN/QA sessions;max2workers besidesHQ;soleengineHQ;onevisualreview andoneformcorrection. No new teams/threads, nestedagents, handoff/archive, paidAPI, externalupload, MCPinstall, oldfullregression or automaticfollowup.",
+  "next_task": "기존 Godot 조명과 색 처리 경계를 유지한 채 새 수목 재질의 색·명암을 기준 이미지 및 기존 숲과 맞추는 재질 제작 1회차.",
+  "next_task_count": 1,
+  "desktop_release": "NOT_AUTHORIZED_NOT_PERFORMED",
+  "stop_after_report": true,
+  "qa_final_audit": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\QA_BLENDER_FINAL_AUDIT.json",
+  "qa_final_audit_result": {
+    "status": "PASS",
+    "checks": 36,
+    "functional_status": "PASS",
+    "art_status": "FAIL_FINAL_REFERENCE_MATCH"
+  },
+  "mounted_environment_configured": {
+    "ambient_light_color": "(0.6745, 0.7176, 0.7059, 1.0)",
+    "ambient_light_energy": 0.680000007152557,
+    "glow_enabled": true,
+    "ssao_enabled": true,
+    "tonemap_exposure": 1.0,
+    "tonemap_mode": 3
+  },
+  "effects_interpretation": "These are actual mounted/cloned property values. SSAO/glow enabled flags alone are not proof of Compatibility support or visible contribution;support and visible success not established here. No environment/renderer changes made.",
+  "ended_utc": "2026-10-10T06:08:41.157512+00:00",
+  "elapsed_minutes": 52.5526252,
+  "all_engines_stopped": true
+}

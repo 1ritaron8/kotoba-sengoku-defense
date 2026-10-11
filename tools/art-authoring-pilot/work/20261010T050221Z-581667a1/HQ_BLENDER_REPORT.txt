@@ -1,0 +1,59 @@
+BLENDER-ASSET-PRODUCTION-01 — Chat 6pro 전달용 최종 보고
+
+결과: 공식 Blender 설치 → 실제 편집 가능한 3D 원본8종 → GLB → 격리 Godot 적용·기능 검증을 실제로 수행했습니다. 목표 이미지의 최종 미술 품질은 미달이며 기존 후보/R8에는 채택하지 않았습니다.
+
+Blender:5.2.2 LTS(build d13f752e3b9c),실제 --version 성공.
+경로:C:/Program Files/Blender Foundation/Blender 5.2/blender.exe
+공식 패키지:BlenderFoundation.Blender;winget설치 exit0/다운로드 해시 검증.
+
+최종 편집 원본:C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\assets\correction\authored_assets.blend
+최종 GLB:C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\assets\correction\stage01_assets.glb
+Blender 렌더:C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\assets\correction\prototypes-render.png
+격리 후보:C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\godot-candidate
+자산:활엽수3종,관목2종,실제 높이·측면·진입부를 가진 사격대,목책,흙·풀·낙엽 지면 샘플.
+ASSET_EXPORT8루트,편집 마스터·UV·이미지 재질·원본 레시피 보존. 접힌 실제 잎 메시 사용,전체 수관 PNG 반복/투명 면 중복 없음. 최종33,698삼각형/15재질 프리미티브/11이미지,자체 포함GLB.
+
+좌표/입력:기존 지형4,217정점·8,144삼각형 전체 좌표(x,-z,y)일치,직교23.5/고도44 검증. 기준 이미지 SHA1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc 일치.
+
+제작 도구 변경:authoring.py의 packed reference유지(use_fake_user)수정,produce_assets.py실제bpy제작,기존 작업 내 통합/실행/QA스크립트.
+격리 제품 변경:native/remaster_visual_slice.gd,assets/blender-pilot/asset.glb,bindings.json. Godot생성11텍스처·6UID별도. 보완 단계는GLB/연결정보2파일만교체.
+실제전장:기존 위치 나무6개·관목3개·목책1구간 및 바탕 흙 이미지 연결. 전체 사격대/GroundSample은 동일게임카메라의 별도 쇼케이스만 확인했으며 실제게임바닥 교체 완료로 계산하지 않았습니다.
+
+기능:Godot4.7.2 Compatibility/IntelIrisXe에서320관련검사 통과,실패0/미확인0. 실제Home→목록→브리핑→전장,유료궁병2·창병2배치,양병종공격 이벤트,첫필드클릭선택,일시정지/재개,동일적ID의화면밖→접근,문맥학습복귀2·퀴즈복귀1 확인. 궁병의개별피해량정합성까지추가보증하지않습니다. 소스변경없음.
+
+색처리:원본이미지→GLB내장→Godot추출RGB픽셀정확일치. 동일실행조건에서잎StandardMaterial/기존검증출력경계최대채널차이 조명적용0.000469,중성unlit0.000107. 감마오류근거없어색변환추가안함. 흙조명차이0.013576은거칠기조건차이포함. Blender벤치와Godot조명이달라렌더차이만으로감마오류단정불가.
+
+미술결과:
+- 숲:실제가지연결·비대칭수형·중간수관보완성공. 실제전장새잎이매우창백하여기존숲/기준이미지일관성실패.
+- 지면:이미지기반흙/낙엽전달성공. 밝고균일한길·반복얼룩과기준대비질감차이는잔존.
+- 사격대:실제높이·측면·입구모델성공. 연속흰돌띠를흙둔덕+불규칙돌8개로보완. 실제전장전체사격대교체/접촉그림자완성아님.
+- 목책:기둥/가로레일/실제열린1m입구,기존1구간연동확인. 요새시야유지,전체시설완성아님.
+- 병사/명암:병사크기·팔레트·카메라·조명유지. 양해상도식별가능하나새잎명암부조화로최종미술불합격.
+- 기존바닥자체그림자OFF절충,1280선택패널/툴팁가림미해결. SSAO등새효과성공주장없음.
+
+자연전투성능(촬영/리사이즈/정지/학습구간제외):
+첫실행43.23초/1,274프레임:p50 32.161ms,p95 60.528ms,50ms초과98회,병사5~15.
+보완실행40.00초/1,157프레임:p50 32.082ms,p95 62.673ms,50ms초과115회,병사5~16.
+보완GPU공유전장뷰포트:p50 18.546ms,p95 25.231ms;draw calls p50 460,p95 484,max492.
+CPU/GPU시점비동기이며전체앱GPU시간아님. 병사수·타이밍달라개선율/전체60FPS주장없음. 성능예산통과선언안함.
+
+실제전체캡처(불리한영역/HUD/학습문구유지):
+C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\evidence\game-correction\Godot\app_userdata\말의 전장\blender-assets-map-ready-1440x900.png
+C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\evidence\game-correction\Godot\app_userdata\말의 전장\blender-assets-map-ready-1280x800.png
+C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\evidence\game-correction\Godot\app_userdata\말의 전장\blender-assets-paid-battle-1440x900.png
+C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\evidence\game-correction\Godot\app_userdata\말의 전장\blender-assets-paid-battle-1280x800.png
+C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\evidence\game-correction\Godot\app_userdata\말의 전장\blender-assets-showcase-all8-common-camera-1440x900.png
+각실행11PNG,적진입·학습·배치미리보기추가증거보존. Blender이미지는실제Cycles렌더이며GUI스크린샷아님.
+
+검증/실패기록:기존단위13건통과,packed reference유지문제수정후13건재통과. 초기제작은참조검증에서중단됐고실패증거보존. 승인거절없음. 재질진단만종료시ObjectDB4/리소스1경고,두실제게임실행은오류없이종료.
+실행횟수:Godot7회(가져오기2,QA문법1,전장2,재질진단문법1/실행1),명시Blender명령6회(버전1,bootstrap2,제작실패1/성공2). 설치시일시Blender프로세스PID41020별도관측,역할/명령줄미확보이므로명시명령6회를모든프로세스총수로단정하지않음. 복사완료전wrapper시도1회는보호절차가엔진시작전차단.
+보존:원본후보3,667파일/보호실행137/준비4해시일치. 실제저장대신작업내개인프로필만사용. 바탕화면R8·Git·보안설정변경없음. 새팀/인수인계/전체과거회귀/외부업로드없음. 검토1회·형태보완1회.
+
+다음 작업 딱1건:기존 Godot 조명과 색 처리 경계를 유지한 채 새 수목 재질의 색·명암을 기준 이미지 및 기존 숲과 맞추는 재질 제작 1회차.
+최종기준이미지승인은사용자에게남깁니다. 이번결과는격리검토본으로보존하고자동후속없이종료합니다.
+상세근거:C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\HQ_BLENDER_REPORT.json
+QA최종감사:C:\JP_DF\tools\art-authoring-pilot\work\20261010T050221Z-581667a1\QA_BLENDER_FINAL_AUDIT.json
+
+QA최종감사36건PASS:원본/격리소스해시,첫입력토큰14개,실제8모델노멀/UV/탄젠트,측정제외조건과백분위재계산,전체22캡처원본검증.
+실제환경설정:주변광(.6745,.7176,.7059)/.68,ACES모드3/노출1,SSAO·Glow enabled=true. 설정값존재가Compatibility지원/가시효과성공의증거는아니며이번검증에서합격으로계산하지않았습니다.
+종료:모든엔진종료확인;자동후속없음. 경과분=52.55

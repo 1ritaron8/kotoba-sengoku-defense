@@ -9,6 +9,11 @@ const READING_GAP: float = 2.0
 const LINE_GAP: float = 8.0
 
 var word: Dictionary = {}
+var _text_value: String = ""
+var text: String:
+	get: return _text_value
+	set(value): set_text(value)
+var horizontal_alignment: HorizontalAlignment = HORIZONTAL_ALIGNMENT_CENTER
 var _display_parts: Array = []
 var base_size: int = 34
 var font: Font = GameFonts.japanese()
@@ -39,10 +44,38 @@ func _init() -> void:
 
 func set_word(value: Dictionary, text_size: int = 34, show_meaning: bool = true) -> void:
 	word = value
+	_text_value = str(value.get("jp",""))
 	_display_parts = RubyReadings.for_word(value)
 	base_size = text_size
 	meaning_visible = show_meaning
 	_sync_minimum_height()
+
+func set_text(value: String, text_size: int = -1, context_words: Array = []) -> void:
+	set_word(RubyReadings.word_for_text(value,context_words),base_size if text_size<0 else text_size,false)
+
+static func make_tooltip(value: String, context_words: Array = []) -> Control:
+	var panel: PanelContainer=PanelContainer.new()
+	panel.name="AnnotatedTooltip"
+	var box: StyleBoxFlat=StyleBoxFlat.new()
+	box.bg_color=Color("141819f5")
+	box.border_color=Color("67614f")
+	box.set_border_width_all(1)
+	box.content_margin_left=10
+	box.content_margin_right=10
+	box.content_margin_top=6
+	box.content_margin_bottom=6
+	panel.add_theme_stylebox_override("panel",box)
+	var ruby: Control=load("res://native/ruby_label.gd").new()
+	ruby.name="TooltipRuby"
+	ruby.font=GameFonts.body()
+	ruby.horizontal_alignment=HORIZONTAL_ALIGNMENT_LEFT
+	ruby.wrap_japanese=true
+	ruby.colour_reading_groups=false
+	ruby.custom_minimum_size.x=420
+	ruby.size.x=420
+	ruby.set_text(value,20,context_words)
+	panel.add_child(ruby)
+	return panel
 
 func _pieces() -> Array:
 	var pieces: Array = _display_parts
@@ -108,6 +141,13 @@ func _japanese_lines(face: Font, width: float, text_size: int) -> Array:
 			for character in body: fragments.append({"text":character})
 		for fragment in fragments:
 			body = str(fragment.get("text",""))
+			if body=="\n":
+				lines.append(current)
+				current=[]
+				body_used=0.0
+				reading_used=0.0
+				reading_count=0
+				continue
 			kana = str(fragment.get("reading",""))
 			if kana==body: kana = ""
 			var span: float = minf(width,_part_width(face,fragment,text_size))
@@ -207,7 +247,9 @@ func get_text_layout() -> Dictionary:
 			body_rows = maxi(body_rows,part.body.size())
 		var reading_height: float = reading_rows*kana_face.get_height(ruby_size)
 		var body_y: float = y+reading_height+(READING_GAP if reading_rows>0 else 0.0)
-		var x: float = TEXT_PADDING+(width-total_width)*0.5
+		var x: float = TEXT_PADDING
+		if horizontal_alignment==HORIZONTAL_ALIGNMENT_CENTER: x+=(width-total_width)*0.5
+		elif horizontal_alignment==HORIZONTAL_ALIGNMENT_RIGHT: x+=width-total_width
 		var reading_positions: Dictionary=_reading_positions(row,x,width)
 		for part_index in range(row.size()):
 			var part: Dictionary=row[part_index]
@@ -240,7 +282,10 @@ func get_text_layout() -> Dictionary:
 			y += 4.0
 		for text in meanings:
 			var span: float = korean_face.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,meaning_size).x
-			runs.append(_text_run(korean_face,text,meaning_size,TEXT_PADDING+(width-span)*0.5,y,"meaning"))
+			var meaning_x: float=TEXT_PADDING
+			if horizontal_alignment==HORIZONTAL_ALIGNMENT_CENTER: meaning_x+=(width-span)*.5
+			elif horizontal_alignment==HORIZONTAL_ALIGNMENT_RIGHT: meaning_x+=width-span
+			runs.append(_text_run(korean_face,text,meaning_size,meaning_x,y,"meaning"))
 			y += korean_face.get_height(meaning_size)
 	return {"runs":runs,"guides":guides,"height":y+TEXT_PADDING,"body_size":text_size,"ruby_size":ruby_size,"colouredGroups":annotated_groups.size() if colour_reading_groups and annotated_groups.size()>1 else 0}
 

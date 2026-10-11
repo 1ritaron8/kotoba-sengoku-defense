@@ -49,10 +49,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.321223,
-                "y": 0.554725
-              },
               "label": {
                 "jp": "森",
                 "reading": "もり",
@@ -63,14 +59,14 @@
                     "reading": "もり"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.04594594594594593,
+                "y": 0.5962962962962963
               }
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.611588,
-                "y": 0.307102
-              },
               "label": {
                 "jp": "川",
                 "reading": "かわ",
@@ -81,14 +77,14 @@
                     "reading": "かわ"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.02540540540540544,
+                "y": 0.7577777777777778
               }
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.896098,
-                "y": 0.46874
-              },
               "label": {
                 "jp": "山",
                 "reading": "やま",
@@ -99,6 +95,10 @@
                     "reading": "やま"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.7297297297297297,
+                "y": 0.14814814814814814
               }
             }
           ],
@@ -107,13 +107,14 @@
           "action": {
             "kind": "support",
             "position": {
-              "x": 0.321223,
-              "y": 0.554725
+              "x": 0.20154111457849178,
+              "y": 0.5970197833345607
             }
           },
           "itemIds": [
             "basic-01-03"
-          ]
+          ],
+          "spatialBindingStatus": "bound_authored_world"
         },
         {
           "id": "basic-forest-context-2",
@@ -148,10 +149,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.321223,
-                "y": 0.554725
-              },
               "label": {
                 "jp": "森",
                 "reading": "もり",
@@ -162,14 +159,14 @@
                     "reading": "もり"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.04594594594594593,
+                "y": 0.5962962962962963
               }
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.611588,
-                "y": 0.307102
-              },
               "label": {
                 "jp": "川",
                 "reading": "かわ",
@@ -180,14 +177,14 @@
                     "reading": "かわ"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.02540540540540544,
+                "y": 0.7577777777777778
               }
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.896098,
-                "y": 0.46874
-              },
               "label": {
                 "jp": "山",
                 "reading": "やま",
@@ -198,6 +195,10 @@
                     "reading": "やま"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.7297297297297297,
+                "y": 0.14814814814814814
               }
             }
           ],
@@ -206,13 +207,14 @@
           "action": {
             "kind": "support",
             "position": {
-              "x": 0.896098,
-              "y": 0.46874
+              "x": 0.20154111457849178,
+              "y": 0.5970197833345607
             }
           },
           "itemIds": [
             "basic-01-01"
-          ]
+          ],
+          "spatialBindingStatus": "bound_authored_world"
         },
         {
           "id": "basic-forest-context-3",
@@ -247,10 +249,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.321223,
-                "y": 0.554725
-              },
               "label": {
                 "jp": "森",
                 "reading": "もり",
@@ -261,14 +259,14 @@
                     "reading": "もり"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.04594594594594593,
+                "y": 0.5962962962962963
               }
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.611588,
-                "y": 0.307102
-              },
               "label": {
                 "jp": "川",
                 "reading": "かわ",
@@ -279,14 +277,14 @@
                     "reading": "かわ"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.02540540540540544,
+                "y": 0.7577777777777778
               }
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.896098,
-                "y": 0.46874
-              },
               "label": {
                 "jp": "山",
                 "reading": "やま",
@@ -297,6 +295,10 @@
                     "reading": "やま"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.7297297297297297,
+                "y": 0.14814814814814814
               }
             }
           ],
@@ -305,19 +307,21 @@
           "action": {
             "kind": "support",
             "position": {
-              "x": 0.611588,
-              "y": 0.307102
+              "x": 0.20154111457849178,
+              "y": 0.5970197833345607
             }
           },
           "itemIds": [
             "basic-01-02"
-          ]
+          ],
+          "spatialBindingStatus": "bound_authored_world"
         }
       ],
       "grammarStepIds": [
         "basic-01-grammar-1",
         "basic-01-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "bound_authored_world"
     },
     "basic-farm": {
       "lessonId": "basic-02",
@@ -373,10 +377,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.148735,
-                "y": 0.684777
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -398,10 +398,6 @@
             },
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.358275,
-                "y": 0.319307
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -423,10 +419,6 @@
             },
             {
               "id": "zone-13",
-              "position": {
-                "x": 0.821351,
-                "y": 0.529219
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -450,13 +442,10 @@
           "answerId": "zone-01",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.148735,
-              "y": 0.684777
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-farm-context-2",
@@ -497,10 +486,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.148735,
-                "y": 0.684777
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -522,10 +507,6 @@
             },
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.358275,
-                "y": 0.319307
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -547,10 +528,6 @@
             },
             {
               "id": "zone-13",
-              "position": {
-                "x": 0.821351,
-                "y": 0.529219
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -574,13 +551,10 @@
           "answerId": "zone-14",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.358275,
-              "y": 0.319307
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-farm-context-3",
@@ -621,10 +595,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.148735,
-                "y": 0.684777
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -646,10 +616,6 @@
             },
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.358275,
-                "y": 0.319307
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -671,10 +637,6 @@
             },
             {
               "id": "zone-13",
-              "position": {
-                "x": 0.821351,
-                "y": 0.529219
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -698,19 +660,17 @@
           "answerId": "zone-13",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.821351,
-              "y": 0.529219
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "basic-02-grammar-1",
         "basic-02-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "basic-town": {
       "lessonId": "basic-03",
@@ -763,10 +723,6 @@
           "targets": [
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.636024,
-                "y": 0.273433
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -788,10 +744,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.314458,
-                "y": 0.540975
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -813,10 +765,6 @@
             },
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.445682,
-                "y": 0.870858
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -840,13 +788,10 @@
           "answerId": "zone-04",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.314458,
-              "y": 0.540975
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-town-context-2",
@@ -884,10 +829,6 @@
           "targets": [
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.636024,
-                "y": 0.273433
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -909,10 +850,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.314458,
-                "y": 0.540975
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -934,10 +871,6 @@
             },
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.445682,
-                "y": 0.870858
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -961,13 +894,10 @@
           "answerId": "zone-00",
           "successKo": "아래쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.445682,
-              "y": 0.870858
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-town-context-3",
@@ -1005,10 +935,6 @@
           "targets": [
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.636024,
-                "y": 0.273433
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -1030,10 +956,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.314458,
-                "y": 0.540975
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -1055,10 +977,6 @@
             },
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.445682,
-                "y": 0.870858
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -1082,19 +1000,17 @@
           "answerId": "zone-08",
           "successKo": "위쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.636024,
-              "y": 0.273433
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "basic-03-grammar-1",
         "basic-03-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "basic-river": {
       "lessonId": "basic-04",
@@ -1165,10 +1081,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.233521,
-                "y": 0.657037
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -1190,10 +1102,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.688773,
-                "y": 0.696369
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -1215,10 +1123,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.881963,
-                "y": 0.587932
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -1242,13 +1146,10 @@
           "answerId": "zone-08",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.688773,
-              "y": 0.696369
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-river-context-2",
@@ -1304,10 +1205,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.233521,
-                "y": 0.657037
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -1329,10 +1226,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.688773,
-                "y": 0.696369
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -1354,10 +1247,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.881963,
-                "y": 0.587932
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -1381,13 +1270,10 @@
           "answerId": "zone-00",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.233521,
-              "y": 0.657037
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-river-context-3",
@@ -1443,10 +1329,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.233521,
-                "y": 0.657037
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -1468,10 +1350,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.688773,
-                "y": 0.696369
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -1493,10 +1371,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.881963,
-                "y": 0.587932
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -1520,19 +1394,17 @@
           "answerId": "zone-07",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.881963,
-              "y": 0.587932
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "basic-04-grammar-1",
         "basic-04-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "basic-harbor": {
       "lessonId": "basic-05",
@@ -1583,10 +1455,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.4,
-                "y": 0.704839
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -1608,10 +1476,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.473242,
-                "y": 0.490915
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -1633,10 +1497,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.890476,
-                "y": 0.398508
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -1660,13 +1520,10 @@
           "answerId": "zone-07",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.890476,
-              "y": 0.398508
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-harbor-context-2",
@@ -1702,10 +1559,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.4,
-                "y": 0.704839
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -1727,10 +1580,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.473242,
-                "y": 0.490915
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -1752,10 +1601,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.890476,
-                "y": 0.398508
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -1779,13 +1624,10 @@
           "answerId": "zone-03",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.473242,
-              "y": 0.490915
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-harbor-context-3",
@@ -1821,10 +1663,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.4,
-                "y": 0.704839
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -1846,10 +1684,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.473242,
-                "y": 0.490915
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -1871,10 +1705,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.890476,
-                "y": 0.398508
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -1898,19 +1728,17 @@
           "answerId": "zone-09",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.4,
-              "y": 0.704839
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "basic-05-grammar-1",
         "basic-05-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "basic-convoy": {
       "lessonId": "basic-06",
@@ -1974,10 +1802,6 @@
           "targets": [
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.201517,
-                "y": 0.595132
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -1999,10 +1823,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.475163,
-                "y": 0.414689
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -2024,10 +1844,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.867788,
-                "y": 0.21703
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -2051,13 +1867,10 @@
           "answerId": "zone-08",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.867788,
-              "y": 0.21703
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-convoy-context-2",
@@ -2106,10 +1919,6 @@
           "targets": [
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.201517,
-                "y": 0.595132
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -2131,10 +1940,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.475163,
-                "y": 0.414689
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -2156,10 +1961,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.867788,
-                "y": 0.21703
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -2183,13 +1984,10 @@
           "answerId": "zone-05",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.201517,
-              "y": 0.595132
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-convoy-context-3",
@@ -2238,10 +2036,6 @@
           "targets": [
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.201517,
-                "y": 0.595132
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -2263,10 +2057,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.475163,
-                "y": 0.414689
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -2288,10 +2078,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.867788,
-                "y": 0.21703
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -2315,19 +2101,17 @@
           "answerId": "zone-02",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.475163,
-              "y": 0.414689
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "basic-06-grammar-1",
         "basic-06-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "basic-temple": {
       "lessonId": "basic-07",
@@ -2391,10 +2175,6 @@
           "targets": [
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.853456,
-                "y": 0.241089
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -2416,10 +2196,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.31215,
-                "y": 0.56806
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -2441,10 +2217,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.637974,
-                "y": 0.716561
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -2468,13 +2240,10 @@
           "answerId": "zone-07",
           "successKo": "위쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.853456,
-              "y": 0.241089
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-temple-context-2",
@@ -2523,10 +2292,6 @@
           "targets": [
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.853456,
-                "y": 0.241089
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -2548,10 +2313,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.31215,
-                "y": 0.56806
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -2573,10 +2334,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.637974,
-                "y": 0.716561
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -2600,13 +2357,10 @@
           "answerId": "zone-06",
           "successKo": "아래쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.637974,
-              "y": 0.716561
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-temple-context-3",
@@ -2655,10 +2409,6 @@
           "targets": [
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.853456,
-                "y": 0.241089
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -2680,10 +2430,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.31215,
-                "y": 0.56806
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -2705,10 +2451,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.637974,
-                "y": 0.716561
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -2732,19 +2474,17 @@
           "answerId": "zone-11",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.31215,
-              "y": 0.56806
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "basic-07-grammar-1",
         "basic-07-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "basic-snow": {
       "lessonId": "basic-08",
@@ -2804,10 +2544,6 @@
           "targets": [
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.288244,
-                "y": 0.649166
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -2829,10 +2565,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.487466,
-                "y": 0.510215
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -2854,10 +2586,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.870719,
-                "y": 0.537186
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -2881,13 +2609,10 @@
           "answerId": "zone-12",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.288244,
-              "y": 0.649166
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-snow-context-2",
@@ -2932,10 +2657,6 @@
           "targets": [
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.288244,
-                "y": 0.649166
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -2957,10 +2678,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.487466,
-                "y": 0.510215
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -2982,10 +2699,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.870719,
-                "y": 0.537186
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -3009,13 +2722,10 @@
           "answerId": "zone-04",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.487466,
-              "y": 0.510215
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-snow-context-3",
@@ -3060,10 +2770,6 @@
           "targets": [
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.288244,
-                "y": 0.649166
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -3085,10 +2791,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.487466,
-                "y": 0.510215
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -3110,10 +2812,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.870719,
-                "y": 0.537186
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -3137,19 +2835,17 @@
           "answerId": "zone-08",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.870719,
-              "y": 0.537186
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "basic-08-grammar-1",
         "basic-08-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "basic-night": {
       "lessonId": "basic-09",
@@ -3212,10 +2908,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.139131,
-                "y": 0.643104
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -3237,10 +2929,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.700552,
-                "y": 0.308613
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -3262,10 +2950,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.820717,
-                "y": 0.670762
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -3289,13 +2973,10 @@
           "answerId": "zone-12",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.700552,
-              "y": 0.308613
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-night-context-2",
@@ -3343,10 +3024,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.139131,
-                "y": 0.643104
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -3368,10 +3045,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.700552,
-                "y": 0.308613
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -3393,10 +3066,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.820717,
-                "y": 0.670762
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -3420,13 +3089,10 @@
           "answerId": "zone-07",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.820717,
-              "y": 0.670762
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-night-context-3",
@@ -3474,10 +3140,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.139131,
-                "y": 0.643104
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -3499,10 +3161,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.700552,
-                "y": 0.308613
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -3524,10 +3182,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.820717,
-                "y": 0.670762
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -3551,19 +3205,17 @@
           "answerId": "zone-01",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.139131,
-              "y": 0.643104
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "basic-09-grammar-1",
         "basic-09-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "basic-siege": {
       "lessonId": "basic-10",
@@ -3622,10 +3274,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.260191,
-                "y": 0.460538
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -3647,10 +3295,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.415738,
-                "y": 0.695151
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -3672,10 +3316,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.87926,
-                "y": 0.210166
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -3699,13 +3339,10 @@
           "answerId": "zone-02",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.415738,
-              "y": 0.695151
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-siege-context-2",
@@ -3749,10 +3386,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.260191,
-                "y": 0.460538
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -3774,10 +3407,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.415738,
-                "y": 0.695151
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -3799,10 +3428,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.87926,
-                "y": 0.210166
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -3826,13 +3451,10 @@
           "answerId": "zone-09",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.260191,
-              "y": 0.460538
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "basic-siege-context-3",
@@ -3876,10 +3498,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.260191,
-                "y": 0.460538
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -3901,10 +3519,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.415738,
-                "y": 0.695151
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -3926,10 +3540,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.87926,
-                "y": 0.210166
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -3953,19 +3563,17 @@
           "answerId": "zone-08",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.87926,
-              "y": 0.210166
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "basic-10-grammar-1",
         "basic-10-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-forest": {
       "lessonId": "beginner-01",
@@ -4025,10 +3633,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.170202,
-                "y": 0.660209
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -4050,10 +3654,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.412248,
-                "y": 0.270205
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -4075,10 +3675,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.739855,
-                "y": 0.744649
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -4102,13 +3698,10 @@
           "answerId": "zone-05",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.739855,
-              "y": 0.744649
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-forest-context-2",
@@ -4153,10 +3746,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.170202,
-                "y": 0.660209
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -4178,10 +3767,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.412248,
-                "y": 0.270205
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -4203,10 +3788,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.739855,
-                "y": 0.744649
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -4230,13 +3811,10 @@
           "answerId": "zone-10",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.412248,
-              "y": 0.270205
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-forest-context-3",
@@ -4281,10 +3859,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.170202,
-                "y": 0.660209
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -4306,10 +3880,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.412248,
-                "y": 0.270205
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -4331,10 +3901,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.739855,
-                "y": 0.744649
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -4358,19 +3924,17 @@
           "answerId": "zone-01",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.170202,
-              "y": 0.660209
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-01-grammar-1",
         "beginner-01-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-farm": {
       "lessonId": "beginner-02",
@@ -4423,10 +3987,6 @@
           "targets": [
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.110349,
-                "y": 0.282544
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -4448,10 +4008,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.492824,
-                "y": 0.39056
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -4473,10 +4029,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.732909,
-                "y": 0.636562
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -4500,13 +4052,10 @@
           "answerId": "zone-01",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.732909,
-              "y": 0.636562
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-farm-context-2",
@@ -4544,10 +4093,6 @@
           "targets": [
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.110349,
-                "y": 0.282544
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -4569,10 +4114,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.492824,
-                "y": 0.39056
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -4594,10 +4135,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.732909,
-                "y": 0.636562
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -4621,13 +4158,10 @@
           "answerId": "zone-15",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.110349,
-              "y": 0.282544
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-farm-context-3",
@@ -4665,10 +4199,6 @@
           "targets": [
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.110349,
-                "y": 0.282544
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -4690,10 +4220,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.492824,
-                "y": 0.39056
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -4715,10 +4241,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.732909,
-                "y": 0.636562
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -4742,19 +4264,17 @@
           "answerId": "zone-06",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.492824,
-              "y": 0.39056
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-02-grammar-1",
         "beginner-02-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-town": {
       "lessonId": "beginner-03",
@@ -4812,10 +4332,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.144321,
-                "y": 0.693044
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -4837,10 +4353,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.492178,
-                "y": 0.272159
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -4862,10 +4374,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.890187,
-                "y": 0.325972
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -4889,13 +4397,10 @@
           "answerId": "zone-01",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.144321,
-              "y": 0.693044
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-town-context-2",
@@ -4938,10 +4443,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.144321,
-                "y": 0.693044
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -4963,10 +4464,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.492178,
-                "y": 0.272159
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -4988,10 +4485,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.890187,
-                "y": 0.325972
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -5015,13 +4508,10 @@
           "answerId": "zone-09",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.890187,
-              "y": 0.325972
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-town-context-3",
@@ -5064,10 +4554,6 @@
           "targets": [
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.144321,
-                "y": 0.693044
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -5089,10 +4575,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.492178,
-                "y": 0.272159
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -5114,10 +4596,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.890187,
-                "y": 0.325972
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -5141,19 +4619,17 @@
           "answerId": "zone-10",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.492178,
-              "y": 0.272159
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-03-grammar-1",
         "beginner-03-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-river": {
       "lessonId": "beginner-04",
@@ -5209,10 +4685,6 @@
           "targets": [
             {
               "id": "zone-13",
-              "position": {
-                "x": 0.274434,
-                "y": 0.659934
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -5234,10 +4706,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.487054,
-                "y": 0.718169
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -5259,10 +4727,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.889076,
-                "y": 0.623788
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -5286,13 +4750,10 @@
           "answerId": "zone-13",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.274434,
-              "y": 0.659934
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-river-context-2",
@@ -5333,10 +4794,6 @@
           "targets": [
             {
               "id": "zone-13",
-              "position": {
-                "x": 0.274434,
-                "y": 0.659934
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -5358,10 +4815,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.487054,
-                "y": 0.718169
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -5383,10 +4836,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.889076,
-                "y": 0.623788
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -5410,13 +4859,10 @@
           "answerId": "zone-05",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.487054,
-              "y": 0.718169
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-river-context-3",
@@ -5457,10 +4903,6 @@
           "targets": [
             {
               "id": "zone-13",
-              "position": {
-                "x": 0.274434,
-                "y": 0.659934
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -5482,10 +4924,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.487054,
-                "y": 0.718169
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -5507,10 +4945,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.889076,
-                "y": 0.623788
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -5534,19 +4968,17 @@
           "answerId": "zone-06",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.889076,
-              "y": 0.623788
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-04-grammar-1",
         "beginner-04-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-harbor": {
       "lessonId": "beginner-05",
@@ -5605,10 +5037,6 @@
           "targets": [
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.342524,
-                "y": 0.217579
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -5630,10 +5058,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.339131,
-                "y": 0.460796
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -5655,10 +5079,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.610298,
-                "y": 0.843456
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -5682,13 +5102,10 @@
           "answerId": "zone-06",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.339131,
-              "y": 0.460796
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-harbor-context-2",
@@ -5732,10 +5149,6 @@
           "targets": [
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.342524,
-                "y": 0.217579
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -5757,10 +5170,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.339131,
-                "y": 0.460796
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -5782,10 +5191,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.610298,
-                "y": 0.843456
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -5809,13 +5214,10 @@
           "answerId": "zone-04",
           "successKo": "아래쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.610298,
-              "y": 0.843456
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-harbor-context-3",
@@ -5859,10 +5261,6 @@
           "targets": [
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.342524,
-                "y": 0.217579
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -5884,10 +5282,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.339131,
-                "y": 0.460796
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -5909,10 +5303,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.610298,
-                "y": 0.843456
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -5936,19 +5326,17 @@
           "answerId": "zone-08",
           "successKo": "위쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.342524,
-              "y": 0.217579
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-05-grammar-1",
         "beginner-05-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-convoy": {
       "lessonId": "beginner-06",
@@ -6006,10 +5394,6 @@
           "targets": [
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.391874,
-                "y": 0.642806
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -6031,10 +5415,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.615085,
-                "y": 0.356661
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -6056,10 +5436,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.887692,
-                "y": 0.671914
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -6083,13 +5459,10 @@
           "answerId": "zone-03",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.615085,
-              "y": 0.356661
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-convoy-context-2",
@@ -6132,10 +5505,6 @@
           "targets": [
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.391874,
-                "y": 0.642806
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -6157,10 +5526,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.615085,
-                "y": 0.356661
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -6182,10 +5547,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.887692,
-                "y": 0.671914
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -6209,13 +5570,10 @@
           "answerId": "zone-07",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.391874,
-              "y": 0.642806
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-convoy-context-3",
@@ -6258,10 +5616,6 @@
           "targets": [
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.391874,
-                "y": 0.642806
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -6283,10 +5637,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.615085,
-                "y": 0.356661
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -6308,10 +5658,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.887692,
-                "y": 0.671914
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -6335,19 +5681,17 @@
           "answerId": "zone-02",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.887692,
-              "y": 0.671914
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-06-grammar-1",
         "beginner-06-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-temple": {
       "lessonId": "beginner-07",
@@ -6406,10 +5750,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.207076,
-                "y": 0.663446
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -6431,10 +5771,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.433071,
-                "y": 0.745602
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -6456,10 +5792,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.753595,
-                "y": 0.227898
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -6483,13 +5815,10 @@
           "answerId": "zone-09",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.753595,
-              "y": 0.227898
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-temple-context-2",
@@ -6533,10 +5862,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.207076,
-                "y": 0.663446
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -6558,10 +5883,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.433071,
-                "y": 0.745602
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -6583,10 +5904,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.753595,
-                "y": 0.227898
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -6610,13 +5927,10 @@
           "answerId": "zone-02",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.433071,
-              "y": 0.745602
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-temple-context-3",
@@ -6660,10 +5974,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.207076,
-                "y": 0.663446
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -6685,10 +5995,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.433071,
-                "y": 0.745602
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -6710,10 +6016,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.753595,
-                "y": 0.227898
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -6737,19 +6039,17 @@
           "answerId": "zone-00",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.207076,
-              "y": 0.663446
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-07-grammar-1",
         "beginner-07-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-snow": {
       "lessonId": "beginner-08",
@@ -6809,10 +6109,6 @@
           "targets": [
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.747326,
-                "y": 0.217803
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -6834,10 +6130,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.391833,
-                "y": 0.394111
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -6859,10 +6151,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.589976,
-                "y": 0.724921
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -6886,13 +6174,10 @@
           "answerId": "zone-06",
           "successKo": "아래쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.589976,
-              "y": 0.724921
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-snow-context-2",
@@ -6937,10 +6222,6 @@
           "targets": [
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.747326,
-                "y": 0.217803
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -6962,10 +6243,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.391833,
-                "y": 0.394111
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -6987,10 +6264,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.589976,
-                "y": 0.724921
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -7014,13 +6287,10 @@
           "answerId": "zone-12",
           "successKo": "위쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.747326,
-              "y": 0.217803
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-snow-context-3",
@@ -7065,10 +6335,6 @@
           "targets": [
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.747326,
-                "y": 0.217803
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -7090,10 +6356,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.391833,
-                "y": 0.394111
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -7115,10 +6377,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.589976,
-                "y": 0.724921
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -7142,19 +6400,17 @@
           "answerId": "zone-05",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.391833,
-              "y": 0.394111
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-08-grammar-1",
         "beginner-08-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-night": {
       "lessonId": "beginner-09",
@@ -7213,10 +6469,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.237064,
-                "y": 0.471324
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -7238,10 +6490,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.535682,
-                "y": 0.258561
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -7263,10 +6511,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.850898,
-                "y": 0.433797
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -7290,13 +6534,10 @@
           "answerId": "zone-00",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.237064,
-              "y": 0.471324
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-night-context-2",
@@ -7340,10 +6581,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.237064,
-                "y": 0.471324
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -7365,10 +6602,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.535682,
-                "y": 0.258561
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -7390,10 +6623,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.850898,
-                "y": 0.433797
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -7417,13 +6646,10 @@
           "answerId": "zone-08",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.850898,
-              "y": 0.433797
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-night-context-3",
@@ -7467,10 +6693,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.237064,
-                "y": 0.471324
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -7492,10 +6714,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.535682,
-                "y": 0.258561
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -7517,10 +6735,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.850898,
-                "y": 0.433797
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -7544,19 +6758,17 @@
           "answerId": "zone-12",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.535682,
-              "y": 0.258561
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-09-grammar-1",
         "beginner-09-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "beginner-siege": {
       "lessonId": "beginner-10",
@@ -7615,10 +6827,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.248546,
-                "y": 0.685444
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -7640,10 +6848,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.292733,
-                "y": 0.469024
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -7665,10 +6869,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.359131,
-                "y": 0.252273
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -7692,13 +6892,10 @@
           "answerId": "zone-00",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.248546,
-              "y": 0.685444
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-siege-context-2",
@@ -7742,10 +6939,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.248546,
-                "y": 0.685444
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -7767,10 +6960,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.292733,
-                "y": 0.469024
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -7792,10 +6981,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.359131,
-                "y": 0.252273
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -7819,13 +7004,10 @@
           "answerId": "zone-11",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.292733,
-              "y": 0.469024
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "beginner-siege-context-3",
@@ -7869,10 +7051,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.248546,
-                "y": 0.685444
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -7894,10 +7072,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.292733,
-                "y": 0.469024
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -7919,10 +7093,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.359131,
-                "y": 0.252273
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -7946,19 +7116,17 @@
           "answerId": "zone-09",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.359131,
-              "y": 0.252273
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
       ],
       "grammarStepIds": [
         "beginner-10-grammar-1",
         "beginner-10-grammar-2"
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-forest": {
       "lessonId": "intermediate-01",
@@ -8030,10 +7198,6 @@
           "targets": [
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.278153,
-                "y": 0.555451
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -8055,10 +7219,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.560115,
-                "y": 0.276767
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -8080,10 +7240,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.816016,
-                "y": 0.794448
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -8107,15 +7263,12 @@
           "answerId": "zone-06",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.560115,
-              "y": 0.276767
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-08"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-forest-context-2",
@@ -8179,10 +7332,6 @@
           "targets": [
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.278153,
-                "y": 0.555451
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -8204,10 +7353,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.560115,
-                "y": 0.276767
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -8229,10 +7374,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.816016,
-                "y": 0.794448
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -8256,15 +7397,12 @@
           "answerId": "zone-05",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.816016,
-              "y": 0.794448
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-03"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-forest-context-3",
@@ -8321,10 +7459,6 @@
           "targets": [
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.278153,
-                "y": 0.555451
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -8346,10 +7480,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.560115,
-                "y": 0.276767
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -8371,10 +7501,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.816016,
-                "y": 0.794448
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -8398,17 +7524,15 @@
           "answerId": "zone-10",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.278153,
-              "y": 0.555451
-            }
+            "kind": "support"
           },
           "itemIds": [
             "beginner-09-12"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-farm": {
       "lessonId": "intermediate-02",
@@ -8483,10 +7607,6 @@
           "targets": [
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.173116,
-                "y": 0.672861
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -8508,10 +7628,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.616022,
-                "y": 0.360602
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -8533,10 +7649,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.848584,
-                "y": 0.379271
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -8560,15 +7672,12 @@
           "answerId": "zone-09",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.616022,
-              "y": 0.360602
-            }
+            "kind": "support"
           },
           "itemIds": [
             "basic-03-01"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-farm-context-2",
@@ -8625,10 +7734,6 @@
           "targets": [
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.173116,
-                "y": 0.672861
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -8650,10 +7755,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.616022,
-                "y": 0.360602
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -8675,10 +7776,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.848584,
-                "y": 0.379271
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -8702,13 +7799,10 @@
           "answerId": "zone-08",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.173116,
-              "y": 0.672861
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-farm-context-3",
@@ -8772,10 +7866,6 @@
           "targets": [
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.173116,
-                "y": 0.672861
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -8797,10 +7887,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.616022,
-                "y": 0.360602
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -8822,10 +7908,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.848584,
-                "y": 0.379271
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -8849,15 +7931,13 @@
           "answerId": "zone-06",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.848584,
-              "y": 0.379271
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-town": {
       "lessonId": "intermediate-03",
@@ -8929,10 +8009,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.191921,
-                "y": 0.337874
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -8954,10 +8030,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.499664,
-                "y": 0.54718
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -8979,10 +8051,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.666371,
-                "y": 0.3342
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -9006,13 +8074,10 @@
           "answerId": "zone-01",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.666371,
-              "y": 0.3342
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-town-context-2",
@@ -9076,10 +8141,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.191921,
-                "y": 0.337874
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -9101,10 +8162,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.499664,
-                "y": 0.54718
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -9126,10 +8183,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.666371,
-                "y": 0.3342
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -9153,13 +8206,10 @@
           "answerId": "zone-04",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.499664,
-              "y": 0.54718
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-town-context-3",
@@ -9209,10 +8259,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.191921,
-                "y": 0.337874
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -9234,10 +8280,6 @@
             },
             {
               "id": "zone-04",
-              "position": {
-                "x": 0.499664,
-                "y": 0.54718
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -9259,10 +8301,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.666371,
-                "y": 0.3342
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -9286,17 +8324,15 @@
           "answerId": "zone-14",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.191921,
-              "y": 0.337874
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-03"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-river": {
       "lessonId": "intermediate-04",
@@ -9368,10 +8404,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.156948,
-                "y": 0.338609
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -9393,10 +8425,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.549027,
-                "y": 0.525452
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -9418,10 +8446,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.753667,
-                "y": 0.657336
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -9445,15 +8469,12 @@
           "answerId": "zone-01",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.753667,
-              "y": 0.657336
-            }
+            "kind": "support"
           },
           "itemIds": [
             "beginner-09-12"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-river-context-2",
@@ -9510,10 +8531,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.156948,
-                "y": 0.338609
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -9535,10 +8552,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.549027,
-                "y": 0.525452
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -9560,10 +8573,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.753667,
-                "y": 0.657336
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -9587,13 +8596,10 @@
           "answerId": "zone-09",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.156948,
-              "y": 0.338609
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-river-context-3",
@@ -9653,10 +8659,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.156948,
-                "y": 0.338609
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -9678,10 +8680,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.549027,
-                "y": 0.525452
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -9703,10 +8701,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.753667,
-                "y": 0.657336
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -9730,17 +8724,15 @@
           "answerId": "zone-08",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.549027,
-              "y": 0.525452
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-03"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-harbor": {
       "lessonId": "intermediate-05",
@@ -9805,10 +8797,6 @@
           "targets": [
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.275356,
-                "y": 0.48787
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -9830,10 +8818,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.419519,
-                "y": 0.66809
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -9855,10 +8839,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.828114,
-                "y": 0.753832
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -9882,13 +8862,10 @@
           "answerId": "zone-10",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.275356,
-              "y": 0.48787
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-harbor-context-2",
@@ -9952,10 +8929,6 @@
           "targets": [
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.275356,
-                "y": 0.48787
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -9977,10 +8950,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.419519,
-                "y": 0.66809
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -10002,10 +8971,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.828114,
-                "y": 0.753832
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -10029,15 +8994,12 @@
           "answerId": "zone-01",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.828114,
-              "y": 0.753832
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-03"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-harbor-context-3",
@@ -10094,10 +9056,6 @@
           "targets": [
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.275356,
-                "y": 0.48787
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -10119,10 +9077,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.419519,
-                "y": 0.66809
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -10144,10 +9098,6 @@
             },
             {
               "id": "zone-01",
-              "position": {
-                "x": 0.828114,
-                "y": 0.753832
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -10171,15 +9121,13 @@
           "answerId": "zone-11",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.419519,
-              "y": 0.66809
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-convoy": {
       "lessonId": "intermediate-06",
@@ -10251,10 +9199,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.21139,
-                "y": 0.211595
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -10276,10 +9220,6 @@
             },
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.468127,
-                "y": 0.897652
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -10301,10 +9241,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.797715,
-                "y": 0.70391
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -10328,15 +9264,12 @@
           "answerId": "zone-14",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.21139,
-              "y": 0.211595
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-08"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-convoy-context-2",
@@ -10389,10 +9322,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.21139,
-                "y": 0.211595
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -10414,10 +9343,6 @@
             },
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.468127,
-                "y": 0.897652
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -10439,10 +9364,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.797715,
-                "y": 0.70391
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -10466,15 +9387,12 @@
           "answerId": "zone-15",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.468127,
-              "y": 0.897652
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-02-17"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-convoy-context-3",
@@ -10531,10 +9449,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.21139,
-                "y": 0.211595
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -10556,10 +9470,6 @@
             },
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.468127,
-                "y": 0.897652
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -10581,10 +9491,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.797715,
-                "y": 0.70391
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -10608,15 +9514,13 @@
           "answerId": "zone-02",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.797715,
-              "y": 0.70391
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-temple": {
       "lessonId": "intermediate-07",
@@ -10688,10 +9592,6 @@
           "targets": [
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.211312,
-                "y": 0.213235
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -10713,10 +9613,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.392195,
-                "y": 0.436547
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -10738,10 +9634,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.830136,
-                "y": 0.812
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -10765,13 +9657,10 @@
           "answerId": "zone-07",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.392195,
-              "y": 0.436547
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-temple-context-2",
@@ -10828,10 +9717,6 @@
           "targets": [
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.211312,
-                "y": 0.213235
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -10853,10 +9738,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.392195,
-                "y": 0.436547
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -10878,10 +9759,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.830136,
-                "y": 0.812
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -10905,15 +9782,12 @@
           "answerId": "zone-02",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.830136,
-              "y": 0.812
-            }
+            "kind": "support"
           },
           "itemIds": [
             "basic-10-15"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-temple-context-3",
@@ -10970,10 +9844,6 @@
           "targets": [
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.211312,
-                "y": 0.213235
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -10995,10 +9865,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.392195,
-                "y": 0.436547
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -11020,10 +9886,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.830136,
-                "y": 0.812
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -11047,15 +9909,13 @@
           "answerId": "zone-10",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.211312,
-              "y": 0.213235
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-snow": {
       "lessonId": "intermediate-08",
@@ -11134,10 +9994,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.192255,
-                "y": 0.440474
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -11159,10 +10015,6 @@
             },
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.372832,
-                "y": 0.312965
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -11184,10 +10036,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.661271,
-                "y": 0.747461
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -11211,15 +10059,12 @@
           "answerId": "zone-14",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.372832,
-              "y": 0.312965
-            }
+            "kind": "support"
           },
           "itemIds": [
             "beginner-09-12"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-snow-context-2",
@@ -11269,10 +10114,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.192255,
-                "y": 0.440474
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -11294,10 +10135,6 @@
             },
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.372832,
-                "y": 0.312965
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -11319,10 +10156,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.661271,
-                "y": 0.747461
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -11346,15 +10179,12 @@
           "answerId": "zone-09",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.192255,
-              "y": 0.440474
-            }
+            "kind": "support"
           },
           "itemIds": [
             "basic-07-09"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-snow-context-3",
@@ -11411,10 +10241,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.192255,
-                "y": 0.440474
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -11436,10 +10262,6 @@
             },
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.372832,
-                "y": 0.312965
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -11461,10 +10283,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.661271,
-                "y": 0.747461
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -11488,15 +10306,13 @@
           "answerId": "zone-05",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.661271,
-              "y": 0.747461
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-night": {
       "lessonId": "intermediate-09",
@@ -11568,10 +10384,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.102372,
-                "y": 0.345002
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -11593,10 +10405,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.499658,
-                "y": 0.228901
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -11618,10 +10426,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.721983,
-                "y": 0.792578
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -11645,15 +10449,12 @@
           "answerId": "zone-02",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.721983,
-              "y": 0.792578
-            }
+            "kind": "support"
           },
           "itemIds": [
             "basic-10-04"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-night-context-2",
@@ -11699,10 +10500,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.102372,
-                "y": 0.345002
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -11724,10 +10521,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.499658,
-                "y": 0.228901
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -11749,10 +10542,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.721983,
-                "y": 0.792578
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -11776,13 +10565,10 @@
           "answerId": "zone-12",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.499658,
-              "y": 0.228901
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-night-context-3",
@@ -11832,10 +10618,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.102372,
-                "y": 0.345002
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -11857,10 +10639,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.499658,
-                "y": 0.228901
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -11882,10 +10660,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.721983,
-                "y": 0.792578
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -11909,17 +10683,15 @@
           "answerId": "zone-09",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.102372,
-              "y": 0.345002
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-03"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "intermediate-siege": {
       "lessonId": "intermediate-10",
@@ -11984,10 +10756,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.236431,
-                "y": 0.223407
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -12009,10 +10777,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.428994,
-                "y": 0.329905
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -12034,10 +10798,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.540554,
-                "y": 0.524264
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -12061,15 +10821,12 @@
           "answerId": "zone-07",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.540554,
-              "y": 0.524264
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-09-16"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-siege-context-2",
@@ -12126,10 +10883,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.236431,
-                "y": 0.223407
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -12151,10 +10904,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.428994,
-                "y": 0.329905
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -12176,10 +10925,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.540554,
-                "y": 0.524264
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -12203,15 +10948,12 @@
           "answerId": "zone-14",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.236431,
-              "y": 0.223407
-            }
+            "kind": "support"
           },
           "itemIds": [
             "beginner-09-08"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "intermediate-siege-context-3",
@@ -12261,10 +11003,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.236431,
-                "y": 0.223407
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -12286,10 +11024,6 @@
             },
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.428994,
-                "y": 0.329905
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -12311,10 +11045,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.540554,
-                "y": 0.524264
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -12338,15 +11068,13 @@
           "answerId": "zone-09",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.428994,
-              "y": 0.329905
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-forest": {
       "lessonId": "advanced-01",
@@ -12418,10 +11146,6 @@
           "targets": [
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.135175,
-                "y": 0.289106
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -12443,10 +11167,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.598529,
-                "y": 0.261558
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -12468,10 +11188,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.830793,
-                "y": 0.726347
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -12495,13 +11211,10 @@
           "answerId": "zone-05",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.135175,
-              "y": 0.289106
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-forest-context-2",
@@ -12558,10 +11271,6 @@
           "targets": [
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.135175,
-                "y": 0.289106
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -12583,10 +11292,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.598529,
-                "y": 0.261558
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -12608,10 +11313,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.830793,
-                "y": 0.726347
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -12635,13 +11336,10 @@
           "answerId": "zone-03",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.830793,
-              "y": 0.726347
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-forest-context-3",
@@ -12698,10 +11396,6 @@
           "targets": [
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.135175,
-                "y": 0.289106
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -12723,10 +11417,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.598529,
-                "y": 0.261558
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -12748,10 +11438,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.830793,
-                "y": 0.726347
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -12775,15 +11461,13 @@
           "answerId": "zone-10",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.598529,
-              "y": 0.261558
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-farm": {
       "lessonId": "advanced-02",
@@ -12855,10 +11539,6 @@
           "targets": [
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.145,
-                "y": 0.685692
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -12880,10 +11560,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.52,
-                "y": 0.263466
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -12905,10 +11581,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.819508,
-                "y": 0.761555
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -12932,13 +11604,10 @@
           "answerId": "zone-02",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.145,
-              "y": 0.685692
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-farm-context-2",
@@ -13009,10 +11678,6 @@
           "targets": [
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.145,
-                "y": 0.685692
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -13034,10 +11699,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.52,
-                "y": 0.263466
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -13059,10 +11720,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.819508,
-                "y": 0.761555
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -13086,13 +11743,10 @@
           "answerId": "zone-12",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.52,
-              "y": 0.263466
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-farm-context-3",
@@ -13191,10 +11845,6 @@
           "targets": [
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.145,
-                "y": 0.685692
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -13216,10 +11866,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.52,
-                "y": 0.263466
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -13241,10 +11887,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.819508,
-                "y": 0.761555
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -13268,17 +11910,15 @@
           "answerId": "zone-05",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.819508,
-              "y": 0.761555
-            }
+            "kind": "support"
           },
           "itemIds": [
             "advanced-01-15"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-town": {
       "lessonId": "advanced-03",
@@ -13350,10 +11990,6 @@
           "targets": [
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.127478,
-                "y": 0.70072
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -13375,10 +12011,6 @@
             },
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.430642,
-                "y": 0.588356
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -13400,10 +12032,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.859436,
-                "y": 0.730405
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -13427,13 +12055,10 @@
           "answerId": "zone-00",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.430642,
-              "y": 0.588356
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-town-context-2",
@@ -13518,10 +12143,6 @@
           "targets": [
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.127478,
-                "y": 0.70072
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -13543,10 +12164,6 @@
             },
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.430642,
-                "y": 0.588356
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -13568,10 +12185,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.859436,
-                "y": 0.730405
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -13595,15 +12208,12 @@
           "answerId": "zone-10",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.859436,
-              "y": 0.730405
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-09-14"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-town-context-3",
@@ -13667,10 +12277,6 @@
           "targets": [
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.127478,
-                "y": 0.70072
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -13692,10 +12298,6 @@
             },
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.430642,
-                "y": 0.588356
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -13717,10 +12319,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.859436,
-                "y": 0.730405
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -13744,15 +12342,13 @@
           "answerId": "zone-02",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.127478,
-              "y": 0.70072
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-river": {
       "lessonId": "advanced-04",
@@ -13838,10 +12434,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.343479,
-                "y": 0.419324
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -13863,10 +12455,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.408555,
-                "y": 0.633203
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -13888,10 +12476,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.671291,
-                "y": 0.536406
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -13915,13 +12499,10 @@
           "answerId": "zone-02",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.408555,
-              "y": 0.633203
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-river-context-2",
@@ -13992,10 +12573,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.343479,
-                "y": 0.419324
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -14017,10 +12594,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.408555,
-                "y": 0.633203
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -14042,10 +12615,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.671291,
-                "y": 0.536406
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -14069,13 +12638,10 @@
           "answerId": "zone-09",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.343479,
-              "y": 0.419324
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-river-context-3",
@@ -14139,10 +12705,6 @@
           "targets": [
             {
               "id": "zone-09",
-              "position": {
-                "x": 0.343479,
-                "y": 0.419324
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -14164,10 +12726,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.408555,
-                "y": 0.633203
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -14189,10 +12747,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.671291,
-                "y": 0.536406
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -14216,15 +12770,13 @@
           "answerId": "zone-12",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.671291,
-              "y": 0.536406
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-harbor": {
       "lessonId": "advanced-05",
@@ -14296,10 +12848,6 @@
           "targets": [
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.149749,
-                "y": 0.34792
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -14321,10 +12869,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.435718,
-                "y": 0.305731
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -14346,10 +12890,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.696125,
-                "y": 0.753315
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -14373,13 +12913,10 @@
           "answerId": "zone-07",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.696125,
-              "y": 0.753315
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-harbor-context-2",
@@ -14450,10 +12987,6 @@
           "targets": [
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.149749,
-                "y": 0.34792
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -14475,10 +13008,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.435718,
-                "y": 0.305731
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -14500,10 +13029,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.696125,
-                "y": 0.753315
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -14527,13 +13052,10 @@
           "answerId": "zone-06",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.435718,
-              "y": 0.305731
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-harbor-context-3",
@@ -14597,10 +13119,6 @@
           "targets": [
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.149749,
-                "y": 0.34792
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -14622,10 +13140,6 @@
             },
             {
               "id": "zone-06",
-              "position": {
-                "x": 0.435718,
-                "y": 0.305731
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -14647,10 +13161,6 @@
             },
             {
               "id": "zone-07",
-              "position": {
-                "x": 0.696125,
-                "y": 0.753315
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -14674,15 +13184,13 @@
           "answerId": "zone-05",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.149749,
-              "y": 0.34792
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-convoy": {
       "lessonId": "advanced-06",
@@ -14754,10 +13262,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.134144,
-                "y": 0.418198
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -14779,10 +13283,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.555699,
-                "y": 0.212088
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -14804,10 +13304,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.873722,
-                "y": 0.311351
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -14831,13 +13327,10 @@
           "answerId": "zone-11",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.873722,
-              "y": 0.311351
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-convoy-context-2",
@@ -14915,10 +13408,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.134144,
-                "y": 0.418198
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -14940,10 +13429,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.555699,
-                "y": 0.212088
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -14965,10 +13450,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.873722,
-                "y": 0.311351
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -14992,13 +13473,10 @@
           "answerId": "zone-00",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.134144,
-              "y": 0.418198
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-convoy-context-3",
@@ -15062,10 +13540,6 @@
           "targets": [
             {
               "id": "zone-00",
-              "position": {
-                "x": 0.134144,
-                "y": 0.418198
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -15087,10 +13561,6 @@
             },
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.555699,
-                "y": 0.212088
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -15112,10 +13582,6 @@
             },
             {
               "id": "zone-11",
-              "position": {
-                "x": 0.873722,
-                "y": 0.311351
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -15139,17 +13605,15 @@
           "answerId": "zone-12",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.555699,
-              "y": 0.212088
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-08-12"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-temple": {
       "lessonId": "advanced-07",
@@ -15221,10 +13685,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.15,
-                "y": 0.8
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -15246,10 +13706,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.491156,
-                "y": 0.778355
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -15271,10 +13727,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.835297,
-                "y": 0.861159
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -15298,15 +13750,12 @@
           "answerId": "zone-14",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.15,
-              "y": 0.8
-            }
+            "kind": "support"
           },
           "itemIds": [
             "advanced-05-30"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-temple-context-2",
@@ -15384,10 +13833,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.15,
-                "y": 0.8
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -15409,10 +13854,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.491156,
-                "y": 0.778355
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -15434,10 +13875,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.835297,
-                "y": 0.861159
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -15461,15 +13898,12 @@
           "answerId": "zone-08",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.835297,
-              "y": 0.861159
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-09-25"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-temple-context-3",
@@ -15529,10 +13963,6 @@
           "targets": [
             {
               "id": "zone-14",
-              "position": {
-                "x": 0.15,
-                "y": 0.8
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -15554,10 +13984,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.491156,
-                "y": 0.778355
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -15579,10 +14005,6 @@
             },
             {
               "id": "zone-08",
-              "position": {
-                "x": 0.835297,
-                "y": 0.861159
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -15606,17 +14028,15 @@
           "answerId": "zone-03",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.491156,
-              "y": 0.778355
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-03"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-snow": {
       "lessonId": "advanced-08",
@@ -15681,10 +14101,6 @@
           "targets": [
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.181677,
-                "y": 0.630483
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -15706,10 +14122,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.367821,
-                "y": 0.780303
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -15731,10 +14143,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.868981,
-                "y": 0.229227
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -15758,15 +14166,12 @@
           "answerId": "zone-15",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.181677,
-              "y": 0.630483
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-02-17"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-snow-context-2",
@@ -15844,10 +14249,6 @@
           "targets": [
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.181677,
-                "y": 0.630483
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -15869,10 +14270,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.367821,
-                "y": 0.780303
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -15894,10 +14291,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.868981,
-                "y": 0.229227
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -15921,13 +14314,10 @@
           "answerId": "zone-03",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.367821,
-              "y": 0.780303
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-snow-context-3",
@@ -15991,10 +14381,6 @@
           "targets": [
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.181677,
-                "y": 0.630483
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -16016,10 +14402,6 @@
             },
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.367821,
-                "y": 0.780303
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -16041,10 +14423,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.868981,
-                "y": 0.229227
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -16068,17 +14446,15 @@
           "answerId": "zone-10",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.868981,
-              "y": 0.229227
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-24"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-night": {
       "lessonId": "advanced-09",
@@ -16157,10 +14533,6 @@
           "targets": [
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.356768,
-                "y": 0.430089
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -16182,10 +14554,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.671347,
-                "y": 0.608195
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -16207,10 +14575,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.479495,
-                "y": 0.757505
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -16234,15 +14598,12 @@
           "answerId": "zone-02",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.671347,
-              "y": 0.608195
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-01-03"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-night-context-2",
@@ -16316,10 +14677,6 @@
           "targets": [
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.356768,
-                "y": 0.430089
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -16341,10 +14698,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.671347,
-                "y": 0.608195
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -16366,10 +14719,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.479495,
-                "y": 0.757505
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -16393,15 +14742,12 @@
           "answerId": "zone-05",
           "successKo": "아래쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.479495,
-              "y": 0.757505
-            }
+            "kind": "support"
           },
           "itemIds": [
             "intermediate-09-25"
-          ]
+          ],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-night-context-3",
@@ -16486,10 +14832,6 @@
           "targets": [
             {
               "id": "zone-03",
-              "position": {
-                "x": 0.356768,
-                "y": 0.430089
-              },
               "label": {
                 "jp": "上の支援点",
                 "reading": "うえのしえんてん",
@@ -16511,10 +14853,6 @@
             },
             {
               "id": "zone-02",
-              "position": {
-                "x": 0.671347,
-                "y": 0.608195
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -16536,10 +14874,6 @@
             },
             {
               "id": "zone-05",
-              "position": {
-                "x": 0.479495,
-                "y": 0.757505
-              },
               "label": {
                 "jp": "下の支援点",
                 "reading": "したのしえんてん",
@@ -16563,15 +14897,13 @@
           "answerId": "zone-03",
           "successKo": "위쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.356768,
-              "y": 0.430089
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     },
     "advanced-siege": {
       "lessonId": "advanced-10",
@@ -16636,10 +14968,6 @@
           "targets": [
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.117159,
-                "y": 0.792172
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -16661,10 +14989,6 @@
             },
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.432925,
-                "y": 0.741905
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -16686,10 +15010,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.856053,
-                "y": 0.225036
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -16713,13 +15033,10 @@
           "answerId": "zone-15",
           "successKo": "중앙 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.432925,
-              "y": 0.741905
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-siege-context-2",
@@ -16794,10 +15111,6 @@
           "targets": [
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.117159,
-                "y": 0.792172
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -16819,10 +15132,6 @@
             },
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.432925,
-                "y": 0.741905
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -16844,10 +15153,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.856053,
-                "y": 0.225036
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -16871,13 +15176,10 @@
           "answerId": "zone-12",
           "successKo": "왼쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.117159,
-              "y": 0.792172
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         },
         {
           "id": "advanced-siege-context-3",
@@ -16952,10 +15254,6 @@
           "targets": [
             {
               "id": "zone-12",
-              "position": {
-                "x": 0.117159,
-                "y": 0.792172
-              },
               "label": {
                 "jp": "左の支援点",
                 "reading": "ひだりのしえんてん",
@@ -16977,10 +15275,6 @@
             },
             {
               "id": "zone-15",
-              "position": {
-                "x": 0.432925,
-                "y": 0.741905
-              },
               "label": {
                 "jp": "中央の支援点",
                 "reading": "ちゅうおうのしえんてん",
@@ -17002,10 +15296,6 @@
             },
             {
               "id": "zone-10",
-              "position": {
-                "x": 0.856053,
-                "y": 0.225036
-              },
               "label": {
                 "jp": "右の支援点",
                 "reading": "みぎのしえんてん",
@@ -17029,15 +15319,14 @@
           "answerId": "zone-10",
           "successKo": "오른쪽 지원점에 지원을 보냈습니다. 보고의 요청을 이해했습니다.",
           "action": {
-            "kind": "support",
-            "position": {
-              "x": 0.856053,
-              "y": 0.225036
-            }
+            "kind": "support"
           },
-          "itemIds": []
+          "itemIds": [],
+          "spatialBindingStatus": "requires_new_map"
         }
-      ]
+      ],
+      "spatialBindingStatus": "requires_new_map"
     }
-  }
+  },
+  "spatialBindingStatus": "requires_new_map"
 }

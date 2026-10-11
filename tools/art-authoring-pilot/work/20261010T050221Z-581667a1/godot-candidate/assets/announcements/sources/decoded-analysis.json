@@ -1,0 +1,82 @@
+[
+  {
+    "format": "original MP3 decoded by Godot",
+    "frames": 47232,
+    "id": "start",
+    "mixRate": 44100.0,
+    "nonzeroFrames": 40847,
+    "peak": 0.294205605983734,
+    "rms": 0.0556682584089432,
+    "seconds": 1.07102036476135
+  },
+  {
+    "format": "original MP3 decoded by Godot",
+    "frames": 44599,
+    "id": "correct",
+    "mixRate": 44100.0,
+    "nonzeroFrames": 41423,
+    "peak": 0.384356021881104,
+    "rms": 0.0825273304148699,
+    "seconds": 1.01140594482422
+  },
+  {
+    "format": "original MP3 decoded by Godot",
+    "frames": 44684,
+    "id": "incorrect",
+    "mixRate": 44100.0,
+    "nonzeroFrames": 44682,
+    "peak": 0.356405258178711,
+    "rms": 0.0821703059034196,
+    "seconds": 1.01333332061768
+  },
+  {
+    "format": "original MP3 decoded by Godot",
+    "frames": 44570,
+    "id": "hint",
+    "mixRate": 44100.0,
+    "nonzeroFrames": 33359,
+    "peak": 0.380461603403091,
+    "rms": 0.0631316039817731,
+    "seconds": 1.01074826717377
+  },
+  {
+    "format": "original MP3 decoded by Godot",
+    "frames": 88784,
+    "id": "answer_select",
+    "mixRate": 44100.0,
+    "nonzeroFrames": 78287,
+    "peak": 0.34352719783783,
+    "rms": 0.0758340198034462,
+    "seconds": 2.01333332061768
+  },
+  {
+    "format": "original MP3 decoded by Godot",
+    "frames": 52882,
+    "id": "next_question",
+    "mixRate": 44100.0,
+    "nonzeroFrames": 52880,
+    "peak": 0.367477238178253,
+    "rms": 0.0981796979055185,
+    "seconds": 1.1992290019989
+  },
+  {
+    "format": "original MP3 decoded by Godot",
+    "frames": 59868,
+    "id": "level_up",
+    "mixRate": 44100.0,
+    "nonzeroFrames": 59866,
+    "peak": 0.346839398145676,
+    "rms": 0.0842988390958662,
+    "seconds": 1.35764169692993
+  },
+  {
+    "format": "original MP3 decoded by Godot",
+    "frames": 67200,
+    "id": "message_received",
+    "mixRate": 44100.0,
+    "nonzeroFrames": 67198,
+    "peak": 0.31733426451683,
+    "rms": 0.0615912351592035,
+    "seconds": 1.52380955219269
+  }
+]

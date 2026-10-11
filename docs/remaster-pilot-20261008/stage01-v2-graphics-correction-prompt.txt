@@ -1,0 +1,33 @@
+MODE: built-in ImageGen; style-transfer edits.
+BASELINE R11: human said current texture is good after this image was displayed; approval is limited to concept texture/material.
+Image: stage01-v2-approved-material-reference-r11.png
+Input 1: exec-1e9e1298-ec9b-4a5b-94c7-674054d5e89b.png (prior concept layout)
+Input 2: docs/map-remaster-reference/01-period-war-materials.png (material/character reference)
+Input 3: docs/map-remaster-reference/04-strategy-map-materials.png (map rendering reference)
+
+Use case: style-transfer.
+Create a corrected Stage 01 gameplay ART DIRECTION image. Image 1 provides ONLY the existing wide layout and camera. Images 2 and 3 are the user's approved RENDERING STYLE and MATERIAL references. Faithfully match their soft realistic game CG rendering. Do not keep Image 1's current granular pixel texture.
+
+Redraw the whole map and the units with the references' smooth complete low-contrast finish, while exactly retaining Image 1's pulled-back orthographic composition, small full timber camp in the lower-left, road, boulders, foliage locations, four allied positions and compact red enemy wave. Retain the same top and bottom battle HUD arrangement and text. The allied units are exactly two side bow archers and two central spear infantry. The central spearmen must hold visibly long spears, not bows. Units remain uniformly small, same camera distance. Do not move closer.
+
+The key correction is SURFACE DETAIL FREQUENCY AND SHADING, not color. Image 1 still has sharp leaf flecks on every bush, individually sharp grass strands and pebble dots across the dirt. Replace those with broad softly blended natural material areas, continuous trampled earth, subdued smooth short grass, softly rendered grouped tree crowns and weathered wood, like the references. Reduce fine particle-like terrain detail and individual tiny leaf-edge contrast by approximately 80 percent. Keep coherent detailed objects and readable foliage silhouettes: natural game CG, not cartoon, flat color, clay, watercolor, blur or shiny plastic. Use quiet diffuse overcast shading, muted grey-green and natural brown, soft broad shadows. No sharpening, hyperreal microtexture, salt-and-pepper speckles, shiny gold, golden autumn tint or high-contrast crunchy rocks. Integrate units with this same soft matte material and light, based on reference 2's cloth and armor. Portraits should have the same restrained matte character rendering. Preserve the relevant whole object details (wood slats, canvas seams, layered armor) without bright edge outlines or tiny repeated texture dots.
+
+Image 2's eye-level camera, cavalry, sky, castle, fire and large armies are excluded. Image 3's giant fortress, fire, towers and RTS interface are excluded. They supply only finish/material. Keep current modest Stage 01 timber-earth camp with shallow dry ditch and open earth gate approach. No new troops, NPCs, turret crews, paths, water, buildings or interface buttons. No composition change.
+The separate initial/main-menu Hanji paper UI is outside this image and remains untouched; keep the current black battle HUD.
+One cohesive gameplay example, no comparison layout or watermark.
+
+OPTIONAL R12: vegetation refinement already in flight before human texture approval; not a replacement for approved baseline or native acceptance.
+Image: stage01-v2-vegetation-refinement-r12.png
+Input 1: baseline R11
+Input 2: docs/map-remaster-reference/04-strategy-map-materials.png
+
+Edit Image 1. Primary correction: drastically simplify VEGETATION, matching Image 2's strategy-game foliage readability. The user specifically says the vegetation is drawn in far too much detail.
+
+Keep the same wide orthographic camera, camp, road, rocks, exactly four allies, compact enemy wave and current HUD. Do not change framing, building sizes, colors or interface. The two central allies are spear infantry (long wooden spear silhouettes); the two flank allies are archers.
+
+Replace every over-detailed leafy tree/bush crown with a natural irregular canopy rendered as a few large soft matte masses. REMOVE individual leaf outlines, tiny leaf highlights, yellow leaf flecks and leaf clusters repeated like confetti. Inside each canopy, show broad gently shaded dark-green shapes and very little small detail. Retain natural tree trunk and whole crown silhouette. No waxy round blobs or shiny cartoon foliage.
+
+REMOVE the hundreds of individually drawn grass clumps and upright blades across the land. Grass should be represented chiefly as smooth continuous subdued olive-grey ground color with broad soft transitions to bare earth. Only a handful of quiet grass accents near large objects. Ground is dry compacted earth with subtle low-contrast material, no pebble/gravel noise, no patterned paving. The resulting map must be markedly quieter and smoother, not the same foliage softened with a blur.
+
+Render as the user's natural smooth historical strategy-game CG reference, with muted matte cloth/armor and soft diffuse light. Preserve complete object shapes and battlefield readability; the important visible details belong to soldiers, fort and route rather than each leaf or blade. Do not increase foliage quantity or redesign the scene. Reference2's giant fortress, fires and RTS layout are not content to copy. The separate initial Hanji paper UI remains unchanged outside this battle image.
+One full corrected gameplay example.

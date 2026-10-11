@@ -8,6 +8,8 @@ const TerrainLightField = preload("res://native/terrain_light_field.gd")
 const EnemyFortification = preload("res://native/enemy_fortification_3d.gd")
 const MobileObjectiveCart = preload("res://native/mobile_objective_cart_3d.gd")
 const BattlefieldPresentation = preload("res://native/battlefield_presentation.gd")
+const TroopActions = preload("res://native/troop_action_presentation.gd")
+var action_presentation: RefCounted = TroopActions.new()
 var presentation_mirrored: bool = false
 const DEFAULT_ACTOR_BASE_SCALE: float = 0.70
 const SAMURAI_BODY_SCALE: float = 1.07
@@ -21,6 +23,7 @@ var fill: DirectionalLight3D
 var environment: Environment
 var sky_material: ProceduralSkyMaterial
 var output: TextureRect
+var external_viewport_consumer: bool = false
 var actors: Dictionary = {}
 var fortifications: Dictionary = {}
 var support_rocks: Dictionary = {}
@@ -37,6 +40,11 @@ var battlefield: Node3D
 var terrain_navigation: RefCounted = BattlefieldNavigation.new()
 var navigation_fingerprint: String = ""
 var navigation_battle_generation: int = -1
+var navigation_segment_binding: Callable
+var navigation_placement_binding: Callable
+var world_geometry_signature: String = ""
+var authored_world_active: bool = false
+var legacy_world_width: float = 18.5
 var torch_lights: Array = []
 var motion_tracks: Dictionary = {}
 var contact_shadows: Dictionary = {}
@@ -46,6 +54,7 @@ var side_markers: Array = []
 var placement_actor: Node3D
 var placement_identity: String = ""
 var placement_clock: float = 0.0
+var ui_deployment_preview: Dictionary = {}
 var local_light_field: RefCounted
 var local_light_tracks: Dictionary = {}
 var local_light_updates: int = 0
@@ -179,8 +188,38 @@ func set_field_size(value: Vector2) -> void:
 	if sun!=null and not stage.is_empty(): _configure_stage_lighting(false)
 	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
 
+func set_external_viewport_consumer(active: bool) -> void:
+	if external_viewport_consumer == active: return
+	external_viewport_consumer = active
+	if viewport != null:
+		# A learning card can consume the scene while this Control is hidden.
+		viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+
 func _update_camera_projection() -> void:
 	var aspect: float = field_size.x/field_size.y
+	if uses_world_geometry():
+		var bounds: Dictionary = stage.get("worldGeometry",{}).get("simulationBounds",{})
+		if not authored_world_active: legacy_world_width = world_width
+		authored_world_active = true
+		world_width = float(bounds.get("width",world_width))
+		world_depth = float(bounds.get("depth",world_depth))
+		if not is_instance_valid(camera): return
+		var settings: Dictionary = stage.get("worldGeometry",{}).get("camera",{})
+		var center: Vector3 = normalized_to_world(Vector2(.5,.5))
+		var target: Vector3 = Vector3(float(bounds.get("x",0))+world_width*.5,center.y if center.is_finite() else 0.0,float(bounds.get("z",0))+world_depth*.5)
+		var requested: Variant = settings.get("worldTarget",null)
+		if requested is Array and requested.size() == 3:
+			var requested_target: Vector3 = Vector3(float(requested[0]),float(requested[1]),float(requested[2]))
+			if requested_target.is_finite(): target = requested_target
+		var fit: float = maxf(world_width,world_depth*sin(deg_to_rad(elevation_degrees))*aspect)*1.08
+		var requested_size: float = float(settings.get("size",fit))
+		camera.size = requested_size if is_finite(requested_size) and requested_size > 0 else fit
+		camera.position = target+Vector3(0,30.0,30.0/tan(deg_to_rad(elevation_degrees)))
+		camera.look_at(target,Vector3.UP)
+		return
+	if authored_world_active:
+		world_width = legacy_world_width
+		authored_world_active = false
 	world_depth = world_width/aspect/sin(deg_to_rad(elevation_degrees))
 	if not is_instance_valid(camera): return
 	camera.size = world_width
@@ -189,9 +228,17 @@ func _update_camera_projection() -> void:
 
 func set_stage(value: Dictionary) -> void:
 	var previous_elevation: float = elevation_degrees
+	var previous_stage_id: String = str(stage.get("id",""))
+	var previous_geometry: String = world_geometry_signature
 	stage = value.duplicate(true)
+	world_geometry_signature = JSON.stringify(stage.get("worldGeometry",{})).sha256_text()
 	elevation_degrees = BattlefieldPresentation.elevation_for_stage(stage)
-	if not is_equal_approx(previous_elevation,elevation_degrees): motion_tracks.clear()
+	var camera_settings: Dictionary = stage.get("worldGeometry",{}).get("camera",{})
+	var authored_elevation: float = float(camera_settings.get("elevationDegrees",elevation_degrees))
+	if is_finite(authored_elevation): elevation_degrees = clampf(authored_elevation,35,65)
+	if previous_stage_id != str(stage.get("id","")) or previous_geometry != world_geometry_signature or not is_equal_approx(previous_elevation,elevation_degrees):
+		motion_tracks.clear()
+		navigation_fingerprint = ""
 	_update_camera_projection()
 	presentation_mirrored = BattlefieldPresentation.mirror_for_stage(stage)
 	if output!=null: output.flip_h=presentation_mirrored
@@ -199,6 +246,7 @@ func set_stage(value: Dictionary) -> void:
 	local_light_tracks.clear()
 	light_clock = -1.0
 	if is_instance_valid(battlefield): battlefield.configure(stage,world_width,world_depth,elevation_degrees)
+	_update_camera_projection()
 	_bind_terrain_navigation()
 	if is_instance_valid(placement_actor):
 		placement_actor.hide()
@@ -297,8 +345,15 @@ func refresh_rendered_art() -> void:
 	if sun!=null: _configure_stage_lighting()
 
 func bind_battle(value: Node2D) -> void:
+	if battle != value:
+		_clear_owned_navigation()
+		motion_tracks.clear()
+		navigation_fingerprint = ""
+		navigation_battle_generation = -1
 	battle = value
+	if action_presentation.battle != value: action_presentation.bind(value)
 	if is_instance_valid(battle) and battle.has_method("bind_render_projection"): battle.bind_render_projection(self)
+	_bind_terrain_navigation()
 
 func health_anchor_for(actor_id: int) -> Dictionary:
 	for marker in side_markers:
@@ -310,8 +365,7 @@ func normalized_to_world(point: Vector2) -> Vector3:
 	return battlefield.world_point(point) if is_instance_valid(battlefield) else Vector3((point.x-0.5)*world_width,0,(point.y-0.5)*world_depth)
 
 func _world_heading(point: Vector2, direction: Vector2) -> Vector3:
-	# Screen-normalized X/Y have different world lengths. Terrain also shears
-	# Z to preserve the artwork anchor, so face the actual projected travel.
+	# Face travel in the provider's actual world axes and lengths.
 	if direction.length_squared()<.000000001: return Vector3.ZERO
 	var step: Vector2=direction.normalized()*.006
 	var heading: Vector3=normalized_to_world(point+step)-normalized_to_world(point-step)
@@ -336,6 +390,8 @@ func _forest_approach_cover(point: Vector2) -> float:
 	return clampf(cover,0.0,1.0)
 
 func _ground_contact_height(world_point_value: Vector3) -> float:
+	if uses_world_geometry():
+		return float(battlefield.sample_world_height(world_point_value))
 	if not is_instance_valid(battlefield) or not battlefield.has_method("height_at"): return 0.0
 	var grid_height: float=_native_grid_contact_height(world_point_value)
 	if is_finite(grid_height): return grid_height
@@ -435,8 +491,13 @@ func _terrain_approach_profile(data: Dictionary, point: Vector2) -> Dictionary:
 	var step: float=.006
 	var horizontal: float=Vector2(forward.x*world_width,forward.y*world_depth).length()*step*2.0
 	var lateral: float=Vector2(across.x*world_width,across.y*world_depth).length()*step*2.0
-	result.pitch=clampf(atan2(float(battlefield.height_at(point+forward*step))-float(battlefield.height_at(point-forward*step)),horizontal),-.28,.28)
-	result.roll=clampf(atan2(float(battlefield.height_at(point+across*step))-float(battlefield.height_at(point-across*step)),lateral),-.22,.22)
+	var front: float = float(battlefield.height_at(point+forward*step))
+	var back: float = float(battlefield.height_at(point-forward*step))
+	var left: float = float(battlefield.height_at(point+across*step))
+	var right: float = float(battlefield.height_at(point-across*step))
+	if not is_finite(front) or not is_finite(back) or not is_finite(left) or not is_finite(right): return result
+	result.pitch=clampf(atan2(front-back,horizontal),-.28,.28)
+	result.roll=clampf(atan2(left-right,lateral),-.22,.22)
 	result.enabled=true
 	# Every marching foot soldier responds to the same real ground. Only the
 	# hostile emplacement crew uses its existing concealed-approach crouch.
@@ -463,18 +524,41 @@ func project_world_to_field(point: Vector3) -> Vector2:
 	return BattlefieldPresentation.pixel_to_view(projected,field_size,presentation_mirrored)
 
 func world_to_normalized(point: Vector3) -> Vector2:
+	if uses_world_geometry(): return battlefield.world_to_normalized(point)
 	# Terrain height is sheared into world Z so the projected ground anchor
 	# matches the 2D authored point. Undo that shear before artwork sampling.
 	return Vector2(point.x/world_width+.5,(point.z-point.y/tan(deg_to_rad(elevation_degrees)))/world_depth+.5)
 
+func uses_world_geometry() -> bool:
+	return is_instance_valid(battlefield) and battlefield.has_method("supports_world_geometry") and bool(battlefield.supports_world_geometry())
+
+func model_to_field_point(point: Vector2) -> Vector2:
+	var actual: Vector3 = normalized_to_world(point)
+	return project_world_to_field(actual) if actual.is_finite() else Vector2(INF,INF)
+
+func screen_to_model_point(global_pointer: Vector2) -> Dictionary:
+	if not uses_world_geometry() or not is_instance_valid(camera) or not is_instance_valid(viewport): return {"valid":false}
+	var local: Vector2 = get_global_transform_with_canvas().affine_inverse()*global_pointer
+	if not Rect2(Vector2.ZERO,field_size).has_point(local): return {"valid":false}
+	var pixel: Vector2 = BattlefieldPresentation.pixel_to_view(local,field_size,presentation_mirrored)*Vector2(viewport.size)/field_size
+	return battlefield.ray_pick(camera.project_ray_origin(pixel),camera.project_ray_normal(pixel))
+
 func set_terrain_provider(provider: Node3D) -> void:
 	if not is_instance_valid(provider) or not provider.has_method("world_point") or not provider.has_method("configure"): return
+	if provider.has_method("supports_world_geometry"):
+		for method in ["world_to_normalized","sample_world_height","ray_pick","height_at","segment_clear","placement_clear"]:
+			if not provider.has_method(method):
+				push_error("Authored terrain provider lacks " + str(method))
+				return
+	_clear_owned_navigation()
 	if is_instance_valid(battlefield) and battlefield!=provider:
 		battlefield.hide()
 		if battlefield.get_parent()==world: world.remove_child(battlefield);battlefield.queue_free()
 	battlefield=provider
 	if provider.get_parent()==null: world.add_child(provider)
 	battlefield.configure(stage,world_width,world_depth,elevation_degrees)
+	_update_camera_projection()
+	motion_tracks.clear()
 	navigation_fingerprint = ""
 	_bind_terrain_navigation()
 	if sun!=null: _configure_stage_lighting()
@@ -489,6 +573,18 @@ func _bind_terrain_navigation() -> void:
 		return
 	if str(battle.config.get("id","")) != str(stage.get("id","")):
 		return
+	if uses_world_geometry():
+		var scene_key: String = "%d:%s" % [battlefield.get_instance_id(),world_geometry_signature]
+		var segment: Callable = Callable(battlefield,"segment_clear")
+		var placement: Callable = Callable(battlefield,"placement_clear")
+		if navigation_fingerprint == scene_key and navigation_battle_generation == battle.battle_generation and battle.structure_placement_clear == placement and battle.ground_combat.structure_segment_clear == segment:
+			return
+		battle.bind_terrain_navigation(segment,placement)
+		navigation_segment_binding = segment
+		navigation_placement_binding = placement
+		navigation_fingerprint = scene_key
+		navigation_battle_generation = battle.battle_generation
+		return
 	if not battlefield.has_method("world_point") or not "structural_parts" in battlefield:
 		return
 	var scene_key: String = "%d:%s:%d:%s" % [battlefield.get_instance_id(),battlefield.geometry_fingerprint,battlefield.rebuild_count,battlefield.render_signature]
@@ -497,14 +593,22 @@ func _bind_terrain_navigation() -> void:
 	if navigation_fingerprint != scene_key:
 		terrain_navigation.capture_current(battlefield.structural_parts,Callable(battlefield,"world_point"),world_width,world_depth)
 		navigation_fingerprint = scene_key
-	battle.bind_terrain_navigation(Callable(terrain_navigation,"segment_clear"),Callable(terrain_navigation,"placement_clear"))
+	navigation_segment_binding = Callable(terrain_navigation,"segment_clear")
+	navigation_placement_binding = Callable(terrain_navigation,"placement_clear")
+	battle.bind_terrain_navigation(navigation_segment_binding,navigation_placement_binding)
 	navigation_battle_generation = battle.battle_generation
 
-func _exit_tree() -> void:
+func _clear_owned_navigation() -> void:
 	if is_instance_valid(battle):
-		battle.structure_placement_clear = Callable()
-		battle.ground_combat.structure_segment_clear = Callable()
-		battle.ground_combat.structure_placement_clear = Callable()
+		if battle.structure_placement_clear == navigation_placement_binding: battle.structure_placement_clear = Callable()
+		if battle.ground_combat.structure_segment_clear == navigation_segment_binding: battle.ground_combat.structure_segment_clear = Callable()
+		if battle.ground_combat.structure_placement_clear == navigation_placement_binding: battle.ground_combat.structure_placement_clear = Callable()
+	navigation_segment_binding = Callable()
+	navigation_placement_binding = Callable()
+
+func _exit_tree() -> void:
+	action_presentation.unbind()
+	_clear_owned_navigation()
 	terrain_navigation.invalidate()
 
 func _render_scale(profile: Dictionary, point: Vector2, data: Dictionary) -> float:
@@ -527,17 +631,32 @@ func _process(delta: float) -> void:
 	if viewport == null:
 		return
 	if not is_visible_in_tree():
-		viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
-		if is_instance_valid(placement_actor): placement_actor.hide()
+		if is_instance_valid(placement_actor) and placement_actor.visible:
+			placement_actor.hide()
+			if external_viewport_consumer:
+				viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+		# UPDATE_ONCE is consumed by the renderer; the SubViewport getter can
+		# retain ONCE. Clear the node property only after the requested draw.
+		if external_viewport_consumer and viewport.render_target_update_mode == SubViewport.UPDATE_ONCE:
+			if not RenderingServer.frame_post_draw.is_connected(_finish_hidden_viewport_draw):
+				RenderingServer.frame_post_draw.connect(_finish_hidden_viewport_draw,CONNECT_ONE_SHOT)
+		else:
+			viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 		return
 	var states: Array = manual_states
 	if is_instance_valid(battle):
 		states = battle.actor_states()
 	sync_actor_states(states)
-	if is_instance_valid(battle) and battle.has_method("placement_preview"):
+	if is_instance_valid(battle) and battle.ui_deployment_active:
+		sync_placement_preview(ui_deployment_preview,delta)
+	elif is_instance_valid(battle) and battle.has_method("placement_preview"):
 		sync_placement_preview(battle.placement_preview(battle.placement_cursor),delta)
 	else:
 		sync_placement_preview({})
+
+func _finish_hidden_viewport_draw() -> void:
+	if is_instance_valid(viewport) and not is_visible_in_tree() and viewport.render_target_update_mode == SubViewport.UPDATE_ONCE:
+		viewport.render_target_update_mode = SubViewport.UPDATE_DISABLED
 
 func _notification(what: int) -> void:
 	if what==NOTIFICATION_VISIBILITY_CHANGED and viewport!=null and is_visible_in_tree():
@@ -584,10 +703,18 @@ func sync_placement_preview(data: Dictionary, delta: float = 0.0) -> void:
 	# Geometry uses exactly the committed snap position and battlefield scale.
 	# This one actor belongs to no combat dictionary, side marker or shadow.
 	var profile: Dictionary = visual_profiles.get(str(stage.get("id","")),{})
-	placement_actor.position = normalized_to_world(point)
+	var ground_point: Vector3 = normalized_to_world(point)
+	if not ground_point.is_finite():
+		placement_actor.hide()
+		viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
+		return
+	placement_actor.position = ground_point
 	placement_actor.scale = Vector3.ONE*_render_scale(profile,point,{"type":type_name})
 	placement_clock += maxf(0.0,delta)
-	placement_actor.apply_state({"animation":"idle","animationClock":placement_clock,"animationPhase":0.0,"aimX":0.0,"aimY":-1.0,"sailing":false,"dead":false})
+	var preview_state: Dictionary = {"animation":"idle","animationClock":placement_clock,"animationPhase":0.0,"aimX":0.0,"aimY":-1.0,"sailing":false,"dead":false}
+	if is_instance_valid(battlefield) and battlefield.has_method("height_at"):
+		preview_state["groundHeightSampler"] = Callable(self,"_ground_contact_height")
+	placement_actor.apply_state(preview_state)
 	var preview_track: Dictionary = local_light_tracks.get("placement",{})
 	var cursor_jump: bool = not preview_track.is_empty() and (preview_track.point as Vector2).distance_to(point)>.025
 	_apply_local_light("placement",placement_actor,point,placement_clock,cursor_jump)
@@ -606,9 +733,13 @@ func sync_actor_states(states: Array) -> void:
 	_sync_torch_flicker(clock)
 	_sync_support_rocks()
 	var live: Dictionary = {}
+	var live_ids: Dictionary = {}
+	var generation: int = int(battle.battle_generation) if is_instance_valid(battle) else -1
+	var surface_key: String = "%d:%s" % [battlefield.get_instance_id() if is_instance_valid(battlefield) else 0,world_geometry_signature]
 	side_markers.clear()
 	var profile: Dictionary = visual_profiles.get(str(stage.get("id","")),{})
 	for source in states:
+		live_ids[int(source.id)] = true
 		var count: int = clampi(friendly_formation_count,1,3) if bool(source.get("friendly",false)) and not bool(source.get("transientSupport",false)) else 1
 		for member in range(count):
 			var key: String = "%s:%d" % [str(source.id),member]
@@ -629,8 +760,14 @@ func sync_actor_states(states: Array) -> void:
 				changed = true
 			else:
 				actor = actors[key]
+			if actor.has_meta("departure"):
+				# A fresh battle can reuse an ID. Never inherit the consumed fade.
+				actor.materials.combined.set_shader_parameter("departure_fade",0.0)
+				actor.remove_meta("departure")
 			var point: Vector2 = Vector2(float(source.x),float(source.y))
 			var data: Dictionary = source.duplicate()
+			if not bool(data.get("dead",false)) and not bool(data.get("transientSupport",false)):
+				data.merge(action_presentation.state_for_id(int(source.id)),true)
 			if bool(data.get("sailing",false)): data.sailing=_boat_water_visual(point)
 			if bool(data.get("transportActive",false)) and str(data.get("transportKind",""))=="boat":
 				data.sailing=_boat_water_visual(point)
@@ -641,6 +778,14 @@ func sync_actor_states(states: Array) -> void:
 				point += Vector2(offset.x/world_width,offset.y/world_depth)
 				data.animationPhase = float(data.get("animationPhase",0.0))+float(member)*0.18
 			var position_value: Vector3 = normalized_to_world(point)
+			if not position_value.is_finite():
+				# Missing authored floor is not a fabricated standing surface.
+				if actor.visible: changed = true
+				actor.hide()
+				actor.set_meta("pose_culled",true)
+				for cache in [contact_shadows,fortifications,support_flags]:
+					if cache.has(key): cache[key].hide()
+				continue
 			var render_scale: float = _render_scale(profile,point,data)
 			# Models, mounts, boats and death poses share the same parent scale.
 			# Terrain projection and every logical placement coordinate stay fixed.
@@ -669,12 +814,15 @@ func sync_actor_states(states: Array) -> void:
 			var heading: Vector3=_world_heading(point,Vector2(float(data.get("aimX",0.0)),float(data.get("aimY",1.0))))
 			var target_yaw: float = atan2(-heading.x,-heading.z)
 			var motion_time: float = float(data.get("motionTime",data.get("animationClock",0.0)))
-			if bool(data.get("friendly",false)) and bool(data.get("deploying",false)) and str(data.get("animation","")) == "walk":
+			if not uses_world_geometry() and bool(data.get("friendly",false)) and bool(data.get("deploying",false)) and str(data.get("animation","")) == "walk":
 				var settling: float = clampf(1.0-float(data.get("animationClock",0.0))/0.35,0,1)
 				position_value -= Vector3(-sin(target_yaw),0,-cos(target_yaw))*.24*render_scale*settling
 			if actor.position!=position_value: actor.position = position_value
 			var reset_motion: bool = not motion_tracks.has(key) or returning_from_cull
 			var track: Dictionary = motion_tracks.get(key,{"point":actor.position,"time":motion_time,"phase":float(data.get("animationPhase",0.0)),"yaw":target_yaw})
+			if int(track.get("generation",generation)) != generation or str(track.get("surface",surface_key)) != surface_key:
+				reset_motion = true
+				track = {"point":actor.position,"time":motion_time,"phase":float(data.get("animationPhase",0.0)),"yaw":target_yaw}
 			if returning_from_cull:
 				track={"point":actor.position,"time":motion_time,"phase":float(data.get("animationPhase",0.0)),"yaw":target_yaw}
 			if motion_time < float(track.time)-0.00001:
@@ -682,8 +830,10 @@ func sync_actor_states(states: Array) -> void:
 				# must start from the new deployment instead of retaining old anchors.
 				reset_motion = true
 				track = {"point":actor.position,"time":motion_time,"phase":float(data.get("animationPhase",0.0)),"yaw":target_yaw}
-			if track.get("projection",field_size)!=field_size:
+			if not uses_world_geometry() and track.get("projection",field_size)!=field_size:
 				reset_motion = true
+			track.generation = generation
+			track.surface = surface_key
 			track.projection = field_size
 			var dt: float = maxf(0.0,motion_time-float(track.time))
 			var distance: float = actor.position.distance_to(track.point)
@@ -740,7 +890,7 @@ func sync_actor_states(states: Array) -> void:
 			data["approachCover"] = cover
 			data["terrainPitch"] = float(terrain_motion.pitch)
 			data["terrainRoll"] = float(terrain_motion.roll)
-			if bool(terrain_motion.enabled) and local_speed>.03 and not mounted:
+			if is_instance_valid(battlefield) and battlefield.has_method("height_at") and not bool(data.get("sailing",false)):
 				data["groundHeightSampler"] = Callable(self,"_ground_contact_height")
 			track.point = actor.position
 			track.time = motion_time
@@ -764,6 +914,16 @@ func sync_actor_states(states: Array) -> void:
 	var obsolete: Array = []
 	for key in actors:
 		if not live.has(key):
+			var actor: Node3D = actors[key]
+			var departure: Dictionary = action_presentation.departure_state(int(str(key).get_slice(":",0)))
+			if not departure.is_empty() and float(departure.progress) < 1:
+				# A consumed ninja keeps its last upright pose only for this fade.
+				# It is absent from targeting, health bars, collision and rewards.
+				actor.materials.combined.set_shader_parameter("departure_fade",float(departure.progress))
+				actor.set_meta("departure",departure)
+				if contact_shadows.has(key): contact_shadows[key].hide()
+				changed = true
+				continue
 			actors[key].queue_free()
 			obsolete.append(key)
 	for key in obsolete:
@@ -776,6 +936,7 @@ func sync_actor_states(states: Array) -> void:
 			contact_shadows[key].queue_free()
 			contact_shadows.erase(key)
 		_remove_fortification(key)
+	action_presentation.prune(live_ids)
 	if side_overlay != null:
 		side_overlay.queue_redraw()
 	if changed:
@@ -983,6 +1144,7 @@ func _apply_local_light(key: String, actor: Node3D, point: Vector2, clock: float
 func _draw_side_markers() -> void:
 	if side_overlay == null:
 		return
+	_draw_guard_bounds()
 	for marker in side_markers:
 		var p: Vector2 = marker.position+Vector2(0,4)
 		if not Rect2(Vector2.ZERO,field_size).grow(-5).has_point(p):
@@ -1026,6 +1188,58 @@ func _draw_side_markers() -> void:
 			for side in [-1.0,1.0]:
 				side_overlay.draw_line(p+Vector2(side*7,2),p+Vector2(side*9,4),ink,2.6,true)
 				side_overlay.draw_line(p+Vector2(side*7,2),p+Vector2(side*9,4),Color(.82,.85,.70,.86),1.0,true)
+
+func _guard_view_point(value: Variant, fallback: Vector2 = Vector2.ZERO) -> Vector2:
+	if value is Vector2: return value
+	if value is Dictionary: return Vector2(float(value.get("x",fallback.x)),float(value.get("y",fallback.y)))
+	return fallback
+
+func guard_overlay_data() -> Dictionary:
+	if not is_instance_valid(battle): return {}
+	var unit: Dictionary = {}
+	var preview: Dictionary = ui_deployment_preview if bool(battle.ui_deployment_active) else battle.placement_preview(battle.placement_cursor)
+	if bool(preview.get("visible",false)) and bool(preview.get("valid",false)) and str(preview.get("type","")) == "naginata":
+		var home: Vector2 = _guard_view_point(preview.get("position",{}))
+		var post: Dictionary = battle._eligible_zone(home,"naginata")
+		var radius: float = clampf(float(post.get("guardRadius",.15)),.07,.25)
+		unit = {"homePosition":home,"guardZone":post.get("defenseZone",{"center":home,"radius":radius}),"guardRadius":radius,"guardTrail":[],"detectionRadius":float(preview.get("range",0))}
+	elif battle.pending.is_empty() and not bool(battle.ui_deployment_active):
+		var selected: Dictionary = battle._selected()
+		if str(selected.get("type","")) != "naginata": return {}
+		unit = selected
+	else: return {}
+	if unit.is_empty(): return {}
+	var home: Vector2 = unit.get("homePosition",Vector2.ZERO)
+	var zone: Dictionary = unit.get("guardZone",{})
+	var boundary: PackedVector2Array = PackedVector2Array()
+	for point in zone.get("polygon",[]): boundary.append(_guard_view_point(point))
+	if boundary.size() < 3:
+		boundary.clear()
+		var center: Vector2 = _guard_view_point(zone.get("center",home),home)
+		var radius: float = float(zone.get("radius",unit.get("guardRadius",.15)))
+		for index in range(65): boundary.append(center+Vector2.from_angle(TAU*index/64.0)*radius)
+	else: boundary.append(boundary[0])
+	return {"home":home,"boundary":boundary,"detectionRadius":float(unit.get("detectionRadius",battle._stats(unit).range if unit.has("type") else 0)),"trail":unit.get("guardTrail",[]),"waypoints":zone.get("waypoints",[])}
+
+func _draw_guard_bounds() -> void:
+	var data: Dictionary = guard_overlay_data()
+	if data.is_empty(): return
+	var outline: PackedVector2Array = PackedVector2Array()
+	for point in data.boundary: outline.append(project_world_to_field(normalized_to_world(point)))
+	side_overlay.draw_colored_polygon(outline,Color(.3,.65,1,.018))
+	side_overlay.draw_polyline(outline,Color(.42,.76,1,.70),1.6,true)
+	var radius: float = float(data.detectionRadius)
+	for index in range(0,64,2):
+		var a: Vector2 = data.home+Vector2.from_angle(TAU*index/64.0)*radius
+		var b: Vector2 = data.home+Vector2.from_angle(TAU*(index+1)/64.0)*radius
+		side_overlay.draw_line(project_world_to_field(normalized_to_world(a)),project_world_to_field(normalized_to_world(b)),Color(.92,.76,.42,.60),1.3,true)
+	var home: Vector2 = project_world_to_field(normalized_to_world(data.home))
+	side_overlay.draw_arc(home,4,0,TAU,16,Color(.7,.86,1,.9),1.5,true)
+	for waypoint in data.waypoints:
+		side_overlay.draw_circle(project_world_to_field(normalized_to_world(_guard_view_point(waypoint))),2.5,Color(.42,.76,1,.6))
+	var trail: PackedVector2Array = PackedVector2Array()
+	for point in data.trail: trail.append(project_world_to_field(normalized_to_world(_guard_view_point(point))))
+	if trail.size() > 1: side_overlay.draw_polyline(trail,Color(.42,.76,1,.32),1.0,true)
 
 func diagnostics() -> Dictionary:
 	var actor_info: Array = []

@@ -1,0 +1,400 @@
+{
+  "version": 2,
+  "checkedDate": "2026-10-06",
+  "recordedOnly": true,
+  "voiceActor": "雛乃木まや",
+  "language": "ja-JP",
+  "voiceChannel": "female",
+  "recordingType": "Named Japanese human female performer; official site describes recording at home with RODE NT2-A / ROLAND QUAD-CAPTURE. These are original full-phrase WAVs, separate from the performer UTAU library.",
+  "toneBasis": "Official tags include 落ち着いた声. For available variants, しっかりお姉さん is selected rather than the brighter or softer character takes. This environment cannot audition audio input; calm adult character and estimated fundamental-frequency statistics do not establish a subjective low-voice guarantee. The authoritative representative original files remain available for listening.",
+  "credit": "声素材：雛乃木まや（公開済み録音素材） https://hinanogimaya.com/",
+  "sources": [
+    {
+      "id": "hinanogimaya-human-originals",
+      "title": "雛乃木まや クレジットフリー・無料音声",
+      "author": "雛乃木まや",
+      "voiceActor": "雛乃木まや",
+      "sourceUrl": "https://hinanogimaya.com/download/",
+      "voiceEvidenceUrl": "https://hinanogimaya.com/voice/",
+      "license": "Official per-recording permission: free use by anyone for commercial and noncommercial works; credit/link optional. Copyright not waived.",
+      "licenseUrl": "https://hinanogimaya.com/download/",
+      "licenseUrls": [
+        "https://hinanogimaya.com/557/",
+        "https://hinanogimaya.com/783/",
+        "https://hinanogimaya.com/884/",
+        "https://hinanogimaya.com/747/",
+        "https://hinanogimaya.com/496/"
+      ],
+      "commercialGameAllowed": true,
+      "creditRequired": false,
+      "standaloneRedistributionAllowed": false,
+      "standaloneRedistributionBasis": "This project grants no standalone audio redistribution; the official page permits using recordings in works and does not waive copyright or grant an audio-library resale license.",
+      "credit": "声素材：雛乃木まや（公開済み録音素材） https://hinanogimaya.com/",
+      "creditsMustNotImplyCommissionedPerformance": true,
+      "modifications": "No edits, splicing, pitch/formant shifting, synthesis, time stretching or conversion. Runtime attenuation and existing safety limiter only.",
+      "pageEvidence": "res://assets/announcements/sources/hinanogimaya-download.html",
+      "humanEvidence": "res://assets/announcements/sources/hinanogimaya-voice.html",
+      "profileEvidence": "res://assets/announcements/sources/hinanogimaya-profile.html",
+      "licenseEvidence": [
+        "res://assets/announcements/sources/hinanogimaya-557.html",
+        "res://assets/announcements/sources/hinanogimaya-783.html",
+        "res://assets/announcements/sources/hinanogimaya-884.html",
+        "res://assets/announcements/sources/hinanogimaya-747.html",
+        "res://assets/announcements/sources/hinanogimaya-496.html"
+      ]
+    }
+  ],
+  "licenseFiles": [
+    "res://assets/announcements/NOTICE.txt"
+  ],
+  "events": {
+    "correct": {
+      "clips": [
+        "correct"
+      ],
+      "priority": 60,
+      "cooldown": 1.5,
+      "maxAge": 3
+    },
+    "incorrect": {
+      "clips": [
+        "incorrect"
+      ],
+      "priority": 60,
+      "cooldown": 1.5,
+      "maxAge": 3
+    },
+    "hint": {
+      "clips": [
+        "hint"
+      ],
+      "priority": 65,
+      "cooldown": 1.5,
+      "maxAge": 3
+    },
+    "answer_select": {
+      "clips": [
+        "hint"
+      ],
+      "priority": 35,
+      "cooldown": 3,
+      "maxAge": 4,
+      "meaning": "Generic ご案内いたします before showing answer choices. No invented choose-the-answer speech."
+    },
+    "next_question": {
+      "clips": [
+        "hint"
+      ],
+      "priority": 35,
+      "cooldown": 3,
+      "maxAge": 4,
+      "meaning": "Generic guidance; source has no literal next-question recording."
+    },
+    "level_up": {
+      "clips": [
+        "level_up"
+      ],
+      "priority": 50,
+      "cooldown": 5,
+      "maxAge": 4
+    },
+    "message_received": {
+      "clips": [
+        "message_received"
+      ],
+      "priority": 30,
+      "cooldown": 8,
+      "maxAge": 3
+    }
+  },
+  "clips": [
+    {
+      "id": "correct",
+      "path": "res://assets/announcements/clips/hinanogimaya/voice-sasuga.wav",
+      "originalFile": "voice-sasuga.wav",
+      "originalFileName": "voice-sasuga.wav",
+      "bytes": 414224,
+      "sha256": "29D284CA9E06BE3A442617E72A8CE9E843541990AF48DB0919F6C502213B7B39",
+      "sourceId": "hinanogimaya-human-originals",
+      "sourcePage": "https://hinanogimaya.com/557/",
+      "voiceActor": "雛乃木まや",
+      "language": "ja-JP",
+      "recordingType": "Original human recording from performer website; no synthesis or voice cloning.",
+      "jp": "さすが！",
+      "reading": "さすが",
+      "ko": "역시 잘하십니다!",
+      "parts": [
+        {
+          "text": "さすが！",
+          "reading": ""
+        }
+      ],
+      "segments": [
+        {
+          "text": "さすが！",
+          "reading": ""
+        }
+      ],
+      "meaning": "Praise after an accepted correct answer; not a literal 正解です recording.",
+      "seconds": 2.3479591836734692,
+      "duration": 2.3479591836734692,
+      "rms": 0.08153792520009412,
+      "peak": 0.748779296875,
+      "format": {
+        "container": "WAV",
+        "encoding": "PCM",
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16
+      },
+      "gainDb": -6.0,
+      "event": "correct",
+      "sourceFilesUnmodified": true,
+      "sourceVariant": "official original",
+      "pageEvidence": "res://assets/announcements/sources/hinanogimaya-557.html"
+    },
+    {
+      "id": "incorrect",
+      "path": "res://assets/announcements/clips/hinanogimaya/voice-genkidashite-sikkari.wav",
+      "originalFile": "voice-genkidashite-sikkari.wav",
+      "originalFileName": "voice-genkidashite-sikkari.wav",
+      "bytes": 341204,
+      "sha256": "8F277319BFFC15ECE9C2ADCDA47941D938BD1AB814CB81F7BFB5E1388B823001",
+      "sourceId": "hinanogimaya-human-originals",
+      "sourcePage": "https://hinanogimaya.com/783/",
+      "voiceActor": "雛乃木まや",
+      "language": "ja-JP",
+      "recordingType": "Original human recording from performer website; no synthesis or voice cloning.",
+      "jp": "元気出して",
+      "reading": "げんきだして",
+      "ko": "힘내세요.",
+      "parts": [
+        {
+          "text": "元気",
+          "reading": "げんき"
+        },
+        {
+          "text": "出して",
+          "reading": "だして"
+        }
+      ],
+      "segments": [
+        {
+          "text": "元気",
+          "reading": "げんき"
+        },
+        {
+          "text": "出して",
+          "reading": "だして"
+        }
+      ],
+      "meaning": "Encouragement after an incorrect answer; not a literal 不正解です recording.",
+      "seconds": 1.9340136054421768,
+      "duration": 1.9340136054421768,
+      "rms": 0.0650667630277702,
+      "peak": 0.921142578125,
+      "format": {
+        "container": "WAV",
+        "encoding": "PCM",
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16
+      },
+      "gainDb": -6.0,
+      "event": "incorrect",
+      "sourceFilesUnmodified": true,
+      "sourceVariant": "しっかりお姉さん",
+      "pageEvidence": "res://assets/announcements/sources/hinanogimaya-783.html"
+    },
+    {
+      "id": "hint",
+      "path": "res://assets/announcements/clips/hinanogimaya/voice-goannai-itashimasu-sikkari.wav",
+      "originalFile": "voice-goannai-itashimasu-sikkari.wav",
+      "originalFileName": "voice-goannai-itashimasu-sikkari.wav",
+      "bytes": 321648,
+      "sha256": "F5FFD0F732D30A08097B2639B0E101CEF121764560F6780D7AA98B9F34264A97",
+      "sourceId": "hinanogimaya-human-originals",
+      "sourcePage": "https://hinanogimaya.com/884/",
+      "voiceActor": "雛乃木まや",
+      "language": "ja-JP",
+      "recordingType": "Original human recording from performer website; no synthesis or voice cloning.",
+      "jp": "ご案内いたします",
+      "reading": "ごあんないいたします",
+      "ko": "안내해 드리겠습니다.",
+      "parts": [
+        {
+          "text": "ご案内",
+          "reading": "ごあんない"
+        },
+        {
+          "text": "いたします",
+          "reading": ""
+        }
+      ],
+      "segments": [
+        {
+          "text": "ご案内",
+          "reading": "ごあんない"
+        },
+        {
+          "text": "いたします",
+          "reading": ""
+        }
+      ],
+      "meaning": "Generic guidance when a hint or question interface opens; does not claim to read the displayed hint.",
+      "seconds": 1.8231519274376418,
+      "duration": 1.8231519274376418,
+      "rms": 0.09247256097912664,
+      "peak": 0.9344482421875,
+      "format": {
+        "container": "WAV",
+        "encoding": "PCM",
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16
+      },
+      "gainDb": -6.0,
+      "event": "hint",
+      "sourceFilesUnmodified": true,
+      "sourceVariant": "しっかりお姉さん",
+      "pageEvidence": "res://assets/announcements/sources/hinanogimaya-884.html"
+    },
+    {
+      "id": "level_up",
+      "path": "res://assets/announcements/clips/hinanogimaya/voice-omedetougozaimasu-sikkari.wav",
+      "originalFile": "voice-omedetougozaimasu-sikkari.wav",
+      "originalFileName": "voice-omedetougozaimasu-sikkari.wav",
+      "bytes": 312088,
+      "sha256": "9F9A717A91AD7F45E6298D976CF907F0A621DACC56B0892DDA73231726C4BD85",
+      "sourceId": "hinanogimaya-human-originals",
+      "sourcePage": "https://hinanogimaya.com/747/",
+      "voiceActor": "雛乃木まや",
+      "language": "ja-JP",
+      "recordingType": "Original human recording from performer website; no synthesis or voice cloning.",
+      "jp": "おめでとうございます",
+      "reading": "おめでとうございます",
+      "ko": "축하합니다.",
+      "parts": [
+        {
+          "text": "おめでとうございます",
+          "reading": ""
+        }
+      ],
+      "segments": [
+        {
+          "text": "おめでとうございます",
+          "reading": ""
+        }
+      ],
+      "meaning": "Congratulation after a real level increase; not a literal レベルが上がりました recording.",
+      "seconds": 1.7689569160997733,
+      "duration": 1.7689569160997733,
+      "rms": 0.12563189443152134,
+      "peak": 0.855316162109375,
+      "format": {
+        "container": "WAV",
+        "encoding": "PCM",
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16
+      },
+      "gainDb": -6.0,
+      "event": "level_up",
+      "sourceFilesUnmodified": true,
+      "sourceVariant": "しっかりお姉さん",
+      "pageEvidence": "res://assets/announcements/sources/hinanogimaya-747.html"
+    },
+    {
+      "id": "message_received",
+      "path": "res://assets/announcements/clips/hinanogimaya/voice-atarashi-message-desu.wav",
+      "originalFile": "voice-atarashi-message-desu.wav",
+      "originalFileName": "voice-atarashi-message-desu.wav",
+      "bytes": 466988,
+      "sha256": "6B635D283CACE4E7519E823C36360E5A9F7DE2B0CD523D3633CA1AABF1DDB171",
+      "sourceId": "hinanogimaya-human-originals",
+      "sourcePage": "https://hinanogimaya.com/496/",
+      "voiceActor": "雛乃木まや",
+      "language": "ja-JP",
+      "recordingType": "Original human recording from performer website; no synthesis or voice cloning.",
+      "jp": "新しいメッセージです",
+      "reading": "あたらしいめっせーじです",
+      "ko": "새 전갈입니다.",
+      "parts": [
+        {
+          "text": "新しい",
+          "reading": "あたらしい"
+        },
+        {
+          "text": "メッセージです",
+          "reading": ""
+        }
+      ],
+      "segments": [
+        {
+          "text": "新しい",
+          "reading": "あたらしい"
+        },
+        {
+          "text": "メッセージです",
+          "reading": ""
+        }
+      ],
+      "meaning": "New-message notice when a new battle report arrives; does not read the stage report.",
+      "seconds": 2.647074829931973,
+      "duration": 2.647074829931973,
+      "rms": 0.09940032932872647,
+      "peak": 0.999969482421875,
+      "format": {
+        "container": "WAV",
+        "encoding": "PCM",
+        "sampleRate": 44100,
+        "channels": 2,
+        "bitsPerSample": 16
+      },
+      "gainDb": -6.0,
+      "event": "message_received",
+      "sourceFilesUnmodified": true,
+      "sourceVariant": "official original",
+      "pageEvidence": "res://assets/announcements/sources/hinanogimaya-496.html"
+    }
+  ],
+  "playbackProcessing": {
+    "runtimePitchScale": 1.0,
+    "playbackSpeed": 1.0,
+    "malePitchScale": 1.0,
+    "sourceFilesUnmodified": true,
+    "pitchEffect": false,
+    "formantShift": false,
+    "phraseSplicing": false,
+    "runtimeGain": "Per-clip -6 dB attenuation, common caller volume and inherited limiter only."
+  },
+  "unavailableExactPhrases": [
+    "開始します",
+    "正解です",
+    "不正解です",
+    "ヒントです",
+    "答えを選択してください",
+    "次の問題です",
+    "レベルが上がりました"
+  ],
+  "mappingPolicy": "Captions reproduce the actual complete recorded sentence. Praise/encouragement/generic guidance replace unavailable literal phrases. No arbitrary word, example or mission TTS is synthesized from these files. Male battle-start voice remains responsible for sortie.",
+  "inactiveLegacySource": {
+    "active": false,
+    "voiceActor": "音枝優日",
+    "source": "https://soundeffect-lab.info/sound/voice/info-lady1.html",
+    "terms": "https://soundeffect-lab.info/agreement/",
+    "faq": "https://soundeffect-lab.info/faq/",
+    "credit": "声素材提供：音枝優日 / 効果音ラボ https://soundeffect-lab.info/",
+    "paths": [
+      "res://assets/announcements/clips/start.mp3",
+      "res://assets/announcements/clips/correct.mp3",
+      "res://assets/announcements/clips/incorrect.mp3",
+      "res://assets/announcements/clips/hint.mp3",
+      "res://assets/announcements/clips/answer_select.mp3",
+      "res://assets/announcements/clips/next_question.mp3",
+      "res://assets/announcements/clips/level_up.mp3",
+      "res://assets/announcements/clips/message_received.mp3"
+    ],
+    "note": "Prior Sound Effect Lab MP3s are preserved as inactive files; no active event selects them. Their source notice is retained for archive/pack compliance. Exclude these inactive paths in delivery if desired."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "phase": "produce",
+  "started_utc": "2026-10-10T05:31:00.442155+00:00",
+  "command": [
+    "C:\\Program Files\\Blender Foundation\\Blender 5.2\\blender.exe",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "2",
+    "--python",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\produce_assets.py",
+    "--",
+    "--workshop",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\bootstrap-63fec784\\workshop.blend",
+    "--run",
+    "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1"
+  ],
+  "profile": "C:\\JP_DF\\tools\\art-authoring-pilot\\work\\20261010T050221Z-581667a1\\evidence\\produce",
+  "protected_before": {
+    "current_candidate_files": 3667,
+    "changed": [],
+    "live137_changed": [],
+    "prepared4_changed": []
+  },
+  "timed_out": false,
+  "script_error": true,
+  "blender": true,
+  "pid": 21892,
+  "exit_code": 1,
+  "ended_utc": "2026-10-10T05:31:03.510629+00:00",
+  "wall_seconds": 3.068461599992588,
+  "protected_after": {
+    "current_candidate_files": 3667,
+    "changed": [],
+    "live137_changed": [],
+    "prepared4_changed": []
+  },
+  "accepted": false,
+  "captures": [],
+  "results": []
+}

@@ -6,15 +6,16 @@ signal training_requested(unit_id: String)
 
 const RubyText = preload("res://native/ruby_label.gd")
 const SengokuUI = preload("res://native/sengoku_ui.gd")
+const UIPresentation = preload("res://native/battlefield_hud.gd")
 const CommanderPortrait = preload("res://native/commander_portrait.gd")
 const UnitPreview = preload("res://native/barracks_portrait.gd")
 const GameFonts = preload("res://native/game_fonts.gd")
 const WARROOM_PATH: String = "res://assets/ui/barracks-warroom.png"
-const FALLBACK_BACKGROUND: String = "res://assets/map-castle.png"
 static var _background_cache: Dictionary = {}
 var progress: RefCounted
 var font: Font
 var can_train: bool = true
+var can_practice: bool = true
 var feedback: String = ""
 var scroll: ScrollContainer
 var skills_scroll: ScrollContainer
@@ -28,16 +29,17 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_rebuild)
 	hide()
 
-func open(training_allowed: bool = true) -> void:
+func open(training_allowed: bool = true, practice_allowed: bool = true) -> void:
 	can_train = training_allowed
+	can_practice = practice_allowed
 	feedback = ""
 	if progress.unit_definition(selected_unit_id).is_empty():
 		selected_unit_id = str(progress.data.army.get("selected","archer"))
 	show()
 	_rebuild()
 
-func _label(parent: Node, text: String, rect: Rect2, text_size: int = 20, colour: String = "e1e6e9") -> Label:
-	var label = Label.new()
+func _label(parent: Node, text: String, rect: Rect2, text_size: int = 20, colour: String = SengokuUI.TEXT) -> Label:
+	var label = SengokuUI.TooltipLabel.new()
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.add_theme_font_override("font",GameFonts.heading() if text_size>=26 else GameFonts.body())
 	label.add_theme_font_size_override("font_size",maxi(20,text_size))
@@ -53,15 +55,14 @@ func _label(parent: Node, text: String, rect: Rect2, text_size: int = 20, colour
 	return label
 
 func _button(parent: Node, text: String, rect: Rect2, action: Callable) -> Button:
-	var button = Button.new()
+	var button = SengokuUI.TooltipButton.new()
 	button.text = text
 	button.position = rect.position
 	button.size = rect.size
 	button.clip_text = true
+	UIPresentation.apply_button(button)
 	button.add_theme_font_override("font",font)
 	button.add_theme_font_size_override("font_size",22)
-	for state in ["normal","hover","pressed","disabled","focus"]:
-		button.add_theme_stylebox_override(state,SengokuUI.textured_button(state))
 	button.pressed.connect(action)
 	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	parent.add_child(button)
@@ -79,8 +80,8 @@ func _ruby(parent: Node, name_value: Dictionary, rect: Rect2, text_size: int = 3
 	word.merge_adjacent_readings=false
 	word.show_reading_guides=false
 	word.ink = Color(SengokuUI.TEXT)
-	word.reading_ink=Color("d9cfb8")
-	word.meaning_ink=Color("d3bc88")
+	word.reading_ink=Color(SengokuUI.MUTED)
+	word.meaning_ink=Color(SengokuUI.BRASS)
 	word.meaning_size = 22 if text_size>=36 else 20
 	word.position = rect.position
 	word.size = rect.size
@@ -92,10 +93,10 @@ func _panel(parent: Node, rect: Rect2, accent: bool = false, texture_opacity: fl
 	var panel = Panel.new()
 	panel.position = rect.position
 	panel.size = rect.size
-	panel.add_theme_stylebox_override("panel",SengokuUI.frame("191713f5",SengokuUI.BRASS,accent))
+	panel.add_theme_stylebox_override("panel",SengokuUI.frame(SengokuUI.SURFACE,SengokuUI.BRASS if accent else SengokuUI.LINE,accent))
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(panel)
-	SengokuUI.texture_layer(panel,"lacquer",texture_opacity)
+	SengokuUI.texture_layer(panel,"lacquer",minf(texture_opacity,.18))
 	return panel
 
 func _flow_label(parent: Node, text: String, text_size: int = 20, colour: String = SengokuUI.TEXT) -> Label:
@@ -111,7 +112,7 @@ func _divider(parent: Node) -> Control:
 	return line
 
 static func _warroom_texture() -> Texture2D:
-	var path: String = WARROOM_PATH if FileAccess.file_exists(WARROOM_PATH) or ResourceLoader.exists(WARROOM_PATH) else FALLBACK_BACKGROUND
+	var path: String = WARROOM_PATH
 	if _background_cache.has(path):
 		return _background_cache[path]
 	var texture: Texture2D
@@ -145,7 +146,7 @@ func _rebuild() -> void:
 	var header: Panel = _panel(self,Rect2(28,18,screen.x-56,84))
 	header.name = "BarracksHeader"
 	SengokuUI.ornament(header,Rect2(14,12,40,40),"crest",SengokuUI.BRASS)
-	var title: Label=_label(header,"兵舎",Rect2(66,5,140,54),36,SengokuUI.TEXT)
+	var title: Label=_label(header,"兵舎",Rect2(66,0,160,78),32,SengokuUI.TEXT)
 	title.name="BarracksTitle"
 	title.add_theme_font_override("font",GameFonts.japanese())
 	_label(header,"병영",Rect2(225,19,100,34),22,SengokuUI.MUTED).name="BarracksSubtitle"
@@ -155,17 +156,25 @@ func _rebuild() -> void:
 	wallet.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	var back = _button(header,"돌아가기",Rect2(screen.x-231,9,158,47),func(): hide(); closed.emit())
 	back.name = "BarracksBack"
-	var practice = _button(self,"鍛錬 · 병종 연습",Rect2(screen.x-304,75,232,42),func(): training_requested.emit(selected_unit_id))
+	var practice = _button(self,"鍛錬 · 병종 연습",Rect2(screen.x-324,75,252,64),func(): training_requested.emit(selected_unit_id))
 	practice.name = "BarracksTraining"
-	practice.disabled = not selected_unit_id in progress.unlocked_units()
+	var practice_unlocked: bool = selected_unit_id in progress.unlocked_units()
+	practice.disabled = not can_practice or not practice_unlocked
+	if not practice_unlocked:
+		practice.tooltip_text = "병종을 해금하면 연습할 수 있습니다."
+	elif not can_practice:
+		practice.text = "새 전장 준비 중"
+		practice.tooltip_text = "새 전장이 준비되면 연습할 수 있습니다."
 	practice.add_theme_font_size_override("font_size",20)
 	for state_name in ["normal","hover","pressed","disabled","focus"]:
-		var compact = SengokuUI.textured_button(state_name)
+		var compact = SengokuUI.button(state_name)
 		compact.content_margin_top = 3
 		compact.content_margin_bottom = 3
 		practice.add_theme_stylebox_override(state_name,compact)
 	if not can_train:
 		_label(header,"출진 중 · 영구 강화 대기",Rect2(480,51,screen.x-812,29),20,"e1bd91")
+	elif not can_practice:
+		_label(header,"새 전장이 준비되면 연습할 수 있습니다.",Rect2(480,51,screen.x-812,29),20,SengokuUI.MUTED).name = "PracticeUnavailableNote"
 	var content_y: float = 126
 	var roster_y: float = screen.y-156
 	var content_height: float = roster_y-content_y-14
@@ -223,9 +232,9 @@ func _build_roster_row(parent: Node, definition: Dictionary, width: float) -> vo
 	row.set_meta("unlocked",available)
 	row.set_meta("selected",selected_unit_id==id)
 	if selected_unit_id==id:
-		row.add_theme_stylebox_override("normal",SengokuUI.textured_button("normal",false,true))
+		row.add_theme_stylebox_override("normal",SengokuUI.selected())
 		var marker = ColorRect.new()
-		marker.color = Color(SengokuUI.BRASS)
+		marker.color = Color(SengokuUI.BLUE)
 		marker.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		row.add_child(marker)
 		marker.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
@@ -310,7 +319,7 @@ func _build_detail(parent: Control, definition: Dictionary) -> void:
 	_divider(body)
 	var skill_header = HBoxContainer.new()
 	body.add_child(skill_header)
-	var skill_title = _flow_label(skill_header,"기습·암살 운용" if ninja_basics else "전투 스킬",22,"eee0be")
+	var skill_title = _flow_label(skill_header,"소모성 타워 암살" if ninja_basics else "전투 스킬",22,"eee0be")
 	skill_title.name = "CommanderSkillHeading"
 	var thresholds = _flow_label(skill_header,"기본 행동" if ninja_basics else "영구 Lv.3 · 5 · 8",20,"b9a887")
 	thresholds.name = "CommanderSkillThresholds"
@@ -367,9 +376,9 @@ func _build_detail(parent: Control, definition: Dictionary) -> void:
 		detail.tooltip_text = str(skill.descriptionKo)
 	if ninja_basics:
 		var basics: Array = [
-			{"id":"ambush","title":"외곽 매복","description":"보라색 엄폐 지점에 배치합니다. 가까이 온 적을 자동으로 기습합니다."},
-			{"id":"raid","title":"진지 습격","description":"닌자를 선택한 뒤 같은 길의 가까운 적 사격 진지를 클릭하십시오. 이동해 공격하는 명령이며, 즉사를 보장하지 않습니다. 물이나 막힌 지형은 건너지 않습니다."},
-			{"id":"return","title":"엄폐 복귀","description":"기습이나 진지 습격을 마치면 처음 배치한 엄폐 지점으로 돌아가 대기합니다."}
+			{"id":"ambush","title":"임무 출발","description":"보라색 출발 지점에서 적 타워형 공격자를 향해 접근합니다."},
+			{"id":"raid","title":"타워 암살","description":"한 임무의 표적을 정해 공격합니다. 실제 피해와 공격 주기에 따라 표적을 처치합니다."},
+			{"id":"return","title":"임무 종료 · 소모","description":"처치·표적 부재·소멸·접근 불가로 임무가 끝나면 퇴장합니다. 재사용할 수 없습니다."}
 		]
 		for entry in basics:
 			var block = VBoxContainer.new()
@@ -396,7 +405,7 @@ func _build_detail(parent: Control, definition: Dictionary) -> void:
 		var mark = ColorRect.new()
 		mark.custom_minimum_size = Vector2(1,5)
 		mark.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		mark.color = Color(SengokuUI.BRASS if step<level else "534831")
+		mark.color = Color(SengokuUI.BRASS if step<level else SengokuUI.LINE)
 		mark.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		meter.add_child(mark)
 	var action_row = HBoxContainer.new()
@@ -423,8 +432,7 @@ func _build_detail(parent: Control, definition: Dictionary) -> void:
 	var button = _button(action_row,train_text,Rect2(),_train.bind(id))
 	button.name = "Train_%s" % id
 	button.custom_minimum_size = Vector2(304,48)
-	for state_name in ["normal","hover","pressed","disabled","focus"]:
-		button.add_theme_stylebox_override(state_name,SengokuUI.textured_button(state_name,true))
+	button.add_theme_stylebox_override("normal",SengokuUI.primary())
 	button.disabled = not unlocked or not can_train or level>=10 or int(progress.data.army.currency)<cost
 	if unlocked and level<10:
 		button.tooltip_text = "영구 Lv.%d → Lv.%d%s\n체력 %.0f · 피해 감소 %.1f%%" % [level,level+1," · 새 장비로 진화" if int(progress.army_stats(id,level+1).evolution)>int(stats.evolution) else "",float(progress.army_stats(id,level+1).health),float(progress.army_stats(id,level+1).armor)*100.0]

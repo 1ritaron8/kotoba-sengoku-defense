@@ -1,0 +1,49 @@
+{
+  "raw": "C:/JP_DF/tools/art-authoring-pilot/work/20261010T050221Z-581667a1/evidence/game/Godot/app_userdata/\ub9d0\uc758 \uc804\uc7a5/QA_BLENDER_RESULT.json",
+  "checks": 320,
+  "failed_checks": [],
+  "pending": [],
+  "eligible_rows": 1274,
+  "excluded_rows": 1360,
+  "exclusion_flag_violations": [],
+  "stalls_recount": 98,
+  "captures": 11,
+  "source_unchanged": true,
+  "context_returns": 2,
+  "quiz_returns": 1,
+  "paid_produced": {
+    "archer": 2,
+    "spear": 2
+  },
+  "same_enemy_ingress": true,
+  "selection": [
+    {
+      "accepted": true,
+      "after_id": 1,
+      "before_id": 5,
+      "clock": 14.1503246666667,
+      "expected_paid_id": 1,
+      "first_attempt": true,
+      "point": "(599.4894, 374.9508)",
+      "selected_HUD": {
+        "text": "\ubcd1\uc601 Lv.1\n\uacf5\uaca9 17 / \ucd08\ub2f9 19.4",
+        "visible": true
+      },
+      "type": "archer"
+    },
+    {
+      "accepted": true,
+      "after_id": 4,
+      "before_id": 1,
+      "clock": 14.274877,
+      "expected_paid_id": 4,
+      "first_attempt": true,
+      "point": "(988.8465, 361.2963)",
+      "selected_HUD": {
+        "text": "\ubcd1\uc601 Lv.1\n\uacf5\uaca9 16 / \ucd08\ub2f9 26.7",
+        "visible": true
+      },
+      "type": "spear"
+    }
+  ]
+}
