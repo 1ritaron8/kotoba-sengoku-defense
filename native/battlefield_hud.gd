@@ -3,6 +3,7 @@ extends RefCounted
 # Presentation only. The caller supplies live game data and owns every command.
 const Style = preload("res://native/sengoku_ui.gd")
 const BUTTON_STATES: Array[String] = ["normal","hover","pressed","hover_pressed","disabled","focus"]
+static var painted_mode: bool = false
 static var _field_surfaces: Array[WeakRef] = []
 static var _overlay_surfaces: Array[WeakRef] = []
 
@@ -47,6 +48,10 @@ static func visible_occupied_rects(target: CanvasItem, field: Rect2) -> Array[Re
 	return result
 
 static func layout(viewport: Vector2) -> Dictionary:
+	if painted_mode:
+		var height: float = 164.0 if viewport.x>=1360 else 144.0
+		var controls: float = 152.0 if viewport.x>=1360 else 136.0
+		return {"compact":viewport.x<1360,"hud":Rect2(0,0,viewport.x,56),"field":Rect2(0,56,viewport.x,viewport.y-height-56),"roster":Rect2(0,viewport.y-height,viewport.x,height),"inspectorWidth":300.0,"rosterCardWidth":floorf((viewport.x-controls-54)/7.0),"rosterCardHeight":height-24,"controlsWidth":controls,"queue":Rect2(0,viewport.y-height-104,viewport.x,100)}
 	var compact: bool = viewport.x < 1360.0
 	var dock_height: float = 128.0 if compact else 144.0
 	var dock: Rect2 = Rect2(12,viewport.y-dock_height-8,viewport.x-24,dock_height)
@@ -94,8 +99,8 @@ static func apply_panel(panel: Panel, role: String = "dock") -> void:
 		"portrait":
 			box.bg_color = Color("121719")
 			box.border_color = Color("414b4e")
-	panel.add_theme_stylebox_override("panel",box)
-	if role in ["hud","dock","selection","queue"] and panel.get_node_or_null("HUDMaterialSurface")==null:
+	panel.add_theme_stylebox_override("panel",StyleBoxEmpty.new() if painted_mode and role=="hint" else box)
+	if role in ["hud","dock","selection","queue"] and not painted_mode and panel.get_node_or_null("HUDMaterialSurface")==null:
 		var texture: Control=Style.texture_layer(panel,"lacquer",.42,1.0)
 		texture.name="HUDMaterialSurface"
 
@@ -131,31 +136,29 @@ static func apply_button(button: BaseButton, is_selected: bool = false) -> void:
 static func apply_roster_card(card: Button, is_selected: bool = false, locked: bool = false) -> void:
 	apply_button(card,is_selected)
 	for state in BUTTON_STATES:
-		var box: StyleBoxFlat = card.get_theme_stylebox(state).duplicate() as StyleBoxFlat
-		box.set_border_width_all(1)
-		box.content_margin_left = 4
-		box.content_margin_right = 4
-		box.border_color = Color(Style.BLUE if is_selected and not locked else "424b4c" if locked else Style.LINE)
-		if state=="focus":
-			box.border_color = Color(Style.BLUE)
-			box.set_border_width_all(2)
-		elif is_selected and not locked:
-			box.border_width_bottom = 3
+		var box: StyleBox
+		if painted_mode and state!="focus":
+			var pigment: Color=Color("aab5ba") if locked else Color("e2ecf2") if is_selected else Color.WHITE
+			box=Style.textured_panel("paper",pigment,4)
+		else:
+			var border_box: StyleBoxFlat=card.get_theme_stylebox(state).duplicate() as StyleBoxFlat
+			border_box.set_border_width_all(1)
+			border_box.border_color=Color(Style.BLUE if is_selected and not locked else "424b4c" if locked else Style.LINE)
+			if state=="focus":
+				border_box.border_color=Color(Style.BLUE)
+				border_box.set_border_width_all(2)
+			elif is_selected and not locked: border_box.border_width_bottom=3
+			box=border_box
+		box.content_margin_left=8
+		box.content_margin_right=8
+		box.content_margin_top=8
+		box.content_margin_bottom=8
 		card.add_theme_stylebox_override(state,box)
 	card.set_meta("hud_selected",is_selected)
 	card.set_meta("hud_locked",locked)
 
 static func apply_queue_card(card: Button, waiting_capacity: bool = false) -> void:
-	# A completed order waiting for actor space is an accepted order, not an error.
 	apply_button(card)
-	for state in BUTTON_STATES:
-		var box: StyleBoxFlat = card.get_theme_stylebox(state).duplicate() as StyleBoxFlat
-		box.content_margin_left = 47
-		box.content_margin_bottom = 14
-		box.border_width_bottom = 2
-		box.border_color = Color(Style.WARNING if waiting_capacity else Style.LINE)
-		if state=="focus": box.border_color = Color(Style.BLUE)
-		card.add_theme_stylebox_override(state,box)
 	card.add_theme_color_override("font_color",Color(Style.WARNING if waiting_capacity else Style.TEXT))
 	card.set_meta("hud_waiting_capacity",waiting_capacity)
 
@@ -169,9 +172,9 @@ static func apply_progress(bar: ProgressBar, role: String = "production") -> voi
 	bar.show_percentage = false
 
 static func queue_text(job: Dictionary) -> String:
-	var timing: String = "정원 대기" if str(job.get("status",""))=="waiting_capacity" else "%.1f초" % float(job.get("remainingSeconds",0))
+	var timing: String = "%.1f초" % float(job.get("remainingSeconds",0))
 	return "%s ×%d\n%s" % [str(job.get("name",job.get("type",""))),int(job.get("quantity",1)),timing]
 
 static func queue_tooltip(job: Dictionary) -> String:
-	var status: String = "소집 완료 · 이 주문의 병력이 함께 출진할 정원을 기다립니다." if str(job.get("status",""))=="waiting_capacity" else "각 주문을 동시에 준비합니다."
+	var status: String = "인원 제한 없이 각 주문을 동시에 준비합니다."
 	return "%s\n클릭: 이 주문 취소 · 보급 %d 전액 환불" % [status,int(job.get("cost",0))]

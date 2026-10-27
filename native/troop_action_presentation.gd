@@ -6,6 +6,10 @@ var attacks: Dictionary = {}
 var heals: Dictionary = {}
 var departures: Dictionary = {}
 var seen_events: Dictionary = {}
+var actor_lookups: Dictionary = {}
+var event_order: Array[int] = []
+var event_order_cursor: int = 0
+var next_departure_prune: float = 0.0
 const DEPARTURE_SECONDS: float = .30
 const PHASE_LABELS: Dictionary = {
 	"guard":"경계 중", "gather":"집결 중", "march":"행군 중",
@@ -19,11 +23,11 @@ const PHASE_LABELS: Dictionary = {
 func bind(value: Node2D) -> void:
 	unbind()
 	battle = value
-	if is_instance_valid(battle): battle.game_event.connect(consume_event)
+	if is_instance_valid(battle): battle.presentation_event.connect(consume_event)
 
 func unbind() -> void:
-	if is_instance_valid(battle) and battle.game_event.is_connected(consume_event):
-		battle.game_event.disconnect(consume_event)
+	if is_instance_valid(battle) and battle.presentation_event.is_connected(consume_event):
+		battle.presentation_event.disconnect(consume_event)
 	battle = null
 	reset()
 
@@ -32,6 +36,10 @@ func reset() -> void:
 	heals.clear()
 	departures.clear()
 	seen_events.clear()
+	actor_lookups.clear()
+	event_order.clear()
+	event_order_cursor=0
+	next_departure_prune=0.0
 	generation = -1
 
 func _sync_generation() -> void:
@@ -39,19 +47,48 @@ func _sync_generation() -> void:
 	if generation != int(battle.battle_generation):
 		reset()
 		generation = int(battle.battle_generation)
+	var now: float=float(battle.animation_time)
+	if now>=next_departure_prune:
+		next_departure_prune=now+1.0
+		for id in departures.keys():
+			if now-float(departures[id].time)>=DEPARTURE_SECONDS: departures.erase(id)
 
 func _unit(id: int) -> Dictionary:
-	if is_instance_valid(battle):
-		for unit in battle.units:
-			if int(unit.id) == id: return unit
+	if is_instance_valid(battle): return _actor_from_roster(id,battle.units,"friendly")
+	return {}
+
+func _index_roster(roster: Array, side: String) -> Dictionary:
+	var by_id: Dictionary={}
+	var slots: Dictionary={}
+	for index in range(roster.size()):
+		var actor: Dictionary=roster[index]
+		var id: int=int(actor.get("id",-1))
+		if id<0 or by_id.has(id): continue
+		by_id[id]=actor
+		slots[id]=index
+	var result: Dictionary={"roster":roster,"count":roster.size(),"actors":by_id,"slots":slots}
+	actor_lookups[side]=result
+	return result
+
+func _actor_from_roster(id: int, roster: Array, side: String) -> Dictionary:
+	if id<0: return {}
+	var index: Dictionary=actor_lookups.get(side,{})
+	if index.is_empty() or int(index.count)!=roster.size() or not is_same(index.roster,roster): index=_index_roster(roster,side)
+	var actor: Dictionary=index.actors.get(id,{})
+	if not actor.is_empty():
+		var slot: int=int(index.slots.get(id,-1))
+		if slot>=0 and slot<roster.size() and is_same(roster[slot],actor) and int(actor.get("id",-1))==id: return actor
+		return _index_roster(roster,side).actors.get(id,{})
+	# Preserve callers that replace an entry in place without changing count.
+	for member in roster:
+		if int(member.get("id",-1))==id: return _index_roster(roster,side).actors.get(id,{})
 	return {}
 
 func _combatant(id: int) -> Dictionary:
+	if id<0: return {}
 	var unit: Dictionary = _unit(id)
 	if not unit.is_empty(): return unit
-	if is_instance_valid(battle):
-		for enemy in battle.enemies:
-			if int(enemy.id) == id: return enemy
+	if is_instance_valid(battle): return _actor_from_roster(id,battle.enemies,"enemy")
 	return {}
 
 func _attack_plan(actor: Dictionary) -> Dictionary:
@@ -63,17 +100,32 @@ func _attack_plan(actor: Dictionary) -> Dictionary:
 func consume_event(event: Dictionary) -> void:
 	_sync_generation()
 	if not is_instance_valid(battle): return
+	# Footsteps, damage and other cosmetic events never contribute to this
+	# adapter. Reject them before ID bookkeeping or any roster lookup.
+	var type_name: String=str(event.get("type",""))
+	if type_name in ["killed","unit_fallen"]:
+		var retired_id: int=int(event.get("victimId",-1) if type_name=="killed" else event.get("actorId",-1))
+		attacks.erase(retired_id)
+		heals.erase(retired_id)
+		return
+	if type_name not in ["shot","heal","unit_consumed"]: return
 	if event.has("eventId"):
 		var event_id: int = int(event.eventId)
 		if seen_events.has(event_id): return
 		seen_events[event_id] = true
-		if seen_events.size() > 512: seen_events.erase(seen_events.keys()[0])
+		if event_order.size()<512:
+			event_order.append(event_id)
+		else:
+			seen_events.erase(event_order[event_order_cursor])
+			event_order[event_order_cursor]=event_id
+			event_order_cursor=(event_order_cursor+1)%512
 	var id: int = int(event.get("actorId",-1))
 	if id < 0: return
-	var unit: Dictionary = _combatant(id)
 	var now: float = float(battle.animation_time)
-	match str(event.get("type","")):
+	match type_name:
 		"shot":
+			var side: String=str(event.get("side",""))
+			var unit: Dictionary=_actor_from_roster(id,battle.units,"friendly") if side=="friendly" else _actor_from_roster(id,battle.enemies,"enemy") if side=="enemy" else _combatant(id)
 			if unit.is_empty(): return
 			var clock: float = float(unit.get("animationClock",0))
 			var plan: Dictionary = _attack_plan(unit)
@@ -96,6 +148,8 @@ func consume_event(event: Dictionary) -> void:
 			# The renderer may keep an existing model for a short fade only. It
 			# never inserts a corpse or a simulated unit back into the battle.
 			departures[id] = {"time":now,"reason":str(event.get("consumeReason","mission_complete")),"targetId":int(event.get("targetId",-1)),"position":event.get("position",{}).duplicate(true)}
+			attacks.erase(id)
+			heals.erase(id)
 
 func state_for_id(id: int) -> Dictionary:
 	return state_for(_combatant(id))

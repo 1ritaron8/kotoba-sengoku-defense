@@ -52,7 +52,7 @@ static func for_text(text: String, context_words: Array = []) -> Array:
 		var body: String=str(word.get("jp",word.get("nameJP","")))
 		var reading: String=str(word.get("reading",""))
 		if not body.is_empty() and _has_kana(reading) and not contains_kanji(reading):
-			known[body]=[{"text":body,"reading":reading}]
+			known[body]=for_word(word)
 			var first: String=body.left(1)
 			if not copied_initials.has(first):
 				initials[first]=initials.get(first,[]).duplicate()
@@ -65,11 +65,13 @@ static func for_text(text: String, context_words: Array = []) -> Array:
 		var matched: String=""
 		for key in initials.get(text.substr(offset,1),[]):
 			var candidate: String=str(key)
-			if candidate.length()==1:
+			if contains_kanji(candidate):
 				# A named single-character word is never a fallback inside a
-				# different compound (for example music 戦 vs. 戦闘).
-				if offset>0 and _is_kanji(text.unicode_at(offset-1)): continue
-				if offset+1<text.length() and _is_kanji(text.unicode_at(offset+1)): continue
+				# different compound. The same boundary rule protects multi-kanji
+				# entries from being guessed inside an unknown longer name.
+				if _is_kanji(candidate.unicode_at(0)) and offset>0 and _is_kanji(text.unicode_at(offset-1)): continue
+				var after: int=offset+candidate.length()
+				if _is_kanji(candidate.unicode_at(candidate.length()-1)) and after<text.length() and _is_kanji(text.unicode_at(after)): continue
 			if candidate.length()>matched.length() and text.substr(offset,candidate.length())==candidate: matched=candidate
 		if matched.is_empty():
 			plain+=text.substr(offset,1)
@@ -92,14 +94,45 @@ static func _all_kanji(text: String) -> bool:
 			return false
 	return true
 
+static func _authored_separator_parts(text: String, reading: String) -> Array:
+	var body_separators: Array=[]
+	var kana_separators: Array=[]
+	for character in text:
+		if character in ["・"," ","　"]: body_separators.append(character)
+	for character in reading:
+		if character in ["・"," ","　"]: kana_separators.append(character)
+	if body_separators.is_empty() or body_separators!=kana_separators: return []
+	var result: Array=[]
+	var body_start: int=0
+	var kana_start: int=0
+	for separator in body_separators:
+		var body_end: int=text.find(separator,body_start)
+		var kana_end: int=reading.find(separator,kana_start)
+		if body_end<=body_start or kana_end<=kana_start: return []
+		result.append({"text":text.substr(body_start,body_end-body_start),"reading":reading.substr(kana_start,kana_end-kana_start)})
+		result.append({"text":separator,"reading":""})
+		body_start=body_end+1
+		kana_start=kana_end+1
+	if body_start>=text.length() or kana_start>=reading.length(): return []
+	result.append({"text":text.substr(body_start),"reading":reading.substr(kana_start)})
+	return result
+
 static func _append_segments(result: Array, piece: Dictionary) -> void:
 	var text: String = str(piece.get("text",""))
 	var reading: String = str(piece.get("reading",""))
+	var authored: Array=_authored_separator_parts(text,reading)
+	if not authored.is_empty():
+		result.append_array(authored)
+		return
 	var key: String = text+"\t"+reading
 	if _lookup.has(key):
 		for span in _lookup[key]: result.append(span.duplicate())
 	elif reading.is_empty() and _ui_lookup.has(text):
 		for span in _ui_lookup[text]: result.append(span.duplicate())
+	elif reading.is_empty() and contains_kanji(text):
+		# A dynamic heading can contain several known UI words. Match only the
+		# verified dictionary; unknown compounds remain explicitly unannotated.
+		result.append_array(for_text(text))
 	else:
 		result.append({"text":text,"reading":reading})
 

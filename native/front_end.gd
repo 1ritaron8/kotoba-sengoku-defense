@@ -1,5 +1,7 @@
 extends Control
 
+const BattleDuration = preload("res://native/battle_duration.gd")
+
 var learning_plans: Dictionary = {}
 var campaign_story: Dictionary = {}
 var campaign_geography: Dictionary = {}
@@ -48,7 +50,7 @@ const CampaignAtlas = preload("res://native/campaign_atlas.gd")
 const BattlefieldPreview = preload("res://native/battlefield_preview.gd")
 const BattlefieldPresentation = preload("res://native/battlefield_presentation.gd")
 const TIERS = ["basic","beginner","intermediate","advanced"]
-const TIER_NAMES = ["初陣 · 기초", "修練 · 초급", "熟練 · 중급", "決戦 · 고급"]
+const TIER_NAMES = ["初陣\n기초", "修練\n초급", "熟練\n중급", "決戦\n고급"]
 var maps: Array = []
 var font: Font
 var progress: RefCounted
@@ -58,7 +60,7 @@ var narration_available: bool = false
 var male_voice_available: bool = false
 var female_voice_available: bool = false
 var battle_active: bool = false
-var battle_minutes: int = 10
+var battle_minutes: int = BattleDuration.FIXED_MINUTES
 var view: String = "home"
 var selected_tier: int = 0
 var study_mode: bool = false
@@ -181,9 +183,13 @@ func _ruby_button(word: Dictionary, rect: Rect2, callback: Callable) -> Button:
 	ruby.reading_ink=Color(UIStyle.MUTED)
 	ruby.meaning_ink=Color(UIStyle.BRASS)
 	ruby.set_word(word,30)
-	ruby.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	ruby.offset_top = 0
 	button.add_child(ruby)
+	ruby.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var content: Rect2=UIStyle.content_rect(button,"normal")
+	ruby.offset_left=content.position.x
+	ruby.offset_top=content.position.y
+	ruby.offset_right=content.end.x-button.size.x
+	ruby.offset_bottom=content.end.y-button.size.y
 	return button
 
 func _background(path: String, darkness: float, left_veil: bool = false) -> void:
@@ -211,6 +217,7 @@ func _rebuild() -> void:
 	if not visible or not is_inside_tree():
 		return
 	for child in get_children():
+		if child.name=="InterfaceDetailReader": continue
 		child.hide()
 		remove_child(child)
 		child.queue_free()
@@ -222,6 +229,8 @@ func _rebuild() -> void:
 		"settings": _build_settings()
 		"atlas": _build_atlas()
 		_: _build_home()
+	var reader: Node=get_node_or_null("InterfaceDetailReader")
+	if reader!=null: move_child(reader,get_child_count()-1)
 	if view!="atlas":
 		fade = create_tween()
 		fade.tween_property(self,"modulate:a",1.0,0.3)
@@ -232,9 +241,13 @@ func _build_home() -> void:
 	var menu_x: float = size_now.x-458.0
 	var content_width: float = menu_x-146.0
 	UIStyle.ornament(self,Rect2(74,54,58,58),"crest")
-	_japanese_label("戦国・言葉の旅",Rect2(150,34,content_width-80,64),22,"e0c992").name="HomeTagline"
-	_japanese_label("言葉の戦場",Rect2(72,104,content_width,116),46,UIStyle.TEXT).name="HomeTitle"
-	_label("말의 전장",Rect2(78,228,content_width,40),28,UIStyle.MUTED).name="HomeSubtitle"
+	var tagline: Label=_japanese_label("戦国・言葉の旅\n전국시대, 언어의 여정",Rect2(150,24,content_width-80,90),20,UIStyle.MUTED)
+	tagline.name="HomeTagline"
+	tagline.add_theme_font_size_override("font_size",16)
+	tagline.call("refresh_ruby")
+	tagline.size=Vector2(content_width-80,90)
+	_japanese_label("言葉の戦場",Rect2(72,122,content_width,116),46,UIStyle.TEXT).name="HomeTitle"
+	_label("말의 전장",Rect2(78,246,content_width,40),28,UIStyle.MUTED).name="HomeSubtitle"
 	var protagonist: Dictionary = campaign_story.get("protagonist",{})
 	var motif_jp: String = str(protagonist.get("motifJP","戦国絵巻、天下統一への道。"))
 	var motif_ko: String = str(protagonist.get("motifKo","전국시대, 천하 통일의 이야기"))
@@ -247,7 +260,7 @@ func _build_home() -> void:
 	var ko_points: int = clampi(roundi(30.0*jp_width/maxf(1,ko_reference)),28,40)
 	while GameFonts.heading().get_string_size(motif_ko,HORIZONTAL_ALIGNMENT_LEFT,-1,ko_points).x>motif_width and ko_points>24:
 		ko_points-=1
-	var story_plaque: Panel=_surface(Rect2(68,282,motif_width+28,178),"paper",.18)
+	var story_plaque: Panel=_surface(Rect2(68,300,motif_width+28,164),"paper",.18)
 	story_plaque.name="HomeStoryPlaque"
 	var paper: TextureRect=TextureRect.new()
 	paper.texture=UIStyle.material_texture("paper")
@@ -256,13 +269,13 @@ func _build_home() -> void:
 	paper.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	paper.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	story_plaque.add_child(paper)
-	_japanese_label(motif_jp,Rect2(82,292,motif_width,82),jp_points,"231b13").name="HomeMotifJP"
-	_label(motif_ko,Rect2(82,393,motif_width,54),ko_points,"403323").name="HomeMotifKO"
+	_japanese_label(motif_jp,Rect2(82,310,motif_width,82),jp_points,"231b13").name="HomeMotifJP"
+	_label(motif_ko,Rect2(82,400,motif_width,54),ko_points,"403323").name="HomeMotifKO"
 	var unified: bool=not maps.is_empty() and progress.campaign_unified()
 	if unified:
 		_label("天下統一 · 천하 통일 완료",Rect2(78,464,content_width,62),26,UIStyle.BRASS)
 	UIStyle.ornament(self,Rect2(menu_x,170,376,4),"divider")
-	var menu_surface: Panel=_surface(Rect2(menu_x-10,184,396,442),"lacquer",.82)
+	var menu_surface: Panel=_surface(Rect2(menu_x-10,184,396,462),"lacquer",.82)
 	menu_surface.name="HomeMenuSurface"
 	var items: Array = [
 		{"jp":"出陣","ko":"출진","parts":[{"text":"出","reading":"しゅつ"},{"text":"陣","reading":"じん"}]},
@@ -272,13 +285,15 @@ func _build_home() -> void:
 	]
 	var actions: Array = [func(): show_catalog(0,false),func(): barracks_requested.emit(),func(): training_requested.emit(),func(): show_catalog(0,true)]
 	for index in range(items.size()):
-		var menu: Button = _ruby_button(items[index],Rect2(menu_x,190+index*108,376,106),actions[index])
+		var menu: Button = _ruby_button(items[index],Rect2(menu_x,190+index*112,376,110),actions[index])
 		menu.name=["HomeSortie","HomeBarracks","HomeTraining","HomeDictionary"][index]
 		var ruby: Control = menu.get_node("MenuRuby")
 		ruby.offset_left=56
 		ruby.offset_right=-16
-		ruby.offset_top=3
-		ruby.set_word(items[index],24)
+		ruby.offset_top=7
+		ruby.offset_bottom=-7
+		ruby.meaning_size=18
+		ruby.set_word(items[index],22)
 		menu.add_theme_stylebox_override("normal",UIStyle.primary() if index==0 else UIStyle.button("normal"))
 		var marker: Label = UIStyle.TooltipLabel.new()
 		marker.text=["一","二","三","四"][index]
@@ -290,8 +305,8 @@ func _build_home() -> void:
 		marker.add_theme_color_override("font_color",Color(UIStyle.BRASS))
 		marker.mouse_filter=Control.MOUSE_FILTER_IGNORE
 		menu.add_child(marker)
-	_button("설정",Rect2(menu_x,634,172,47),func(): view="settings"; _rebuild()).name="HomeSettings"
-	_button("게임 종료",Rect2(menu_x+192,634,184,47),func(): exit_requested.emit()).name="HomeExit"
+	_button("설정",Rect2(menu_x,648,172,47),func(): view="settings"; _rebuild()).name="HomeSettings"
+	_button("게임 종료",Rect2(menu_x+192,648,184,47),func(): exit_requested.emit()).name="HomeExit"
 	var atlas_y: float=534 if unified else 477
 	var atlas_entry: Button=_ruby_button({"jp":"全国地図","reading":"ぜんこくちず","ko":"전국 지도","parts":[{"text":"全国","reading":"ぜんこく"},{"text":"地図","reading":"ちず"}]},Rect2(78,atlas_y,minf(430,content_width),132),func(): show_campaign_map())
 	atlas_entry.name="HomeCampaignMap"
@@ -301,174 +316,171 @@ func _build_home() -> void:
 	map_hint.add_theme_constant_override("outline_size",2)
 	_label("",Rect2(78,710,content_width,38),20,UIStyle.MUTED).name="HomeCatalogPreparation"
 	if battle_active and not maps.is_empty():
-		_button("진행 중인 전장으로",Rect2(menu_x,696,376,47),func(): resume_requested.emit()).name="HomeResume"
+		_button("진행 중인 전장으로",Rect2(menu_x,710,376,47),func(): resume_requested.emit()).name="HomeResume"
 	var footer: String = "원정 %02d / 40 · 군자금 %d · 기억 확인 %d / 900" % [progress.data.maps.size(),int(progress.data.army.currency),progress.mastered_count()]
 	if maps.is_empty(): footer="전장 재설계 · 이전 기록 %d개 · 군자금 %d · 기억 확인 %d / 900" % [progress.data.maps.size(),int(progress.data.army.currency),progress.mastered_count()]
 	if not progress.save_error.is_empty(): footer=progress.save_error
 	elif not progress.read_error.is_empty(): footer=progress.read_error
 	_label(footer,Rect2(78,size_now.y-43,size_now.x-410,32),20,UIStyle.MUTED).name="HomeProgressFooter"
-	_japanese_label("戦国時代",Rect2(size_now.x-300,size_now.y-82,236,74),26,"c8b993").horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+	var era_label: Label=_japanese_label("戦国時代\n전국시대",Rect2(size_now.x-300,size_now.y-104,236,96),18,UIStyle.MUTED)
+	era_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+	era_label.add_theme_font_size_override("font_size",18)
+	era_label.call("refresh_ruby")
+	era_label.size=Vector2(236,era_label.get_combined_minimum_size().y)
+	era_label.position.y=size_now.y-12-era_label.size.y
 	_sync_catalog_preparation()
 
+func _change_catalog_tier(tier: int) -> void:
+	selected_stage=0
+	show_catalog(tier,study_mode)
+
+func close_detail() -> bool:
+	var reader: Node=find_child("InterfaceDetailReader",true,false)
+	if reader==null: return false
+	reader.call("close")
+	return true
+
+func _catalog_detail(chosen: Dictionary, section: int) -> void:
+	var id: String=str(chosen.id)
+	var sections: Array=UIStyle.stage_detail_sections(chosen,_story(id),_geography(id),learning_plans.get("stages",{}).get(id,{}))
+	var reader: Control=UIStyle.open_detail(self,str(_story(id).get("battleKo",chosen.title)),sections)
+	reader.set("section_index",section)
+
 func _build_catalog() -> void:
-	var size_now = get_viewport().get_visible_rect().size
+	var viewport_size: Vector2=get_viewport().get_visible_rect().size
 	_background("res://assets/ui/barracks-warroom.png",0.52)
 	UIStyle.ornament(self,Rect2(38,26,54,54),"crest")
-	_japanese_label("言葉図鑑" if study_mode else "戦記　出陣之書",Rect2(110,18,size_now.x-380,78),32,UIStyle.TEXT).name="CatalogTitle"
-	_label("전장별 학습 도감" if study_mode else "전장 선택 · 원정 기록",Rect2(111,99,size_now.x-380,33),20,UIStyle.MUTED).name="CatalogSubtitle"
-	_button("전장 복귀" if battle_active else "돌아가기",Rect2(size_now.x-232,33,190,45),func():
-		if battle_active:
-			resume_requested.emit()
-		else:
-			show_home()
+	_japanese_label("言葉図鑑" if study_mode else "戦記　出陣之書",Rect2(110,18,viewport_size.x-380,78),32,UIStyle.TEXT).name="CatalogTitle"
+	_label("전장별 학습 도감" if study_mode else "전장 선택 · 원정 기록",Rect2(111,99,viewport_size.x-380,33),20,UIStyle.MUTED).name="CatalogSubtitle"
+	_button("전장 복귀" if battle_active else "돌아가기",Rect2(viewport_size.x-232,28,190,48),func():
+		if battle_active: resume_requested.emit()
+		else: show_home()
 	)
-	var atlas_entry: Button=_button("전국 지도",Rect2(size_now.x-232,83,190,44),func():
-		var available_now: Array=maps.filter(func(stage): return str(stage.tier)==TIERS[selected_tier])
-		show_campaign_map(str(available_now[selected_stage].id) if selected_stage>=0 and selected_stage<available_now.size() else "")
+	var available: Array=maps.filter(func(stage): return str(stage.tier)==TIERS[selected_tier])
+	var atlas_button: Button=_button("전국 지도",Rect2(viewport_size.x-232,84,190,48),func():
+		show_campaign_map(str(available[selected_stage].id) if selected_stage>=0 and selected_stage<available.size() else "")
 	)
-	atlas_entry.name="CatalogCampaignMap"
-	atlas_entry.disabled=maps.is_empty()
-	atlas_entry.tooltip_text="全国地図 · ぜんこくちず · 실제 전투 위치와 당시 지명"
+	atlas_button.name="CatalogCampaignMap"
+	atlas_button.disabled=maps.is_empty()
+	var list_width: float=clampf(viewport_size.x*.28,360,420)
+	var right_x: float=52+list_width
+	var right_width: float=viewport_size.x-right_x-32
+	var tab_width: float=(list_width-12)*.5
+	var japanese: Array=["初陣","修練","熟練","決戦"]
+	var readings: Array=["ういじん","しゅうれん","じゅくれん","けっせん"]
+	var korean: Array=["기초","초급","중급","고급"]
 	for tier in range(4):
-		var button = _button(TIER_NAMES[tier],Rect2(42+tier*220,145,206,64),func(): selected_stage=0; show_catalog(tier,study_mode))
-		if tier==selected_tier:
-			button.add_theme_stylebox_override("normal",UIStyle.selected())
-	var available = maps.filter(func(stage): return str(stage.tier)==TIERS[selected_tier])
+		var word: Dictionary={"jp":japanese[tier],"reading":readings[tier],"ko":korean[tier]}
+		var tab_column: int=tier%2
+		var tab_row: int=tier/2
+		var tab: Button=_ruby_button(word,Rect2(32+tab_column*(tab_width+12),146+tab_row*124,tab_width,112),_change_catalog_tier.bind(tier))
+		tab.name="CatalogTier_%d"%tier
+		var tab_text: Control=tab.get_node("MenuRuby")
+		tab_text.meaning_size=18
+		tab_text.set_word(word,22)
+		tab_text.offset_left=14
+		tab_text.offset_right=-14
+		tab_text.offset_top=7
+		tab_text.offset_bottom=-7
+		if tier==selected_tier: tab.add_theme_stylebox_override("normal",UIStyle.selected())
 	if available.is_empty():
-		selected_stage = 0
-		_label("전장 재설계 중",Rect2(42,231,size_now.x-84,58),30,UIStyle.BRASS).name="CatalogEmptyTitle"
-		_label("현재 플레이 가능한 전장이 없습니다.\n역사 검증과 공간 설계를 마친 전장을 다시 추가할 예정입니다." if maps.is_empty() else "이 등급의 전장을 준비하고 있습니다.",Rect2(42,283,size_now.x-84,104),22,UIStyle.TEXT).name="CatalogEmptyStatus"
+		selected_stage=0
+		_label("전장 재설계 중",Rect2(right_x,174,right_width,58),30,UIStyle.BRASS).name="CatalogEmptyTitle"
+		_label("현재 플레이 가능한 전장이 없습니다." if maps.is_empty() else "이 등급의 전장을 준비하고 있습니다.",Rect2(right_x,242,right_width,104),22,UIStyle.TEXT).name="CatalogEmptyStatus"
 		return
-	selected_stage = clampi(selected_stage,0,available.size()-1)
-	_surface(Rect2(32,189,358,size_now.y-237),"paper",.12)
-	var scroll = ScrollContainer.new()
-	scroll.name = "StageCatalogScroll"
-	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	scroll.position = Vector2(42,230)
-	scroll.size = Vector2(338,size_now.y-288)
-	add_child(scroll)
-	var list = VBoxContainer.new()
-	list.add_theme_constant_override("separation",4)
-	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.add_child(list)
-	for i in range(available.size()):
-		var stage: Dictionary = available[i]
-		var story: Dictionary = _story(str(stage.id))
-		var row = _button("%02d   %s" % [int(stage.stageNumber),str(story.get("battleKo",str(stage.title).split(" · ")[0]))],Rect2(0,0,318,55),_select_catalog_stage.bind(i))
-		row.name = "Stage_%s" % str(stage.id)
-		var unlocked: bool = progress.map_unlocked(str(stage.id))
-		if not unlocked:
-			row.text += " · 잠김"
-			row.add_theme_color_override("font_color",Color(UIStyle.DISABLED))
-		row.reparent(list,false)
-		row.custom_minimum_size = Vector2(318,70)
-		row.alignment = HORIZONTAL_ALIGNMENT_LEFT
-		row.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		row.add_theme_font_size_override("font_size",20)
-		row.tooltip_text = progress.map_lock_reason(str(stage.id)) if not unlocked else "완료" if progress.map_cleared(str(stage.id)) else "출진 가능"
-		if i==selected_stage:
-			row.add_theme_stylebox_override("normal",UIStyle.selected())
-	scroll.call_deferred("ensure_control_visible",list.get_child(selected_stage))
-	var chosen: Dictionary = available[selected_stage]
-	var selected_story: Dictionary = _story(str(chosen.id))
-	var preview_rect = Rect2(410,230,size_now.x-452,size_now.y-518)
-	var landscape: Control = BattlefieldPreview.new()
+	selected_stage=clampi(selected_stage,0,available.size()-1)
+	var content_top: float=146
+	var content_bottom: float=viewport_size.y-64
+	var content_height: float=content_bottom-content_top
+	var list_top: float=398
+	var list_height: float=content_bottom-list_top
+	var rows_per_page: int=maxi(1,floori((list_height-88)/76))
+	var list_bottom: float=content_bottom
+	_surface(Rect2(32,list_top,list_width,list_height),"paper",.12).name="StageCatalogPanel"
+	var first: int=(selected_stage/rows_per_page)*rows_per_page
+	for index in range(first,mini(first+rows_per_page,available.size())):
+		var entry: Dictionary=available[index]
+		var title: String="%02d · %s"%[int(entry.stageNumber),str(_story(str(entry.id)).get("battleKo",entry.title))]
+		var row: Button=_button(title,Rect2(46,list_top+14+(index-first)*76,list_width-28,72),_select_catalog_stage.bind(index))
+		row.name="Stage_%s"%str(entry.id)
+		row.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+		row.add_theme_font_size_override("font_size",18)
+		row.alignment=HORIZONTAL_ALIGNMENT_LEFT
+		row.tooltip_text=progress.map_lock_reason(str(entry.id)) if not progress.map_unlocked(str(entry.id)) else "완료" if progress.map_cleared(str(entry.id)) else "출진 가능"
+		if not progress.map_unlocked(str(entry.id)): row.add_theme_color_override("font_color",Color(UIStyle.DISABLED))
+		if index==selected_stage: row.add_theme_stylebox_override("normal",UIStyle.selected())
+	var previous: Button=_button("이전",Rect2(46,list_bottom-62,80,48),_select_catalog_stage.bind(maxi(0,first-rows_per_page)))
+	previous.disabled=first==0
+	var next: Button=_button("다음",Rect2(32+list_width-94,list_bottom-62,80,48),_select_catalog_stage.bind(mini(available.size()-1,first+rows_per_page)))
+	next.disabled=first+rows_per_page>=available.size()
+	_label("%d / %d"%[first/rows_per_page+1,ceili(float(available.size())/rows_per_page)],Rect2(132,list_bottom-54,list_width-200,32),20,UIStyle.MUTED).horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+	var chosen: Dictionary=available[selected_stage]
+	var chosen_story: Dictionary=_story(str(chosen.id))
+	var geo: Dictionary=_geography(str(chosen.id))
+	var image_ratio: float=BattlefieldPreview.aspect_ratio_for_stage(chosen)
+	var summary_height: float=190.0 if viewport_size.y<880 else 204.0
+	var preview_height_limit: float=maxf(140,content_height-summary_height-16)
+	var preview_width: float=minf(right_width,preview_height_limit*image_ratio)
+	var preview_rect: Rect2=Rect2(right_x+(right_width-preview_width)*.5,content_top,preview_width,preview_width/image_ratio)
+	var landscape: Control=BattlefieldPreview.new()
 	landscape.name="CatalogBattlefieldPreview"
 	landscape.configure(chosen)
-	landscape.position = preview_rect.position
-	landscape.size = preview_rect.size
-	landscape.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	landscape.position=preview_rect.position
+	landscape.size=preview_rect.size
+	landscape.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	add_child(landscape)
 	landscape.image.flip_h=BattlefieldPresentation.mirror_for_stage(chosen)
-	var preview_frame=Panel.new()
+	var preview_frame: Panel=Panel.new()
+	preview_frame.name="CatalogPreviewFrame"
 	preview_frame.position=preview_rect.position
 	preview_frame.size=preview_rect.size
 	preview_frame.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	preview_frame.add_theme_stylebox_override("panel",UIStyle.frame("00000000",UIStyle.BRASS))
 	add_child(preview_frame)
 	if not study_mode:
-		var mode_label = _label("戦支度 · 전투 시간",Rect2(preview_rect.position+Vector2(16,16),Vector2(204,40)),20,"e1e6e9")
+		var cycle_count: int=int(BattleDuration.preview(chosen,0).get("totalWaves",0))
+		var mode_label: Label=_label("적 공격 · 총 %d회" % cycle_count,Rect2(preview_rect.position+Vector2(16,24),Vector2(240,34)),20,UIStyle.TEXT)
 		mode_label.name="CatalogBattlePreparations"
-		mode_label.add_theme_color_override("font_outline_color",Color("101822"))
-		mode_label.add_theme_constant_override("outline_size",2)
-		for mode_index in range(2):
-			var minutes: int = [10,20][mode_index]
-			var mode = _button("%d분" % minutes,Rect2(preview_rect.position+Vector2(228+mode_index*92,16),Vector2(82,40)),func(): battle_minutes_selected.emit(minutes))
-			mode.name = "BattleMinutes%d" % minutes
-			mode.disabled = battle_active
-			mode.tooltip_text = "학습·일시 정지를 뺀 1× 전투 시간 · 2×에서는 실제 시간이 짧아집니다."
-			mode.add_theme_font_size_override("font_size",20)
-			if minutes==battle_minutes:
-				mode.add_theme_stylebox_override("normal",UIStyle.selected())
-				mode.add_theme_stylebox_override("disabled",UIStyle.selected())
-		var narrative_height: float=minf(174,preview_rect.size.y*.52)
-		var narrative_rect: Rect2=Rect2(preview_rect.position.x+12,preview_rect.end.y-narrative_height-12,preview_rect.size.x-24,narrative_height)
-		var narrative_panel: Panel=_surface(narrative_rect,"lacquer",.15)
-		narrative_panel.name="StageHistoricalNarrativePanel"
-		narrative_panel.add_theme_stylebox_override("panel",UIStyle.frame(UIStyle.SURFACE,UIStyle.LINE))
-		var narrative_scroll: ScrollContainer=ScrollContainer.new()
-		narrative_scroll.name="StageHistoricalNarrativeScroll"
-		narrative_scroll.position=narrative_rect.position+Vector2(16,12)
-		narrative_scroll.size=narrative_rect.size-Vector2(32,24)
-		narrative_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
-		add_child(narrative_scroll)
-		var narrative: Label=_label(str(selected_story.get("historyNarrativeKo",selected_story.get("historySummaryKo",""))),Rect2(Vector2.ZERO,Vector2(narrative_scroll.size.x,1)),20,"f3e8d1")
-		narrative.name="StageHistoricalNarrative"
-		narrative.reparent(narrative_scroll,false)
-		narrative.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		mode_label.add_theme_color_override("font_outline_color",Color("101410"))
+		mode_label.add_theme_constant_override("outline_size",3)
 		if int(chosen.stageNumber)<40 and progress.map_unlocked(str(chosen.id)) and progress.map_cleared(str(chosen.id)) and not progress.map_assessed(str(chosen.id)):
-			var exam = _button("다음 맵 해금 시험",Rect2(preview_rect.end.x-246,preview_rect.position.y+16,230,42),func(): assessment_requested.emit(selected_tier,selected_stage))
-			exam.name = "CatalogUnlockExam"
-	_surface(Rect2(400,size_now.y-276,size_now.x-432,225),"lacquer",.25)
-	var battle_title: Label=_label("%02d   %s" % [int(chosen.stageNumber),str(selected_story.get("battleKo",str(chosen.title).split(" · ")[0]))],Rect2(418,size_now.y-261,size_now.x-748,44),30,UIStyle.TEXT)
+			_button("다음 맵 해금 시험",Rect2(preview_rect.end.x-248,preview_rect.position.y+16,232,52),func(): assessment_requested.emit(selected_tier,selected_stage)).name="CatalogUnlockExam"
+	var summary: Rect2=Rect2(preview_rect.position.x,preview_rect.end.y+16,preview_rect.size.x,summary_height)
+	_surface(summary,"lacquer",.25).name="StageSummaryPanel"
+	var text_width: float=summary.size.x-276
+	var battle_title: Label=_label("%02d · %s"%[int(chosen.stageNumber),str(chosen_story.get("battleKo",chosen.title))],Rect2(summary.position+Vector2(18,12),Vector2(text_width,42)),26,UIStyle.TEXT)
 	battle_title.name="StageBattleTitle"
-	battle_title.size.y=maxf(44,battle_title.get_minimum_size().y)
-	var plan: Dictionary = learning_plans.get("stages",{}).get(str(chosen.id),{})
-	var description_text: String=str(plan.get("goalKo","")) if study_mode else str(selected_story.get("historySummaryKo",""))
-	if not study_mode:
-		var geo: Dictionary=_geography(str(chosen.id))
-		var actual_result: String=str(selected_story.get("historyOutcomeKo","")).split(".")[0]+"."
-		description_text="때 · %s\n옛 지명 · %s\n오늘날 · %s\n상대 · %s\n결과 · %s"%[_historical_date(geo,int(selected_story.get("year",0))),str(geo.get("oldNameKo","")),str(geo.get("modernNameKo","")),str(selected_story.get("opponent",{}).get("nameKo","")),actual_result]
-		description_text+="\n제작 근거 · "+str(geo.get("renderingBasisKo",""))
-	var description_scroll: ScrollContainer = ScrollContainer.new()
-	description_scroll.name = "StageTacticalDescriptionScroll"
-	description_scroll.position=Vector2(418,battle_title.position.y+battle_title.size.y+12)
-	description_scroll.size=Vector2(size_now.x-750,size_now.y-69-description_scroll.position.y)
-	description_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	add_child(description_scroll)
-	var description: Label=_label(description_text,Rect2(Vector2.ZERO,Vector2(description_scroll.size.x,142)),20,"efe4cf")
-	description.name = "StageTacticalDescription"
-	description.reparent(description_scroll,false)
-	description.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	if not study_mode:
-		var source_urls: Array=_geography(str(chosen.id)).get("sources",[])
-		var sources=LinkButton.new()
-		sources.name="MapBasisSources"
-		sources.text="맵 제작 참고 자료"
-		sources.position=Vector2(size_now.x-306,size_now.y-124)
-		sources.size=Vector2(246,34)
-		sources.add_theme_font_override("font",GameFonts.body())
-		sources.add_theme_font_size_override("font_size",20)
-		sources.add_theme_color_override("font_color",Color("dcc594"))
-		sources.tooltip_text="\n".join(PackedStringArray(source_urls))
-		sources.disabled=source_urls.is_empty()
-		if not source_urls.is_empty():
-			var source_url: String=str(source_urls[0])
-			sources.pressed.connect(func(): OS.shell_open(source_url))
-		add_child(sources)
-	var start = _ruby_button({"jp":"図鑑" if study_mode else "出陣","reading":"ずかん" if study_mode else "しゅつじん","ko":"이 전장의 도감" if study_mode else "이 전장에 출진"},Rect2(size_now.x-306,size_now.y-256,246,114),func(): stage_chosen.emit(selected_tier,selected_stage,study_mode))
-	start.name="CatalogSortie"
-	start.disabled = not progress.map_unlocked(str(chosen.id))
-	start.tooltip_text = progress.map_lock_reason(str(chosen.id)) if start.disabled else ""
-	start.add_theme_stylebox_override("normal",UIStyle.primary())
-	if start.disabled:
-		var locked_caption = _label(progress.map_lock_reason(str(chosen.id)),Rect2(preview_rect.position+Vector2(16,70),Vector2(preview_rect.size.x-32,64)),22,"e8c29c")
-		locked_caption.name = "MapUnlockRequirement"
-		locked_caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		locked_caption.add_theme_constant_override("outline_size",2)
-		locked_caption.add_theme_color_override("font_outline_color",Color("101822"))
-	var warning: String = progress.save_error if not progress.save_error.is_empty() else progress.read_error
-	_label(warning if not warning.is_empty() else "원정 %02d / 40 · 기억 확인 %d / 900" % [progress.data.maps.size(),progress.mastered_count()],Rect2(42,size_now.y-48,size_now.x-84,30),20,"e8a68b" if not warning.is_empty() else UIStyle.MUTED).name="CatalogProgressFooter"
+	battle_title.max_lines_visible=1
+	battle_title.clip_text=true
+	battle_title.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+	battle_title.tooltip_text=str(chosen_story.get("battleKo",chosen.title))
+	var stage_status: String="클리어" if progress.map_cleared(str(chosen.id)) else "출진 가능" if progress.map_unlocked(str(chosen.id)) else "잠김"
+	var summary_text: String="%d년 · %s"%[int(chosen_story.get("year",0)),stage_status]
+	var facts: Label=_label(summary_text,Rect2(summary.position+Vector2(18,64),Vector2(text_width,32)),20,UIStyle.TEXT)
+	facts.name="StageSummary"
+	facts.tooltip_text="때 · %s\n옛 지명 · %s"%[_historical_date(geo,int(chosen_story.get("year",0))),str(geo.get("oldNameKo","자료 준비 중"))]
+	if study_mode: facts.tooltip_text=str(learning_plans.get("stages",{}).get(str(chosen.id),{}).get("goalKo",facts.tooltip_text))
+	if not progress.map_unlocked(str(chosen.id)): facts.tooltip_text+="\n"+progress.map_lock_reason(str(chosen.id))
+	var detail_labels: Array=["역사 자세히","지명·지형","학습 목표"]
+	var detail_sections: Array=[0,1,3]
+	var detail_width: float=(text_width-20)/3
+	for detail_index in range(3):
+		_button(detail_labels[detail_index],Rect2(summary.position.x+18+(detail_width+10)*detail_index,summary.end.y-68,detail_width,52),_catalog_detail.bind(chosen,int(detail_sections[detail_index]))).name=["CatalogDetails","CatalogLocationDetails","CatalogLearningDetails"][detail_index]
+	var sortie_word: Dictionary={"jp":"図鑑" if study_mode else "出陣","reading":"ずかん" if study_mode else "しゅつじん","ko":"이 전장의 도감" if study_mode else "이 전장에 출진"}
+	var sortie: Button=_ruby_button(sortie_word,Rect2(summary.end.x-240,summary.position.y+(summary.size.y-132)*.5,222,132),func(): stage_chosen.emit(selected_tier,selected_stage,study_mode))
+	sortie.name="CatalogSortie"
+	var sortie_text: Control=sortie.get_node("MenuRuby")
+	sortie_text.meaning_size=20
+	sortie_text.set_word(sortie_word,30)
+	sortie_text.offset_left=14
+	sortie_text.offset_right=-14
+	sortie_text.offset_top=7
+	sortie_text.offset_bottom=-7
+	sortie.disabled=not progress.map_unlocked(str(chosen.id))
+	sortie.tooltip_text=progress.map_lock_reason(str(chosen.id)) if sortie.disabled else ""
+	sortie.add_theme_stylebox_override("normal",UIStyle.primary())
+	var warning: String=progress.save_error if not progress.save_error.is_empty() else progress.read_error
+	_label(warning if not warning.is_empty() else "원정 %02d / 40 · 기억 확인 %d / 900"%[progress.data.maps.size(),progress.mastered_count()],Rect2(42,viewport_size.y-42,viewport_size.x-84,30),20,UIStyle.MUTED).name="CatalogProgressFooter"
 
 func _select_catalog_stage(index: int) -> void:
 	selected_stage=index

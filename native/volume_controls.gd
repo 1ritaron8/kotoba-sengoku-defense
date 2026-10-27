@@ -20,7 +20,8 @@ func configure(settings: Dictionary) -> void:
 		child.queue_free()
 	sliders.clear()
 	var heading = UIStyle.TooltipLabel.new()
-	heading.text = "音量 · 음량"
+	heading.name="VolumeHeading"
+	heading.text = "音量\n음량"
 	heading.add_theme_font_override("font",GameFonts.heading())
 	heading.add_theme_font_size_override("font_size",24)
 	heading.add_theme_color_override("font_color",Color("f2ead9"))

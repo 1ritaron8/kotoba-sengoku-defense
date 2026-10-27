@@ -61,9 +61,13 @@
                 ]
               },
               "position": {
-                "x": 0.04594594594594593,
-                "y": 0.5962962962962963
-              }
+                "x": 0.151,
+                "y": 0.335
+              },
+              "terrainKind": "forest",
+              "coordinateSpace": "canonical_normalized_map",
+              "background": "res://assets/painted-battlefield/stage01.png",
+              "spatialBindingStatus": "bound_painted_stage01"
             },
             {
               "id": "zone-11",
@@ -79,9 +83,13 @@
                 ]
               },
               "position": {
-                "x": 0.02540540540540544,
-                "y": 0.7577777777777778
-              }
+                "x": 0.2,
+                "y": 0.095
+              },
+              "terrainKind": "river",
+              "coordinateSpace": "canonical_normalized_map",
+              "background": "res://assets/painted-battlefield/stage01.png",
+              "spatialBindingStatus": "bound_painted_stage01"
             },
             {
               "id": "zone-08",
@@ -96,25 +104,27 @@
                   }
                 ]
               },
-              "position": {
-                "x": 0.7297297297297297,
-                "y": 0.14814814814814814
-              }
+              "terrainKind": "mountain",
+              "displayOnlyTerrain": true,
+              "mapMarkerVisible": false,
+              "displayImagePath": "",
+              "displayReferenceStatus": "requires_mountain_reference_from_ux",
+              "spatialBindingStatus": "semantic_reference_no_mountain_on_map"
             }
           ],
           "answerId": "zone-09",
-          "successKo": "숲에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
+          "successKo": "지원 요청이 접수되었습니다. 전투 복귀 후 공통 기지 보급점에서 실제 지원 효과를 확인합니다.",
           "action": {
             "kind": "support",
             "position": {
-              "x": 0.20154111457849178,
-              "y": 0.5970197833345607
+              "x": 0.284,
+              "y": 0.76
             }
           },
           "itemIds": [
             "basic-01-03"
           ],
-          "spatialBindingStatus": "bound_authored_world"
+          "spatialBindingStatus": "painted_map_or_explicit_terrain_reference"
         },
         {
           "id": "basic-forest-context-2",
@@ -161,9 +171,13 @@
                 ]
               },
               "position": {
-                "x": 0.04594594594594593,
-                "y": 0.5962962962962963
-              }
+                "x": 0.151,
+                "y": 0.335
+              },
+              "terrainKind": "forest",
+              "coordinateSpace": "canonical_normalized_map",
+              "background": "res://assets/painted-battlefield/stage01.png",
+              "spatialBindingStatus": "bound_painted_stage01"
             },
             {
               "id": "zone-11",
@@ -179,9 +193,13 @@
                 ]
               },
               "position": {
-                "x": 0.02540540540540544,
-                "y": 0.7577777777777778
-              }
+                "x": 0.2,
+                "y": 0.095
+              },
+              "terrainKind": "river",
+              "coordinateSpace": "canonical_normalized_map",
+              "background": "res://assets/painted-battlefield/stage01.png",
+              "spatialBindingStatus": "bound_painted_stage01"
             },
             {
               "id": "zone-08",
@@ -196,29 +214,31 @@
                   }
                 ]
               },
-              "position": {
-                "x": 0.7297297297297297,
-                "y": 0.14814814814814814
-              }
+              "terrainKind": "mountain",
+              "displayOnlyTerrain": true,
+              "mapMarkerVisible": false,
+              "displayImagePath": "",
+              "displayReferenceStatus": "requires_mountain_reference_from_ux",
+              "spatialBindingStatus": "semantic_reference_no_mountain_on_map"
             }
           ],
           "answerId": "zone-08",
-          "successKo": "산에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
+          "successKo": "지원 요청이 접수되었습니다. 전투 복귀 후 공통 기지 보급점에서 실제 지원 효과를 확인합니다.",
           "action": {
             "kind": "support",
             "position": {
-              "x": 0.20154111457849178,
-              "y": 0.5970197833345607
+              "x": 0.284,
+              "y": 0.76
             }
           },
           "itemIds": [
             "basic-01-01"
           ],
-          "spatialBindingStatus": "bound_authored_world"
+          "spatialBindingStatus": "painted_map_or_explicit_terrain_reference"
         },
         {
           "id": "basic-forest-context-3",
-          "wave": 6,
+          "wave": 4,
           "report": {
             "jp": "「川」です。",
             "reading": "「かわ」です。",
@@ -261,9 +281,13 @@
                 ]
               },
               "position": {
-                "x": 0.04594594594594593,
-                "y": 0.5962962962962963
-              }
+                "x": 0.151,
+                "y": 0.335
+              },
+              "terrainKind": "forest",
+              "coordinateSpace": "canonical_normalized_map",
+              "background": "res://assets/painted-battlefield/stage01.png",
+              "spatialBindingStatus": "bound_painted_stage01"
             },
             {
               "id": "zone-11",
@@ -279,9 +303,13 @@
                 ]
               },
               "position": {
-                "x": 0.02540540540540544,
-                "y": 0.7577777777777778
-              }
+                "x": 0.2,
+                "y": 0.095
+              },
+              "terrainKind": "river",
+              "coordinateSpace": "canonical_normalized_map",
+              "background": "res://assets/painted-battlefield/stage01.png",
+              "spatialBindingStatus": "bound_painted_stage01"
             },
             {
               "id": "zone-08",
@@ -296,25 +324,27 @@
                   }
                 ]
               },
-              "position": {
-                "x": 0.7297297297297297,
-                "y": 0.14814814814814814
-              }
+              "terrainKind": "mountain",
+              "displayOnlyTerrain": true,
+              "mapMarkerVisible": false,
+              "displayImagePath": "",
+              "displayReferenceStatus": "requires_mountain_reference_from_ux",
+              "spatialBindingStatus": "semantic_reference_no_mountain_on_map"
             }
           ],
           "answerId": "zone-11",
-          "successKo": "강에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
+          "successKo": "지원 요청이 접수되었습니다. 전투 복귀 후 공통 기지 보급점에서 실제 지원 효과를 확인합니다.",
           "action": {
             "kind": "support",
             "position": {
-              "x": 0.20154111457849178,
-              "y": 0.5970197833345607
+              "x": 0.284,
+              "y": 0.76
             }
           },
           "itemIds": [
             "basic-01-02"
           ],
-          "spatialBindingStatus": "bound_authored_world"
+          "spatialBindingStatus": "painted_map_or_explicit_terrain_reference"
         }
       ],
       "grammarStepIds": [
@@ -326,7 +356,7 @@
     "basic-farm": {
       "lessonId": "basic-02",
       "tier": "basic",
-      "goalKo": "수확 맵에서 사람·무기 이름을 익히고 これ·それ와 관계를 나타내는 の로 짧은 지원점 이름을 읽습니다.",
+      "goalKo": "오케하자마의 진격로에서 사람·무기 이름을 익히고 これ·それ와 관계를 나타내는 の로 왼쪽·중앙 사격 지점과 앞쪽 합류 지점의 이름을 읽습니다. 문제는 전투 후 복습하며 전투 보상이나 병력을 지급하지 않습니다.",
       "grammar": [
         {
           "jp": "これは～です",
@@ -342,9 +372,9 @@
           "id": "basic-farm-context-1",
           "wave": 1,
           "report": {
-            "jp": "目印は「左の支援点」です。",
-            "reading": "めじるしは「ひだりのしえんてん」です。",
-            "ko": "표식은 「왼쪽 지원점」입니다.",
+            "jp": "目印は「左の射撃地点」です。",
+            "reading": "めじるしは「ひだりのしゃげきちてん」です。",
+            "ko": "표식은 「왼쪽 사격 지점」입니다.",
             "parts": [
               {
                 "text": "目印",
@@ -361,8 +391,8 @@
                 "text": "の"
               },
               {
-                "text": "支援点",
-                "reading": "しえんてん"
+                "text": "射撃地点",
+                "reading": "しゃげきちてん"
               },
               {
                 "text": "」です。"
@@ -378,9 +408,9 @@
             {
               "id": "zone-01",
               "label": {
-                "jp": "左の支援点",
-                "reading": "ひだりのしえんてん",
-                "ko": "왼쪽 지원점",
+                "jp": "左の射撃地点",
+                "reading": "ひだりのしゃげきちてん",
+                "ko": "왼쪽 사격 지점",
                 "parts": [
                   {
                     "text": "左",
@@ -390,18 +420,22 @@
                     "text": "の"
                   },
                   {
-                    "text": "支援点",
-                    "reading": "しえんてん"
+                    "text": "射撃地点",
+                    "reading": "しゃげきちてん"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.315,
+                "y": 0.435
               }
             },
             {
               "id": "zone-14",
               "label": {
-                "jp": "中央の支援点",
-                "reading": "ちゅうおうのしえんてん",
-                "ko": "중앙 지원점",
+                "jp": "中央の射撃地点",
+                "reading": "ちゅうおうのしゃげきちてん",
+                "ko": "중앙 사격 지점",
                 "parts": [
                   {
                     "text": "中央",
@@ -411,49 +445,62 @@
                     "text": "の"
                   },
                   {
-                    "text": "支援点",
-                    "reading": "しえんてん"
+                    "text": "射撃地点",
+                    "reading": "しゃげきちてん"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.48,
+                "y": 0.66
               }
             },
             {
               "id": "zone-13",
               "label": {
-                "jp": "右の支援点",
-                "reading": "みぎのしえんてん",
-                "ko": "오른쪽 지원점",
+                "jp": "前の合流地点",
+                "reading": "まえのごうりゅうちてん",
+                "ko": "앞쪽 합류 지점",
                 "parts": [
                   {
-                    "text": "右",
-                    "reading": "みぎ"
+                    "text": "前",
+                    "reading": "まえ"
                   },
                   {
                     "text": "の"
                   },
                   {
-                    "text": "支援点",
-                    "reading": "しえんてん"
+                    "text": "合流地点",
+                    "reading": "ごうりゅうちてん"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.68,
+                "y": 0.38
               }
             }
           ],
           "answerId": "zone-01",
-          "successKo": "왼쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
+          "successKo": "왼쪽 사격 지점을 올바르게 읽었습니다. 학습 기록에 반영합니다.",
           "action": {
-            "kind": "support"
+            "kind": "review"
           },
           "itemIds": [],
-          "spatialBindingStatus": "requires_new_map"
+          "spatialBindingStatus": "bound_painted_stage02",
+          "heading": {
+            "jp": "前線報告",
+            "reading": "ぜんせんほうこく",
+            "ko": "전선 보고"
+          }
         },
         {
           "id": "basic-farm-context-2",
           "wave": 3,
           "report": {
-            "jp": "目印は「中央の支援点」です。",
-            "reading": "めじるしは「ちゅうおうのしえんてん」です。",
-            "ko": "표식은 「중앙 지원점」입니다.",
+            "jp": "目印は「中央の射撃地点」です。",
+            "reading": "めじるしは「ちゅうおうのしゃげきちてん」です。",
+            "ko": "표식은 「중앙 사격 지점」입니다.",
             "parts": [
               {
                 "text": "目印",
@@ -470,8 +517,8 @@
                 "text": "の"
               },
               {
-                "text": "支援点",
-                "reading": "しえんてん"
+                "text": "射撃地点",
+                "reading": "しゃげきちてん"
               },
               {
                 "text": "」です。"
@@ -487,9 +534,9 @@
             {
               "id": "zone-01",
               "label": {
-                "jp": "左の支援点",
-                "reading": "ひだりのしえんてん",
-                "ko": "왼쪽 지원점",
+                "jp": "左の射撃地点",
+                "reading": "ひだりのしゃげきちてん",
+                "ko": "왼쪽 사격 지점",
                 "parts": [
                   {
                     "text": "左",
@@ -499,18 +546,22 @@
                     "text": "の"
                   },
                   {
-                    "text": "支援点",
-                    "reading": "しえんてん"
+                    "text": "射撃地点",
+                    "reading": "しゃげきちてん"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.315,
+                "y": 0.435
               }
             },
             {
               "id": "zone-14",
               "label": {
-                "jp": "中央の支援点",
-                "reading": "ちゅうおうのしえんてん",
-                "ko": "중앙 지원점",
+                "jp": "中央の射撃地点",
+                "reading": "ちゅうおうのしゃげきちてん",
+                "ko": "중앙 사격 지점",
                 "parts": [
                   {
                     "text": "中央",
@@ -520,49 +571,62 @@
                     "text": "の"
                   },
                   {
-                    "text": "支援点",
-                    "reading": "しえんてん"
+                    "text": "射撃地点",
+                    "reading": "しゃげきちてん"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.48,
+                "y": 0.66
               }
             },
             {
               "id": "zone-13",
               "label": {
-                "jp": "右の支援点",
-                "reading": "みぎのしえんてん",
-                "ko": "오른쪽 지원점",
+                "jp": "前の合流地点",
+                "reading": "まえのごうりゅうちてん",
+                "ko": "앞쪽 합류 지점",
                 "parts": [
                   {
-                    "text": "右",
-                    "reading": "みぎ"
+                    "text": "前",
+                    "reading": "まえ"
                   },
                   {
                     "text": "の"
                   },
                   {
-                    "text": "支援点",
-                    "reading": "しえんてん"
+                    "text": "合流地点",
+                    "reading": "ごうりゅうちてん"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.68,
+                "y": 0.38
               }
             }
           ],
           "answerId": "zone-14",
-          "successKo": "중앙 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
+          "successKo": "중앙 사격 지점을 올바르게 읽었습니다. 학습 기록에 반영합니다.",
           "action": {
-            "kind": "support"
+            "kind": "review"
           },
           "itemIds": [],
-          "spatialBindingStatus": "requires_new_map"
+          "spatialBindingStatus": "bound_painted_stage02",
+          "heading": {
+            "jp": "前線報告",
+            "reading": "ぜんせんほうこく",
+            "ko": "전선 보고"
+          }
         },
         {
           "id": "basic-farm-context-3",
-          "wave": 6,
+          "wave": 5,
           "report": {
-            "jp": "目印は「右の支援点」です。",
-            "reading": "めじるしは「みぎのしえんてん」です。",
-            "ko": "표식은 「오른쪽 지원점」입니다.",
+            "jp": "目印は「前の合流地点」です。",
+            "reading": "めじるしは「まえのごうりゅうちてん」です。",
+            "ko": "표식은 「앞쪽 합류 지점」입니다.",
             "parts": [
               {
                 "text": "目印",
@@ -572,15 +636,15 @@
                 "text": "は「"
               },
               {
-                "text": "右",
-                "reading": "みぎ"
+                "text": "前",
+                "reading": "まえ"
               },
               {
                 "text": "の"
               },
               {
-                "text": "支援点",
-                "reading": "しえんてん"
+                "text": "合流地点",
+                "reading": "ごうりゅうちてん"
               },
               {
                 "text": "」です。"
@@ -596,9 +660,9 @@
             {
               "id": "zone-01",
               "label": {
-                "jp": "左の支援点",
-                "reading": "ひだりのしえんてん",
-                "ko": "왼쪽 지원점",
+                "jp": "左の射撃地点",
+                "reading": "ひだりのしゃげきちてん",
+                "ko": "왼쪽 사격 지점",
                 "parts": [
                   {
                     "text": "左",
@@ -608,18 +672,22 @@
                     "text": "の"
                   },
                   {
-                    "text": "支援点",
-                    "reading": "しえんてん"
+                    "text": "射撃地点",
+                    "reading": "しゃげきちてん"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.315,
+                "y": 0.435
               }
             },
             {
               "id": "zone-14",
               "label": {
-                "jp": "中央の支援点",
-                "reading": "ちゅうおうのしえんてん",
-                "ko": "중앙 지원점",
+                "jp": "中央の射撃地点",
+                "reading": "ちゅうおうのしゃげきちてん",
+                "ko": "중앙 사격 지점",
                 "parts": [
                   {
                     "text": "中央",
@@ -629,48 +697,61 @@
                     "text": "の"
                   },
                   {
-                    "text": "支援点",
-                    "reading": "しえんてん"
+                    "text": "射撃地点",
+                    "reading": "しゃげきちてん"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.48,
+                "y": 0.66
               }
             },
             {
               "id": "zone-13",
               "label": {
-                "jp": "右の支援点",
-                "reading": "みぎのしえんてん",
-                "ko": "오른쪽 지원점",
+                "jp": "前の合流地点",
+                "reading": "まえのごうりゅうちてん",
+                "ko": "앞쪽 합류 지점",
                 "parts": [
                   {
-                    "text": "右",
-                    "reading": "みぎ"
+                    "text": "前",
+                    "reading": "まえ"
                   },
                   {
                     "text": "の"
                   },
                   {
-                    "text": "支援点",
-                    "reading": "しえんてん"
+                    "text": "合流地点",
+                    "reading": "ごうりゅうちてん"
                   }
                 ]
+              },
+              "position": {
+                "x": 0.68,
+                "y": 0.38
               }
             }
           ],
           "answerId": "zone-13",
-          "successKo": "오른쪽 지원점에 지원을 보냈습니다. 방금 배운 문법으로 지원점을 확인했습니다.",
+          "successKo": "앞쪽 합류 지점을 올바르게 읽었습니다. 학습 기록에 반영합니다.",
           "action": {
-            "kind": "support"
+            "kind": "review"
           },
           "itemIds": [],
-          "spatialBindingStatus": "requires_new_map"
+          "spatialBindingStatus": "bound_painted_stage02",
+          "heading": {
+            "jp": "前線報告",
+            "reading": "ぜんせんほうこく",
+            "ko": "전선 보고"
+          }
         }
       ],
       "grammarStepIds": [
         "basic-02-grammar-1",
         "basic-02-grammar-2"
       ],
-      "spatialBindingStatus": "requires_new_map"
+      "spatialBindingStatus": "bound_painted_stage02"
     },
     "basic-town": {
       "lessonId": "basic-03",
@@ -901,7 +982,7 @@
         },
         {
           "id": "basic-town-context-3",
-          "wave": 6,
+          "wave": 5,
           "report": {
             "jp": "ここは「上の支援点」です。",
             "reading": "ここは「うえのしえんてん」です。",
@@ -1277,7 +1358,7 @@
         },
         {
           "id": "basic-river-context-3",
-          "wave": 6,
+          "wave": 5,
           "report": {
             "jp": "米と豆の目印は「右の支援点」です。",
             "reading": "こめとまめのめじるしは「みぎのしえんてん」です。",
@@ -1527,7 +1608,7 @@
         },
         {
           "id": "basic-harbor-context-2",
-          "wave": 3,
+          "wave": 4,
           "report": {
             "jp": "「中央の支援点」へ。",
             "reading": "「ちゅうおうのしえんてん」へ。",
@@ -1874,7 +1955,7 @@
         },
         {
           "id": "basic-convoy-context-2",
-          "wave": 3,
+          "wave": 4,
           "report": {
             "jp": "目印は一つです。「左の支援点」へ。",
             "reading": "めじるしはひとつです。「ひだりのしえんてん」へ。",
@@ -2247,7 +2328,7 @@
         },
         {
           "id": "basic-temple-context-2",
-          "wave": 3,
+          "wave": 4,
           "report": {
             "jp": "今の目印は「下の支援点」です。",
             "reading": "いまのめじるしは「したのしえんてん」です。",
@@ -2616,7 +2697,7 @@
         },
         {
           "id": "basic-snow-context-2",
-          "wave": 3,
+          "wave": 4,
           "report": {
             "jp": "この目印は「中央の支援点」です。",
             "reading": "このめじるしは「ちゅうおうのしえんてん」です。",
@@ -2729,7 +2810,7 @@
         },
         {
           "id": "basic-snow-context-3",
-          "wave": 6,
+          "wave": 7,
           "report": {
             "jp": "この目印は「右の支援点」です。",
             "reading": "このめじるしは「みぎのしえんてん」です。",
@@ -2980,7 +3061,7 @@
         },
         {
           "id": "basic-night-context-2",
-          "wave": 3,
+          "wave": 4,
           "report": {
             "jp": "馬の目印は「右の支援点」です。",
             "reading": "うまのめじるしは「みぎのしえんてん」です。",
@@ -3096,7 +3177,7 @@
         },
         {
           "id": "basic-night-context-3",
-          "wave": 6,
+          "wave": 7,
           "report": {
             "jp": "馬の目印は「左の支援点」です。",
             "reading": "うまのめじるしは「ひだりのしえんてん」です。",
@@ -3346,7 +3427,7 @@
         },
         {
           "id": "basic-siege-context-2",
-          "wave": 3,
+          "wave": 4,
           "report": {
             "jp": "「左の支援点」へ行きます。",
             "reading": "「ひだりのしえんてん」へいきます。",
@@ -3458,7 +3539,7 @@
         },
         {
           "id": "basic-siege-context-3",
-          "wave": 6,
+          "wave": 7,
           "report": {
             "jp": "「右の支援点」へ行きます。",
             "reading": "「みぎのしえんてん」へいきます。",
@@ -3705,7 +3786,7 @@
         },
         {
           "id": "beginner-forest-context-2",
-          "wave": 3,
+          "wave": 5,
           "report": {
             "jp": "「中央の支援点」です。敵はここにいません。",
             "reading": "「ちゅうおうのしえんてん」です。てきはここにいません。",
@@ -3818,7 +3899,7 @@
         },
         {
           "id": "beginner-forest-context-3",
-          "wave": 6,
+          "wave": 8,
           "report": {
             "jp": "「左の支援点」です。敵はここにいません。",
             "reading": "「ひだりのしえんてん」です。てきはここにいません。",
@@ -4059,7 +4140,7 @@
         },
         {
           "id": "beginner-farm-context-2",
-          "wave": 3,
+          "wave": 5,
           "report": {
             "jp": "「左の支援点」はどこですか。",
             "reading": "「ひだりのしえんてん」はどこですか。",
@@ -4165,7 +4246,7 @@
         },
         {
           "id": "beginner-farm-context-3",
-          "wave": 6,
+          "wave": 8,
           "report": {
             "jp": "「中央の支援点」はどこですか。",
             "reading": "「ちゅうおうのしえんてん」はどこですか。",
@@ -4404,7 +4485,7 @@
         },
         {
           "id": "beginner-town-context-2",
-          "wave": 3,
+          "wave": 5,
           "report": {
             "jp": "「右の支援点」で待ちます。",
             "reading": "「みぎのしえんてん」でまちます。",
@@ -4515,7 +4596,7 @@
         },
         {
           "id": "beginner-town-context-3",
-          "wave": 6,
+          "wave": 8,
           "report": {
             "jp": "「中央の支援点」で待ちます。",
             "reading": "「ちゅうおうのしえんてん」でまちます。",
@@ -4757,7 +4838,7 @@
         },
         {
           "id": "beginner-river-context-2",
-          "wave": 3,
+          "wave": 5,
           "report": {
             "jp": "門から「中央の支援点」まで。",
             "reading": "もんから「ちゅうおうのしえんてん」まで。",
@@ -4866,7 +4947,7 @@
         },
         {
           "id": "beginner-river-context-3",
-          "wave": 6,
+          "wave": 8,
           "report": {
             "jp": "門から「右の支援点」まで。",
             "reading": "もんから「みぎのしえんてん」まで。",
@@ -5109,7 +5190,7 @@
         },
         {
           "id": "beginner-harbor-context-2",
-          "wave": 3,
+          "wave": 5,
           "report": {
             "jp": "「下の支援点」へ来てください。",
             "reading": "「したのしえんてん」へきてください。",
@@ -5221,7 +5302,7 @@
         },
         {
           "id": "beginner-harbor-context-3",
-          "wave": 6,
+          "wave": 9,
           "report": {
             "jp": "「上の支援点」へ来てください。",
             "reading": "「うえのしえんてん」へきてください。",
@@ -5466,7 +5547,7 @@
         },
         {
           "id": "beginner-convoy-context-2",
-          "wave": 3,
+          "wave": 5,
           "report": {
             "jp": "「左の支援点」に来ました。",
             "reading": "「ひだりのしえんてん」にきました。",
@@ -5577,7 +5658,7 @@
         },
         {
           "id": "beginner-convoy-context-3",
-          "wave": 6,
+          "wave": 9,
           "report": {
             "jp": "「右の支援点」に来ました。",
             "reading": "「みぎのしえんてん」にきました。",
@@ -5822,7 +5903,7 @@
         },
         {
           "id": "beginner-temple-context-2",
-          "wave": 3,
+          "wave": 5,
           "report": {
             "jp": "「中央の支援点」は寒くないです。",
             "reading": "「ちゅうおうのしえんてん」はさむくないです。",
@@ -5934,7 +6015,7 @@
         },
         {
           "id": "beginner-temple-context-3",
-          "wave": 6,
+          "wave": 9,
           "report": {
             "jp": "「左の支援点」は寒くないです。",
             "reading": "「ひだりのしえんてん」はさむくないです。",
@@ -6181,7 +6262,7 @@
         },
         {
           "id": "beginner-snow-context-2",
-          "wave": 3,
+          "wave": 6,
           "report": {
             "jp": "「上の支援点」へ戻ってください。",
             "reading": "「うえのしえんてん」へもどってください。",
@@ -6294,7 +6375,7 @@
         },
         {
           "id": "beginner-snow-context-3",
-          "wave": 6,
+          "wave": 10,
           "report": {
             "jp": "「中央の支援点」へ戻ってください。",
             "reading": "「ちゅうおうのしえんてん」へもどってください。",
@@ -6541,7 +6622,7 @@
         },
         {
           "id": "beginner-night-context-2",
-          "wave": 3,
+          "wave": 6,
           "report": {
             "jp": "「右の支援点」で待っています。",
             "reading": "「みぎのしえんてん」でまっています。",
@@ -6653,7 +6734,7 @@
         },
         {
           "id": "beginner-night-context-3",
-          "wave": 6,
+          "wave": 10,
           "report": {
             "jp": "「中央の支援点」で待っています。",
             "reading": "「ちゅうおうのしえんてん」でまっています。",
@@ -6899,7 +6980,7 @@
         },
         {
           "id": "beginner-siege-context-2",
-          "wave": 3,
+          "wave": 6,
           "report": {
             "jp": "「中央の支援点」へ行きたいです。",
             "reading": "「ちゅうおうのしえんてん」へいきたいです。",
@@ -7011,7 +7092,7 @@
         },
         {
           "id": "beginner-siege-context-3",
-          "wave": 6,
+          "wave": 10,
           "report": {
             "jp": "「右の支援点」へ行きたいです。",
             "reading": "「みぎのしえんてん」へいきたいです。",
@@ -7272,7 +7353,7 @@
         },
         {
           "id": "intermediate-forest-context-2",
-          "wave": 3,
+          "wave": 6,
           "report": {
             "jp": "前の報告では中央の支援点でしたが、今回は右の支援点です。",
             "reading": "まえのほうこくではちゅうおうのしえんてんでしたが、こんかいはみぎのしえんてんです。",
@@ -7406,7 +7487,7 @@
         },
         {
           "id": "intermediate-forest-context-3",
-          "wave": 6,
+          "wave": 11,
           "report": {
             "jp": "橋の支援を続けるなら、左の支援点を選んでください。",
             "reading": "はしのしえんをつづけるなら、ひだりのしえんてんをえらんでください。",
@@ -7681,7 +7762,7 @@
         },
         {
           "id": "intermediate-farm-context-2",
-          "wave": 3,
+          "wave": 6,
           "report": {
             "jp": "追加の補給を送るなら、左の支援点を選んでください。",
             "reading": "ついかのほきゅうをおくるなら、ひだりのしえんてんをえらんでください。",
@@ -7806,7 +7887,7 @@
         },
         {
           "id": "intermediate-farm-context-3",
-          "wave": 6,
+          "wave": 11,
           "report": {
             "jp": "次に米の輸送を支えます。右の支援点を援護してください。",
             "reading": "つぎにこめのゆそうをささえます。みぎのしえんてんをえんごしてください。",
@@ -8081,7 +8162,7 @@
         },
         {
           "id": "intermediate-town-context-2",
-          "wave": 3,
+          "wave": 6,
           "report": {
             "jp": "以前は右の支援点でした。今回は中央の支援点をお願いします。",
             "reading": "いぜんはみぎのしえんてんでした。こんかいはちゅうおうのしえんてんをおねがいします。",
@@ -8213,7 +8294,7 @@
         },
         {
           "id": "intermediate-town-context-3",
-          "wave": 6,
+          "wave": 11,
           "report": {
             "jp": "最後の報告です。左の支援点を援護してください。",
             "reading": "さいごのほうこくです。ひだりのしえんてんをえんごしてください。",
@@ -8478,7 +8559,7 @@
         },
         {
           "id": "intermediate-river-context-2",
-          "wave": 3,
+          "wave": 7,
           "report": {
             "jp": "順番が変わっても、今回の目的地は左の支援点です。",
             "reading": "じゅんばんがかわっても、こんかいのもくてきちはひだりのしえんてんです。",
@@ -8603,7 +8684,7 @@
         },
         {
           "id": "intermediate-river-context-3",
-          "wave": 6,
+          "wave": 12,
           "report": {
             "jp": "この報告を読んだ後、中央の支援点を援護してください。",
             "reading": "このほうこくをよんだあと、ちゅうおうのしえんてんをえんごしてください。",
@@ -8869,7 +8950,7 @@
         },
         {
           "id": "intermediate-harbor-context-2",
-          "wave": 3,
+          "wave": 7,
           "report": {
             "jp": "前の報告では左の支援点でしたが、次は右の支援点です。",
             "reading": "まえのほうこくではひだりのしえんてんでしたが、つぎはみぎのしえんてんです。",
@@ -9003,7 +9084,7 @@
         },
         {
           "id": "intermediate-harbor-context-3",
-          "wave": 6,
+          "wave": 12,
           "report": {
             "jp": "輸送を再開するなら、中央の支援点へ支援をお願いします。",
             "reading": "ゆそうをさいかいするなら、ちゅうおうのしえんてんへしえんをおねがいします。",
@@ -9273,7 +9354,7 @@
         },
         {
           "id": "intermediate-convoy-context-2",
-          "wave": 3,
+          "wave": 7,
           "report": {
             "jp": "それから補給を続けます。中央の支援点へお願いします。",
             "reading": "それからほきゅうをつづけます。ちゅうおうのしえんてんへおねがいします。",
@@ -9396,7 +9477,7 @@
         },
         {
           "id": "intermediate-convoy-context-3",
-          "wave": 6,
+          "wave": 12,
           "report": {
             "jp": "行列を支援する場合は、右の支援点を選んでください。",
             "reading": "ぎょうれつをしえんするばあいは、みぎのしえんてんをえらんでください。",
@@ -9664,7 +9745,7 @@
         },
         {
           "id": "intermediate-temple-context-2",
-          "wave": 3,
+          "wave": 7,
           "report": {
             "jp": "本堂を守る支援なら、右の支援点を選んでください。",
             "reading": "ほんどうをまもるしえんなら、みぎのしえんてんをえらんでください。",
@@ -9791,7 +9872,7 @@
         },
         {
           "id": "intermediate-temple-context-3",
-          "wave": 6,
+          "wave": 12,
           "report": {
             "jp": "引き続き準備をします。今回は左の支援点へ。",
             "reading": "ひきつづきじゅんびをします。こんかいはひだりのしえんてんへ。",
@@ -10068,7 +10149,7 @@
         },
         {
           "id": "intermediate-snow-context-2",
-          "wave": 3,
+          "wave": 7,
           "report": {
             "jp": "時間がかかっても、補給は左の支援点へ送ってください。",
             "reading": "じかんがかかっても、ほきゅうはひだりのしえんてんへおくってください。",
@@ -10188,7 +10269,7 @@
         },
         {
           "id": "intermediate-snow-context-3",
-          "wave": 6,
+          "wave": 13,
           "report": {
             "jp": "村を守る支援なら、右の支援点を優先してください。",
             "reading": "むらをまもるしえんなら、みぎのしえんてんをゆうせんしてください。",
@@ -10458,7 +10539,7 @@
         },
         {
           "id": "intermediate-night-context-2",
-          "wave": 3,
+          "wave": 7,
           "report": {
             "jp": "ただし、次の支援は中央の支援点です。",
             "reading": "ただし、つぎのしえんはちゅうおうのしえんてんです。",
@@ -10572,7 +10653,7 @@
         },
         {
           "id": "intermediate-night-context-3",
-          "wave": 6,
+          "wave": 13,
           "report": {
             "jp": "報告を確認できたら、左の支援点を援護してください。",
             "reading": "ほうこくをかくにんできたら、ひだりのしえんてんをえんごしてください。",
@@ -10830,7 +10911,7 @@
         },
         {
           "id": "intermediate-siege-context-2",
-          "wave": 3,
+          "wave": 7,
           "report": {
             "jp": "今度は左の支援点を選びます。支援をお願いします。",
             "reading": "こんどはひだりのしえんてんをえらびます。しえんをおねがいします。",
@@ -10957,7 +11038,7 @@
         },
         {
           "id": "intermediate-siege-context-3",
-          "wave": 6,
+          "wave": 13,
           "report": {
             "jp": "追加の支援ができたら、中央の支援点へ送ってください。",
             "reading": "ついかのしえんができたら、ちゅうおうのしえんてんへおくってください。",
@@ -11218,7 +11299,7 @@
         },
         {
           "id": "advanced-forest-context-2",
-          "wave": 3,
+          "wave": 8,
           "report": {
             "jp": "今回は右の支援点を左の支援点より優先してください。",
             "reading": "こんかいはみぎのしえんてんをひだりのしえんてんよりゆうせんしてください。",
@@ -11343,7 +11424,7 @@
         },
         {
           "id": "advanced-forest-context-3",
-          "wave": 6,
+          "wave": 14,
           "report": {
             "jp": "最後の支援は中央の支援点です。右の支援点ではありません。",
             "reading": "さいごのしえんはちゅうおうのしえんてんです。みぎのしえんてんではありません。",
@@ -11611,7 +11692,7 @@
         },
         {
           "id": "advanced-farm-context-2",
-          "wave": 3,
+          "wave": 8,
           "report": {
             "jp": "今回は中央の支援点だけを援護してください。左の支援点にも送るという意味ではありません。",
             "reading": "こんかいはちゅうおうのしえんてんだけをえんごしてください。ひだりのしえんてんにもおくるといういみではありません。",
@@ -11750,7 +11831,7 @@
         },
         {
           "id": "advanced-farm-context-3",
-          "wave": 6,
+          "wave": 14,
           "report": {
             "jp": "公平な補給の計画に従い、次は右の支援点を選びます。中央の支援点は今回の支援先ではありません。",
             "reading": "こうへいなほきゅうのけいかくにしたがい、つぎはみぎのしえんてんをえらびます。ちゅうおうのしえんてんはこんかいのしえんさきではありません。",
@@ -12062,7 +12143,7 @@
         },
         {
           "id": "advanced-town-context-2",
-          "wave": 3,
+          "wave": 8,
           "report": {
             "jp": "次の予定は右の支援点です。一方、前の報告の支援先は中央の支援点でした。",
             "reading": "つぎのよていはみぎのしえんてんです。いっぽう、まえのほうこくのしえんさきはちゅうおうのしえんてんでした。",
@@ -12217,7 +12298,7 @@
         },
         {
           "id": "advanced-town-context-3",
-          "wave": 6,
+          "wave": 14,
           "report": {
             "jp": "作業の順序を守るため、最後は左の支援点へお願いします。",
             "reading": "さぎょうのじゅんじょをまもるため、さいごはひだりのしえんてんへおねがいします。",
@@ -12506,7 +12587,7 @@
         },
         {
           "id": "advanced-river-context-2",
-          "wave": 3,
+          "wave": 8,
           "report": {
             "jp": "追加の支援は左の支援点へ送ってください。中央の支援点には送らないでください。",
             "reading": "ついかのしえんはひだりのしえんてんへおくってください。ちゅうおうのしえんてんにはおくらないでください。",
@@ -12645,7 +12726,7 @@
         },
         {
           "id": "advanced-river-context-3",
-          "wave": 6,
+          "wave": 15,
           "report": {
             "jp": "輸送を続ける限り、次は右の支援点を援護してください。",
             "reading": "ゆそうをつづけるかぎり、つぎはみぎのしえんてんをえんごしてください。",
@@ -12920,7 +13001,7 @@
         },
         {
           "id": "advanced-harbor-context-2",
-          "wave": 3,
+          "wave": 8,
           "report": {
             "jp": "今回は中央の支援点への輸送を優先します。右の支援点よりも先です。",
             "reading": "こんかいはちゅうおうのしえんてんへのゆそうをゆうせんします。みぎのしえんてんよりもさきです。",
@@ -13059,7 +13140,7 @@
         },
         {
           "id": "advanced-harbor-context-3",
-          "wave": 6,
+          "wave": 15,
           "report": {
             "jp": "今回は例外です。次の支援は左の支援点へお願いします。",
             "reading": "こんかいはれいがいです。つぎのしえんはひだりのしえんてんへおねがいします。",
@@ -13334,7 +13415,7 @@
         },
         {
           "id": "advanced-convoy-context-2",
-          "wave": 3,
+          "wave": 8,
           "report": {
             "jp": "今回は左の支援点を選択します。選ばなかった方の候補は右の支援点です。",
             "reading": "こんかいはひだりのしえんてんをせんたくします。えらばなかったほうのこうほはみぎのしえんてんです。",
@@ -13480,7 +13561,7 @@
         },
         {
           "id": "advanced-convoy-context-3",
-          "wave": 6,
+          "wave": 15,
           "report": {
             "jp": "最後の補給も必要です。したがって、中央の支援点へ支援をお願いします。",
             "reading": "さいごのほきゅうもひつようです。したがって、ちゅうおうのしえんてんへしえんをおねがいします。",
@@ -13759,7 +13840,7 @@
         },
         {
           "id": "advanced-temple-context-2",
-          "wave": 3,
+          "wave": 9,
           "report": {
             "jp": "今回は右の支援点を優先してください。前の計画にあった左の支援点は変更します。",
             "reading": "こんかいはみぎのしえんてんをゆうせんしてください。まえのけいかくにあったひだりのしえんてんはへんこうします。",
@@ -13907,7 +13988,7 @@
         },
         {
           "id": "advanced-temple-context-3",
-          "wave": 6,
+          "wave": 16,
           "report": {
             "jp": "これまでの報告を踏まえて、最後は中央の支援点を援護してください。",
             "reading": "これまでのほうこくをふまえて、さいごはちゅうおうのしえんてんをえんごしてください。",
@@ -14175,7 +14256,7 @@
         },
         {
           "id": "advanced-snow-context-2",
-          "wave": 3,
+          "wave": 9,
           "report": {
             "jp": "追加の支援は中央の支援点へお願いします。ただし、左の支援点を放棄するという意味ではありません。",
             "reading": "ついかのしえんはちゅうおうのしえんてんへおねがいします。ただし、ひだりのしえんてんをほうきするといういみではありません。",
@@ -14321,7 +14402,7 @@
         },
         {
           "id": "advanced-snow-context-3",
-          "wave": 6,
+          "wave": 16,
           "report": {
             "jp": "準備を整えるという理由で、次は右の支援点を選びます。",
             "reading": "じゅんびをととのえるというりゆうで、つぎはみぎのしえんてんをえらびます。",
@@ -14607,7 +14688,7 @@
         },
         {
           "id": "advanced-night-context-2",
-          "wave": 3,
+          "wave": 9,
           "report": {
             "jp": "しかし、次は下の支援点に変更します。中央の支援点は次の目的地ではありません。",
             "reading": "しかし、つぎはしたのしえんてんにへんこうします。ちゅうおうのしえんてんはつぎのもくてきちではありません。",
@@ -14751,7 +14832,7 @@
         },
         {
           "id": "advanced-night-context-3",
-          "wave": 6,
+          "wave": 16,
           "report": {
             "jp": "最後の支援に限って、上の支援点を優先してください。下の支援点を選ぶのは今回ではありません。",
             "reading": "さいごのしえんにかぎって、うえのしえんてんをゆうせんしてください。したのしえんてんをえらぶのはこんかいではありません。",
@@ -15040,7 +15121,7 @@
         },
         {
           "id": "advanced-siege-context-2",
-          "wave": 3,
+          "wave": 9,
           "report": {
             "jp": "今回は左の支援点です。毎回同じ場所、つまり中央の支援点とは限りません。",
             "reading": "こんかいはひだりのしえんてんです。まいかいおなじばしょ、つまりちゅうおうのしえんてんとはかぎりません。",
@@ -15183,7 +15264,7 @@
         },
         {
           "id": "advanced-siege-context-3",
-          "wave": 6,
+          "wave": 16,
           "report": {
             "jp": "最後は右の支援点を援護してください。左の支援点ではなく、変更後の目的地です。",
             "reading": "さいごはみぎのしえんてんをえんごしてください。ひだりのしえんてんではなく、へんこうごのもくてきちです。",

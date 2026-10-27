@@ -29,11 +29,22 @@ var duplicate_events: int = 0
 var dropped_marks: int = 0
 var _seen_events: Dictionary = {}
 var _event_order: Array[String] = []
+var _event_order_cursor: int = 0
+var _skill_impact_receipts: Dictionary = {}
 var _soft_texture: GradientTexture2D
+var _painted_offsets: Dictionary={true:{},false:{}}
+var _offset_frame: int=-1
+var _offset_generation: int=-1
+var _offset_battle_id: int=0
+var _offset_field: Rect2
+var _last_simulation_clock: float=-1.0
+var _clock_generation: int=-1
+var _clock_battle_id: int=0
 
 func _ready() -> void:
 	z_index = 2250
 	_prepare_texture()
+	_sample_simulation_clock()
 
 func _prepare_texture() -> void:
 	if _soft_texture != null: return
@@ -55,6 +66,8 @@ func reset() -> void:
 	emitted_counts.clear()
 	_seen_events.clear()
 	_event_order.clear()
+	_event_order_cursor = 0
+	_skill_impact_receipts.clear()
 	banner = ""
 	banner_clock = 0.0
 	danger_clock = 0.0
@@ -63,7 +76,31 @@ func reset() -> void:
 	feedback_clock = 0.0
 	duplicate_events = 0
 	dropped_marks = 0
+	_offset_frame=-1
+	_painted_offsets[true].clear(); _painted_offsets[false].clear()
+	_sample_simulation_clock()
 	queue_redraw()
+
+func _sample_simulation_clock() -> void:
+	if not is_instance_valid(battle):
+		_last_simulation_clock=-1.0; _clock_generation=-1; _clock_battle_id=0
+		return
+	_last_simulation_clock=float(battle.animation_time)
+	_clock_generation=int(battle.battle_generation)
+	_clock_battle_id=battle.get_instance_id()
+
+func _feedback_delta(delta: float) -> float:
+	var now: float=float(battle.animation_time)
+	var same_battle: bool=_clock_generation==int(battle.battle_generation) and _clock_battle_id==battle.get_instance_id()
+	var advanced: float=maxf(0.0,now-_last_simulation_clock) if same_battle and _last_simulation_clock>=0.0 else 0.0
+	_sample_simulation_clock()
+	if paused or bool(battle.paused): return 0.0
+	if advanced>0.0: return advanced
+	# Active combat effects follow completed simulation steps, including
+	# backlog frames. End-of-wave/death-only fades keep their existing clock.
+	if not bool(battle.running) or bool(battle.between_waves) or bool(battle.finished) or bool(battle.battle_closed):
+		return minf(maxf(delta,0),0.25)*float(battle.effective_speed())
+	return advanced
 
 func _point(value: Variant) -> Vector2:
 	if value is Vector2: return value
@@ -81,8 +118,12 @@ func _accept_event(event: Dictionary) -> bool:
 		duplicate_events += 1
 		return false
 	_seen_events[key] = true
-	_event_order.append(key)
-	if _event_order.size()>512: _seen_events.erase(_event_order.pop_front())
+	if _event_order.size()<512:
+		_event_order.append(key)
+	else:
+		_seen_events.erase(_event_order[_event_order_cursor])
+		_event_order[_event_order_cursor] = key
+		_event_order_cursor = (_event_order_cursor+1)%512
 	return true
 
 func _mark(kind: String, point: Vector2, lifetime: float, extra: Dictionary = {}, priority: int = 2) -> void:
@@ -139,20 +180,23 @@ func _reward(event: Dictionary, point: Vector2) -> void:
 	_mark("reward",point,0.90,{"amount":reward,"text":"+%d" % reward,"meta":event.duplicate()},1)
 
 func _skill_flag(value: Dictionary, key: String) -> bool:
-	var flags: Variant = value.get("flags", {})
+	var flags: Variant = value.get("flags", value.get("skillMeta",{}).get("flags",{}))
 	return bool(flags.get(key, false)) if flags is Dictionary else false
 
 func _skill_level_allowed(value: Dictionary, minimum: int) -> bool:
 	# The committed helper flag is authoritative when the event has no level.
 	# Explicit level metadata can only narrow it, never invent an unlock.
-	return not value.has("campaignLevel") or int(value.campaignLevel) >= minimum
+	var meta: Dictionary=value.get("skillMeta",{})
+	return int(value.get("campaignLevel",meta.get("campaignLevel",minimum)))>=minimum
 
 func _effect_kind(value: Dictionary) -> String:
-	return str(value.get("effectKind", ""))
+	return str(value.get("effectKind",value.get("skillMeta",{}).get("effectKind","")))
 
 func _has_skill(value: Dictionary, skill_id: String) -> bool:
 	if str(value.get("skillId", "")) == skill_id: return true
-	var ids: Variant = value.get("skillIds", [])
+	var meta: Dictionary=value.get("skillMeta",{})
+	if str(meta.get("skillId",""))==skill_id: return true
+	var ids: Variant = value.get("skillIds",meta.get("skillIds",[]))
 	return ids is Array and skill_id in ids
 
 func _authorized(value: Dictionary, ids: Array, minimum: int) -> bool:
@@ -163,6 +207,51 @@ func _authorized(value: Dictionary, ids: Array, minimum: int) -> bool:
 
 func _skill_feedback(event: Dictionary, action: String, point: Vector2, source: Vector2, extra: Dictionary) -> void:
 	var effect: String = _effect_kind(event)
+	var active_skill: String=str(event.get("skillId",event.get("skillMeta",{}).get("skillId","")))
+	if active_skill=="samurai_parry" and effect=="parry" and action in ["skill_cast","skill","status","hit","skill_hit","parry"] and _authorized(event,["samurai_parry"],3):
+		if _new_skill_impact(event,"parry"):
+			var detail: Dictionary=extra.duplicate()
+			detail["sourceActor"]=str(event.get("victimSide",""))!="friendly"
+			_mark("parry",source if bool(detail.sourceActor) else point,.24,detail,3)
+		return
+	if active_skill=="monk_ward" and effect in ["ward","ward_grant","ward_consume","ward_absorb"] and action in ["skill_cast","skill","status","hit","skill_hit"] and _authorized(event,["monk_ward"],5):
+		if _new_skill_impact(event,effect):
+			_mark("ward_consume" if effect in ["ward_consume","ward_absorb"] else "ward_grant",point,.28,extra,3)
+		return
+	if active_skill=="spear_brace" and effect=="brace" and action in ["skill_cast","skill","status"] and _authorized(event,["spear_brace"],5):
+		if _new_skill_impact(event,"brace"):
+			_mark("brace_contact",point,.24,extra,2)
+		return
+	if active_skill=="commander_impact" and effect=="impact" and action in ["skill_cast","skill","status"] and _authorized(event,["commander_impact"],5):
+		if float(event.get("duration",0))>0 and _new_skill_impact(event,"commander_impact"):
+			_mark("impact_contact",point,.24,extra,3)
+		return
+	if active_skill=="commander_rally" and action in ["skill_cast","skill","status"] and _authorized(event,["commander_rally"],8):
+		var targets: Variant=event.get("affectedIds",[])
+		if targets is Array and not targets.is_empty() and _new_skill_impact(event,"rally"):
+			_mark("rally",source,.36,extra,2)
+		return
+	if effect=="charge_plant" and _authorized(event,["ninja_timed_charge"],3):
+		var charge_id: String=str(event.get("chargeId",""))
+		if charge_id.is_empty(): return
+		_remove_charge_mark(charge_id)
+		var detail: Dictionary=extra.duplicate()
+		detail.merge({"chargeId":charge_id,"targetId":int(event.get("targetId",event.get("victimId",-1))),"plantedAt":float(event.get("plantedAt",battle.elapsed)),"generation":int(battle.battle_generation)},true)
+		_mark("ninja_charge_fuse",point,maxf(.05,float(event.get("fuseSeconds",.75))),detail,4)
+		return
+	if effect=="charge_explosion" and _authorized(event,["ninja_timed_charge"],3):
+		_remove_charge_mark(str(event.get("chargeId","")))
+		_mark("ninja_charge_burst",point,.38,extra,4)
+		return
+	if effect=="combo" and action in ["hit","skill_hit"] and _authorized(event,["ninja_opening_combo"],5):
+		if float(event.get("damage",0))>0 and _new_skill_impact(event,"combo"):
+			var detail: Dictionary=extra.duplicate()
+			detail["hitIndex"]=clampi(int(event.get("hitIndex",0)),0,2)
+			_mark("ninja_combo_cut",point,.16,detail,3)
+		return
+	if effect=="shrapnel" and action in ["hit","skill_hit"] and _authorized(event,["ninja_charge_shrapnel"],8):
+		if float(event.get("damage",0))>0 and _new_skill_impact(event,"shrapnel"): _mark("ninja_shrapnel_contact",point,.20,extra,3)
+		return
 	if action == "heal":
 		var amount: float = float(event.get("healAmount",event.get("healed",event.get("amount",0.0))))
 		if not is_finite(amount) or amount <= 0.0 or not _valid(source) or not _valid(point): return
@@ -177,46 +266,71 @@ func _skill_feedback(event: Dictionary, action: String, point: Vector2, source: 
 			_mark("heal",point,.62,detail,3)
 		return
 	if action == "shot":
-		if str(event.get("weapon", "")) == "bow" and (_skill_flag(event,"fireArrow") or effect == "fire_arrow") and _authorized(event,["archer_fire"],5):
+		if str(event.get("weapon", "")) == "bow" and (_skill_flag(event,"fireArrow") or effect == "fire_arrow") and _authorized(event,["archer_fire"],3):
 			_mark("fire_release",source,.16,extra,3)
+		if active_skill=="gunner_braced_shot" and _authorized(event,["gunner_braced_shot"],8) and _new_skill_impact(event,"braced_release"):
+			_mark("braced_release",source,.18,extra,2)
 		return
-	if action in ["hit", "skill_hit"]:
+	if action in ["hit", "skill_hit", "charge_impact"]:
 		var damage: float = float(event.get("damage",0.0))
 		if not is_finite(damage) or damage <= 0.0: return
-		if (_skill_flag(event,"fireArrow") or effect == "fire_arrow") and _authorized(event,["archer_fire"],5):
+		if (_skill_flag(event,"fireArrow") or effect == "fire_arrow") and _authorized(event,["archer_fire"],3):
 			_mark("ember",point,.32,extra,3)
-		if (_skill_flag(event,"poisonTip") or effect in ["poison","poison_tick"]) and _authorized(event,["spear_poison"],8):
-			_mark("poison",point,.30,extra,3)
 		if (_skill_flag(event,"pierce") or effect == "pierce") and _authorized(event,["spear_pierce","gunner_pierce"],3):
 			_mark("pierce",point,.18,extra,3)
-		if (_skill_flag(event,"armorWeakened") or effect == "armor_break") and _authorized(event,["gunner_armor_break"],8):
+		if (_skill_flag(event,"armorWeakened") or effect == "armor_break") and _authorized(event,["gunner_armor_break"],5):
 			_mark("armor_break",point,.36,extra,3)
-		if (effect == "sweep" and _authorized(event,["naginata_sweep"],3)) or ((effect in ["flash","thunder_slash","blink_slash"] or _skill_flag(event,"flash")) and _authorized(event,["samurai_flash"],8)):
-			_mark("sweep" if effect == "sweep" else "decisive_cut",point,.20,extra,3)
-		if effect=="barrage" and _authorized(event,["archer_barrage"],8): _mark("barrage_contact",point,.20,extra,2)
+		if effect == "sweep" and _authorized(event,["naginata_sweep"],3): _mark("sweep",point,.20,extra,3)
+		if effect=="barrage" and _authorized(event,["archer_barrage"],5): _mark("barrage_contact",point,.20,extra,2)
+		if active_skill=="samurai_counter_combo" and _authorized(event,["samurai_counter_combo"],5) and _new_skill_impact(event,"counter_cut"):
+			var detail: Dictionary=extra.duplicate()
+			detail["hitIndex"]=int(event.get("hitIndex",event.get("skillMeta",{}).get("hitIndex",0)))
+			_mark("samurai_counter_cut",point,.18,detail,3)
+		elif active_skill=="samurai_parry" and effect=="counter" and _authorized(event,["samurai_parry"],3) and _new_skill_impact(event,"counter_cut"):
+			_mark("samurai_counter_cut",point,.18,extra,3)
+		elif active_skill=="samurai_isshin" and _authorized(event,["samurai_isshin"],8) and _new_skill_impact(event,"isshin"):
+			_mark("decisive_cut",point,.22,extra,3)
+		if active_skill=="spear_brace" and _authorized(event,["spear_brace"],5) and _new_skill_impact(event,"brace_contact"):
+			_mark("brace_contact",point,.20,extra,3)
+		elif active_skill=="spear_rear_rank" and _authorized(event,["spear_rear_rank"],8) and _new_skill_impact(event,"rear_rank"):
+			_mark("rear_rank_contact",point,.18,extra,3)
+		if active_skill=="commander_impact" and _authorized(event,["commander_impact"],5) and _new_skill_impact(event,"commander_impact"):
+			_mark("impact_contact",point,.24,extra,3)
 		return
-	if action in ["burn_tick", "poison_tick", "status_tick"]:
+	if action in ["burn_tick", "status_tick"]:
 		var burn: bool = action=="burn_tick" or effect=="burn_tick"
-		var poison: bool = action=="poison_tick" or effect=="poison_tick"
-		var permitted: bool = _authorized(event,["archer_fire"],5) if burn else _authorized(event,["spear_poison"],8) if poison else false
+		var permitted: bool = burn and _authorized(event,["archer_fire"],3)
 		if permitted and is_finite(float(event.get("damage",0.0))) and float(event.get("damage",0.0)) > 0.0:
-			_mark("ember" if burn else "poison",point,.28,extra,2)
+			_mark("ember",point,.28,extra,2)
 		return
-	if action in ["skill", "status"]:
+	if action in ["skill_cast", "skill", "status"]:
 		match effect:
 			"armor_break":
-				if _authorized(event,["gunner_armor_break"],8) and float(event.get("duration",0))>0: _mark("armor_break",point,.36,extra,3)
+				if _authorized(event,["gunner_armor_break"],5) and float(event.get("duration",0))>0: _mark("armor_break",point,.36,extra,3)
 			"guard", "invulnerable":
-				if _authorized(event,["samurai_armor","naginata_charge_guard"],3 if effect=="guard" else 8): _mark("guard",source,.32,extra,2)
+				if _authorized(event,["naginata_charge_guard"],8): _mark("guard",source,.32,extra,2)
 			"dash", "guard_charge":
 				if _authorized(event,["naginata_guard_charge"],5): _mark("dash",source,.24,extra,1)
-			"formation":
-				if _authorized(event,["commander_formation"],5): _mark(effect,point if _valid(point) else source,.32,extra,2)
-			"disrupt":
-				if _authorized(event,["commander_break"],8): _mark(effect,point if _valid(point) else source,.32,extra,2)
 			"victory_prayer":
 				var targets: Variant = event.get("affectedIds",[])
 				if _authorized(event,["monk_victory_prayer"],8) and targets is Array and not targets.is_empty(): _mark("prayer",source,.40,extra,2)
+
+func _new_skill_impact(event: Dictionary, kind: String) -> bool:
+	var meta: Dictionary=event.get("skillMeta",{})
+	var impact: String=str(meta.get("impactId",""))
+	if impact.is_empty():
+		var token: String=str(meta.get("motionToken",meta.get("attackId","")))
+		if token.is_empty(): return true
+		impact=token+":"+str(event.get("releaseIndex",meta.get("releaseIndex",0)))+":"+str(event.get("hitIndex",meta.get("hitIndex",-1)))
+	var key: String=kind+":"+impact+":"+str(event.get("victimId",-1))
+	if _skill_impact_receipts.has(key): return false
+	if _skill_impact_receipts.size()>=512: _skill_impact_receipts.erase(_skill_impact_receipts.keys()[0])
+	_skill_impact_receipts[key]=true
+	return true
+
+func _remove_charge_mark(charge_id: String) -> void:
+	if charge_id.is_empty(): return
+	marks=marks.filter(func(mark: Dictionary): return str(mark.kind)!="ninja_charge_fuse" or str(mark.get("chargeId",""))!=charge_id)
 
 func _emplacement_damage_warning(event: Dictionary, point: Vector2) -> void:
 	if not _valid(point) or str(event.get("victimSide", "")) != "friendly": return
@@ -242,6 +356,10 @@ func consume_event(event: Dictionary) -> void:
 	if not _accept_event(event): return
 	var action: String = str(event.get("action",event.get("type","")))
 	event_counts[action] = int(event_counts.get(action,0))+1
+	# Ordinary footsteps have no marks; preserve acceptance/count receipts
+	# without preparing vectors or copying the event payload.
+	if action=="footstep" and _effect_kind(event) not in ["charge_plant","charge_explosion"]: return
+	_offset_frame=-1
 	var point: Vector2 = _point(event.get("victimPosition",event.get("position",{})))
 	var source: Vector2 = _point(event.get("sourcePosition",event.get("position",{})))
 	var weapon: String = str(event.get("weapon",""))
@@ -280,19 +398,29 @@ func consume_event(event: Dictionary) -> void:
 			danger_clock = 0.45
 			_mark("objective",point,0.42,extra,3)
 		"wavebegin", "wave":
-			banner = "第 %02d 陣  ·  敵襲" % int(event.get("wave",1))
-			banner_clock = 1.15
+			banner = "第 %02d 陣 · 敵襲\n제 %02d 공세 · 적군 습격" % [int(event.get("wave",1)),int(event.get("wave",1))]
+			banner_clock = 2.4
 		"waveend":
-			banner = "陣を守り抜いた  ·  방어 성공"
-			banner_clock = 1.05
+			banner = "陣を守り抜いた\n방어 성공"
+			banner_clock = 2.0
 	queue_redraw()
 
 func _process(delta: float) -> void:
 	if not is_visible_in_tree() or not is_instance_valid(battle): return
+	var elapsed: float=_feedback_delta(delta)
 	if not paused and not bool(battle.paused):
-		var elapsed: float = minf(maxf(delta,0),0.25)*clampf(float(battle.speed),0.5,3.0)
 		feedback_clock += elapsed
 		for mark in marks:
+			if str(mark.kind)=="ninja_charge_fuse":
+				# Display only a successfully installed charge. Detonation must
+				# arrive as its real event; an expired visual never creates one.
+				var target: Dictionary=battle._enemy(int(mark.get("targetId",-1)))
+				if int(mark.get("generation",-1))!=int(battle.battle_generation) or battle.finished or battle.battle_closed or target.is_empty() or float(target.get("hp",0))<=0 or bool(target.get("escaped",false)):
+					mark.age=mark.life
+				else:
+					mark.point=target.position
+					mark.age=maxf(0.0,float(battle.elapsed)-float(mark.plantedAt))
+				continue
 			# A release on a long/3x frame must reach the GPU at least once.
 			if bool(mark.newborn): mark.newborn=false
 			else: mark.age = float(mark.age)+elapsed
@@ -304,10 +432,30 @@ func _process(delta: float) -> void:
 func _ground(point: Vector2) -> Vector2:
 	return battle.view_point(point)*battle.field_rect.size
 
+func _painted_actor_offset(meta: Dictionary, source: bool) -> Vector2:
+	var id: int = int(meta.get("actorId",-1) if source else meta.get("victimId",-1))
+	if id<0 or battle.three_d_enabled or not battle.painted_actors.is_ready(): return Vector2.ZERO
+	var friendly: bool = str(meta.get("side","friendly") if source else meta.get("victimSide","enemy"))=="friendly"
+	_ensure_painted_offsets()
+	return _painted_offsets[friendly].get(id,Vector2.ZERO)
+
+func _ensure_painted_offsets() -> void:
+	var frame: int=Engine.get_process_frames()
+	if _offset_frame==frame and _offset_generation==int(battle.battle_generation) and _offset_battle_id==battle.get_instance_id() and _offset_field==battle.field_rect: return
+	_offset_frame=frame; _offset_generation=int(battle.battle_generation)
+	_offset_battle_id=battle.get_instance_id(); _offset_field=battle.field_rect
+	_painted_offsets[true].clear(); _painted_offsets[false].clear()
+	var height: float = battle.painted_actors.body_height_screen*clampf(battle.field_rect.size.y/620.0,.65,1.5)
+	for actor in battle.units: _painted_offsets[true][int(actor.id)]=battle.painted_actors.actor_visual_offset(actor,height)
+	for actor in battle.enemies: _painted_offsets[false][int(actor.id)]=battle.painted_actors.actor_visual_offset(actor,height)
+
 func _body(point: Vector2, meta: Dictionary = {}, source: bool = false) -> Vector2:
 	var type_name: String = str(meta.get("unitType","") if source else meta.get("victimType",""))
 	var friendly: bool = str(meta.get("side","friendly") if source else meta.get("victimSide","enemy"))=="friendly"
 	var sailing: bool = bool(meta.get("sailing",false) if source else meta.get("victimSailing",false))
+	if not battle.three_d_enabled and battle.painted_actors.is_ready():
+		var painted_height: float = battle.painted_actors.body_height_screen*clampf(battle.field_rect.size.y/620.0,.65,1.5)
+		return _ground(point)+_painted_actor_offset(meta,source)-Vector2(0,painted_height*.52)
 	var height: float = 1.48 if (type_name=="commander" and friendly) or type_name=="enemy_cavalry" else 0.98
 	if sailing: height=0.76
 	if bool(battle.three_d_enabled) and is_instance_valid(troop_renderer) and troop_renderer.has_method("normalized_to_world"):
@@ -350,7 +498,7 @@ func annotated_text_layout(value: String, size_value: int, available_width: floa
 		ruby.reading_font=GameFonts.reading()
 		ruby.wrap_japanese=true
 		ruby.min_reading_size=16
-		ruby.colour_reading_groups=false
+		ruby.colour_reading_groups=true
 		ruby.size.x=width
 		ruby.set_text(value,size_value)
 		if _banner_layouts.size()>=16: _banner_layouts.clear()
@@ -410,8 +558,8 @@ func banner_presentation() -> Dictionary:
 		var box_size: Vector2 = text_bounds.size+Vector2.ONE*BANNER_PADDING*2
 		if box_size.x>region.size.x or box_size.y>region.size.y: continue
 		var left: float = clampf(preferred_x-box_size.x*.5,region.position.x,region.end.x-box_size.x)
-		var rect: Rect2 = Rect2(Vector2(left,region.position.y),box_size)
-		var score: float = (rect.position.y-field.position.y)*4+absf(rect.get_center().x-preferred_x)+text_bounds.size.y
+		var rect: Rect2 = Rect2(Vector2(left,region.end.y-box_size.y),box_size)
+		var score: float = (field.end.y-rect.end.y)*4+absf(rect.get_center().x-preferred_x)+text_bounds.size.y
 		if score>=best_score: continue
 		best_score = score
 		chosen = {"rect":rect,"origin":rect.position+Vector2.ONE*BANNER_PADDING-text_bounds.position,"layout":layout,"field":field,"occupied":occupied,"fits":true}
@@ -421,20 +569,19 @@ func banner_presentation() -> Dictionary:
 	var fallback_layout: Dictionary = annotated_text_layout(banner,19,maxf(48,field.size.x-BANNER_PADDING*4))
 	var fallback_bounds: Rect2 = _annotated_bounds(fallback_layout)
 	var fallback_size: Vector2 = fallback_bounds.size+Vector2.ONE*BANNER_PADDING*2
-	var fallback_rect: Rect2 = Rect2(field.position+Vector2((field.size.x-fallback_size.x)*.5,BANNER_PADDING),fallback_size)
+	var fallback_rect: Rect2 = Rect2(Vector2(field.get_center().x-fallback_size.x*.5,field.end.y-fallback_size.y-BANNER_PADDING),fallback_size)
 	return {"rect":fallback_rect,"origin":fallback_rect.position+Vector2.ONE*BANNER_PADDING-fallback_bounds.position,"layout":fallback_layout,"field":field,"occupied":occupied,"fits":false,"reason":"No clear region fits the complete annotated banner."}
 
 func _draw_banner(alpha: float) -> void:
 	var presentation: Dictionary = banner_presentation()
 	if presentation.is_empty(): return
-	var rect: Rect2 = presentation.rect
-	draw_rect(rect,Color(0.055,0.07,0.067,alpha*.93))
-	draw_rect(rect,Color(0.67,0.57,0.36,alpha*.75),false,1.0)
 	for run in presentation.layout.runs:
 		var face: Font = GameFonts.reading() if run.role=="reading" else GameFonts.body()
 		var point: Vector2 = presentation.origin+run.position
-		draw_string_outline(face,point,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),1,Color(0.025,0.026,0.022,alpha*.85))
-		draw_string(face,point,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),Color(0.96,0.91,0.79,alpha))
+		draw_string_outline(face,point,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),3,Color(0.025,0.026,0.022,alpha*.95))
+		var pigment: Color=run.get("color",Color(0.96,0.91,0.79))
+		pigment.a*=alpha
+		draw_string(face,point,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),pigment)
 
 func _ink(value: String, colour: Color, point: Vector2, size_value: int) -> void:
 	if RubyReadings.contains_kanji(value):
@@ -444,7 +591,9 @@ func _ink(value: String, colour: Color, point: Vector2, size_value: int) -> void
 		for run in layout.runs:
 			var face: Font=GameFonts.reading() if run.role=="reading" else GameFonts.body()
 			draw_string_outline(face,origin+run.position,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),1,Color(0.025,0.026,0.022,colour.a*.85))
-			draw_string(face,origin+run.position,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),colour)
+			var pigment: Color=run.get("color",colour)
+			pigment.a*=colour.a
+			draw_string(face,origin+run.position,run.text,HORIZONTAL_ALIGNMENT_LEFT,-1,int(run.size),pigment)
 		return
 	var face: Font = font if font!=null else ThemeDB.fallback_font
 	var width: float = face.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,size_value).x
@@ -463,9 +612,23 @@ func _draw_projectiles() -> void:
 	for shot in battle.projectiles:
 		if not _valid(shot.position) or not _valid(shot.targetPos): continue
 		var hostile: bool = str(shot.get("victimSide", "enemy")) == "friendly"
-		var info: Dictionary = {"unitType":str(shot.type),"side":"enemy" if hostile else "friendly"}
-		var point: Vector2 = _body(shot.position,info,true)
-		var direction: Vector2 = (_body(shot.targetPos)-point).normalized()
+		var info: Dictionary = {"unitType":str(shot.type),"side":"enemy" if hostile else "friendly","actorId":int(shot.get("sourceId",-1)),"victimId":int(shot.get("targetId",-1)),"victimSide":"friendly" if hostile else "enemy"}
+		var point: Vector2
+		var destination: Vector2
+		if not battle.three_d_enabled and battle.painted_actors.is_ready():
+			var source_offset: Vector2=_painted_actor_offset(info,true)
+			var target_offset: Vector2=_painted_actor_offset(info,false)
+			var body_offset: Vector2=Vector2(0,battle.painted_actors.body_height_screen*clampf(battle.field_rect.size.y/620.0,.65,1.5)*.52)
+			point=_ground(shot.position)+source_offset-body_offset
+			destination=_ground(shot.targetPos)+target_offset-body_offset
+			var departure: Vector2 = shot.get("sourcePosition",shot.position)
+			var length: float = departure.distance_to(shot.targetPos)
+			var phase: float = clampf(departure.distance_to(shot.position)/maxf(.000001,length),0,1)
+			point += (target_offset-source_offset)*phase
+		else:
+			point=_body(shot.position,info,true)
+			destination=_body(shot.targetPos,info,false)
+		var direction: Vector2 = (destination-point).normalized()
 		var scale_value: float = _size_scale(shot.position)
 		if str(shot.type) in ["gunner", "enemy_gunner"]:
 			_line(point-direction*7*scale_value,point,Color(0.88,0.82,0.68,0.75),1.15)
@@ -476,7 +639,7 @@ func _draw_projectiles() -> void:
 			_line(point-direction*2*scale_value,point,Color(0.86,0.87,0.81,0.9),1.5*scale_value)
 			_line(tail-direction.orthogonal()*2*scale_value,tail+direction*3*scale_value,Color(0.88,0.86,0.76,0.78),0.9)
 			_line(tail+direction.orthogonal()*2*scale_value,tail+direction*3*scale_value,Color(0.88,0.86,0.76,0.78),0.9)
-			if (_skill_flag(shot,"fireArrow") or _effect_kind(shot)=="fire_arrow") and _authorized(shot,["archer_fire"],5):
+			if (_skill_flag(shot,"fireArrow") or _effect_kind(shot)=="fire_arrow") and _authorized(shot,["archer_fire"],3):
 				# Fire follows the actual arrow; this never invents a barrage.
 				_puff(point,Vector2(3.3,2.0)*scale_value,Color(1.0,.47,.15,.57))
 				_line(point-direction*3*scale_value,point+direction*1.2*scale_value,Color(1.0,.81,.38,.91),1.4*scale_value)
@@ -484,10 +647,34 @@ func _draw_projectiles() -> void:
 func _draw_mark(mark: Dictionary) -> void:
 	var t: float = clampf(float(mark.age)/float(mark.life),0,1)
 	var alpha: float = (1-t)*(1-t)
-	var point: Vector2 = _body(mark.point,mark.get("meta",{}),str(mark.kind) in ["muzzle","smoke","release","fire_release","guard","dash","prayer"])
+	var point: Vector2 = _body(mark.point,mark.get("meta",{}),bool(mark.get("sourceActor",str(mark.kind) in ["muzzle","smoke","release","fire_release","guard","dash","prayer","rally","braced_release"])))
 	var scale_value: float = _size_scale(mark.point)
 	var direction: Vector2 = _direction(mark,point)
 	match str(mark.kind):
+		"ninja_charge_fuse":
+			# A small attached packet and shortening fuse, without a HUD panel.
+			var packet: Vector2=point+Vector2(3,1)*scale_value
+			_puff(packet,Vector2(3,2.5)*scale_value,Color(.18,.13,.08,.86))
+			_line(packet+Vector2(-2,-1)*scale_value,packet+Vector2(2,1)*scale_value,Color(.66,.47,.24,.9),1.2*scale_value)
+			var fuse: Vector2=packet+Vector2(1,-2)*scale_value
+			var spark: Vector2=fuse+Vector2(2,-4*(1-t))*scale_value
+			_line(fuse,spark,Color(.65,.48,.24,.9),.8*scale_value)
+			_puff(spark,Vector2(1.5,1.5)*scale_value,Color(.97,.65,.24,.78))
+		"ninja_charge_burst":
+			_puff(point,Vector2(5+12*t,4+8*t)*scale_value,Color(.36,.29,.20,alpha*.75))
+			_puff(point,Vector2(4+5*t,3+4*t)*scale_value,Color(.99,.69,.29,alpha*.65))
+			for index in range(6):
+				var ray: Vector2=Vector2.RIGHT.rotated(float(index)*TAU/6.0+.24)
+				_line(point+ray*(2+4*t)*scale_value,point+ray*(6+11*t)*scale_value,Color(.90,.73,.43,alpha*.78),1.1*scale_value)
+		"ninja_combo_cut", "samurai_counter_cut":
+			var index: int=int(mark.get("hitIndex",0))
+			var axis: Vector2=direction.rotated(-.65 if index==0 else .65 if index==1 else .0)
+			_line(point-axis*(8-3*t)*scale_value,point+axis*(5+3*t)*scale_value,Color(.96,.92,.78,alpha*.86),1.3*scale_value)
+			_line(point-axis*5*scale_value,point-axis*8*scale_value,Color(.31,.27,.21,alpha*.65),1.8*scale_value)
+		"ninja_shrapnel_contact":
+			for side in [-1.0,1.0]:
+				var ray: Vector2=direction.rotated(side*.48)
+				_line(point-ray*(4+4*t)*scale_value,point-ray*(1+3*t)*scale_value,Color(.86,.75,.55,alpha*.85),1.0*scale_value)
 		"emplacement_alert":
 			var ground: Vector2 = _ground(mark.point)
 			for ring in range(2):
@@ -512,11 +699,7 @@ func _draw_mark(mark: Dictionary) -> void:
 			for i in range(2):
 				var ember: Vector2 = point+Vector2(float(i)*2-1,-t*(5+i*2))*scale_value
 				_line(ember,ember+Vector2(.8,-1.3)*scale_value,Color(.98,.76,.39,alpha*.82),.9)
-		"poison":
-			for i in range(2):
-				var speck: Vector2 = point+Vector2(float(i)*3-1.5,-1+t*(3+i))*scale_value
-				_line(speck,speck+Vector2(.5,1.4)*scale_value,Color(.68,.77,.40,alpha*.9),1.2)
-		"prayer":
+		"prayer", "rally":
 			for side in [-1.0,1.0]:
 				var paper: Vector2 = point+Vector2(side*4,-2-3*t)*scale_value
 				_line(paper-Vector2(0,3)*scale_value,paper+Vector2(0,3)*scale_value,Color(.92,.87,.72,alpha*.87),2.0*scale_value)
@@ -527,6 +710,23 @@ func _draw_mark(mark: Dictionary) -> void:
 		"pierce":
 			_line(point-direction*8*scale_value,point+direction*7*scale_value,Color(.90,.89,.74,alpha*.80),1.1*scale_value)
 			_line(point-direction*8*scale_value,point-direction*11*scale_value,Color(.20,.20,.16,alpha*.7),1.8*scale_value)
+		"brace", "brace_contact", "rear_rank_contact", "braced_release":
+			var axis: Vector2=direction.orthogonal()
+			_line(point-direction*6*scale_value,point+direction*5*scale_value,Color(.90,.87,.71,alpha*.78),1.1*scale_value)
+			_line(point-axis*3*scale_value,point+axis*3*scale_value,Color(.69,.66,.51,alpha*.72),1.2*scale_value)
+		"parry":
+			for side in [-1.0,1.0]:
+				var axis: Vector2=direction.rotated(side*.65)
+				_line(point-axis*4*scale_value,point+axis*4*scale_value,Color(.95,.91,.73,alpha*.86),1.2*scale_value)
+		"ward_grant", "ward_consume":
+			var spread: float=1.0+t*.45 if str(mark.kind)=="ward_consume" else 1.0
+			for side in [-1.0,1.0]:
+				var edge: Vector2=point+Vector2(side*4*spread,0)*scale_value
+				_line(edge-Vector2(0,4)*scale_value,edge+Vector2(0,4)*scale_value,Color(.88,.88,.70,alpha*.78),1.4*scale_value)
+		"impact_contact":
+			for side in [-1.0,0.0,1.0]:
+				var axis: Vector2=direction.rotated(side*.6)
+				_line(point+axis*2*scale_value,point+axis*(8+4*t)*scale_value,Color(.91,.78,.55,alpha*.78),1.2*scale_value)
 		"armor_break":
 			var plate: PackedVector2Array = PackedVector2Array()
 			for offset in [Vector2(-4,-3),Vector2(0,-4),Vector2(1,0),Vector2(-1,2),Vector2(3,4)]: plate.append(_clip_point(point+offset*scale_value))
@@ -543,12 +743,6 @@ func _draw_mark(mark: Dictionary) -> void:
 			draw_polyline(outline,Color(.89,.86,.66,alpha*.70),1.0*scale_value,true)
 		"dash":
 			_line(point-direction*9*scale_value,point-direction*3*scale_value,Color(.67,.61,.46,alpha*.52),1.0)
-		"formation", "disrupt":
-			var ground: Vector2 = _ground(mark.point)
-			for side in [-1,1]:
-				var start: Vector2 = ground+Vector2(float(side)*6,-1)*scale_value
-				var end: Vector2 = ground+Vector2(float(side)*(9+3*t),3)*scale_value
-				_line(start,end,Color(.81,.85,.72,alpha*.65) if str(mark.kind)=="formation" else Color(.91,.73,.59,alpha*.65),1.0)
 		"muzzle":
 			direction = (_body(mark.target,mark.meta)-point).normalized()
 			var origin: Vector2 = point+direction*6*scale_value
@@ -595,6 +789,8 @@ func _draw_mark(mark: Dictionary) -> void:
 
 func _draw() -> void:
 	if not is_instance_valid(battle) or battle.field_rect.size.x<=1: return
+	# Lazily build offsets only when an actual mark/projectile needs them.
+	_offset_frame=-1
 	# Soil/smoke sit behind contacts; restrained text is always above them.
 	for mark in marks:
 		if str(mark.kind) in ["smoke","fall","deploy","charge","objective"]: _draw_mark(mark)

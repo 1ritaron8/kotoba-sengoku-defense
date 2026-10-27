@@ -1,37 +1,86 @@
 extends RefCounted
-## Pure runtime plans. Stage geometry, traits and saved progression stay in the map.
-const MINUTES: Array[int] = [10,20]
-const OPENING_SECONDS: Array[float] = [20.0,25.0]
-const REGULAR_WAVE_SECONDS: float = 30.0
-const ACTIVE_ENEMY_CAP: int = 36
-const LATE_RAMP_WAVE: int = 8
+## Finite campaign attack cycles. Elapsed time is a record, never a deadline.
+## Keep the old minutes argument only for existing callers and stored UI state.
+const CYCLE_MODE: int = 0
+const FIXED_MINUTES: int = CYCLE_MODE
+const MINUTES: Array[int] = [CYCLE_MODE]
+# The global tempo keeps finite authored cycles while making arrivals denser.
+# Living enemy counts never delay a scheduled arrival.
+const ARRIVAL_COUNT_MULTIPLIER: float = 1.25
+const ARRIVAL_INTERVAL_MULTIPLIER: float = .8
+# Stage01 needs sustained early pressure without introducing later troops.
+const STAGE01_COUNTS: Array[int] = [24,28,32,36]
+const STAGE01_INTERVALS: Array[float] = [.90,.82,.74,.66]
+# Stage02 adds an attack cycle and a capture objective.
+const STAGE02_COUNTS: Array[int] = [24,26,28,30,32]
+const STAGE02_INTERVALS: Array[float] = [.90,.86,.82,.78,.74]
 
-static func normalize_minutes(minutes: int) -> int:
-	return minutes if minutes in MINUTES else 10
+static func normalize_minutes(_minutes: int) -> int:
+	return CYCLE_MODE
 
-static func preview(_map_config: Dictionary, minutes: int) -> Dictionary:
-	var selected: int=normalize_minutes(minutes)
-	var target: float=float(selected)*60.0
-	var later_waves: int=ceili((target-OPENING_SECONDS[0]-OPENING_SECONDS[1])/REGULAR_WAVE_SECONDS)
-	return {"battleMinutes":selected,"battleTargetSeconds":target,"totalWaves":2+later_waves}
+static func progression_for(stage_number: int) -> Dictionary:
+	var stage: int=clampi(stage_number,1,40)
+	var cycles: int=4+ceili(float(stage-1)*12.0/39.0)
+	# Every stage adds four finite main-line soldiers even when its cycle count
+	# is unchanged. These are authored totals, never concurrent actor limits.
+	var extra: int=(stage-1)*4
+	var counts: Array[int]=[]
+	var total: int=0
+	for index in range(cycles):
+		var count: int=12+index*2+extra/cycles+(1 if index<extra%cycles else 0)
+		counts.append(count)
+		total+=count
+	var tier: int=(stage-1)/10
+	return {"stageNumber":stage,"totalWaves":cycles,"cycleEnemyCounts":counts,"enemyBudget":total,"learningTier":["basic","beginner","intermediate","advanced"][tier],"newWordCount":[15,20,25,30][tier]}
 
-static func build(map_config: Dictionary, base_schedule: Array, minutes: int) -> Dictionary:
-	var summary: Dictionary=preview(map_config,minutes)
+static func preview(map_config: Dictionary, _minutes: int = CYCLE_MODE) -> Dictionary:
+	var result: Dictionary=progression_for(int(map_config.get("stageNumber",1)))
+	if str(map_config.get("id",""))=="basic-forest" and int(map_config.get("stageNumber",1))==1:
+		result["cycleEnemyCounts"]=STAGE01_COUNTS.duplicate()
+		result["totalWaves"]=STAGE01_COUNTS.size()
+		var opening_budget: int=0
+		for count in STAGE01_COUNTS: opening_budget+=count
+		result["enemyBudget"]=opening_budget
+	elif str(map_config.get("id",""))=="basic-farm" and int(map_config.get("stageNumber",0))==2 and not map_config.get("advanceMission",{}).is_empty():
+		result["cycleEnemyCounts"]=STAGE02_COUNTS.duplicate()
+		result["totalWaves"]=STAGE02_COUNTS.size()
+		var advance_budget: int=0
+		for count in STAGE02_COUNTS: advance_budget+=count
+		result["enemyBudget"]=advance_budget
+	var arrivals: Array[int]=[]
+	var arrival_total: int=0
+	for count in result.cycleEnemyCounts:
+		var arrival_count: int=ceili(float(count)*ARRIVAL_COUNT_MULTIPLIER)
+		arrivals.append(arrival_count)
+		arrival_total+=arrival_count
+	result["cycleEnemyCounts"]=arrivals
+	result["enemyBudget"]=arrival_total
+	result.merge({"battleMode":"cycles","battleMinutes":CYCLE_MODE,"battleTargetSeconds":0.0,"hasTimeLimit":false},true)
+	return result
+
+static func build(map_config: Dictionary, base_schedule: Array, _minutes: int = CYCLE_MODE) -> Dictionary:
+	var summary: Dictionary=preview(map_config)
 	var wave_count: int=int(summary.totalWaves)
-	var target: float=float(summary.battleTargetSeconds)
-	var later_seconds: float=(target-OPENING_SECONDS[0]-OPENING_SECONDS[1])/float(wave_count-2)
+	var stage: int=int(summary.stageNumber)
+	var stage01: bool=str(map_config.get("id",""))=="basic-forest" and stage==1
+	var stage02: bool=str(map_config.get("id",""))=="basic-farm" and stage==2 and not map_config.get("advanceMission",{}).is_empty()
 	var waves: Array=[]
-	var clock: float=0.0
-	var base_count: int=base_schedule.size()
 	for index in range(wave_count):
-		var base_index: int=mini(index,maxi(0,base_count-1))
-		if index>=2:
-			var ramp: float=clampf(float(index-2)/float(LATE_RAMP_WAVE-3),0.0,1.0)
-			base_index=mini(maxi(0,base_count-1),2+roundi(float(maxi(0,base_count-3))*ramp))
-		var duration: float=OPENING_SECONDS[index] if index<2 else later_seconds
-		var end: float=target if index==wave_count-1 else clock+duration
-		var entries: Array=base_schedule[base_index].duplicate(true) if base_count>0 else []
-		var cap: int=8 if index==0 else 12 if index==1 else roundi(lerpf(16.0,float(ACTIVE_ENEMY_CAP),clampf(float(index-2)/float(LATE_RAMP_WAVE-3),0.0,1.0)))
-		waves.append({"startSeconds":clock,"endSeconds":end,"baseIndex":base_index,"sourceWave":base_index+1,"entries":entries,"activeCap":cap,"refillCount":clampi(ceili(float(entries.size())*.18),1,8),"refillThreshold":clampi(ceili(float(entries.size())*.25),2,12)})
-		clock=end
-	return {"minutes":int(summary.battleMinutes),"targetSeconds":target,"totalWaves":wave_count,"baseTotalWaves":base_count,"activeCap":ACTIVE_ENEMY_CAP,"waves":waves}
+		var source: Array=base_schedule[mini(index,base_schedule.size()-1)] if not base_schedule.is_empty() else []
+		var entries: Array=[]
+		var count: int=int(summary.cycleEnemyCounts[index])
+		for member in range(count):
+			# Sample the existing authored recipe across the whole source batch,
+			# retaining mixed rosters when a cycle has a smaller finite budget.
+			var source_index: int=mini(source.size()-1,floori(float(member)*float(source.size())/float(count)))
+			var entry: Dictionary=source[source_index].duplicate(true) if not source.is_empty() else {"kind":"raider"}
+			entry["sourceWave"]=index+1
+			entries.append(entry)
+		# Preserve an orderly arrival cadence. Later difficulty comes from the
+		# finite roster and its existing kinds, not a new speed multiplier.
+		var interval: float=1.20 if index==0 else 1.10 if index==1 else lerpf(1.0,.72,float(index-2)/maxf(1.0,float(wave_count-3)))
+		if stage01: interval=STAGE01_INTERVALS[index]
+		if stage02: interval=STAGE02_INTERVALS[index]
+		interval*=ARRIVAL_INTERVAL_MULTIPLIER
+		waves.append({"cycle":index+1,"sourceWave":index+1,"entries":entries,"spawnInterval":interval,"enemyCount":count})
+	return {"mode":"cycles","minutes":CYCLE_MODE,"targetSeconds":0.0,"hasTimeLimit":false,"totalWaves":wave_count,"baseTotalWaves":wave_count,"enemyBudget":int(summary.enemyBudget),"enemyBudgetScope":"main_line_only; authored guards, raids and commanders are finite additions","waves":waves}

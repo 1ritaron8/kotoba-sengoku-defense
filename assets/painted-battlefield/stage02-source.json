@@ -1,0 +1,12 @@
+{
+  "asset": "res://assets/painted-battlefield/stage02-okehazama.png",
+  "sha256": "26ea9243409fd4e15e323a59728c331c86f98f689a9d8d5d21cc23eb864b604d",
+  "width": 1944,
+  "height": 809,
+  "createdWith": "built-in image_gen.imagegen",
+  "status": "authored background; not an actual gameplay capture",
+  "referenceStyle": "res://assets/painted-battlefield/stage01.png",
+  "prompt": "stage02-art-prompt.txt",
+  "historicalStatus": "gameplay adaptation, not a reconstructed historical site",
+  "foregroundMask": "stage02-foreground-mask.svg"
+}

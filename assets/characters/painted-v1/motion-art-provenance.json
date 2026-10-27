@@ -1,0 +1,59 @@
+{
+  "mode": "built-in image_gen",
+  "sourceArtworkChanges": "All PNG art changes generated with image_gen; Python only registers/crops for inspection. UV polygons deform original textures in the engine.",
+  "prompts": {
+    "gunner": "Use case: historical-scene. Reference image third row is the navy matchlock gunner IDENTITY only. Create production transparent PNG animation atlas EXACT FOUR rows by FOUR columns,16 complete gunner sprites. Same jingasa flat hat, navy long sleeves, dark simple armor, natural longer limbs five-to-six-head proportions, smooth matte painted Sengoku ashigaru, single tanegashima matchlock. Fixed elevated44degree quarterview. Rows NE rear upperright; SE front lowerright; SW front lowerleft; NW rear upperleft. Columns relaxed planted guard holding rifle lowered; shouldered precise aim; actual fire with small recoil (NO painted flash/smoke); recovery lowering rifle to reload and reach breech. Critical: SW and NW muzzle point LEFT; NE and SE muzzle point RIGHT. Show genuinely rotated bodies and weapon perspective, no mirrored equipment. Entire rifle fits in every cell with large transparent gutters and outer margins. Same body height/foot baseline and same costume/person. Anatomically natural standing stances rather than frozen walking lunge. No floor, shadows, labels, grid, background, text, extra weapons or UI. True transparent alpha.",
+    "monk": "Use case: historical-scene. Production transparent2D sprite animation atlas. Reference IDENTITY only, not pose. ONLY the first-row NAVY warrior MONK: shaved head, prayer beads, navy cloth robes, simple chest armor, tall wooden ringed staff. Columns: relaxed planted guard holding staff; deliberate healing preparation bring free hand to prayer beads; actual healing gesture extend open palm toward that row direction while staff remains held; recovery hand returns to beads. No attacks, glowing effects or magic painted into source. Exactly FOUR rows x FOUR columns,16whole figures, fixed elevated44degree orthographic quarterview smooth matte painted Japanese Sengoku style, same character/costume/scale everycell, natural five-to-six-head proportions. Rows top-to-bottom NE back upperright; SE front lowerright; SW front lowerleft; NW back upperleft. Each row's action stays facing same target; genuine four rotations, no mirroring gear. Stable planted feet and coherent pelvis/shoulders, meaningful arms/weapon differences between columns. Generous transparent gutters, full body and entire staff/sword in each equalcell with outer margins. No floor/shadows/background/grid/labels/text/extra people/UI. True RGBA alpha.",
+    "samurai": "Use case: historical-scene. Production transparent2D sprite animation atlas. Reference IDENTITY only, not pose. ONLY the fourth-row NAVY SAMURAI: kabuto helmet small golden crescent, navy/dark lamellar armor, natural long limbs, single curved katana. Columns: relaxed planted guard with katana; windup raise katana without turning back to target; distinct forward diagonal sword cut toward that row direction; recovery returning katana to guard. Full complete katana visible. Exactly FOUR rows x FOUR columns,16whole figures, fixed elevated44degree orthographic quarterview smooth matte painted Japanese Sengoku style, same character/costume/scale everycell, natural five-to-six-head proportions. Rows top-to-bottom NE back upperright; SE front lowerright; SW front lowerleft; NW back upperleft. Each row's action stays facing same target; genuine four rotations, no mirroring gear. Stable planted feet and coherent pelvis/shoulders, meaningful arms/weapon differences between columns. Generous transparent gutters, full body and entire staff/sword in each equalcell with outer margins. No floor/shadows/background/grid/labels/text/extra people/UI. True RGBA alpha.",
+    "ninja": "Use case: historical-scene. Production transparent2D sprite animation atlas. Reference identity is ONLY the navy hooded NINJA second row: cloth hood, navy wrapped light tunic, sash, long trousers, wrapped calves, straw sandals, ONE short dagger. Same smooth matte painted style; natural longer limbs five-to-six-head proportions. EXACT FOUR rows x FOUR columns16whole figures. Fixed elevated44degree orthographic quarterview. Rows NE rear upperright, SE front lowerright, SW front lowerleft, NW rear upperleft. Columns relaxed guard; coiled preparation lower center of weight and draw dagger back; distinct short forward slash/stab toward row target; controlled recovery back to guard. Remain oriented toward same target through action, no wholebodyturn away. Stable feet, plausible elbows/knees. Each fullfigure and blade entirely inside equalcells with generous empty transparent gutters and30px outer margin. Same body scale everypose. No glow/floor/shadows/background/text/grid/labels/extrafigures. True alpha. No additional weapons.",
+    "commander": "Use case: precise-object-edit. Reference identity is the navy mounted samurai and his brown horse with blue vertical flower banner. Production sprite atlas exactly FOUR rows by FOUR columns16whole horse+rider figures, TRUE transparent background. Fixed elevated44degree orthographic quarterview, same hand-painted matte look, horse/rider proportions and costume. Four actual directions by row: NE rear upperright horseHEADright; SE front lowerright horseHEADright; SW front lowerleft horseHEADleft; NW rear upperleft horseHEADleft. No mirroring banner/equipment. Columns relaxed mounted guard, rider leans forward gathering reins preparing charge, distinct forward charge-impact pose rider extends katana toward direction while horsefrontleg extends, recovery rider straightens gathering reins. Same body scale, stable root at horsecenter, full horsefourlegs/hooves/tail, complete rider/katana/entirebluebanner INSIDE each equalcell with large clearpadding. Uniformly fit figures smaller to create30px outermargin; nothing cuts canvas or neighbors. No floorground/shadows/grid/text/labels/extrafigures/glow. Preserve navy rider identity. Leganatomy correct, no missing or extra legs."
+  },
+  "acceptedFiles": [
+    "gunner-actions-v2.png",
+    "monk-actions-padded-v2.png",
+    "samurai-actions-padded-v2.png",
+    "ninja-actions-v2.png",
+    "commander-actions-v2.png"
+  ],
+  "repairPrompts": {
+    "samurai": "Preserve sixteen poses, separate complete silhouettes with transparent gutters; restore room for raised sword and all feet.",
+    "monk": "Preserve sixteen poses; restore complete top-row staff finials and create transparent outer margins and row gutters."
+  },
+  "notAcceptedAsAuthoredGait": [
+    "spear-rig-source.png",
+    "spear-rig-ne-inspection.png"
+  ],
+  "acceptance": "Static source registration only. Actual engine gait, action transition and preview layout QA required.",
+  "allRoles03": {
+    "dateUTC": "2026-10-12",
+    "sourceArtworkChanged": false,
+    "registeredDirectionalRigs": 48,
+    "humanoidDirectionalRigs": 40,
+    "quadrupedDirectionalRigs": 8,
+    "quadrupedDistinctSources": 4,
+    "temporaryEnemyCavalry": "Exact existing friendly mounted commander source and palette reused explicitly; no new hostile appearance generated.",
+    "newRigQuality": "Candidate anatomical registrations, not rendered acceptance. Source-specific foot columns and source alpha bounds; actual hinge anatomy estimated.",
+    "stateSources": {
+      "alliedAttackHeal": "existing four-direction action atlases",
+      "walk": "procedural UV limbs from original directional source",
+      "hitExit": "procedural grounded articulation/recoil/collapse and fade; no new authored atlas",
+      "missingEnemyAttack": "procedural grounded torso/limb recoil only; no independently animated arms/weapon release"
+    },
+    "directionLimits": "Enemy gunner/runner/samurai/foot commander have NE/SW originals only; SE uses NE and NW uses SW explicitly without mirror. Not eight authored directions.",
+    "occlusionLimits": "Original static source may hide far limb, shoe or staff-overlapping pixels; UV motion cannot reconstruct hidden anatomy. HQ must inspect tearing, duplicated weapon/leg pixels and stance.",
+    "verification": "48 rig polygon area/self intersection and joint continuity checks passed; engine syntax, pixels, contact and performance measurements are HQ responsibility.",
+    "repairPass1": {
+      "evidence": "tests/profiles/painted-game-fix-03/all-roles-1791795437",
+      "changes": "Samurai SE/SW blade corridor attached to torso with disjoint leg UVs; monk narrow lower staff corridor excludes shoe islands; horse lower limbs use contiguous source domains below shared belly boundary. No PNG changes.",
+      "cacheMeasuredMicroseconds": {
+        "cold": 367132,
+        "warm": [
+          2455,
+          2426,
+          2362
+        ]
+      },
+      "verification": "HQ previous engine execution passed syntax/runtime; this JSON boundary repair requires HQ re-render. No engine run by MOTION."
+    }
+  }
+}

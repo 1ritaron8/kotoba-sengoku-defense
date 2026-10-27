@@ -198,15 +198,15 @@
       "themeRecommendation": {
         "key": "low_hills_fields",
         "labelKo": "초여름 녹지와 구릉",
-        "descriptionKo": "도요아케의 국가 지정 전승지를 대표점으로 사용합니다. 나고야의 별도 공원도 있으며 한 점을 전군의 정확한 충돌 지점으로 단정하지 않습니다. 세 창고와 수확 연출은 각색이며 초여름에 가을 황금 논을 쓰지 않습니다."
+        "descriptionKo": "도요아케의 국가 지정 전승지를 대표점으로 사용합니다. 나고야의 별도 공원도 있으며 한 점을 전군의 정확한 충돌 지점으로 단정하지 않습니다. 젖은 초여름 들판의 굽은 길과 목표 진지, 병력 수와 점유 시간은 게임용 각색입니다."
       },
       "mapAudit": {
         "currentTheme": "farm",
-        "currentMapNameKo": "논밭의 수확",
+        "currentMapNameKo": "오케하자마 · 전진 진지",
         "severity": "adjust",
         "requiresHistoricalVisualCorrection": true,
-        "summaryKo": "지형 연관",
-        "descriptionKo": "도요아케의 국가 지정 전승지를 대표점으로 사용합니다. 나고야의 별도 공원도 있으며 한 점을 전군의 정확한 충돌 지점으로 단정하지 않습니다. 세 창고와 수확 연출은 각색이며 초여름에 가을 황금 논을 쓰지 않습니다."
+        "summaryKo": "초여름 들판의 진격 임무",
+        "descriptionKo": "도요아케의 국가 지정 전승지를 대표점으로 사용합니다. 나고야의 별도 공원도 있으며 한 점을 전군의 정확한 충돌 지점으로 단정하지 않습니다. 젖은 초여름 들판의 굽은 길과 목표 진지, 병력 수와 점유 시간은 게임용 각색입니다."
       },
       "historicalAccuracyKnownVsGame": {
         "knownKo": [
@@ -214,12 +214,12 @@
           "도요아케 고전장 전승지"
         ],
         "gameAdaptationKo": [
-          "세 곡물 창고",
-          "정확한 부대 동선",
-          "수확 기믹"
+          "굽은 진격로와 목표 진지의 위치",
+          "목표 수비대 6명과 후속 아군 2명",
+          "10초 점유와 모든 공격 차수 정리"
         ],
         "limitsKo": "유적 대표 좌표와 확인된 역사·지형을 제공합니다. 현존 건물, 게임 경로·배치 구역, 가상 주인공의 임무가 당시 그대로 존재했다는 뜻은 아닙니다.",
-        "gameAdaptationAuditScopeKo": "gameAdaptationKo에는 개편 전 지도 감사에서 확인한 각색·고증 한계의 예시가 남아 있습니다. 이번 선택 국면과 적용 임무는 missionDesign과 presentationWeather를 기준으로 표시합니다."
+        "gameAdaptationAuditScopeKo": "Stage02의 게임 임무와 지도 배치를 설명합니다. 병력 수와 이동 경로, 점유 시간은 역사적 사실을 재현한 수치가 아닙니다."
       },
       "sources": [
         "https://www.nagoyajo.city.nagoya.jp/learn/history/chronology/",
@@ -237,7 +237,7 @@
         {
           "id": "low_hills_fields",
           "nameKo": "구릉 사이 저지 · 농경지 주변",
-          "relationshipKo": "도요아케의 국가 지정 전승지를 대표점으로 사용합니다. 나고야의 별도 공원도 있으며 한 점을 전군의 정확한 충돌 지점으로 단정하지 않습니다. 세 창고와 수확 연출은 각색이며 초여름에 가을 황금 논을 쓰지 않습니다.",
+          "relationshipKo": "도요아케의 국가 지정 전승지를 대표점으로 사용합니다. 나고야의 별도 공원도 있으며 한 점을 전군의 정확한 충돌 지점으로 단정하지 않습니다. 젖은 초여름 들판의 굽은 길과 목표 진지, 병력 수와 점유 시간은 게임용 각색입니다.",
           "placementPrecision": "qualitative_only"
         }
       ],
@@ -249,7 +249,7 @@
         "calendar": "not_specified_by_source",
         "noteKo": "원문은 서력 날짜를 제시하지만 유리우스력/그레고리력을 명시하지 않아 그레고리력 날짜로 확정하지 않습니다."
       },
-      "renderingBasisKo": "오케하자마의 구릉과 골짜기 지형을 반영했습니다. 농경지의 세 갈래 길과 보급 진영은 게임용 배치입니다.",
+      "renderingBasisKo": "오케하자마의 언덕과 그 사이 낮고 습한 지대를 참고한 초여름 들판입니다. 굽은 한 진격로와 아군 기지, 목표 진지 및 세 학습 표식은 게임용 배치이며 실제 부대 위치를 뜻하지 않습니다.",
       "phasePeriodKo": "1560년 5월 19일 · 초여름. 오와리국 오케하자마 → 아이치현 도요아케시 및 나고야시 미도리구의 전승지",
       "presentationWeather": {
         "sky": "shower_clearing",
@@ -267,8 +267,8 @@
         "rainTiming": "intermittent_shower_then_clearing"
       },
       "missionDesign": {
-        "key": "hold_battle_front",
-        "descriptionKo": "구릉 사이의 진입부와 낮은 둔덕 주변을 활용합니다. 여러 방향의 접근이 가능하며, 굴곡은 낮은 지형을 따라 형성합니다.",
+        "key": "advance_capture_followup",
+        "descriptionKo": "진입로 밖에서 출발한 목표 수비대 6명을 격파한 뒤 전진 병력으로 목표 진지를 적 없이 10초간 점유합니다. 후속 아군 2명이 기지에서 실제로 걸어와 도착해야 하며, 기지 생존과 모든 공격 차수의 완료를 확인합니다.",
         "isGameAdaptation": true,
         "routePrecision": "qualitative_design_only"
       },

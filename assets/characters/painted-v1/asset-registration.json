@@ -1,0 +1,4602 @@
+[
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      0,
+      0,
+      314,
+      314
+    ],
+    "solidBounds": [
+      50,
+      15,
+      296,
+      299
+    ],
+    "anchor": [
+      67.5,
+      298
+    ],
+    "bodyHeightPixels": 240
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      314,
+      0,
+      313,
+      314
+    ],
+    "solidBounds": [
+      62,
+      13,
+      301,
+      298
+    ],
+    "anchor": [
+      78.0,
+      297
+    ],
+    "bodyHeightPixels": 240
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      627,
+      0,
+      314,
+      314
+    ],
+    "solidBounds": [
+      73,
+      18,
+      299,
+      302
+    ],
+    "anchor": [
+      111.5,
+      301
+    ],
+    "bodyHeightPixels": 240
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      941,
+      0,
+      313,
+      314
+    ],
+    "solidBounds": [
+      72,
+      13,
+      294,
+      302
+    ],
+    "anchor": [
+      112.0,
+      301
+    ],
+    "bodyHeightPixels": 240
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      0,
+      314,
+      314,
+      326
+    ],
+    "solidBounds": [
+      61,
+      6,
+      283,
+      308
+    ],
+    "anchor": [
+      78.5,
+      307
+    ],
+    "bodyHeightPixels": 244
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      314,
+      314,
+      313,
+      326
+    ],
+    "solidBounds": [
+      70,
+      5,
+      271,
+      309
+    ],
+    "anchor": [
+      87.0,
+      308
+    ],
+    "bodyHeightPixels": 244
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      627,
+      314,
+      314,
+      326
+    ],
+    "solidBounds": [
+      49,
+      7,
+      225,
+      313
+    ],
+    "anchor": [
+      131.0,
+      312
+    ],
+    "bodyHeightPixels": 244
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      941,
+      314,
+      313,
+      326
+    ],
+    "solidBounds": [
+      58,
+      11,
+      227,
+      310
+    ],
+    "anchor": [
+      133.0,
+      309
+    ],
+    "bodyHeightPixels": 244
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      0,
+      640,
+      314,
+      303
+    ],
+    "solidBounds": [
+      51,
+      32,
+      289,
+      279
+    ],
+    "anchor": [
+      67.5,
+      278
+    ],
+    "bodyHeightPixels": 245
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      314,
+      640,
+      313,
+      303
+    ],
+    "solidBounds": [
+      71,
+      33,
+      284,
+      278
+    ],
+    "anchor": [
+      88.5,
+      277
+    ],
+    "bodyHeightPixels": 245
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      627,
+      640,
+      314,
+      303
+    ],
+    "solidBounds": [
+      89,
+      32,
+      277,
+      278
+    ],
+    "anchor": [
+      130.5,
+      277
+    ],
+    "bodyHeightPixels": 245
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      941,
+      640,
+      313,
+      303
+    ],
+    "solidBounds": [
+      86,
+      31,
+      278,
+      280
+    ],
+    "anchor": [
+      131.0,
+      279
+    ],
+    "bodyHeightPixels": 245
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      0,
+      943,
+      314,
+      311
+    ],
+    "solidBounds": [
+      50,
+      27,
+      299,
+      294
+    ],
+    "anchor": [
+      92.0,
+      293
+    ],
+    "bodyHeightPixels": 255
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      314,
+      943,
+      313,
+      311
+    ],
+    "solidBounds": [
+      60,
+      28,
+      300,
+      295
+    ],
+    "anchor": [
+      90.0,
+      294
+    ],
+    "bodyHeightPixels": 255
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      627,
+      943,
+      314,
+      311
+    ],
+    "solidBounds": [
+      34,
+      35,
+      250,
+      295
+    ],
+    "anchor": [
+      111.5,
+      294
+    ],
+    "bodyHeightPixels": 255
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      941,
+      943,
+      313,
+      311
+    ],
+    "solidBounds": [
+      31,
+      36,
+      246,
+      298
+    ],
+    "anchor": [
+      110.5,
+      297
+    ],
+    "bodyHeightPixels": 255
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      0,
+      0,
+      314,
+      314
+    ],
+    "solidBounds": [
+      49,
+      24,
+      307,
+      303
+    ],
+    "anchor": [
+      68.0,
+      302
+    ],
+    "bodyHeightPixels": 240
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      314,
+      0,
+      313,
+      314
+    ],
+    "solidBounds": [
+      59,
+      23,
+      296,
+      304
+    ],
+    "anchor": [
+      77.0,
+      303
+    ],
+    "bodyHeightPixels": 240
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      627,
+      0,
+      314,
+      314
+    ],
+    "solidBounds": [
+      68,
+      24,
+      294,
+      308
+    ],
+    "anchor": [
+      112.0,
+      307
+    ],
+    "bodyHeightPixels": 240
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      941,
+      0,
+      313,
+      314
+    ],
+    "solidBounds": [
+      68,
+      24,
+      285,
+      308
+    ],
+    "anchor": [
+      114.0,
+      307
+    ],
+    "bodyHeightPixels": 240
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      0,
+      314,
+      314,
+      326
+    ],
+    "solidBounds": [
+      58,
+      7,
+      285,
+      309
+    ],
+    "anchor": [
+      78.0,
+      308
+    ],
+    "bodyHeightPixels": 244
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      314,
+      314,
+      313,
+      326
+    ],
+    "solidBounds": [
+      67,
+      8,
+      276,
+      309
+    ],
+    "anchor": [
+      84.5,
+      308
+    ],
+    "bodyHeightPixels": 244
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      627,
+      314,
+      314,
+      326
+    ],
+    "solidBounds": [
+      43,
+      6,
+      227,
+      315
+    ],
+    "anchor": [
+      128.5,
+      314
+    ],
+    "bodyHeightPixels": 244
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      941,
+      314,
+      313,
+      326
+    ],
+    "solidBounds": [
+      56,
+      8,
+      232,
+      313
+    ],
+    "anchor": [
+      130.0,
+      312
+    ],
+    "bodyHeightPixels": 244
+  },
+  {
+    "role": "gunner",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      0,
+      640,
+      314,
+      303
+    ],
+    "solidBounds": [
+      48,
+      34,
+      292,
+      282
+    ],
+    "anchor": [
+      67.0,
+      281
+    ],
+    "bodyHeightPixels": 245
+  },
+  {
+    "role": "gunner",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      314,
+      640,
+      313,
+      303
+    ],
+    "solidBounds": [
+      64,
+      32,
+      281,
+      281
+    ],
+    "anchor": [
+      84.0,
+      280
+    ],
+    "bodyHeightPixels": 245
+  },
+  {
+    "role": "gunner",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      627,
+      640,
+      314,
+      303
+    ],
+    "solidBounds": [
+      84,
+      32,
+      272,
+      280
+    ],
+    "anchor": [
+      121.5,
+      279
+    ],
+    "bodyHeightPixels": 245
+  },
+  {
+    "role": "gunner",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      941,
+      640,
+      313,
+      303
+    ],
+    "solidBounds": [
+      85,
+      31,
+      279,
+      282
+    ],
+    "anchor": [
+      129.5,
+      281
+    ],
+    "bodyHeightPixels": 245
+  },
+  {
+    "role": "runner",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      0,
+      943,
+      314,
+      311
+    ],
+    "solidBounds": [
+      51,
+      19,
+      289,
+      279
+    ],
+    "anchor": [
+      90.5,
+      278
+    ],
+    "bodyHeightPixels": 250
+  },
+  {
+    "role": "runner",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      314,
+      943,
+      313,
+      311
+    ],
+    "solidBounds": [
+      56,
+      18,
+      292,
+      279
+    ],
+    "anchor": [
+      88.5,
+      278
+    ],
+    "bodyHeightPixels": 250
+  },
+  {
+    "role": "runner",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      627,
+      943,
+      314,
+      311
+    ],
+    "solidBounds": [
+      41,
+      27,
+      252,
+      281
+    ],
+    "anchor": [
+      106.5,
+      280
+    ],
+    "bodyHeightPixels": 250
+  },
+  {
+    "role": "runner",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      941,
+      943,
+      313,
+      311
+    ],
+    "solidBounds": [
+      42,
+      26,
+      254,
+      285
+    ],
+    "anchor": [
+      111.0,
+      284
+    ],
+    "bodyHeightPixels": 250
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      0,
+      0,
+      362,
+      394
+    ],
+    "solidBounds": [
+      60,
+      27,
+      307,
+      361
+    ],
+    "anchor": [
+      86.5,
+      360
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      362,
+      0,
+      362,
+      394
+    ],
+    "solidBounds": [
+      75,
+      27,
+      317,
+      363
+    ],
+    "anchor": [
+      97.0,
+      362
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      724,
+      0,
+      362,
+      394
+    ],
+    "solidBounds": [
+      101,
+      29,
+      304,
+      373
+    ],
+    "anchor": [
+      129.0,
+      372
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      1086,
+      0,
+      362,
+      394
+    ],
+    "solidBounds": [
+      108,
+      28,
+      315,
+      370
+    ],
+    "anchor": [
+      137.5,
+      369
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      0,
+      394,
+      362,
+      315
+    ],
+    "solidBounds": [
+      74,
+      21,
+      283,
+      302
+    ],
+    "anchor": [
+      97.5,
+      301
+    ],
+    "bodyHeightPixels": 280
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      362,
+      394,
+      362,
+      315
+    ],
+    "solidBounds": [
+      86,
+      20,
+      294,
+      305
+    ],
+    "anchor": [
+      113.5,
+      304
+    ],
+    "bodyHeightPixels": 280
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      724,
+      394,
+      362,
+      315
+    ],
+    "solidBounds": [
+      64,
+      23,
+      287,
+      304
+    ],
+    "anchor": [
+      134.0,
+      303
+    ],
+    "bodyHeightPixels": 280
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      1086,
+      394,
+      362,
+      315
+    ],
+    "solidBounds": [
+      77,
+      26,
+      303,
+      305
+    ],
+    "anchor": [
+      156.5,
+      304
+    ],
+    "bodyHeightPixels": 280
+  },
+  {
+    "role": "samurai",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      0,
+      709,
+      362,
+      377
+    ],
+    "solidBounds": [
+      51,
+      8,
+      345,
+      333
+    ],
+    "anchor": [
+      90.0,
+      332
+    ],
+    "bodyHeightPixels": 300
+  },
+  {
+    "role": "samurai",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      362,
+      709,
+      362,
+      377
+    ],
+    "solidBounds": [
+      80,
+      14,
+      360,
+      338
+    ],
+    "anchor": [
+      119.5,
+      337
+    ],
+    "bodyHeightPixels": 300
+  },
+  {
+    "role": "samurai",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      724,
+      709,
+      362,
+      377
+    ],
+    "solidBounds": [
+      53,
+      24,
+      309,
+      343
+    ],
+    "anchor": [
+      134.5,
+      342
+    ],
+    "bodyHeightPixels": 300
+  },
+  {
+    "role": "samurai",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      1086,
+      709,
+      362,
+      377
+    ],
+    "solidBounds": [
+      46,
+      24,
+      318,
+      345
+    ],
+    "anchor": [
+      146.5,
+      344
+    ],
+    "bodyHeightPixels": 300
+  },
+  {
+    "role": "commander",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      0,
+      709,
+      362,
+      377
+    ],
+    "solidBounds": [
+      51,
+      8,
+      345,
+      333
+    ],
+    "anchor": [
+      90.0,
+      332
+    ],
+    "bodyHeightPixels": 300
+  },
+  {
+    "role": "commander",
+    "faction": "enemy",
+    "direction": "ne",
+    "rect": [
+      362,
+      709,
+      362,
+      377
+    ],
+    "solidBounds": [
+      80,
+      14,
+      360,
+      338
+    ],
+    "anchor": [
+      119.5,
+      337
+    ],
+    "bodyHeightPixels": 300
+  },
+  {
+    "role": "commander",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      724,
+      709,
+      362,
+      377
+    ],
+    "solidBounds": [
+      53,
+      24,
+      309,
+      343
+    ],
+    "anchor": [
+      134.5,
+      342
+    ],
+    "bodyHeightPixels": 300
+  },
+  {
+    "role": "commander",
+    "faction": "enemy",
+    "direction": "sw",
+    "rect": [
+      1086,
+      709,
+      362,
+      377
+    ],
+    "solidBounds": [
+      46,
+      24,
+      318,
+      345
+    ],
+    "anchor": [
+      146.5,
+      344
+    ],
+    "bodyHeightPixels": 300
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      0,
+      0,
+      627,
+      627
+    ],
+    "solidBounds": [
+      151,
+      30,
+      524,
+      611
+    ],
+    "anchor": [
+      279.5,
+      610
+    ],
+    "bodyHeightPixels": 430
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "ne",
+    "rect": [
+      627,
+      0,
+      627,
+      627
+    ],
+    "solidBounds": [
+      71,
+      40,
+      450,
+      620
+    ],
+    "anchor": [
+      177.5,
+      619
+    ],
+    "bodyHeightPixels": 430
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      0,
+      627,
+      627,
+      627
+    ],
+    "solidBounds": [
+      162,
+      5,
+      564,
+      585
+    ],
+    "anchor": [
+      258.0,
+      584
+    ],
+    "bodyHeightPixels": 430
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "sw",
+    "rect": [
+      0,
+      0,
+      628,
+      628
+    ],
+    "solidBounds": [
+      161,
+      6,
+      566,
+      586
+    ],
+    "anchor": [
+      354.5,
+      585
+    ],
+    "bodyHeightPixels": 430
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "idle",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      0,
+      0,
+      314,
+      332
+    ],
+    "solidBounds": [
+      91,
+      85,
+      233,
+      317
+    ],
+    "anchor": [
+      112.5,
+      316
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "windup",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      314,
+      0,
+      333,
+      332
+    ],
+    "solidBounds": [
+      85,
+      34,
+      245,
+      318
+    ],
+    "anchor": [
+      104.5,
+      317
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "release",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      647,
+      0,
+      314,
+      332
+    ],
+    "solidBounds": [
+      68,
+      33,
+      230,
+      318
+    ],
+    "anchor": [
+      93.0,
+      317
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "recovery",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      961,
+      0,
+      293,
+      332
+    ],
+    "solidBounds": [
+      70,
+      85,
+      219,
+      318
+    ],
+    "anchor": [
+      89.5,
+      317
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "idle",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      0,
+      332,
+      314,
+      300
+    ],
+    "solidBounds": [
+      92,
+      71,
+      246,
+      285
+    ],
+    "anchor": [
+      109.5,
+      284
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "windup",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      314,
+      332,
+      333,
+      300
+    ],
+    "solidBounds": [
+      81,
+      13,
+      268,
+      284
+    ],
+    "anchor": [
+      103.5,
+      283
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "release",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      647,
+      332,
+      314,
+      300
+    ],
+    "solidBounds": [
+      65,
+      18,
+      243,
+      285
+    ],
+    "anchor": [
+      92.0,
+      284
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "recovery",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      961,
+      332,
+      293,
+      300
+    ],
+    "solidBounds": [
+      75,
+      71,
+      211,
+      286
+    ],
+    "anchor": [
+      90.5,
+      285
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "idle",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      0,
+      632,
+      314,
+      281
+    ],
+    "solidBounds": [
+      73,
+      57,
+      222,
+      269
+    ],
+    "anchor": [
+      156.0,
+      268
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "windup",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      314,
+      632,
+      333,
+      281
+    ],
+    "solidBounds": [
+      70,
+      14,
+      249,
+      262
+    ],
+    "anchor": [
+      177.0,
+      261
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "release",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      647,
+      632,
+      314,
+      281
+    ],
+    "solidBounds": [
+      78,
+      23,
+      235,
+      263
+    ],
+    "anchor": [
+      166.0,
+      262
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "recovery",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      961,
+      632,
+      293,
+      281
+    ],
+    "solidBounds": [
+      77,
+      53,
+      218,
+      267
+    ],
+    "anchor": [
+      160.0,
+      266
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "idle",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      0,
+      913,
+      314,
+      341
+    ],
+    "solidBounds": [
+      99,
+      37,
+      236,
+      276
+    ],
+    "anchor": [
+      220.5,
+      275
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "windup",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      314,
+      913,
+      333,
+      341
+    ],
+    "solidBounds": [
+      75,
+      12,
+      242,
+      276
+    ],
+    "anchor": [
+      221.0,
+      275
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "release",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      647,
+      913,
+      314,
+      341
+    ],
+    "solidBounds": [
+      69,
+      20,
+      233,
+      277
+    ],
+    "anchor": [
+      204.5,
+      276
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "recovery",
+    "texture": "archer-actions-padded.png",
+    "rect": [
+      961,
+      913,
+      293,
+      341
+    ],
+    "solidBounds": [
+      76,
+      39,
+      218,
+      277
+    ],
+    "anchor": [
+      201.5,
+      276
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "idle",
+    "texture": "spear-actions.png",
+    "rect": [
+      0,
+      0,
+      329,
+      344
+    ],
+    "solidBounds": [
+      67,
+      36,
+      291,
+      319
+    ],
+    "anchor": [
+      84.5,
+      318
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "windup",
+    "texture": "spear-actions.png",
+    "rect": [
+      329,
+      0,
+      299,
+      344
+    ],
+    "solidBounds": [
+      38,
+      66,
+      273,
+      319
+    ],
+    "anchor": [
+      71.0,
+      318
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "release",
+    "texture": "spear-actions.png",
+    "rect": [
+      628,
+      0,
+      371,
+      344
+    ],
+    "solidBounds": [
+      27,
+      53,
+      359,
+      320
+    ],
+    "anchor": [
+      45.5,
+      319
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "recovery",
+    "texture": "spear-actions.png",
+    "rect": [
+      999,
+      0,
+      255,
+      344
+    ],
+    "solidBounds": [
+      11,
+      55,
+      237,
+      320
+    ],
+    "anchor": [
+      28.5,
+      319
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "idle",
+    "texture": "spear-actions.png",
+    "rect": [
+      0,
+      344,
+      326,
+      304
+    ],
+    "solidBounds": [
+      73,
+      24,
+      277,
+      275
+    ],
+    "anchor": [
+      144.5,
+      274
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "windup",
+    "texture": "spear-actions.png",
+    "rect": [
+      326,
+      344,
+      299,
+      304
+    ],
+    "solidBounds": [
+      49,
+      44,
+      284,
+      279
+    ],
+    "anchor": [
+      124.5,
+      278
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "release",
+    "texture": "spear-actions.png",
+    "rect": [
+      625,
+      344,
+      382,
+      304
+    ],
+    "solidBounds": [
+      14,
+      77,
+      369,
+      263
+    ],
+    "anchor": [
+      103.0,
+      262
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "recovery",
+    "texture": "spear-actions.png",
+    "rect": [
+      1007,
+      344,
+      247,
+      304
+    ],
+    "solidBounds": [
+      17,
+      28,
+      205,
+      279
+    ],
+    "anchor": [
+      87.0,
+      278
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "idle",
+    "texture": "spear-actions.png",
+    "rect": [
+      0,
+      648,
+      304,
+      292
+    ],
+    "solidBounds": [
+      53,
+      26,
+      257,
+      277
+    ],
+    "anchor": [
+      181.0,
+      276
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "windup",
+    "texture": "spear-actions.png",
+    "rect": [
+      304,
+      648,
+      288,
+      292
+    ],
+    "solidBounds": [
+      46,
+      48,
+      274,
+      280
+    ],
+    "anchor": [
+      204.5,
+      279
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "release",
+    "texture": "spear-actions.png",
+    "rect": [
+      592,
+      648,
+      396,
+      292
+    ],
+    "solidBounds": [
+      14,
+      77,
+      383,
+      256
+    ],
+    "anchor": [
+      290.5,
+      255
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "recovery",
+    "texture": "spear-actions.png",
+    "rect": [
+      988,
+      648,
+      266,
+      292
+    ],
+    "solidBounds": [
+      12,
+      27,
+      220,
+      280
+    ],
+    "anchor": [
+      143.5,
+      279
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "idle",
+    "texture": "spear-actions.png",
+    "rect": [
+      0,
+      940,
+      312,
+      314
+    ],
+    "solidBounds": [
+      41,
+      12,
+      266,
+      272
+    ],
+    "anchor": [
+      198.5,
+      271
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "windup",
+    "texture": "spear-actions.png",
+    "rect": [
+      312,
+      940,
+      293,
+      314
+    ],
+    "solidBounds": [
+      47,
+      38,
+      279,
+      272
+    ],
+    "anchor": [
+      205.0,
+      271
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "release",
+    "texture": "spear-actions.png",
+    "rect": [
+      605,
+      940,
+      375,
+      314
+    ],
+    "solidBounds": [
+      14,
+      41,
+      351,
+      268
+    ],
+    "anchor": [
+      280.0,
+      267
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "recovery",
+    "texture": "spear-actions.png",
+    "rect": [
+      980,
+      940,
+      274,
+      314
+    ],
+    "solidBounds": [
+      23,
+      14,
+      238,
+      274
+    ],
+    "anchor": [
+      169.5,
+      273
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "ne",
+    "state": "idle",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      0,
+      0,
+      314,
+      332
+    ],
+    "solidBounds": [
+      89,
+      85,
+      235,
+      320
+    ],
+    "anchor": [
+      111.5,
+      319
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "ne",
+    "state": "windup",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      314,
+      0,
+      333,
+      332
+    ],
+    "solidBounds": [
+      84,
+      34,
+      247,
+      320
+    ],
+    "anchor": [
+      104.5,
+      319
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "ne",
+    "state": "release",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      647,
+      0,
+      314,
+      332
+    ],
+    "solidBounds": [
+      66,
+      33,
+      234,
+      321
+    ],
+    "anchor": [
+      93.0,
+      320
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "ne",
+    "state": "recovery",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      961,
+      0,
+      293,
+      332
+    ],
+    "solidBounds": [
+      70,
+      85,
+      221,
+      320
+    ],
+    "anchor": [
+      88.5,
+      319
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "se",
+    "state": "idle",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      0,
+      332,
+      314,
+      300
+    ],
+    "solidBounds": [
+      89,
+      70,
+      248,
+      287
+    ],
+    "anchor": [
+      109.0,
+      286
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "se",
+    "state": "windup",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      314,
+      332,
+      333,
+      300
+    ],
+    "solidBounds": [
+      79,
+      13,
+      269,
+      286
+    ],
+    "anchor": [
+      104.0,
+      285
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "se",
+    "state": "release",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      647,
+      332,
+      314,
+      300
+    ],
+    "solidBounds": [
+      64,
+      18,
+      245,
+      287
+    ],
+    "anchor": [
+      91.5,
+      286
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "se",
+    "state": "recovery",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      961,
+      332,
+      293,
+      300
+    ],
+    "solidBounds": [
+      73,
+      71,
+      212,
+      288
+    ],
+    "anchor": [
+      91.0,
+      287
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "sw",
+    "state": "idle",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      0,
+      632,
+      314,
+      281
+    ],
+    "solidBounds": [
+      72,
+      57,
+      224,
+      270
+    ],
+    "anchor": [
+      156.5,
+      269
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "sw",
+    "state": "windup",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      314,
+      632,
+      333,
+      281
+    ],
+    "solidBounds": [
+      68,
+      14,
+      250,
+      264
+    ],
+    "anchor": [
+      177.0,
+      263
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "sw",
+    "state": "release",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      647,
+      632,
+      314,
+      281
+    ],
+    "solidBounds": [
+      77,
+      24,
+      237,
+      265
+    ],
+    "anchor": [
+      166.0,
+      264
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "sw",
+    "state": "recovery",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      961,
+      632,
+      293,
+      281
+    ],
+    "solidBounds": [
+      76,
+      53,
+      222,
+      268
+    ],
+    "anchor": [
+      161.0,
+      267
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "nw",
+    "state": "idle",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      0,
+      913,
+      314,
+      341
+    ],
+    "solidBounds": [
+      98,
+      38,
+      238,
+      277
+    ],
+    "anchor": [
+      184.5,
+      276
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "nw",
+    "state": "windup",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      314,
+      913,
+      333,
+      341
+    ],
+    "solidBounds": [
+      73,
+      11,
+      244,
+      277
+    ],
+    "anchor": [
+      221.5,
+      276
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "nw",
+    "state": "release",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      647,
+      913,
+      314,
+      341
+    ],
+    "solidBounds": [
+      67,
+      20,
+      235,
+      277
+    ],
+    "anchor": [
+      166.0,
+      276
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "archer",
+    "faction": "enemy",
+    "direction": "nw",
+    "state": "recovery",
+    "texture": "enemy-archer-actions.png",
+    "rect": [
+      961,
+      913,
+      293,
+      341
+    ],
+    "solidBounds": [
+      76,
+      38,
+      221,
+      277
+    ],
+    "anchor": [
+      202.5,
+      276
+    ],
+    "bodyHeightPixels": 212
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "ne",
+    "state": "idle",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      0,
+      0,
+      329,
+      344
+    ],
+    "solidBounds": [
+      64,
+      36,
+      291,
+      322
+    ],
+    "anchor": [
+      84.0,
+      321
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "ne",
+    "state": "windup",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      329,
+      0,
+      299,
+      344
+    ],
+    "solidBounds": [
+      37,
+      65,
+      274,
+      321
+    ],
+    "anchor": [
+      70.5,
+      320
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "ne",
+    "state": "release",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      628,
+      0,
+      371,
+      344
+    ],
+    "solidBounds": [
+      25,
+      51,
+      360,
+      322
+    ],
+    "anchor": [
+      45.0,
+      321
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "ne",
+    "state": "recovery",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      999,
+      0,
+      255,
+      344
+    ],
+    "solidBounds": [
+      9,
+      54,
+      237,
+      322
+    ],
+    "anchor": [
+      28.5,
+      321
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "se",
+    "state": "idle",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      0,
+      344,
+      326,
+      304
+    ],
+    "solidBounds": [
+      70,
+      24,
+      277,
+      277
+    ],
+    "anchor": [
+      144.0,
+      276
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "se",
+    "state": "windup",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      326,
+      344,
+      299,
+      304
+    ],
+    "solidBounds": [
+      47,
+      43,
+      285,
+      282
+    ],
+    "anchor": [
+      123.0,
+      281
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "se",
+    "state": "release",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      625,
+      344,
+      382,
+      304
+    ],
+    "solidBounds": [
+      11,
+      76,
+      369,
+      267
+    ],
+    "anchor": [
+      103.0,
+      266
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "se",
+    "state": "recovery",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      1007,
+      344,
+      247,
+      304
+    ],
+    "solidBounds": [
+      14,
+      28,
+      207,
+      282
+    ],
+    "anchor": [
+      87.5,
+      281
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "sw",
+    "state": "idle",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      0,
+      648,
+      304,
+      292
+    ],
+    "solidBounds": [
+      52,
+      26,
+      259,
+      280
+    ],
+    "anchor": [
+      181.5,
+      279
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "sw",
+    "state": "windup",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      304,
+      648,
+      288,
+      292
+    ],
+    "solidBounds": [
+      46,
+      47,
+      277,
+      283
+    ],
+    "anchor": [
+      205.0,
+      282
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "sw",
+    "state": "release",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      592,
+      648,
+      396,
+      292
+    ],
+    "solidBounds": [
+      15,
+      76,
+      385,
+      259
+    ],
+    "anchor": [
+      291.0,
+      258
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "sw",
+    "state": "recovery",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      988,
+      648,
+      266,
+      292
+    ],
+    "solidBounds": [
+      13,
+      26,
+      224,
+      284
+    ],
+    "anchor": [
+      145.5,
+      283
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "nw",
+    "state": "idle",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      0,
+      940,
+      312,
+      314
+    ],
+    "solidBounds": [
+      40,
+      11,
+      269,
+      275
+    ],
+    "anchor": [
+      200.5,
+      274
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "nw",
+    "state": "windup",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      312,
+      940,
+      293,
+      314
+    ],
+    "solidBounds": [
+      47,
+      38,
+      283,
+      276
+    ],
+    "anchor": [
+      208.0,
+      275
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "nw",
+    "state": "release",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      605,
+      940,
+      375,
+      314
+    ],
+    "solidBounds": [
+      15,
+      41,
+      354,
+      271
+    ],
+    "anchor": [
+      333.0,
+      270
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "spear",
+    "faction": "enemy",
+    "direction": "nw",
+    "state": "recovery",
+    "texture": "enemy-spear-actions.png",
+    "rect": [
+      980,
+      940,
+      274,
+      314
+    ],
+    "solidBounds": [
+      22,
+      12,
+      241,
+      276
+    ],
+    "anchor": [
+      170.0,
+      275
+    ],
+    "bodyHeightPixels": 224
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "idle",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      0,
+      0,
+      313,
+      313
+    ],
+    "solidBounds": [
+      80,
+      29,
+      266,
+      307
+    ],
+    "anchor": [
+      139.0,
+      306
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "windup",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      313,
+      0,
+      314,
+      313
+    ],
+    "solidBounds": [
+      55,
+      35,
+      272,
+      306
+    ],
+    "anchor": [
+      121.0,
+      305
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "release",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      627,
+      0,
+      313,
+      313
+    ],
+    "solidBounds": [
+      63,
+      35,
+      291,
+      305
+    ],
+    "anchor": [
+      130.5,
+      304
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "recovery",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      940,
+      0,
+      314,
+      313
+    ],
+    "solidBounds": [
+      90,
+      40,
+      292,
+      307
+    ],
+    "anchor": [
+      155.5,
+      306
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "idle",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      0,
+      313,
+      313,
+      314
+    ],
+    "solidBounds": [
+      82,
+      28,
+      251,
+      311
+    ],
+    "anchor": [
+      95.5,
+      310
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "windup",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      313,
+      313,
+      314,
+      314
+    ],
+    "solidBounds": [
+      61,
+      33,
+      276,
+      310
+    ],
+    "anchor": [
+      74.0,
+      309
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "release",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      627,
+      313,
+      313,
+      314
+    ],
+    "solidBounds": [
+      77,
+      38,
+      306,
+      311
+    ],
+    "anchor": [
+      90.5,
+      310
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "recovery",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      940,
+      313,
+      314,
+      314
+    ],
+    "solidBounds": [
+      90,
+      42,
+      272,
+      311
+    ],
+    "anchor": [
+      156.0,
+      310
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "idle",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      0,
+      627,
+      313,
+      313
+    ],
+    "solidBounds": [
+      45,
+      24,
+      233,
+      292
+    ],
+    "anchor": [
+      167.5,
+      291
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "windup",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      313,
+      627,
+      314,
+      313
+    ],
+    "solidBounds": [
+      14,
+      24,
+      244,
+      288
+    ],
+    "anchor": [
+      172.0,
+      287
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "release",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      627,
+      627,
+      313,
+      313
+    ],
+    "solidBounds": [
+      27,
+      24,
+      256,
+      288
+    ],
+    "anchor": [
+      142.5,
+      287
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "recovery",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      940,
+      627,
+      314,
+      313
+    ],
+    "solidBounds": [
+      70,
+      29,
+      253,
+      291
+    ],
+    "anchor": [
+      179.5,
+      290
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "idle",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      0,
+      940,
+      313,
+      314
+    ],
+    "solidBounds": [
+      39,
+      9,
+      242,
+      282
+    ],
+    "anchor": [
+      173.0,
+      281
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "windup",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      313,
+      940,
+      314,
+      314
+    ],
+    "solidBounds": [
+      34,
+      10,
+      254,
+      285
+    ],
+    "anchor": [
+      183.5,
+      284
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "release",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      627,
+      940,
+      313,
+      314
+    ],
+    "solidBounds": [
+      38,
+      10,
+      263,
+      284
+    ],
+    "anchor": [
+      192.5,
+      283
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "gunner",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "recovery",
+    "texture": "gunner-actions-v2.png",
+    "rect": [
+      940,
+      940,
+      314,
+      314
+    ],
+    "solidBounds": [
+      42,
+      16,
+      245,
+      284
+    ],
+    "anchor": [
+      176.5,
+      283
+    ],
+    "bodyHeightPixels": 270
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "idle",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      0,
+      0,
+      313,
+      329
+    ],
+    "solidBounds": [
+      48,
+      64,
+      270,
+      324
+    ],
+    "anchor": [
+      65.0,
+      323
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "windup",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      313,
+      0,
+      314,
+      329
+    ],
+    "solidBounds": [
+      39,
+      20,
+      226,
+      323
+    ],
+    "anchor": [
+      135.0,
+      322
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "release",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      627,
+      0,
+      313,
+      329
+    ],
+    "solidBounds": [
+      40,
+      40,
+      298,
+      329
+    ],
+    "anchor": [
+      62.0,
+      328
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "recovery",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      940,
+      0,
+      314,
+      329
+    ],
+    "solidBounds": [
+      64,
+      66,
+      282,
+      324
+    ],
+    "anchor": [
+      81.5,
+      323
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "idle",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      0,
+      329,
+      313,
+      306
+    ],
+    "solidBounds": [
+      54,
+      57,
+      271,
+      300
+    ],
+    "anchor": [
+      132.0,
+      299
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "windup",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      313,
+      329,
+      314,
+      306
+    ],
+    "solidBounds": [
+      61,
+      14,
+      225,
+      303
+    ],
+    "anchor": [
+      78.5,
+      302
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "release",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      627,
+      329,
+      327,
+      306
+    ],
+    "solidBounds": [
+      69,
+      73,
+      325,
+      306
+    ],
+    "anchor": [
+      201.5,
+      305
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "recovery",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      954,
+      329,
+      300,
+      306
+    ],
+    "solidBounds": [
+      55,
+      62,
+      266,
+      305
+    ],
+    "anchor": [
+      73.0,
+      304
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "idle",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      0,
+      635,
+      313,
+      305
+    ],
+    "solidBounds": [
+      26,
+      47,
+      249,
+      289
+    ],
+    "anchor": [
+      163.5,
+      288
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "windup",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      313,
+      635,
+      295,
+      305
+    ],
+    "solidBounds": [
+      78,
+      2,
+      234,
+      288
+    ],
+    "anchor": [
+      152.5,
+      287
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "release",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      608,
+      635,
+      332,
+      305
+    ],
+    "solidBounds": [
+      3,
+      67,
+      273,
+      291
+    ],
+    "anchor": [
+      170.5,
+      290
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "recovery",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      940,
+      635,
+      314,
+      305
+    ],
+    "solidBounds": [
+      34,
+      49,
+      254,
+      289
+    ],
+    "anchor": [
+      168.0,
+      288
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "idle",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      0,
+      940,
+      313,
+      314
+    ],
+    "solidBounds": [
+      44,
+      41,
+      253,
+      288
+    ],
+    "anchor": [
+      172.0,
+      287
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "windup",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      313,
+      940,
+      314,
+      314
+    ],
+    "solidBounds": [
+      72,
+      6,
+      253,
+      290
+    ],
+    "anchor": [
+      167.0,
+      289
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "release",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      627,
+      940,
+      313,
+      314
+    ],
+    "solidBounds": [
+      34,
+      31,
+      276,
+      292
+    ],
+    "anchor": [
+      257.0,
+      291
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "samurai",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "recovery",
+    "texture": "samurai-actions-padded-v2.png",
+    "rect": [
+      940,
+      940,
+      314,
+      314
+    ],
+    "solidBounds": [
+      51,
+      43,
+      266,
+      288
+    ],
+    "anchor": [
+      190.0,
+      287
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "idle",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      0,
+      0,
+      362,
+      271
+    ],
+    "solidBounds": [
+      105,
+      12,
+      271,
+      267
+    ],
+    "anchor": [
+      177.5,
+      266
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "windup",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      362,
+      0,
+      362,
+      271
+    ],
+    "solidBounds": [
+      97,
+      9,
+      262,
+      268
+    ],
+    "anchor": [
+      169.5,
+      267
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "release",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      724,
+      0,
+      362,
+      271
+    ],
+    "solidBounds": [
+      113,
+      9,
+      290,
+      268
+    ],
+    "anchor": [
+      188.5,
+      267
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "recovery",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      1086,
+      0,
+      362,
+      271
+    ],
+    "solidBounds": [
+      112,
+      7,
+      281,
+      268
+    ],
+    "anchor": [
+      184.5,
+      267
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "idle",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      0,
+      271,
+      362,
+      272
+    ],
+    "solidBounds": [
+      117,
+      22,
+      272,
+      258
+    ],
+    "anchor": [
+      197.5,
+      257
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "windup",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      362,
+      271,
+      362,
+      272
+    ],
+    "solidBounds": [
+      109,
+      20,
+      269,
+      259
+    ],
+    "anchor": [
+      195.0,
+      258
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "release",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      724,
+      271,
+      362,
+      272
+    ],
+    "solidBounds": [
+      121,
+      22,
+      305,
+      257
+    ],
+    "anchor": [
+      208.5,
+      256
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "recovery",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      1086,
+      271,
+      362,
+      272
+    ],
+    "solidBounds": [
+      119,
+      23,
+      278,
+      259
+    ],
+    "anchor": [
+      203.5,
+      258
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "idle",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      0,
+      543,
+      362,
+      260
+    ],
+    "solidBounds": [
+      104,
+      13,
+      257,
+      247
+    ],
+    "anchor": [
+      180.5,
+      246
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "windup",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      362,
+      543,
+      362,
+      260
+    ],
+    "solidBounds": [
+      107,
+      13,
+      255,
+      246
+    ],
+    "anchor": [
+      181.0,
+      245
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "release",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      724,
+      543,
+      362,
+      260
+    ],
+    "solidBounds": [
+      96,
+      13,
+      269,
+      247
+    ],
+    "anchor": [
+      194.5,
+      246
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "recovery",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      1086,
+      543,
+      362,
+      260
+    ],
+    "solidBounds": [
+      119,
+      11,
+      269,
+      247
+    ],
+    "anchor": [
+      194.0,
+      246
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "idle",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      0,
+      803,
+      362,
+      283
+    ],
+    "solidBounds": [
+      101,
+      2,
+      264,
+      240
+    ],
+    "anchor": [
+      189.5,
+      239
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "windup",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      362,
+      803,
+      362,
+      283
+    ],
+    "solidBounds": [
+      114,
+      3,
+      279,
+      239
+    ],
+    "anchor": [
+      202.5,
+      238
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "release",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      724,
+      803,
+      362,
+      283
+    ],
+    "solidBounds": [
+      113,
+      5,
+      292,
+      241
+    ],
+    "anchor": [
+      211.5,
+      240
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "monk",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "recovery",
+    "texture": "monk-actions-padded-v2.png",
+    "rect": [
+      1086,
+      803,
+      362,
+      283
+    ],
+    "solidBounds": [
+      121,
+      5,
+      284,
+      242
+    ],
+    "anchor": [
+      207.5,
+      241
+    ],
+    "bodyHeightPixels": 200
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "idle",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      0,
+      0,
+      319,
+      314
+    ],
+    "solidBounds": [
+      55,
+      47,
+      248,
+      312
+    ],
+    "anchor": [
+      131.5,
+      311
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "windup",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      319,
+      0,
+      318,
+      314
+    ],
+    "solidBounds": [
+      59,
+      51,
+      256,
+      308
+    ],
+    "anchor": [
+      143.0,
+      307
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "release",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      637,
+      0,
+      337,
+      314
+    ],
+    "solidBounds": [
+      68,
+      62,
+      336,
+      312
+    ],
+    "anchor": [
+      147.5,
+      311
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "recovery",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      974,
+      0,
+      301,
+      314
+    ],
+    "solidBounds": [
+      72,
+      50,
+      245,
+      313
+    ],
+    "anchor": [
+      93.0,
+      312
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "idle",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      0,
+      314,
+      319,
+      303
+    ],
+    "solidBounds": [
+      55,
+      38,
+      264,
+      291
+    ],
+    "anchor": [
+      72.5,
+      290
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "windup",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      319,
+      314,
+      318,
+      303
+    ],
+    "solidBounds": [
+      73,
+      40,
+      272,
+      292
+    ],
+    "anchor": [
+      93.0,
+      291
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "release",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      637,
+      314,
+      331,
+      303
+    ],
+    "solidBounds": [
+      70,
+      56,
+      330,
+      300
+    ],
+    "anchor": [
+      92.0,
+      299
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "recovery",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      968,
+      314,
+      307,
+      303
+    ],
+    "solidBounds": [
+      66,
+      40,
+      265,
+      297
+    ],
+    "anchor": [
+      87.5,
+      296
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "idle",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      0,
+      617,
+      319,
+      308
+    ],
+    "solidBounds": [
+      41,
+      36,
+      243,
+      280
+    ],
+    "anchor": [
+      152.5,
+      279
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "windup",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      319,
+      617,
+      318,
+      308
+    ],
+    "solidBounds": [
+      51,
+      35,
+      265,
+      277
+    ],
+    "anchor": [
+      168.0,
+      276
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "release",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      637,
+      617,
+      319,
+      308
+    ],
+    "solidBounds": [
+      25,
+      38,
+      272,
+      290
+    ],
+    "anchor": [
+      116.5,
+      289
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "recovery",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      956,
+      617,
+      319,
+      308
+    ],
+    "solidBounds": [
+      81,
+      34,
+      269,
+      281
+    ],
+    "anchor": [
+      181.5,
+      280
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "idle",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      0,
+      925,
+      319,
+      309
+    ],
+    "solidBounds": [
+      56,
+      4,
+      247,
+      259
+    ],
+    "anchor": [
+      161.5,
+      258
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "windup",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      319,
+      925,
+      318,
+      309
+    ],
+    "solidBounds": [
+      71,
+      6,
+      271,
+      261
+    ],
+    "anchor": [
+      167.5,
+      260
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "release",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      637,
+      925,
+      319,
+      309
+    ],
+    "solidBounds": [
+      20,
+      12,
+      285,
+      265
+    ],
+    "anchor": [
+      264.0,
+      264
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "ninja",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "recovery",
+    "texture": "ninja-actions-v2.png",
+    "rect": [
+      956,
+      925,
+      319,
+      309
+    ],
+    "solidBounds": [
+      83,
+      5,
+      271,
+      272
+    ],
+    "anchor": [
+      250.5,
+      271
+    ],
+    "bodyHeightPixels": 260
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "idle",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      0,
+      0,
+      313,
+      334
+    ],
+    "solidBounds": [
+      43,
+      33,
+      245,
+      320
+    ],
+    "anchor": [
+      112.5,
+      319
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "windup",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      313,
+      0,
+      314,
+      334
+    ],
+    "solidBounds": [
+      35,
+      41,
+      258,
+      320
+    ],
+    "anchor": [
+      91.5,
+      319
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "release",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      627,
+      0,
+      325,
+      334
+    ],
+    "solidBounds": [
+      18,
+      33,
+      324,
+      333
+    ],
+    "anchor": [
+      72.5,
+      332
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "ne",
+    "state": "recovery",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      952,
+      0,
+      302,
+      334
+    ],
+    "solidBounds": [
+      30,
+      33,
+      234,
+      320
+    ],
+    "anchor": [
+      127.5,
+      319
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "idle",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      0,
+      334,
+      313,
+      292
+    ],
+    "solidBounds": [
+      40,
+      2,
+      231,
+      279
+    ],
+    "anchor": [
+      150.5,
+      278
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "windup",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      313,
+      334,
+      314,
+      292
+    ],
+    "solidBounds": [
+      29,
+      10,
+      244,
+      276
+    ],
+    "anchor": [
+      154.5,
+      275
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "release",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      627,
+      334,
+      334,
+      292
+    ],
+    "solidBounds": [
+      23,
+      13,
+      333,
+      280
+    ],
+    "anchor": [
+      171.5,
+      279
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "se",
+    "state": "recovery",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      961,
+      334,
+      293,
+      292
+    ],
+    "solidBounds": [
+      31,
+      4,
+      229,
+      278
+    ],
+    "anchor": [
+      148.5,
+      277
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "idle",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      0,
+      626,
+      313,
+      295
+    ],
+    "solidBounds": [
+      65,
+      2,
+      283,
+      286
+    ],
+    "anchor": [
+      171.0,
+      285
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "windup",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      313,
+      626,
+      311,
+      295
+    ],
+    "solidBounds": [
+      47,
+      9,
+      276,
+      277
+    ],
+    "anchor": [
+      149.0,
+      276
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "release",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      624,
+      626,
+      316,
+      295
+    ],
+    "solidBounds": [
+      1,
+      8,
+      311,
+      278
+    ],
+    "anchor": [
+      169.0,
+      277
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "sw",
+    "state": "recovery",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      940,
+      626,
+      314,
+      295
+    ],
+    "solidBounds": [
+      66,
+      2,
+      286,
+      288
+    ],
+    "anchor": [
+      173.0,
+      287
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "idle",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      0,
+      921,
+      313,
+      333
+    ],
+    "solidBounds": [
+      67,
+      2,
+      276,
+      292
+    ],
+    "anchor": [
+      213.0,
+      291
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "windup",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      313,
+      921,
+      311,
+      333
+    ],
+    "solidBounds": [
+      59,
+      3,
+      280,
+      280
+    ],
+    "anchor": [
+      218.5,
+      279
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "release",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      624,
+      921,
+      316,
+      333
+    ],
+    "solidBounds": [
+      2,
+      2,
+      312,
+      293
+    ],
+    "anchor": [
+      251.0,
+      292
+    ],
+    "bodyHeightPixels": 235
+  },
+  {
+    "role": "commander",
+    "faction": "friendly",
+    "direction": "nw",
+    "state": "recovery",
+    "texture": "commander-actions-v2.png",
+    "rect": [
+      940,
+      921,
+      314,
+      333
+    ],
+    "solidBounds": [
+      73,
+      2,
+      280,
+      292
+    ],
+    "anchor": [
+      211.0,
+      291
+    ],
+    "bodyHeightPixels": 235
+  }
+]

@@ -4,6 +4,7 @@ const RubyText = preload("res://native/ruby_label.gd")
 const RubyReadings = preload("res://native/ruby_readings.gd")
 const ProgressStore = preload("res://native/progress.gd")
 const Battle = preload("res://native/game.gd")
+const BattleDuration = preload("res://native/battle_duration.gd")
 const FrontEnd = preload("res://native/front_end.gd")
 const BattleAtmosphere = preload("res://native/battle_atmosphere.gd")
 const Troops3D = preload("res://native/troops_3d.gd")
@@ -16,8 +17,12 @@ const CatalogPreview = preload("res://native/battlefield_preview.gd")
 const Barracks = preload("res://native/barracks.gd")
 const UnitTraining = preload("res://native/unit_training.gd")
 const LivePortrait = preload("res://native/barracks_portrait.gd")
+const PaintedPortrait = preload("res://native/painted_portrait.gd")
 const UIStyle = preload("res://native/sengoku_ui.gd")
 const BattlefieldHUD = preload("res://native/battlefield_hud.gd")
+const PaintedStage = preload("res://native/painted_stage.gd")
+const EnemyModes = preload("res://native/enemy_mode_profiles.gd")
+const CampaignScenarios = preload("res://native/campaign_scenarios.gd")
 const LearningSession = preload("res://native/learning_session.gd")
 const LearningField = preload("res://native/learning_field.gd")
 const LearningTransition = preload("res://native/learning_transition.gd")
@@ -63,6 +68,7 @@ var learning_turn: int = 0
 var answers_correct: int = 0
 var answers_total: int = 0
 var state: Dictionary = {}
+var _hud_refresh_queued: bool = false
 var font: Font
 var ui: Control
 var sidebar: Panel
@@ -90,6 +96,8 @@ var deployment_press_unit_id: String = ""
 var deployment_press_position: Vector2
 var deployment_pointer: int = -2
 var deployment_release_pending: bool = false
+var deployment_field_press: bool = false
+var deployment_preview_refresh: float = 0.0
 var deployment_pressed_suppressed: bool = false
 var deployment_touch_mouse_suppressed: bool = false
 const DEPLOYMENT_DRAG_THRESHOLD: float = 6.0
@@ -116,6 +124,7 @@ var music_button: Button
 var voice_button: Button
 var toast_label: Label
 var toast_clock: float = 0
+var battle_subtitle_layout_key: String = ""
 var modal: Control
 var modal_card: Panel
 var modal_body: VBoxContainer
@@ -146,11 +155,10 @@ var battle_finished: bool = false
 var last_victory: bool = false
 var resume_after_modal: bool = false
 var speed: float = 1.0
-var battle_minutes: int = 10
-var active_battle_minutes: int = 10
+var battle_minutes: int = BattleDuration.FIXED_MINUTES
+var active_battle_minutes: int = BattleDuration.FIXED_MINUTES
 var briefing_expected_text: String = ""
 var briefing_played_battle_id: String = ""
-var battle_mode_buttons: Array = []
 var rng = RandomNumberGenerator.new()
 var front_end: Control
 var stage_browser_button: Button
@@ -179,6 +187,13 @@ var learning_transition: Control
 var quiz_task: Dictionary = {}
 var quiz_selected_id: String = ""
 var context_task_active: bool = false
+var live_learning_active: bool = false
+var post_battle_review_active: bool = false
+var post_battle_review_waves: Array[int] = []
+var post_battle_review_index: int = 0
+var post_battle_review_queue: Array = []
+var post_battle_review_restored: bool = false
+var post_battle_result: Dictionary = {}
 var intermission_presented: bool = false
 var quiz_grid: GridContainer
 var placement_guidance: String = ""
@@ -226,9 +241,7 @@ func _ready() -> void:
 	rng.randomize()
 	font = GameFonts.body()
 	progress.read_save()
-	var saved_minutes = progress.data.settings.get("battleMinutes",10)
-	if (saved_minutes is int or saved_minutes is float) and saved_minutes in [10,20]:
-		battle_minutes = int(saved_minutes)
+	battle_minutes = BattleDuration.FIXED_MINUTES
 	active_battle_minutes = battle_minutes
 	var map_data = JSON.parse_string(FileAccess.get_file_as_string("res://native/maps.json"))
 	var map_catalog: Variant = map_data.get("maps",[]) if map_data is Dictionary else map_data
@@ -257,14 +270,17 @@ func _ready() -> void:
 	battle_field_content.name = "BattlefieldWorld"
 	battle_field_content.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	field_clip.add_child(battle_field_content)
+	game.three_d_enabled = bool(ProjectSettings.get_setting("application/config/use_3d_units",false))
+	BattlefieldHUD.painted_mode = not game.three_d_enabled
 	battle_field_content.add_child(game)
+	game.set_floating_label_style(UIStyle.floating_label_style())
+	if not game.three_d_enabled: game.painted_field.attach_to(game)
 	deployment_overlay = DeploymentOverlay.new()
 	deployment_overlay.battle = game
 	game.add_child(deployment_overlay)
 	troops_3d = Troops3D.new()
 	troops_3d.bind_battle(game)
 	battle_field_content.add_child(troops_3d)
-	game.three_d_enabled = bool(ProjectSettings.get_setting("application/config/use_3d_units",false))
 	troops_3d.visible = game.three_d_enabled
 	atmosphere = BattleAtmosphere.new()
 	atmosphere.battle = game
@@ -278,8 +294,8 @@ func _ready() -> void:
 	battle_camera = BattleCamera.new()
 	add_child(battle_camera)
 	battle_camera.changed.connect(_on_camera_changed)
-	game.state_changed.connect(_on_state)
-	game.game_event.connect(_on_game_event)
+	game.hud_state_changed.connect(_on_state.bind(true))
+	game.presentation_event.connect(_on_game_event)
 	game.wave_ended.connect(_on_wave_ended)
 	game.wave_started.connect(_on_wave_started)
 	game.battle_finished.connect(_on_battle_finished)
@@ -293,6 +309,7 @@ func _ready() -> void:
 	learning_field.listen_requested.connect(_listen_quiz)
 	learning_field.continue_requested.connect(_continue_battle)
 	ui.add_child(learning_field)
+	BattlefieldHUD.register_surface(learning_field.report_card)
 	learning_field.report_card.mouse_filter = Control.MOUSE_FILTER_STOP
 	learning_transition = LearningTransition.new()
 	learning_transition.font = font
@@ -353,13 +370,18 @@ func _ready() -> void:
 		game.set_input_enabled(false)
 		catalog_preparation_ready = true
 	_show_home()
-	if not maps.is_empty() and DisplayServer.get_name()!="headless":
+	if not maps.is_empty() and DisplayServer.get_name()!="headless" and game.three_d_enabled:
 		front_end.set_catalog_preparation(0,maps.size())
 		call_deferred("_prepare_catalog_previews")
 	else:
 		# A headless verifier has no framebuffer to cache. Source-only UI tests
 		# keep their existing navigation contract; GPU QA covers preparation.
 		catalog_preparation_ready=true
+	if "--quick-start" in OS.get_cmdline_user_args(): call_deferred("_quick_start_painted")
+
+func _quick_start_painted() -> void:
+	if closing or maps.is_empty(): return
+	_choose_stage(0,0)
 
 func _prepare_catalog_previews() -> void:
 	if catalog_preparation_started or closing: return
@@ -479,6 +501,20 @@ func _button(parent: Node, text: String, action: Callable) -> Button:
 	parent.add_child(button)
 	return button
 
+func _translated_label(parent: Node, japanese: String, reading: String, korean: String, text_size: int = 24, color: String = "e1e6e9", meaning_size: int = 18) -> Control:
+	var label = RubyText.new()
+	label.wrap_japanese = true
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	label.colour_reading_groups = true
+	label.ink = Color(color)
+	label.reading_ink = Color(color)
+	label.meaning_ink = Color(color)
+	label.meaning_size = meaning_size
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.set_word({"jp":japanese,"reading":reading,"ko":korean},text_size,true)
+	parent.add_child(label)
+	return label
+
 func _compact_button(button: Button) -> void:
 	button.add_theme_font_size_override("font_size",20)
 	for variant in ["normal","hover","pressed","disabled","focus"]:
@@ -550,7 +586,7 @@ func _build_ui() -> void:
 	hud_wave = _label(ui,"",20,"b7c3cc")
 	hud_clock = _label(ui,"",20,"c8b993")
 	hud_clock.name = "BattleClock"
-	hud_clock.tooltip_text = "1× 전투 시간 기준 · 학습과 일시 정지는 제외 · 2×에서는 실제 시간이 짧아집니다."
+	hud_clock.tooltip_text = "경과한 전투 시간입니다. 제한 시간이 아니며 학습과 일시 정지는 제외합니다."
 	hud_gold = _label(ui,"",22,"d2bd89")
 	hud_health = _label(ui,"",20,"b7c3cc")
 	hud_capacity = _label(ui,"",20,"b7c3cc")
@@ -558,13 +594,15 @@ func _build_ui() -> void:
 	hud_health.clip_text=true
 	hint_line = _label(ui,"",20,"d1dce4")
 	hint_line.clip_text=true
+	hint_line.add_theme_color_override("font_outline_color",Color("101410"))
+	hint_line.add_theme_constant_override("outline_size",3)
 	pause_button = _button(ui,"Ⅱ",_toggle_pause)
 	pause_button.tooltip_text = "일시 정지 / 계속 (Space)"
-	speed_button = _button(ui,"1×",_cycle_speed)
-	speed_button.tooltip_text = "전투 속도 · 1× / 2×"
+	speed_button = _button(ui,_speed_label(speed),_cycle_speed)
+	speed_button.tooltip_text = "전투 속도 · 1× / 1.25× / 1.5×"
 	army_panel = _panel(ui)
 	army_toolbar = _panel(ui,"101b26f5","354553")
-	deployment_instruction = _label(army_toolbar,"카드를 끌어 배치",20,"c8b993")
+	deployment_instruction = _label(army_toolbar,"병종 선택 후 전장 클릭",20,"c8b993")
 	deployment_instruction.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	production_panel = _panel(ui,"101b26ee","354553")
 	production_panel.name = "ProductionQueue"
@@ -589,7 +627,7 @@ func _build_ui() -> void:
 	selected_portrait_window.name = "SelectedPortraitWindow"
 	selected_portrait_window.clip_contents = true
 	selected_portrait_window.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	selected_portrait = LivePortrait.new()
+	selected_portrait = PaintedPortrait.new() if BattlefieldHUD.painted_mode else LivePortrait.new()
 	selected_portrait.name = "SelectedAuthoredPortrait"
 	selected_portrait.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	selected_portrait_window.add_child(selected_portrait)
@@ -691,6 +729,13 @@ func _build_ui() -> void:
 		_compact_button(compact)
 	toast_label = _label(ui,"",15,"f4dd9b")
 	toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	toast_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	toast_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	toast_label.add_theme_constant_override("outline_size",4)
+	toast_label.add_theme_color_override("font_outline_color",Color("101817"))
+	toast_label.z_index = 120
+	toast_label.hide()
+	BattlefieldHUD.register_surface(toast_label)
 	narration_subtitle = RubyText.new()
 	narration_subtitle.name = "BattleNarrationSubtitle"
 	narration_subtitle.font = GameFonts.japanese()
@@ -711,6 +756,7 @@ func _build_ui() -> void:
 	narration_subtitle.z_index = 90
 	ui.add_child(narration_subtitle)
 	narration_subtitle.hide()
+	BattlefieldHUD.register_surface(narration_subtitle)
 	announcement_subtitle = RubyText.new()
 	announcement_subtitle.name = "BattleAnnouncementSubtitle"
 	announcement_subtitle.font = GameFonts.japanese()
@@ -731,6 +777,7 @@ func _build_ui() -> void:
 	announcement_subtitle.z_index = 110
 	ui.add_child(announcement_subtitle)
 	announcement_subtitle.hide()
+	BattlefieldHUD.register_surface(announcement_subtitle)
 	_rebuild_map_list()
 	_apply_battlefield_materials()
 	for input_surface in [army_toolbar,army_panel,production_panel,learning_panel,hint_bar,camera_controls]:
@@ -769,8 +816,8 @@ func _layout() -> void:
 	_place(hud_wave,width-547,60,130,44)
 	_place(hud_health,width-405,60,168,44)
 	_place(hud_gold,width-225,60,198,44)
-	_place(pause_button,width-245,8,56,46)
-	_place(speed_button,width-179,8,58,46)
+	_place(pause_button,width-269,8,56,46)
+	_place(speed_button,width-203,8,82,46)
 	_place(battle_menu_button,width-111,8,88,46)
 	for hud_label in [map_title,opponent_label,hud_clock,hud_wave,hud_health,hud_gold,hud_capacity]:
 		hud_label.clip_text = true
@@ -786,10 +833,11 @@ func _layout() -> void:
 	_place(camera_reset,162,4,98,34)
 	_sync_battle_camera()
 	if learning_field != null:
-		if context_task_active:
+		if context_task_active and not live_learning_active:
 			_place(learning_field,0,0,width,height)
 		else:
 			_place(learning_field,field.position.x,field.position.y,field.size.x,field.size.y)
+		learning_field.set_live_battle_bounds(Rect2(Vector2(8,8),(field.size-Vector2(16,16)).max(Vector2.ONE)))
 	game.position = -field.position
 	atmosphere.position = -field.position
 	troops_3d.position = Vector2.ZERO
@@ -846,7 +894,7 @@ func _layout() -> void:
 				child.size.x = roster_card_width
 			elif child is TextureRect: child.size.y = geometry.rosterCardHeight-10
 	_place(army_tactics,14,tactics_y,inspector_width-28,tactics_height)
-	_place(army_health,14,tactics_y+tactics_height+2,inspector_width-28,2)
+	_place(army_health,14,tactics_y+tactics_height+2,inspector_width-28,6)
 	_place(recruit_button,width-212,10,164,60)
 	_place(deployment_instruction,control_x,4,geometry.controlsWidth,58)
 	_place(learning_readout_button,control_x,dock.size.y-52,geometry.controlsWidth,44)
@@ -873,7 +921,7 @@ func _layout() -> void:
 	if not learning_readout_expanded:
 		_place(learning_panel,field.position.x+8,field.position.y+8,254,reading_height+16)
 		_place(active_word,12,8,230,reading_height)
-	_place(toast_label,field.position.x+90,field.position.y+10,field.size.x-450,30)
+	_layout_toast_subtitle()
 	_update_army_visibility()
 	if modal != null:
 		modal.size = viewport
@@ -892,11 +940,39 @@ func _layout() -> void:
 				for button in quiz_choices:
 					var dimensions: Vector2 = Vector2((content_width-20*(quiz_grid.columns-1))/quiz_grid.columns,clampf(height-510,230,340))
 					button.custom_minimum_size = dimensions
+					button.size = dimensions
 					var choice_text: Control = button.get_node_or_null("ChoiceRuby")
 					if choice_text!=null:
-						choice_text.size.x = dimensions.x-36
+						var content: Rect2=UIStyle.content_rect(button,"normal")
+						var reading_top: float=maxf(42,content.position.y)
+						var choice_reading_height: float=maxf(1,content.end.y-reading_top)
+						choice_text.size.x = content.size.x
+						var item: Dictionary=choice_text.word
+						var points: int=48
+						while points>32:
+							choice_text.set_word(item,points,not gate_active)
+							choice_text._sync_minimum_height()
+							var span: float=GameFonts.japanese().get_string_size(str(item.get("jp","")),HORIZONTAL_ALIGNMENT_LEFT,-1,points).x
+							if span<=content.size.x-8 and choice_text.custom_minimum_size.y<=choice_reading_height: break
+							points-=2
+						choice_text.set_word(item,points,not gate_active)
 						choice_text._sync_minimum_height()
-						_place(choice_text,18,maxf(54,(dimensions.y-choice_text.custom_minimum_size.y)*.5),dimensions.x-36,choice_text.custom_minimum_size.y)
+						_place(choice_text,content.position.x,reading_top+maxf(0,(choice_reading_height-choice_text.custom_minimum_size.y)*.5),content.size.x,choice_text.custom_minimum_size.y)
+		elif modal_context=="briefing" and BattlefieldHUD.painted_mode:
+			var card_width: float = minf(1200,width-80)
+			var card_height: float = minf(520,height-100)
+			_place(modal_card,(width-card_width)/2,(height-card_height)/2,card_width,card_height)
+			_place(modal_scroll,34,24,card_width-68,card_height-106)
+			modal_body.custom_minimum_size.x = card_width-68
+			if modal_footer!=null:
+				_place(modal_footer,34,card_height-70,card_width-68,46)
+		elif modal_context in ["pause","pause_audio"]:
+			var card_width: float=minf(920,width-64)
+			var card_height: float=minf(660 if modal_context=="pause_audio" else 520,height-64)
+			_place(modal_card,(width-card_width)/2,(height-card_height)/2,card_width,card_height)
+			_place(modal_scroll,28,24,card_width-56,card_height-48)
+			modal_scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+			modal_body.custom_minimum_size.x=card_width-56
 		else:
 			var card_width = minf(740,width-60)
 			var card_height = minf(650,height-80)
@@ -913,20 +989,132 @@ func _layout() -> void:
 	_layout_announcement_subtitle()
 	_sync_announcement_reading()
 	_layout_production_queue()
+	if BattlefieldHUD.painted_mode: _layout_painted_hud(geometry)
+	_layout_hint_bar()
+	_layout_battle_subtitles(true)
+
+func _layout_painted_hud(geometry: Dictionary) -> void:
+	var viewport: Vector2 = get_viewport().get_visible_rect().size
+	var sx: float = viewport.x/1440.0
+	var font_size: int = 18 if viewport.x>=1360 else 16
+	_place(hud_bar,0,0,viewport.x,56)
+	battle_brand.text = "말의 전장"
+	battle_brand.show()
+	battle_brand.add_theme_font_size_override("font_size",27 if viewport.x>=1360 else 24)
+	_place(battle_brand,16*sx,5,170*sx,44)
+	_place(map_title,190*sx,8,260*sx,40)
+	_place(hud_health,458*sx,8,132*sx,40)
+	_place(hud_gold,596*sx,8,112*sx,40)
+	_place(hud_capacity,714*sx,8,126*sx,40)
+	_place(hud_wave,846*sx,8,150*sx,40)
+	_place(hud_clock,1000*sx,8,190*sx,40)
+	_place(pause_button,1198*sx,9,42*sx,36)
+	_place(speed_button,1248*sx,9,82*sx,36)
+	_place(battle_menu_button,1338*sx,9,90*sx,36)
+	for label in [map_title,hud_health,hud_gold,hud_capacity,hud_wave,hud_clock]:
+		label.add_theme_font_size_override("font_size",font_size)
+	opponent_label.hide()
+	var dock: Rect2 = geometry.roster
+	var card_width: float = geometry.rosterCardWidth
+	var card_height: float = geometry.rosterCardHeight
+	_place(army_scroll,14,12,dock.size.x-geometry.controlsWidth-28,dock.size.y-24)
+	for card in army_grid.get_children():
+		card.custom_minimum_size = Vector2(card_width,card_height)
+		card.size = Vector2(card_width,card_height)
+		var content: Rect2=UIStyle.content_rect(card,"normal")
+		for child in card.get_children():
+			if child is TextureRect:
+				_place(child,content.position.x+4,content.position.y+4,content.size.x-8,content.size.y-16)
+			elif child.name=="UnitNameLabel":
+				_place(child,content.position.x,content.position.y,content.size.x,26)
+				child.add_theme_font_size_override("font_size",18)
+			elif str(child.name).begins_with("RecruitPrice_"):
+				_place(child,content.position.x,content.end.y-26,content.size.x,26)
+				child.add_theme_font_size_override("font_size",18)
+			elif child.name=="DeploymentKindBadge": child.hide()
+			elif child.name=="SelectedDeploymentRole": _place(child,0,card_height-3,card_width,3)
+	_place(deployment_instruction,dock.size.x-geometry.controlsWidth+4,8,geometry.controlsWidth-14,38)
+	deployment_instruction.add_theme_font_size_override("font_size",15)
+	_place(learning_readout_button,dock.size.x-geometry.controlsWidth+6,48,geometry.controlsWidth-22,dock.size.y-62)
+	learning_readout_button.hide()
+	if battle_study_button.get_parent()!=army_toolbar:
+		battle_study_button.reparent(army_toolbar)
+	battle_study_button.show()
+	battle_study_button.z_index = 5
+	battle_study_button.text = "▤\n학습"
+	_place(battle_study_button,dock.size.x-geometry.controlsWidth+6,48,geometry.controlsWidth-22,dock.size.y-62)
+	if not learning_readout_expanded:
+		active_word.size.x=200
+		active_word.set_word(active_word.word,26)
+		active_word._sync_minimum_height()
+		var word_height: float=active_word.custom_minimum_size.y
+		_place(learning_panel,14,70,220,word_height+8)
+		_place(active_word,10,4,200,word_height)
+	if not battle_started: battle_brand.hide()
 
 func _layout_production_queue() -> void:
 	if production_panel==null or army_toolbar==null: return
-	var viewport: Vector2 = get_viewport().get_visible_rect().size
-	var bar_width: float = minf(520.0,viewport.x-64.0)
-	var bar_height: float = 98.0
-	_place(production_panel,viewport.x-bar_width-24,army_toolbar.position.y-bar_height-8.0,bar_width,bar_height)
-	_place(production_title,12,3,bar_width-24,27)
-	_place(production_scroll,10,29,bar_width-20,68)
+	# Progress lives on actual world previews. This compact order strip only
+	# retains an accessible cancellation control for every accepted job.
+	var width: float=minf(500,get_viewport().get_visible_rect().size.x*.4)
+	_place(production_panel,14,army_toolbar.position.y-52,width,44)
+	production_title.hide()
+	_place(production_scroll,4,2,width-8,40)
+
+func _battle_subtitle_bottom() -> float:
+	var bottom: float=game.field_rect.end.y-12
+	if hint_bar!=null and hint_bar.visible: bottom=minf(bottom,hint_bar.position.y-8)
+	if production_panel!=null and production_panel.visible: bottom=minf(bottom,production_panel.position.y-8)
+	return bottom
+
+func _live_learning_screen_rect() -> Rect2:
+	if not live_learning_active or learning_field==null or not learning_field.is_visible_in_tree():
+		return Rect2()
+	return Rect2(learning_field.global_position+learning_field.live_panel_rect.position,learning_field.live_panel_rect.size)
+
+func _layout_toast_subtitle() -> void:
+	if toast_label==null or game==null: return
+	var field: Rect2=game.field_rect
+	var available: Rect2=Rect2(field.position+Vector2(16,8),(field.size-Vector2(32,16)).max(Vector2.ONE))
+	var bottom: float=_battle_subtitle_bottom()
+	var quiz_rect: Rect2=_live_learning_screen_rect()
+	if quiz_rect.has_area():
+		available.size.x=maxf(1,quiz_rect.position.x-12-available.position.x)
+		if army_panel.visible and army_panel.get_rect().intersects(available):
+			var left_width: float=army_panel.position.x-12-available.position.x
+			if left_width>=240:
+				available.size.x=left_width
+			else:
+				bottom=minf(bottom,army_panel.position.y-8)
+	var width: float=minf(860,available.size.x)
+	toast_label.size.x=width
+	toast_label.call("refresh_ruby")
+	var height: float=maxf(30,toast_label.get_combined_minimum_size().y)
+	_place(toast_label,available.get_center().x-width*.5,maxf(available.position.y,bottom-height),width,height)
+
+func _layout_battle_subtitles(force: bool = false) -> void:
+	if toast_label==null or narration_subtitle==null or announcement_subtitle==null: return
+	var key: String=str([game.field_rect,_battle_subtitle_bottom(),_live_learning_screen_rect(),army_panel.get_rect(),army_panel.visible,toast_label.text,toast_label.visible,narration_subtitle.word,narration_subtitle.visible,announcement_subtitle.word,announcement_subtitle.visible,_learning_screen_active(),modal_context])
+	if not force and key==battle_subtitle_layout_key: return
+	battle_subtitle_layout_key=key
+	_layout_toast_subtitle()
+	_layout_narration_subtitle()
+	_layout_announcement_subtitle()
 
 func _layout_narration_subtitle() -> void:
 	if narration_subtitle==null or narration_subtitle.word.is_empty():
 		return
 	var field: Rect2 = game.field_rect
+	if BattlefieldHUD.painted_mode and not _learning_screen_active() and modal_context!="result":
+		narration_subtitle.set_word(narration_subtitle.word,18,true)
+		narration_subtitle.min_reading_size = 12
+		narration_subtitle.meaning_size = 18
+		narration_subtitle.size.x = minf(420,field.size.x*.34)
+		narration_subtitle._sync_minimum_height()
+		narration_subtitle.size.y = narration_subtitle.custom_minimum_size.y
+		var bottom: float=toast_label.position.y-8 if toast_label.visible and not toast_label.text.is_empty() else _battle_subtitle_bottom()
+		narration_subtitle.position = Vector2(field.end.x-narration_subtitle.size.x-14,bottom-narration_subtitle.size.y)
+		return
 	var caption_width: float = minf(620,field.size.x*.48-24)
 	var caption_position: Vector2 = Vector2(field.end.x-caption_width-16,field.position.y+18)
 	if modal_context=="result" and modal_card!=null:
@@ -939,6 +1127,20 @@ func _layout_narration_subtitle() -> void:
 
 func _layout_announcement_subtitle() -> void:
 	if announcement_subtitle==null or announcement_subtitle.word.is_empty():
+		return
+	if BattlefieldHUD.painted_mode and not _learning_screen_active():
+		announcement_subtitle.set_word(announcement_subtitle.word,18,true)
+		announcement_subtitle.min_reading_size = 12
+		announcement_subtitle.meaning_size = 18
+		announcement_subtitle.size.x = minf(760,game.field_rect.size.x-32)
+		announcement_subtitle._sync_minimum_height()
+		announcement_subtitle.size.y = announcement_subtitle.custom_minimum_size.y
+		var bottom: float=toast_label.position.y-8 if toast_label.visible and not toast_label.text.is_empty() else _battle_subtitle_bottom()
+		var left: float=game.field_rect.get_center().x-announcement_subtitle.size.x*.5
+		var rect: Rect2=Rect2(Vector2(left,bottom-announcement_subtitle.size.y),announcement_subtitle.size)
+		if narration_subtitle.visible and rect.intersects(narration_subtitle.get_rect()):
+			rect.position.y=narration_subtitle.position.y-announcement_subtitle.size.y-8
+		announcement_subtitle.position=rect.position
 		return
 	var reading_area: Rect2 = Rect2(learning_panel.global_position+active_word.position,Vector2(example_label.position.x+example_label.size.x-active_word.position.x,learning_panel.size.y))
 	if context_task_active:
@@ -972,13 +1174,20 @@ func _field_report_visible() -> bool:
 	return learning_field != null and learning_field.report_card != null and learning_field.report_card.is_visible_in_tree()
 
 func _learning_covers_battle() -> bool:
+	if live_learning_active: return false
 	return _learning_screen_active() and (learning_transition == null or learning_transition.phase == "idle" or learning_transition.covers_battle())
 
 func _set_intermission_presentation(active: bool, force_restore: bool = false) -> void:
+	if live_learning_active:
+		active=false
+		force_restore=false
 	if not active and not intermission_presented and not force_restore:
 		return
 	intermission_presented = active
 	troops_3d.set_external_viewport_consumer(active and context_task_active and ui.is_visible_in_tree() and learning_field.is_visible_in_tree() and troops_3d.uses_world_geometry())
+	if BattlefieldHUD.painted_mode:
+		battle_brand.visible = not active
+		battle_study_button.visible = not active
 	for control in [field_clip,hud_bar,map_title,opponent_label,hud_wave,hud_clock,hud_health,hud_gold,hud_capacity,pause_button,speed_button,battle_menu_button,army_toolbar,learning_panel]:
 		control.visible = not active
 	if active:
@@ -987,6 +1196,10 @@ func _set_intermission_presentation(active: bool, force_restore: bool = false) -
 		hint_bar.hide()
 		hint_line.hide()
 		toast_label.hide()
+		narration_caption_remaining = 0.0
+		announcement_caption_remaining = 0.0
+		narration_subtitle.hide()
+		announcement_subtitle.hide()
 	else:
 		production_panel.visible=battle_started and not battle_finished and not state.get("recruitmentQueue",[]).is_empty()
 	if announcement_subtitle!=null:
@@ -999,6 +1212,10 @@ func _cancel_learning_transition() -> void:
 
 func _on_learning_phase_changed(_phase: String) -> void:
 	if not _learning_screen_active():
+		return
+	if live_learning_active:
+		_set_learning_input(learning_transition.accepts_actions())
+		game.set_input_enabled(modal==null and not front_end.visible and not battle_finished)
 		return
 	_cancel_deployment_drag()
 	_set_intermission_presentation(_learning_covers_battle(),true)
@@ -1022,15 +1239,15 @@ func _set_learning_input(enabled: bool) -> void:
 func _on_learning_presented() -> void:
 	if not _learning_screen_active():
 		return
-	if quiz_resolved:
+	if quiz_resolved and not live_learning_active:
 		(learning_field.continue_button if context_task_active else quiz_continue_button).grab_focus()
-	elif context_task_active and not learning_field.target_buttons.is_empty():
+	elif context_task_active and not live_learning_active and not learning_field.target_buttons.is_empty():
 		learning_field.target_buttons[0].grab_focus()
-	elif not quiz_choices.is_empty():
+	elif not live_learning_active and not quiz_choices.is_empty():
 		quiz_choices[0].grab_focus()
 	if not quiz_resolved:
 		_announce("answer_select",str(quiz_task.get("id",""))+":ready")
-	if not quiz_resolved and bool(progress.data.settings.get("voice",true)) and (context_task_active or str(quiz_task.get("kind",""))=="listening"):
+	if not quiz_resolved and bool(progress.data.settings.get("voice",true)) and str(quiz_task.get("kind","")) in ["context","listening"]:
 		_listen_quiz(true)
 
 func _rebuild_map_list() -> void:
@@ -1080,6 +1297,7 @@ func _rebuild_army_cards() -> void:
 	if not chosen_unit_id in progress.unlocked_units():
 		chosen_unit_id = "archer"
 	for definition in progress.unit_catalog:
+		if not bool(definition.get("active",true)): continue
 		var id: String = str(definition.id)
 		var unlocked: bool = id in progress.unlocked_units()
 		var evolution: Dictionary = progress.army_evolution(id)
@@ -1091,7 +1309,7 @@ func _rebuild_army_cards() -> void:
 		card.disabled=not unlocked
 		BattlefieldHUD.apply_roster_card(card,id==chosen_unit_id,not unlocked)
 		card.mouse_default_cursor_shape=Control.CURSOR_POINTING_HAND
-		card.tooltip_text = "%s · %s · Lv.%d\n%s · %s" % [str(evolution.jp),str(evolution.name),progress.army_level(id),str(deployment.location),str(deployment.action)]
+		card.tooltip_text = "%s\n%s · Lv.%d\n%s · %s" % [str(evolution.jp),str(evolution.name),progress.army_level(id),str(deployment.location),str(deployment.action)]
 		card.set_meta("placement_mode",deployment.mode)
 		card.set_meta("placement_role",deployment.placementRole)
 		card.pressed.connect(_on_deployment_card_pressed.bind(id))
@@ -1109,23 +1327,23 @@ func _rebuild_army_cards() -> void:
 		portrait.name = "UnitPortrait_%s" % id
 		portrait.texture = _authored_bust_texture(id,int(evolution.stage))
 		portrait.set_meta("unit_id",id)
-		portrait.set_meta("source_kind","authored-idle-sheet")
-		portrait.set_meta("source_path",portrait.texture.atlas.resource_path if portrait.texture!=null else "")
+		portrait.set_meta("source_kind","painted-v1" if BattlefieldHUD.painted_mode else "authored-idle-sheet")
+		portrait.set_meta("source_path","res://assets/characters/painted-v1/manifest.json" if BattlefieldHUD.painted_mode else str(LivePortrait.source_for(id,int(evolution.stage)).path))
 		portrait.set_meta("visual_evolution",false)
 		portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		if not unlocked:
-			portrait.modulate=Color("686960")
+			portrait.modulate=Color("a6a69d") if BattlefieldHUD.painted_mode else Color("686960")
 		card.add_child(portrait)
 		_place(portrait,0,0,42,82)
 		var compact_name: String = str({"naginata":"장도병","commander":"기마"}.get(id,definition.name))
-		var unit_name = _label(card,compact_name,20,"e1e6e9" if unlocked else "748492")
+		var unit_name = _label(card,compact_name,20,("243137" if unlocked else "4c514b") if BattlefieldHUD.painted_mode else ("e1e6e9" if unlocked else "748492"))
 		unit_name.name = "UnitNameLabel"
 		unit_name.clip_text=true
 		unit_name.add_theme_font_size_override("font_size",20)
 		_place(unit_name,44,4,77,28)
-		var price = _label(card,str(progress.army_recruit_cost(id)) if unlocked else "잠김",20,"c8b993" if unlocked else "748492")
+		var price = _label(card,("● "+str(progress.army_recruit_cost(id)) if unlocked else "잠김") if BattlefieldHUD.painted_mode else (str(progress.army_recruit_cost(id)) if unlocked else "잠김"),20,("65501c" if unlocked else "4e514a") if BattlefieldHUD.painted_mode else ("c8b993" if unlocked else "748492"))
 		price.name = "RecruitPrice_"+id
 		_place(price,44,30,77,28)
 		var role_badge = _label(card,str(deployment.kind),16,"15202a")
@@ -1143,6 +1361,8 @@ func _rebuild_army_cards() -> void:
 		_layout()
 
 func _authored_bust_texture(id: String, evolution: int) -> AtlasTexture:
+	if not game.three_d_enabled and game.painted_actors.is_ready():
+		return game.painted_actors.portrait_texture(id) as AtlasTexture
 	var first: AtlasTexture = LivePortrait.first_frame_texture(id,evolution)
 	return UIStyle.bust_texture(first,id)
 
@@ -1155,6 +1375,9 @@ func _refresh_selected_portrait(id: String, evolution: int) -> void:
 
 func _layout_selected_portrait() -> void:
 	if selected_portrait==null or selected_portrait_window==null or not selected_portrait.is_node_ready(): return
+	if BattlefieldHUD.painted_mode:
+		_place(selected_portrait,0,0,selected_portrait_window.size.x,selected_portrait_window.size.y)
+		return
 	var details: Dictionary = selected_portrait.diagnostics()
 	if not bool(details.get("ready",false)): return
 	var body: Rect2 = details.visibleBounds
@@ -1165,8 +1388,6 @@ func _layout_selected_portrait() -> void:
 	if not anchors.is_empty():
 		focus.position += Vector2(details.baseline)-Vector2(anchors[0])
 	var zoom: float = minf(selected_portrait_window.size.x/focus.size.x,selected_portrait_window.size.y/focus.size.y)
-	# The existing helper fits its full body at .90/.86. Enlarge that fixed
-	# canvas, then clip a stable bust window; do not move individual frames.
 	selected_portrait.size = body.size*zoom/Vector2(.90,.86)
 	details = selected_portrait.diagnostics()
 	var draw_rect: Rect2 = details.drawRect
@@ -1174,9 +1395,10 @@ func _layout_selected_portrait() -> void:
 	selected_portrait.position = selected_portrait_window.size*.5-focus_center
 
 func _choose_unit(id: String) -> void:
-	if context_task_active or modal_context=="quiz":
+	if (context_task_active and not live_learning_active) or modal_context=="quiz":
 		return
 	if id in progress.unlocked_units():
+		var selection_changed: bool=chosen_unit_id!=id
 		if not progress.select_army_unit(id):
 			_toast(progress.save_error)
 			return
@@ -1184,9 +1406,18 @@ func _choose_unit(id: String) -> void:
 		if battle_audio != null:
 			battle_audio.consume_event({"action":"ui_select","side":"system"})
 		if _can_prepare_placement():
-			game.cancel_recruit()
-			game.begin_placement(id,chosen_march_path)
-		_rebuild_army_cards()
+			if bool(game.placement_contract(id).get("autoRecruitOnCard",false)):
+				_cancel_deployment_drag()
+				game.begin_placement(id,chosen_march_path)
+			else:
+				game.select_deployment(id)
+				deployment_drag = {"unitId":id,"pointer":get_viewport().get_mouse_position(),"preview":{}}
+				game.ui_deployment_active = true
+				_update_deployment_presentation()
+				_update_deployment_drag(deployment_drag.pointer)
+		# Repeated base orders change the queue/HUD, not the card artwork.
+		# Costs and availability keep their existing live state update path.
+		if selection_changed: _rebuild_army_cards()
 
 func _deployment_display(unit_id: String) -> Dictionary:
 	var contract: Dictionary = game.placement_contract(unit_id)
@@ -1203,8 +1434,11 @@ func _deployment_display(unit_id: String) -> Dictionary:
 	var kind_name: String = "배치형"
 	var color: Color = Color("ffda87")
 	if marching:
-		location = "아군 기지 출발"
-		action = "교전 후 계속 전진"
+		location = "육지 클릭 배치 / 사격 진지 지원 배치"
+		action = "기본 전진 · 진지 지원은 한 차례 난전 후 복귀"
+		if bool(contract.get("baseOnly",false)):
+			location = "아군 본진에서 소집"
+			action = "기지 소집 후 진격로로 출진"
 		kind_name = "전진형"
 		color = Color("73e5d2")
 	elif kind=="ambush":
@@ -1234,7 +1468,7 @@ func _on_deploy_card_hover(unit_id: String, active: bool) -> void:
 	_update_placement_feedback()
 
 func _can_prepare_placement() -> bool:
-	return battle_started and not battle_finished and not closing and modal == null and not context_task_active and not front_end.visible and not barracks.visible and not unit_training.visible and game.input_enabled and not game.between_waves and (learning_transition == null or not learning_transition.is_busy())
+	return battle_started and not battle_finished and not closing and modal == null and (not context_task_active or live_learning_active) and not front_end.visible and not barracks.visible and not unit_training.visible and game.input_enabled and not game.between_waves and (live_learning_active or learning_transition == null or not learning_transition.is_busy())
 
 func _deployment_card_at(pointer: Vector2) -> String:
 	if army_grid == null or not army_toolbar.is_visible_in_tree(): return ""
@@ -1245,6 +1479,7 @@ func _deployment_card_at(pointer: Vector2) -> String:
 
 func _deployment_surface_point(pointer: Vector2) -> Dictionary:
 	if not _can_prepare_placement() or not pointer.is_finite() or not game.screen_point_in_field(pointer): return {}
+	if live_learning_active and learning_field.is_visible_in_tree() and learning_field.contains_live_point(learning_field.get_global_transform_with_canvas().affine_inverse()*pointer): return {}
 	for surface in [hud_bar,army_toolbar,army_panel,production_panel,learning_panel,hint_bar,camera_controls]:
 		if surface != null and surface.is_visible_in_tree() and surface.get_global_rect().has_point(pointer): return {}
 	for caption in [narration_subtitle,announcement_subtitle]:
@@ -1276,6 +1511,7 @@ func _begin_deployment_press(unit_id: String, pointer: Vector2, pointer_id: int)
 
 func _begin_deployment_drag(unit_id: String, pointer: Vector2, touch_index: int = -1) -> void:
 	if not _can_prepare_placement() or not unit_id in progress.unlocked_units(): return
+	if bool(game.placement_contract(unit_id).get("autoRecruitOnCard",false)): return
 	if not deployment_release_pending:
 		_begin_deployment_press(unit_id,pointer,touch_index)
 	deployment_press_unit_id = ""
@@ -1289,7 +1525,7 @@ func _begin_deployment_drag(unit_id: String, pointer: Vector2, touch_index: int 
 
 func _update_deployment_drag(pointer: Vector2) -> void:
 	if deployment_drag.is_empty(): return
-	if not _can_prepare_placement():
+	if not _can_prepare_placement() or bool(game.placement_contract(str(deployment_drag.unitId)).get("autoRecruitOnCard",false)):
 		_cancel_deployment_drag()
 		return
 	deployment_drag.pointer = pointer
@@ -1305,39 +1541,50 @@ func _update_deployment_drag(pointer: Vector2) -> void:
 	deployment_overlay.present(preview)
 	troops_3d.ui_deployment_preview = preview
 	var guidance: String = str(preview.get("reason",""))
-	if guidance.is_empty(): guidance = "놓으면 소집 · Esc 취소"
-	deployment_instruction.text = guidance
+	if guidance.is_empty() and bool(preview.get("supportDeployment",false)): guidance=str(preview.get("message",""))
+	if guidance.is_empty(): guidance = "클릭하여 소집 · 연속 클릭 가능 · Esc 취소"
+	deployment_instruction.text = "클릭하여 소집" if bool(preview.get("valid",false)) else "배치 위치 선택"
 	deployment_instruction.tooltip_text = "%s ×%d · 보급 %d\n%s" % [str(preview.get("name",deployment_drag.unitId)),int(preview.get("quantity",1)),int(preview.get("cost",0)),guidance]
 
 func _finish_deployment_drag(pointer: Vector2) -> void:
 	if deployment_drag.is_empty(): return
 	var unit_id: String = str(deployment_drag.unitId)
+	if bool(game.placement_contract(unit_id).get("autoRecruitOnCard",false)):
+		_cancel_deployment_drag()
+		return
 	var surface: Dictionary = _deployment_surface_point(pointer)
 	var result: Dictionary = {}
 	if not surface.is_empty():
 		# Commit uses the current surface, path, balance, unlock and reservations.
 		result = game.submit_deployment(unit_id,surface.position,_deployment_path_id())
-	_cancel_deployment_drag()
+	# A committed order does not retire the user's selected unit type.
+	game.select_deployment(unit_id)
+	game.ui_deployment_active = true
+	_update_deployment_drag(pointer)
 	if not result.is_empty() and not bool(result.get("ok",false)):
 		_toast(str(result.get("message",result.get("reason","배치할 수 없습니다."))))
 
 func _cancel_deployment_drag() -> void:
-	var owned_gesture: bool = deployment_release_pending
+	var owned_gesture: bool = deployment_release_pending or not deployment_drag.is_empty()
 	deployment_drag.clear()
 	deployment_press_unit_id = ""
+	deployment_field_press = false
+	deployment_release_pending = false
+	deployment_pointer = -2
 	if owned_gesture and is_instance_valid(game) and bool(game.pending.get("preview",false)) and int(game.pending.get("paid",0))==0:
 		game.cancel_recruit()
 	if is_instance_valid(deployment_overlay): deployment_overlay.present({})
 	if is_instance_valid(troops_3d):
 		troops_3d.ui_deployment_preview = {}
 		troops_3d.sync_placement_preview({})
-	if is_instance_valid(game): game.ui_deployment_active = deployment_release_pending
+	if is_instance_valid(game): game.ui_deployment_active = false
 	_update_deployment_presentation()
 
 func _release_deployment_pointer() -> void:
 	deployment_release_pending = false
+	deployment_field_press = false
 	deployment_pointer = -2
-	if is_instance_valid(game): game.ui_deployment_active = false
+	if is_instance_valid(game): game.ui_deployment_active = not deployment_drag.is_empty()
 	_sync_battle_camera()
 
 func _update_deployment_presentation() -> void:
@@ -1353,8 +1600,12 @@ func _update_deployment_presentation() -> void:
 		_update_army_visibility()
 		_update_placement_feedback()
 		if deployment_instruction != null:
-			deployment_instruction.text = "카드를 끌어 배치"
-			deployment_instruction.tooltip_text = "짧게 클릭: 기존 병종 선택 / 출진 · R: 선택 병종 소집 · Esc / 우클릭: 취소"
+			if bool(game.placement_contract(chosen_unit_id).get("autoRecruitOnCard",false)):
+				deployment_instruction.text = "병종 카드로 소집"
+				deployment_instruction.tooltip_text = "병종 카드를 누를 때마다 아군 본진에서 소집하고 진격로로 출진합니다."
+			else:
+				deployment_instruction.text = "선택 후 전장 클릭"
+				deployment_instruction.tooltip_text = "병종을 선택한 뒤 위치를 클릭하십시오. 선택이 유지되어 연속 소집할 수 있습니다. Esc / 우클릭: 취소"
 
 func _handle_deployment_input(event: InputEvent) -> bool:
 	# Only a captured card touch owns its synthetic mouse copy. Ordinary GUI
@@ -1364,8 +1615,9 @@ func _handle_deployment_input(event: InputEvent) -> bool:
 			deployment_touch_mouse_suppressed = false
 		return true
 	if event is InputEventKey:
-		if deployment_release_pending and event.pressed and event.keycode in [KEY_ESCAPE,KEY_R]:
-			if event.keycode==KEY_ESCAPE: _cancel_deployment_drag()
+		if event.pressed and event.keycode==KEY_ESCAPE and (deployment_release_pending or not deployment_drag.is_empty()):
+			_cancel_deployment_drag()
+			_release_deployment_pointer()
 			return true
 		if event.pressed and not event.echo and event.keycode in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE] and not deployment_release_pending:
 			deployment_pressed_suppressed = false
@@ -1376,8 +1628,10 @@ func _handle_deployment_input(event: InputEvent) -> bool:
 	var is_release: bool = false
 	var is_motion: bool = false
 	if event is InputEventMouseButton:
-		if event.button_index==MOUSE_BUTTON_RIGHT and deployment_release_pending:
-			if event.pressed: _cancel_deployment_drag()
+		if event.button_index==MOUSE_BUTTON_RIGHT and (deployment_release_pending or not deployment_drag.is_empty()):
+			if event.pressed:
+				_cancel_deployment_drag()
+				_release_deployment_pointer()
 			return true
 		if event.button_index!=MOUSE_BUTTON_LEFT: return false
 		pointer = event.position
@@ -1397,28 +1651,32 @@ func _handle_deployment_input(event: InputEvent) -> bool:
 		is_motion = true
 	else: return false
 	if is_press:
-		if deployment_release_pending and (not deployment_drag.is_empty() or not deployment_press_unit_id.is_empty()): return true
-		if deployment_release_pending: _release_deployment_pointer()
+		if deployment_release_pending: return true
 		deployment_touch_mouse_suppressed = false
 		var unit_id: String = _deployment_card_at(pointer)
-		if unit_id.is_empty() or not _can_prepare_placement(): return false
+		if not _can_prepare_placement(): return false
+		if unit_id.is_empty():
+			if deployment_drag.is_empty() or _deployment_surface_point(pointer).is_empty(): return false
+			_begin_deployment_press("",pointer,pointer_id)
+			deployment_field_press = true
+			return true
 		# A locked card's gesture is consumed, so its release cannot reach a
 		# previous legacy placement waiting underneath the UI.
 		_begin_deployment_press(unit_id,pointer,pointer_id)
 		if not unit_id in progress.unlocked_units(): deployment_press_unit_id = ""
 		return true
-	if not deployment_release_pending: return false
+	if not deployment_release_pending:
+		if is_motion and not deployment_drag.is_empty(): _update_deployment_drag(pointer)
+		return false
 	if pointer_id!=deployment_pointer: return true
 	if is_motion:
-		if not deployment_press_unit_id.is_empty() and pointer.distance_to(deployment_press_position)>=DEPLOYMENT_DRAG_THRESHOLD:
-			_begin_deployment_drag(deployment_press_unit_id,pointer,pointer_id)
-		elif not deployment_drag.is_empty(): _update_deployment_drag(pointer)
+		if not deployment_drag.is_empty(): _update_deployment_drag(pointer)
 		return true
 	if is_release:
 		var clicked_unit: String = deployment_press_unit_id
-		var deliberate_click: bool = not clicked_unit.is_empty() and deployment_drag.is_empty() and _can_prepare_placement() and _deployment_card_at(pointer)==clicked_unit and pointer.distance_to(deployment_press_position)<DEPLOYMENT_DRAG_THRESHOLD
-		if not deployment_drag.is_empty(): _finish_deployment_drag(pointer)
-		else: _cancel_deployment_drag()
+		var deliberate_click: bool = not clicked_unit.is_empty() and _can_prepare_placement() and _deployment_card_at(pointer)==clicked_unit and pointer.distance_to(deployment_press_position)<DEPLOYMENT_DRAG_THRESHOLD
+		if deployment_field_press and pointer.distance_to(deployment_press_position)<DEPLOYMENT_DRAG_THRESHOLD and not deployment_drag.is_empty(): _finish_deployment_drag(pointer)
+		deployment_press_unit_id = ""
 		_release_deployment_pointer()
 		if deliberate_click: _choose_unit(clicked_unit)
 		return true
@@ -1501,18 +1759,25 @@ func _select_map(index: int) -> void:
 	var available = _tier_maps()
 	if available.is_empty():
 		return
-	current_map = available[index].duplicate(true)
+	current_map = PaintedStage.apply(available[index]) if not game.three_d_enabled else available[index].duplicate(true)
 	current_story = stories_by_id.get(str(current_map.id),{})
 	if not current_story.is_empty(): current_map["story"] = current_story.duplicate(true)
+	current_map = CampaignScenarios.apply(current_map,current_story)
 	_reset_narration_battle()
 	var lessons: Array = curriculum.get(TIER_IDS[current_tier],[])
 	current_lesson = lessons[index] if index < lessons.size() else {}
 	stage_learning = learning_plans.get("stages",{}).get(str(current_map.id),{})
 	lesson_session.begin_lesson(current_lesson,current_map)
+	_reset_post_battle_review()
 	learning_words = lesson_session.words.duplicate()
 	quiz_task.clear()
 	quiz_selected_id = ""
 	context_task_active = false
+	live_learning_active = false
+	learning_field.set_live_battle_mode(false)
+	quiz_feedback_text = ""
+	quiz_outcome_correct = false
+	quiz_resolved = false
 	reported_missions.clear()
 	learning_results.clear()
 	if learning_field != null:
@@ -1530,7 +1795,7 @@ func _select_map(index: int) -> void:
 	last_victory = false
 	last_campaign_reward.clear()
 	speed = 1.0
-	speed_button.text = "1×"
+	speed_button.text = _speed_label(speed)
 	_close_modal(false)
 	game.configure_roster(progress.unit_catalog,progress.unlocked_units(),progress.data.army.levels)
 	combat_feedback.reset()
@@ -1540,6 +1805,7 @@ func _select_map(index: int) -> void:
 	if battle_audio!=null: battle_audio.set_presentation_mirrored(game.presentation_mirrored)
 	_configure_march_routes()
 	atmosphere.set_stage(current_map)
+	atmosphere.visible = not bool(current_map.get("paintedPresentation",false))
 	if not _set_battlefield_stage(current_map):
 		game.close_battle()
 		_show_home()
@@ -1551,6 +1817,8 @@ func _select_map(index: int) -> void:
 	_set_music_context(false)
 	map_title.text = "%02d  ·  %s" % [int(current_map.get("stageNumber",current_tier*10+index+1)),str(current_map.title)]
 	if not current_story.is_empty(): map_title.text = "%02d · %d %s" % [int(current_map.stageNumber),int(current_story.year),str(current_story.battleKo)]
+	if bool(current_map.get("paintedPresentation",false)) and str(current_map.get("id",""))=="basic-forest": map_title.text = "첫 전장 · 마루네"
+	elif str(current_map.get("id",""))=="basic-farm": map_title.text = "02 · 오케하자마"
 	opponent_label.text = "적장 · "+str(current_story.get("opponent",{}).get("nameKo","")) if not current_story.is_empty() else ""
 	opponent_label.set("ruby_context_words",[current_story.get("opponent",{})])
 	opponent_label.tooltip_text = str(current_story.get("opponent",{}).get("nameJP",""))+" · "+str(current_story.get("opponent",{}).get("reading",""))
@@ -1559,10 +1827,15 @@ func _select_map(index: int) -> void:
 	_advance_word()
 	_rebuild_map_list()
 	_rebuild_army_cards()
-	_show_briefing()
+	if not _resume_saved_review(): _show_briefing()
 	_animate_stage_arrival()
 
 func _set_battlefield_stage(stage: Dictionary) -> bool:
+	if not game.three_d_enabled:
+		game.render_projection_provider = null
+		game.bind_terrain_navigation(Callable(),Callable())
+		_clear_remaster_visuals()
+		return true
 	# The authored extent is independent of camera and viewport size.
 	if stage.get("worldGeometry") is Dictionary and not stage.worldGeometry.is_empty():
 		var provider: Node3D=WorldAdapter.new()
@@ -1588,6 +1861,7 @@ func _clear_remaster_visuals() -> void:
 	remaster_visuals = null
 
 func _mount_remaster_visuals(stage: Dictionary) -> void:
+	if not game.three_d_enabled: return
 	# Candidate QA owns its own presentation; normal stage selection mounts once.
 	if not stage.get("worldGeometry") is Dictionary or not stage.get("visualComposition") is Dictionary or stage.visualComposition.is_empty():
 		return
@@ -1614,6 +1888,7 @@ func configure_candidate(stage: Dictionary) -> Dictionary:
 	current_lesson=curriculum.get("basic",[])[0] if not curriculum.get("basic",[]).is_empty() else {}
 	stage_learning={}
 	lesson_session.begin_lesson(current_lesson,current_map)
+	_reset_post_battle_review()
 	learning_words=lesson_session.words.duplicate()
 	seen_this_run.clear(); learning_index=-1; learning_clock=0; learning_turn=0
 	answers_correct=0; answers_total=0; chosen_march_path=-1
@@ -1694,7 +1969,7 @@ func _resume_from_navigation() -> void:
 		game.pause_battle()
 	navigation_resume_battle = false
 	_set_music_context(battle_started and not battle_finished)
-	if bool(state.get("betweenWaves",false)):
+	if bool(state.get("betweenWaves",false)) or not quiz_task.is_empty():
 		_show_quiz()
 
 func _choose_stage(tier: int, index: int, study: bool = false) -> void:
@@ -1742,10 +2017,13 @@ func _animate_stage_arrival() -> void:
 
 func _show_briefing() -> void:
 	if current_map.is_empty() or (maps.is_empty() and not _candidate_display_allowed()): return
+	if BattlefieldHUD.painted_mode:
+		_show_painted_briefing()
+		return
 	_open_modal()
 	modal_context = "briefing"
 	modal_body.add_theme_constant_override("separation",10)
-	_modal_label("出陣  ·  출진 준비",28,"e2c78c")
+	_translated_label(modal_body,"出陣","しゅつじん","출진 준비",28,"e2c78c")
 	_modal_label(str(current_map.title),23)
 	if not current_story.is_empty():
 		_modal_label("%d년 · %s · %s" % [int(current_story.year),str(current_story.battleKo),str(current_story.get("phaseKo",""))],25,"e5d09f").name = "StoryBattleTitle"
@@ -1774,10 +2052,10 @@ func _show_briefing() -> void:
 	var tactics: Dictionary = current_map.get("tactics",{})
 	if not tactics.is_empty():
 		_modal_label(str(tactics.get("nameKo","전장 배치"))+"\n"+str(tactics.get("descriptionKo","")),20,"d7c399")
-	_modal_label("배치형 · 궁병은 황금 진지, 조총병은 청록 전선\n전진형 · 창병·사무라이·기마병은 기지에서 출진\n호위형 · 장도병은 성벽·사격 진지 주변 방어\n지원형 · 승병은 부상 아군 치료·진언 지원\n소모형 · 닌자는 적 타워형 공격자 암살 후 임무 종료\n생산을 시작하면 보급금을 지불합니다. 각 주문은 병렬로 준비됩니다.",20,UIStyle.MUTED)
+	_modal_label("배치형 · 궁병은 황금 진지, 조총병은 청록 전선\n전진형 · 창병·사무라이·기마병은 기지에서 출진\n지원형 · 승병은 부상 아군 치료·진언 지원\n소모형 · 닌자는 적 타워형 공격자 암살 후 임무 종료\n생산을 시작하면 보급금을 지불합니다. 각 주문은 병렬로 준비됩니다.",20,UIStyle.MUTED)
 	if game.emplacement_protection_active():
-		_modal_label("초반에는 적이 진지를 공격하지 않습니다. 장도병을 해금한 뒤에는 호위 병력으로 진지를 지키십시오.",20,"d9c79b")
-	_modal_label("문장 속 빈칸 한 곳을 채우면 보급을 받습니다.\n한자 위 히라가나와 한국어 도움을 보며 시작하십시오.",20,"b7c3cc")
+		_modal_label("전진 병력을 진지 가까이에 배치하면 그곳의 적 무리와 교전한 뒤 진격로로 돌아갑니다.",20,"d9c79b")
+	_modal_label("전투가 끝난 뒤 문장 속 빈칸을 복습합니다.\n한자 위 히라가나와 한국어 도움을 볼 수 있으며 전투 보상은 지급하지 않습니다.",20,"b7c3cc")
 	_add_grammar_steps(modal_body,current_lesson)
 	var words: Array = current_lesson.get("newWords",[])
 	_modal_label("이번 전장의 새 단어 %d개 · 전투 중 차례로 표시" % words.size(),22,"d9c79b")
@@ -1793,7 +2071,7 @@ func _show_briefing() -> void:
 		ruby.set_word(words[i],28)
 		preview.add_child(ruby)
 	_modal_label("우클릭 / Esc 배치 취소 · R 배치 / 출진\nSpace 정지 · 병력 강화는 병영에서 진행",20,"9cabb8")
-	_modal_label("音楽  %s — %s" % [str(current_music.get("title","")),str(current_music.get("author",""))],20,"ab9f83")
+	_modal_label("音楽\n배경음악 · %s — %s" % [str(current_music.get("title","")),str(current_music.get("author",""))],20,"ab9f83")
 	modal_footer=HBoxContainer.new()
 	var actions = modal_footer
 	actions.add_theme_constant_override("separation",12)
@@ -1805,36 +2083,78 @@ func _show_briefing() -> void:
 	_button(actions,"전장 선택",_show_catalog).custom_minimum_size = Vector2(205,48)
 	_layout()
 
-func _build_battle_mode_selector() -> void:
-	_modal_label("전투 시간 · 출진 전에 선택",20,"d9c79b")
-	var choices = HBoxContainer.new()
-	choices.name = "BattleModeSelector"
-	choices.add_theme_constant_override("separation",12)
-	modal_body.add_child(choices)
-	battle_mode_buttons.clear()
-	for minutes in [10,20]:
-		var option = _button(choices,"%d분" % minutes,_choose_battle_minutes.bind(minutes))
-		option.name = "BattleMinutes%d" % minutes
-		option.set_meta("battle_minutes",minutes)
-		option.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		option.custom_minimum_size.y = 42
-		option.add_theme_stylebox_override("normal",UIStyle.selected() if minutes==battle_minutes else UIStyle.button("normal"))
-		battle_mode_buttons.append(option)
-	_modal_label("선택한 시간이 끝날 때까지 거점을 지키십시오.\n학습·일시 정지 제외 · 2×에서는 실제 시간이 짧아집니다.",20,"9cabb8")
+func _briefing_ink_label(text_value: String, font_size: int = 19) -> Label:
+	var label: Label = Label.new()
+	label.text = text_value
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.add_theme_font_size_override("font_size",font_size)
+	label.add_theme_color_override("font_color",Color("3c3428"))
+	modal_body.add_child(label)
+	return label
 
-func _choose_battle_minutes(minutes: int) -> void:
-	if minutes not in [10,20] or (battle_started and not battle_finished):
-		return
-	battle_minutes = minutes
-	progress.data.settings["battleMinutes"] = minutes
-	progress.write_save()
+func _show_painted_briefing() -> void:
+	_open_modal()
+	modal_context = "briefing"
+	modal_card.name = "MissionBriefingPaper"
+	var paper: StyleBoxFlat = StyleBoxFlat.new()
+	paper.bg_color = Color("eee1bf")
+	paper.border_color = Color("776248")
+	paper.set_border_width_all(3)
+	paper.set_corner_radius_all(5)
+	paper.shadow_color = Color(0,0,0,.25)
+	paper.shadow_size = 12
+	modal_card.add_theme_stylebox_override("panel",UIStyle.textured_panel("paper"))
+	modal_body.add_theme_constant_override("separation",8)
+	_translated_label(modal_body,"出陣","しゅつじん","출진 지시 · "+str(current_map.get("title","첫 전장")),22,"3c3428",17).name = "MissionHeading"
+	var mission = RubyText.new()
+	mission.name = "MissionInstruction"
+	mission.wrap_japanese = true
+	mission.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	mission.ink = Color("28271f")
+	mission.reading_ink = Color("5c5647")
+	mission.meaning_ink = Color("4e473c")
+	mission.colour_reading_groups = true
+	mission.min_reading_size = 14
+	mission.meaning_size = 19
+	mission.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	mission.set_word({"jp":str(current_story.get("briefingJP","道を守ってください。")),"reading":str(current_story.get("briefingReading","みちをまもってください。")),"parts":current_story.get("briefingParts",[]),"ko":str(current_story.get("briefingKo",current_story.get("playerGoalKo","거점을 지키십시오.")))},23,true)
+	modal_body.add_child(mission)
+	var cycle_count: int=_attack_cycle_count(current_map)
+	if str(current_map.get("id",""))=="basic-farm":
+		_briefing_ink_label("궁병은 사격 지점에 배치하고 창병·사무라이는 기지에서 출진합니다.\n목표 진지에 살아 있는 전진 병력이 있어야 점유 시간이 흐릅니다.",18).name="InstructionHints"
+		_briefing_ink_label("수비대 6명 격파 → 적 없이 10초 점유 → 후속 아군 2명 도착\n아군 기지를 지키며 공격 %d회를 모두 막고 진격 임무도 완료하십시오." % cycle_count,18).name="ScenarioAssignment"
+	elif bool(current_map.get("paintedPresentation",false)):
+		_briefing_ink_label("궁병과 고정 조총병은 사격 지점에 배치합니다.\n높은 2곳만 사거리 +24% · 지면 지점은 추가 보너스 없음 · 전진 병력은 길로 출진합니다.",18).name="InstructionHints"
+		_briefing_ink_label("철수하는 본대의 후방을 엄호하며 공격 %d회를 모두 격퇴하고 아군 기지를 지키십시오." % cycle_count,19).name="ScenarioAssignment"
+	else:
+		_briefing_ink_label("표시된 배치 지점에 병종을 놓고 전진 병력을 길로 출진시키십시오.",18).name="InstructionHints"
+		_briefing_ink_label("공격 %d회 · " % cycle_count+str(current_story.get("playerGoalKo","거점을 지키십시오.")),19).name="ScenarioAssignment"
+	_briefing_ink_label("병종 선택 후 전장 클릭 / Space 일시 정지 / 우측 책 학습",17).name = "ModeInstructions"
+	modal_footer = HBoxContainer.new()
+	modal_footer.add_theme_constant_override("separation",12)
+	modal_card.add_child(modal_footer)
+	_button(modal_footer,"전장 선택",_show_catalog).custom_minimum_size = Vector2(180,46)
+	var confirm: Button = _button(modal_footer,"확인 후 출진",_begin_battle)
+	confirm.name = "ConfirmMission"
+	confirm.custom_minimum_size.y = 46
+	confirm.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_layout()
+
+func _attack_cycle_count(stage: Dictionary) -> int:
+	return int(BattleDuration.preview(stage,0).get("totalWaves",0))
+
+func _build_battle_mode_selector() -> void:
+	_modal_label("적 공격 · 총 %d회" % _attack_cycle_count(current_map),20,"d9c79b").name = "BattleModeSelector"
+	_modal_label("생성 예정인 적과 전장에 남은 적을 모두 처리하면 다음 공격이 시작됩니다. 모든 공격과 전장 임무를 완료하십시오.",20,"9cabb8")
+
+func _choose_battle_minutes(_minutes: int) -> void:
+	# Keep the old caller contract without restoring a selectable time limit.
+	if battle_started and not battle_finished: return
+	battle_minutes = BattleDuration.FIXED_MINUTES
 	if front_end!=null:
-		front_end.battle_minutes = minutes
+		front_end.battle_minutes = battle_minutes
 		if front_end.visible:
 			front_end._rebuild()
-	for option in battle_mode_buttons:
-		if is_instance_valid(option):
-			option.add_theme_stylebox_override("normal",UIStyle.selected() if int(option.get_meta("battle_minutes"))==minutes else UIStyle.button("normal"))
 
 func _battle_clock_text(seconds: float) -> String:
 	var total: int = maxi(0,int(floor(seconds+.000001)))
@@ -1850,7 +2170,7 @@ func _begin_battle() -> void:
 	var first_departure: bool = not battle_started
 	if first_departure:
 		active_battle_minutes = battle_minutes
-		if int(game.snapshot().get("battleMinutes",0))!=active_battle_minutes:
+		if int(game.battle_minutes)!=active_battle_minutes:
 			game.load_map(current_map,active_battle_minutes)
 		narration_serial += 1
 		narration_battle_id = "%s:%d" % [str(current_map.get("id","")),narration_serial]
@@ -1859,17 +2179,19 @@ func _begin_battle() -> void:
 	if learning_index>=0 and learning_index<learning_words.size():
 		_record_displayed_word(learning_words[learning_index])
 	_set_music_context(true)
-	if first_departure and not _play_mission_briefing():
+	if first_departure and not BattlefieldHUD.painted_mode and not _play_mission_briefing():
 		_narrate("battle_start","start")
 	game.start_battle()
 	toast_clock=0.0
 	toast_label.hide()
 
 func _process(delta: float) -> void:
+	deployment_preview_refresh -= delta
 	if not deployment_press_unit_id.is_empty() or not deployment_drag.is_empty():
 		if not _can_prepare_placement():
 			_cancel_deployment_drag()
-		elif not deployment_drag.is_empty():
+		elif not deployment_drag.is_empty() and deployment_preview_refresh<=0.0:
+			deployment_preview_refresh = .1
 			_update_deployment_drag(deployment_drag.pointer)
 	if learning_panel != null:
 		learning_panel.visible = deployment_drag.is_empty() and not _learning_covers_battle() and not _field_report_visible()
@@ -1877,10 +2199,11 @@ func _process(delta: float) -> void:
 	_update_placement_feedback()
 	_update_voice_mix()
 	_update_caption_time(delta)
+	_layout_hint_bar()
 	if learning_field!=null:
 		learning_field.flow_paused = bool(state.get("paused",false)) or (announcement_subtitle!=null and announcement_subtitle.visible)
 	if toast_label != null and learning_field != null:
-		toast_label.visible = (not learning_field.report_card.visible and not context_task_active) or not progress.save_error.is_empty()
+		toast_label.visible = toast_clock>0.0 and not toast_label.text.is_empty() and (live_learning_active or (not learning_field.report_card.visible and not context_task_active) or not progress.save_error.is_empty())
 	if progress.save_error != last_save_error:
 		last_save_error = progress.save_error
 		if not last_save_error.is_empty():
@@ -1891,6 +2214,8 @@ func _process(delta: float) -> void:
 		toast_clock -= delta
 		if toast_clock <= 0:
 			toast_label.text = ""
+			toast_label.hide()
+	_layout_battle_subtitles()
 	if battle_started and not battle_finished and modal == null and not context_task_active and not front_end.visible and not unit_training.visible and not bool(state.get("paused",false)) and not bool(state.get("betweenWaves",false)):
 		if active_word.is_visible_in_tree():
 			if learning_index>=0 and learning_index<learning_words.size(): _record_displayed_word(learning_words[learning_index])
@@ -1900,7 +2225,7 @@ func _process(delta: float) -> void:
 
 func _sync_battle_camera() -> void:
 	if battle_camera==null or camera_controls==null: return
-	var showing_battle: bool = ui!=null and ui.is_visible_in_tree() and field_clip.is_visible_in_tree() and not _learning_screen_active()
+	var showing_battle: bool = ui!=null and ui.is_visible_in_tree() and field_clip.is_visible_in_tree() and not _learning_covers_battle()
 	var accepting_input: bool = showing_battle and battle_started and not battle_finished and modal==null and not bool(state.get("paused",false)) and not deployment_release_pending
 	if battle_camera.input_enabled!=accepting_input:
 		battle_camera.set_input_enabled(accepting_input)
@@ -1995,8 +2320,9 @@ func _record_displayed_word(word: Dictionary) -> void:
 		seen_this_run.append(str(word.id))
 		progress.mark_exposure(str(word.id),"meaning",str(current_map.get("id","")))
 
-func _on_state(value: Dictionary) -> void:
+func _on_state(value: Dictionary, defer_hud: bool = false) -> void:
 	state = value
+	speed = float(value.get("speed",speed))
 	if combat_feedback != null:
 		combat_feedback.paused = bool(value.get("paused",false))
 	if battle_audio != null:
@@ -2015,19 +2341,61 @@ func _on_state(value: Dictionary) -> void:
 			voice.set_paused(explicitly_paused)
 	if hud_wave == null:
 		return
+	# Keep pause, input state and transient narration synchronous. Only the
+	# expensive HUD text/layout work may collapse to the latest publication.
+	if not defer_hud:
+		_hud_refresh_queued = false
+		_refresh_hud()
+	_observe_narration_state(value)
+	if defer_hud and not _hud_refresh_queued:
+		_hud_refresh_queued = true
+		_flush_hud_refresh.call_deferred()
+
+func _flush_hud_refresh() -> void:
+	if not _hud_refresh_queued: return
+	_hud_refresh_queued = false
+	if closing or not is_inside_tree(): return
+	_refresh_hud()
+
+func _advance_mission_hud_text(mission: Dictionary) -> String:
+	match str(mission.get("phase","")):
+		"guards": return "수비대 %d" % int(mission.get("guardsRemaining",6))
+		"capture": return "점유 %d/%d초" % [int(floor(float(mission.get("holdSeconds",0.0)))),int(mission.get("holdRequiredSeconds",10))]
+		"followup": return "후속 %d/%d 도착" % [int(mission.get("followupArrived",0)),int(mission.get("followupRequired",2))]
+		"await_cycles": return "진격 임무 완료"
+		"complete": return "진격 임무 완료"
+		"failed": return "진격 실패"
+	return str(mission.get("phaseKo","진격 준비"))
+
+func _refresh_hud() -> void:
+	if not is_instance_valid(hud_wave): return
+	# Read the current state at delivery, never an older queued snapshot.
+	var value: Dictionary = state
 	var show_battle_ui: bool = not _learning_covers_battle()
 	army_toolbar.visible = show_battle_ui
 	_refresh_production_queue(value,show_battle_ui)
 	learning_panel.visible = show_battle_ui and deployment_drag.is_empty() and not _field_report_visible()
-	var wave = int(value.get("wave",0))
-	hud_clock.text = "%d분 · %s / %s" % [active_battle_minutes,_battle_clock_text(float(value.get("battleElapsedSeconds",value.get("elapsed",0)))),_battle_clock_text(float(value.get("battleTargetSeconds",active_battle_minutes*60)))]
-	hud_wave.text = "%02d / %02d  ·  적 %d" % [wave,int(value.get("totalWaves",10)),int(value.get("enemyCount",0))]
-	hud_wave.tooltip_text = "총 %d개 파상 공격 · 전장에 남은 적 %d · 진입 예정 %d" % [int(value.get("totalWaves",10)),int(value.get("enemyCount",0)),int(value.get("remainingSpawns",0))]
+	var wave: int=int(value.get("wave",0))
+	var cycle_count: int=int(value.get("totalWaves",_attack_cycle_count(current_map)))
+	var elapsed_text: String=_battle_clock_text(float(value.get("battleElapsedSeconds",value.get("elapsed",0))))
+	hud_clock.text = "경과 %s" % elapsed_text
+	hud_clock.tooltip_text = "경과한 전투 시간입니다. 시간 경과만으로 승리하지 않습니다."
+	hud_wave.text = "공격 %d/%d" % [wave,cycle_count]
+	hud_wave.tooltip_text = "공격 %d/%d회 · 전장에 남은 적 %d · 진입 예정 %d\n이 공격의 적을 모두 처리하면 다음 공격이 시작됩니다." % [wave,cycle_count,int(value.get("enemyCount",0)),int(value.get("remainingSpawns",0))]
 	hud_gold.text = "보급  %d" % int(value.get("gold",0))
-	hud_capacity.text = "출전 %d / %d" % [value.get("units",[]).size(),int(value.get("unitLimit",0))]
-	hud_capacity.tooltip_text = "실제 출전 병력 / 출전 정원 · 소집 완료 주문은 필요한 정원이 생길 때 출진합니다."
-	speed = float(value.get("speed",speed))
-	speed_button.text = "%d×" % int(speed)
+	var unit_count: int=int(value.get("unitCount",value.get("units",[]).size()))
+	hud_capacity.text = "출전 %d명 · 제한 없음" % unit_count
+	if BattlefieldHUD.painted_mode:
+		hud_capacity.text = "출전 %d · ∞" % unit_count
+
+	var advance: Dictionary=value.get("advanceMission",{})
+	if str(current_map.get("id",""))=="basic-farm" and not advance.is_empty():
+		hud_wave.text=_advance_mission_hud_text(advance)
+		hud_clock.text="%d/%d회 · %s" % [wave,cycle_count,elapsed_text]
+		hud_clock.tooltip_text="공격 %d/%d회 · 경과 %s\n모든 공격과 진격 임무를 함께 완료해야 승리합니다." % [wave,cycle_count,elapsed_text]
+		hud_wave.tooltip_text="%s\n목표 수비대 %d명 남음 · 점유 %.1f/%.1f초 · 후속 아군 %d/%d 도착\n공격 %d/%d회 · 남은 적 %d · 기지 생존 및 모든 공격·임무 완료" % [str(advance.get("phaseKo","진격 임무")),int(advance.get("guardsRemaining",6)),float(advance.get("holdSeconds",0.0)),float(advance.get("holdRequiredSeconds",10.0)),int(advance.get("followupArrived",0)),int(advance.get("followupRequired",2)),wave,cycle_count,int(value.get("enemyCount",0))]
+	hud_capacity.tooltip_text = "병력 수와 소집 주문 수 제한 없음 · 금화와 생산 시간이 필요합니다."
+	speed_button.text = _speed_label(speed)
 	var objectives: Array = value.get("objectives",[])
 	var health_parts: Array = []
 	for objective in objectives:
@@ -2061,7 +2429,7 @@ func _on_state(value: Dictionary) -> void:
 		var deployment: Dictionary = _deployment_display(str(pending.get("type",chosen_unit_id)))
 		placement_guidance = "%s · %s · %s · 우클릭 / Esc 취소" % [pending.get("name","병력"),deployment.location,deployment.action]
 	else:
-		placement_guidance = str(value.get("hint",current_map.get("tactics",{}).get("hintKo","궁병은 황금 고정 진지, 근접·기마·철포는 청록 전선에 배치합니다.")))
+		placement_guidance = str(value.get("hint",current_map.get("tactics",{}).get("hintKo","사격 병종은 빈 진지, 전진 병종은 길에 배치합니다.")))
 	_update_placement_feedback()
 	var recruit_cost: int = progress.army_recruit_cost(chosen_unit_id)
 	var placing = pending is Dictionary and not pending.is_empty()
@@ -2069,9 +2437,9 @@ func _on_state(value: Dictionary) -> void:
 	var chosen_kind: String = str(game.placement_contract(chosen_unit_id).get("deploymentKind","placed"))
 	var recruitment: String = {"marching":"출진","ambush":"기습 배치","support":"지원 배치"}.get(chosen_kind,"배치")
 	recruit_button.text = "배치 취소" if placing else "%s  %d" % [recruitment,recruit_cost]
-	recruit_button.disabled = context_task_active or battle_finished or not battle_started or (not placing and (int(value.get("gold",0)) < recruit_cost or value.get("recruitmentQueue",[]).size()>=int(value.get("recruitmentCapacity",24))))
-	pause_button.disabled = context_task_active
-	speed_button.disabled = context_task_active
+	recruit_button.disabled = (context_task_active and not live_learning_active) or battle_finished or not battle_started or (not placing and int(value.get("gold",0)) < recruit_cost)
+	pause_button.disabled = context_task_active and not live_learning_active
+	speed_button.disabled = context_task_active and not live_learning_active
 	var chosen_deployment: Dictionary = _deployment_display(chosen_unit_id)
 	recruit_button.tooltip_text = ("Esc / 우클릭 배치 취소" if placing else "기지에서 선택 병종 출진 (R)" if marching else "선택 병종 배치 (R)")+"\n"+str(chosen_deployment.hint)
 	if not placing:
@@ -2082,69 +2450,37 @@ func _on_state(value: Dictionary) -> void:
 	_set_intermission_presentation(_learning_covers_battle(),_learning_screen_active())
 	_layout_production_queue()
 	_update_deployment_presentation()
-	_observe_narration_state(value)
 
 func _refresh_production_queue(value: Dictionary, battle_visible: bool) -> void:
 	if production_panel==null: return
-	var jobs: Array = value.get("recruitmentQueue",[])
-	var was_visible: bool = production_panel.visible
-	production_panel.visible = battle_visible and battle_started and not battle_finished and not jobs.is_empty()
-	var ids: Array[String] = []
+	# Painted battles display progress over the actual spawn reservations.
+	# Do not rebuild an invisible cancellation-card row for every queued job.
+	if BattlefieldHUD.painted_mode:
+		production_panel.hide()
+		return
+	var jobs: Array=value.get("recruitmentQueue",[])
+	production_panel.visible=battle_visible and battle_started and not battle_finished and not jobs.is_empty()
+	var ids: Array[String]=[]
 	for job in jobs: ids.append(str(job.id))
-	var identity: String = ":".join(ids)
+	var identity: String=":".join(ids)
 	if identity!=production_identity:
-		production_identity = identity
+		production_identity=identity
 		for child in production_cards.get_children():
 			production_cards.remove_child(child)
 			child.queue_free()
 		for job in jobs:
-			var card = _button(production_cards,"",_cancel_production.bind(int(job.id)))
-			card.name = "RecruitmentJob_%d" % int(job.id)
+			var card: Button=_button(production_cards,"",_cancel_production.bind(int(job.id)))
+			card.name="RecruitmentJob_%d" % int(job.id)
 			card.set_meta("jobId",int(job.id))
-			card.custom_minimum_size = Vector2(190,68)
+			card.custom_minimum_size=Vector2(154,38)
 			_compact_button(card)
-			for variant in ["normal","hover","pressed","disabled","focus"]:
-				var style: StyleBox = card.get_theme_stylebox(variant).duplicate()
-				style.content_margin_left = 47
-				style.content_margin_bottom = 14
-				card.add_theme_stylebox_override(variant,style)
-			var portrait = TextureRect.new()
-			portrait.name = "ProductionPortrait"
-			portrait.texture = _authored_bust_texture(str(job.type),0)
-			portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-			portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			portrait.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			card.add_child(portrait)
-			_place(portrait,6,5,36,51)
-			var gauge = ProgressBar.new()
-			gauge.name = "ProductionGauge"
-			gauge.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			gauge.show_percentage = false
-			var track = StyleBoxFlat.new()
-			track.bg_color = Color("18232b")
-			track.set_corner_radius_all(2)
-			var fill = StyleBoxFlat.new()
-			fill.bg_color = Color("d7b86e")
-			fill.set_corner_radius_all(2)
-			gauge.add_theme_stylebox_override("background",track)
-			gauge.add_theme_stylebox_override("fill",fill)
-			card.add_child(gauge)
-			_place(gauge,48,57,132,7)
+			card.add_theme_font_size_override("font_size",18)
 	for index in range(jobs.size()):
-		var job: Dictionary = jobs[index]
-		var card: Button = production_cards.get_child(index)
-		card.text = BattlefieldHUD.queue_text(job)
-		card.tooltip_text = BattlefieldHUD.queue_tooltip(job)
-		card.disabled = context_task_active or battle_finished
-		var waiting_capacity: bool = str(job.get("status",""))=="waiting_capacity"
-		var status_changed: bool = not card.has_meta("hud_waiting_capacity") or bool(card.get_meta("hud_waiting_capacity"))!=waiting_capacity
-		if status_changed: BattlefieldHUD.apply_queue_card(card,waiting_capacity)
-		var gauge: ProgressBar = card.get_node("ProductionGauge")
-		if status_changed: BattlefieldHUD.apply_progress(gauge,"waiting_capacity" if waiting_capacity else "production")
-		gauge.value = 100.0*(1.0-float(job.remainingSeconds)/maxf(.001,float(job.totalSeconds)))
-	production_title.text = "병렬 소집 · %d / %d건   ·   주문을 누르면 취소" % [jobs.size(),int(value.get("recruitmentCapacity",24))]
-	if was_visible!=production_panel.visible: _layout()
-	else: _layout_production_queue()
+		var job: Dictionary=jobs[index]
+		var card: Button=production_cards.get_child(index)
+		card.text="%s ×%d · 취소" % [str(job.name),int(job.quantity)]
+		card.tooltip_text="남은 시간 %.1f초\n%s" % [float(job.remainingSeconds),BattlefieldHUD.queue_tooltip(job)]
+		card.disabled=(context_task_active and not live_learning_active) or battle_finished
 
 func _cancel_production(job_id: int) -> void:
 	if _can_prepare_placement():
@@ -2154,18 +2490,22 @@ func _observe_narration_state(value: Dictionary) -> void:
 	if not battle_started or battle_finished or bool(value.get("finished",false)) or bool(value.get("betweenWaves",false)):
 		return
 	if not narration_strong_reported:
-		for enemy in value.get("enemies",[]):
-			if str(enemy.get("kind","")) in ["commander","heavy"]:
-				narration_strong_reported = true
-				_narrate("strong_enemy","strong-enemy")
-				break
+		var strong_enemy_present: bool=bool(value.get("strongEnemyPresent",false))
+		if not value.has("strongEnemyPresent"):
+			for enemy in value.get("enemies",[]):
+				if str(enemy.get("kind","")) in ["commander","heavy"]:
+					strong_enemy_present=true
+					break
+		if strong_enemy_present:
+			# A live question can temporarily own the learning voice. Keep a
+			# suppressed warning pending instead of consuming its one-time flag.
+			narration_strong_reported = _narrate("strong_enemy","strong-enemy")
 	if not narration_danger_reported:
 		for objective in value.get("objectives",[]):
 			var health: float = float(objective.get("hp",0))
 			var maximum: float = float(objective.get("maxHp",0))
 			if health>0 and maximum>0 and health/maximum<=.30:
-				narration_danger_reported = true
-				_narrate("danger","danger")
+				narration_danger_reported = _narrate("danger","danger")
 				break
 
 func _update_placement_feedback() -> void:
@@ -2182,7 +2522,8 @@ func _update_placement_feedback() -> void:
 		var hovered: Dictionary = _deployment_display(hovered_unit_id)
 		feedback = "%s · %s · %s" % [str(definition.name),hovered.location,hovered.action]
 		if not hovered_unit_id in progress.unlocked_units():
-			feedback += " · 전장 %d개 완료 시 해금" % int(definition.unlockClears)
+			feedback = "%s · 전장 %d개 완료 시 해금" % [str(definition.name),int(definition.unlockClears)]
+		hint_line.tooltip_text=feedback
 		feedback_color = hovered.color
 	elif can_place and placing:
 		feedback_color = _deployment_display(str(game.pending.type)).color
@@ -2215,7 +2556,12 @@ func _update_army_visibility() -> void:
 		army_panel.position.x = get_viewport().get_visible_rect().size.x-army_panel.size.x-24
 	elif not has_selected:
 		inspector_unit_id = -1
-	army_panel.visible = deployment_drag.is_empty() and not context_task_active and not _learning_covers_battle() and has_selected and not placing
+	army_panel.visible = deployment_drag.is_empty() and (not context_task_active or live_learning_active) and not _learning_covers_battle() and has_selected and not placing
+	if BattlefieldHUD.painted_mode:
+		army_panel.visible = army_panel.visible and int(selected.get("id",-1))==game.explicit_selection_id
+	var quiz_rect: Rect2=_live_learning_screen_rect()
+	if army_panel.visible and quiz_rect.has_area():
+		army_panel.position.x=maxf(game.field_rect.position.x+8,quiz_rect.position.x-army_panel.size.x-12)
 
 func _update_tactical_status(selected, unit_id: String) -> void:
 	var deployment: Dictionary = _deployment_display(unit_id)
@@ -2230,7 +2576,7 @@ func _update_tactical_status(selected, unit_id: String) -> void:
 		var status: String = "%s · %s" % [deployment.kind,stance]
 		army_tactics.tooltip_text = "%s\n%s" % [str(selected.get("postName",deployment.location)),deployment.hint]
 		if fixed_emplacement:
-			tactical_text = status+"\n황금 고정 진지 · 원거리 지원"
+			tactical_text = status+"\n공유 사격 진지 · 원거리 지원"
 		else:
 			var health: float = float(selected.get("hp",0.0))
 			var maximum: float = float(selected.get("maxHp",0.0))
@@ -2275,10 +2621,32 @@ func _on_game_event(event: Dictionary) -> void:
 		combat_feedback.consume_event(event)
 	if battle_audio != null:
 		battle_audio.consume_event(event)
+	if str(event.get("type","")) in ["learning-reward-receipt","learning-reward"]:
+		# Supply details belong to the answering task's result, never the HUD.
+		return
+	if str(event.get("type","")) in ["recruited","placed"]:
+		# The finished soldier replaces its production preview directly.
+		return
 	if str(event.get("type","")) == "unit_consumed":
 		_toast(Troops3D.TroopActions.consumed_label(str(event.get("consumeReason","mission_ended"))))
 	elif event.has("message"):
 		_toast(str(event.message))
+
+func _layout_hint_bar() -> void:
+	if BattlefieldHUD.painted_mode and hint_bar!=null and hint_bar.visible:
+		var top: float=game.field_rect.end.y-38
+		if production_panel.visible: top=production_panel.position.y-38
+		var width: float=minf(680,game.field_rect.size.x-32)
+		_place(hint_bar,game.field_rect.position.x+12,top,width,32)
+		_place(hint_line,hint_bar.position.x+8,top+2,width-16,28)
+
+func _receipt_count_text(receipt: Dictionary, delivered: bool) -> String:
+	var count: int=int(receipt.get("deliveredCount",0) if delivered else receipt.get("plannedCount",0))
+	var unit: String=str(receipt.get("countUnit",""))
+	if not delivered:
+		unit="projectiles_launched" if str(receipt.get("kind","")) in ["archer_cover","mountain_matchlocks"] else "stones" if str(receipt.get("kind",""))=="rockfall" else "effects"
+	var suffix: String={"projectiles_launched":"발","affected_troops":"명","targets_hit":"개 대상","departure_delay_applied":"회","stones":"개","effects":"회"}.get(unit,"회")
+	return "%d%s" % [count,suffix]
 
 func _on_emplacement_alert(_event: Dictionary) -> void:
 	if not battle_started or battle_finished or closing: return
@@ -2289,27 +2657,119 @@ func _on_emplacement_alert(_event: Dictionary) -> void:
 func _recruit() -> void:
 	if deployment_release_pending: return
 	if _can_prepare_placement():
-		if not game.snapshot().get("pending",{}).is_empty():
-			game.cancel_recruit()
+		if not deployment_drag.is_empty():
+			_cancel_deployment_drag()
 		else:
-			game.begin_placement(chosen_unit_id,chosen_march_path)
+			_choose_unit(chosen_unit_id)
 
 func _toggle_pause() -> void:
-	if battle_started and not battle_finished and modal == null and not context_task_active:
+	if battle_started and not battle_finished and modal == null and (not context_task_active or live_learning_active):
 		game.pause_battle()
 
-func _cycle_speed() -> void:
-	speed = 2.0 if speed == 1.0 else 1.0
-	game.set_speed(speed)
-	speed_button.text = "%d×" % int(speed)
+func _speed_label(value: float) -> String:
+	return "1.25×" if is_equal_approx(value,1.25) else "1.5×" if value>=1.5 else "1×"
 
-func _on_wave_ended(_info: Dictionary) -> void:
+func _cycle_speed() -> void:
+	speed = 1.25 if speed<1.25 else 1.5 if speed<1.5 else 1.0
+	game.set_speed(speed)
+	speed_button.text = _speed_label(speed)
+
+func _on_wave_ended(info: Dictionary) -> void:
 	if battle_finished:
 		return
+	# Preserve the former question cadence, but build and show its tasks only
+	# after combat. No question, reward or lesson-selection work interrupts a wave.
+	var ended_wave: int=int(info.get("wave",game.wave))
+	if ended_wave>0 and not post_battle_review_waves.has(ended_wave):
+		post_battle_review_waves.append(ended_wave)
+	if not gate_active and game.between_waves and not battle_finished:
+		game.continue_wave()
+
+func _reset_post_battle_review() -> void:
+	post_battle_review_active=false
+	post_battle_review_waves.clear()
+	post_battle_review_index=0
+	post_battle_review_queue.clear()
+	post_battle_review_restored=false
+	post_battle_result.clear()
+
+func _begin_post_battle_review() -> bool:
+	var final_wave: int=int(post_battle_result.get("wave",state.get("wave",0)))
+	if final_wave>0 and not post_battle_review_waves.has(final_wave):
+		post_battle_review_waves.append(final_wave)
+	if post_battle_review_waves.is_empty(): return false
+	if not lesson_session.prepare_review(post_battle_review_waves,seen_this_run,_reading_available() and bool(progress.data.settings.get("voice",true))):
+		_toast("복습 문제를 저장하지 못했습니다. 결과 화면에서 다시 시도해 주십시오. "+progress.save_error)
+		return false
+	post_battle_review_queue.clear()
+	for review_id in _post_battle_retry_ids(): post_battle_review_queue.append({"retryId":str(review_id)})
+	if post_battle_review_queue.is_empty(): return false
+	post_battle_review_active=true
+	post_battle_review_index=0
+	_show_quiz()
+	return true
+
+func _post_battle_retry_ids() -> Array:
+	return lesson_session.review_retry_ids(str(current_map.get("id","")),str(current_lesson.get("id","")))
+
+func _resume_saved_review() -> bool:
+	if isolated_candidate or _post_battle_retry_ids().is_empty(): return false
+	post_battle_review_restored=true
+	_retry_post_battle_review()
+	if not post_battle_review_active: post_battle_review_restored=false
+	return post_battle_review_active
+
+func _retry_post_battle_review() -> void:
+	if (not battle_finished and not post_battle_review_restored) or post_battle_review_active or gate_active: return
+	if not lesson_session.save_review():
+		_toast("복습 기록을 저장하지 못했습니다. "+progress.save_error)
+		return
+	post_battle_review_queue.clear()
+	for review_id in _post_battle_retry_ids():
+		post_battle_review_queue.append({"retryId":str(review_id)})
+	if post_battle_review_queue.is_empty(): return
+	post_battle_review_index=0
+	post_battle_review_active=true
+	_stop_narration()
+	_cancel_learning_transition()
+	_close_modal(false)
+	quiz_task.clear()
+	quiz_resolved=false
 	_show_quiz()
 
+func _post_battle_continue_text() -> String:
+	if post_battle_review_index<post_battle_review_queue.size()-1: return "다음 문제  ›"
+	return "출진 준비로" if post_battle_review_restored else "결과 보기"
+
+func _end_post_battle_review() -> void:
+	if not post_battle_review_active: return
+	_stop_narration()
+	_cancel_learning_transition()
+	if not quiz_task.is_empty() and not quiz_resolved:
+		lesson_session.skip_task(quiz_task)
+	if last_victory and not isolated_candidate and bool(last_campaign_reward.get("saved",true)) and progress.map_cleared(str(current_map.id)):
+		progress.update_map_learning_summary(str(current_map.id),{"seen":seen_this_run.size(),"correct":answers_correct,"attempts":answers_total})
+	else:
+		progress.write_save()
+	quiz_task.clear()
+	quiz_selected_id=""
+	quiz_resolved=false
+	quiz_feedback_text=""
+	quiz_outcome_correct=false
+	context_task_active=false
+	live_learning_active=false
+	post_battle_review_active=false
+	learning_field.clear()
+	learning_field.set_live_battle_mode(false)
+	_close_modal(false)
+	if post_battle_review_restored:
+		post_battle_review_restored=false
+		_show_briefing()
+		return
+	_on_battle_finished(post_battle_result)
+
 func _on_wave_started(info: Dictionary) -> void:
-	if battle_finished or str(info.get("mapId","")) != str(current_map.get("id","")):
+	if battle_finished or _learning_screen_active() or str(info.get("mapId","")) != str(current_map.get("id","")):
 		return
 	for mission in stage_learning.get("missions",[]):
 		if int(mission.get("wave",0)) != int(info.get("wave",0)):
@@ -2330,20 +2790,31 @@ func _on_wave_started(info: Dictionary) -> void:
 		break
 
 func _show_quiz() -> void:
-	_stop_narration()
+	if not gate_active and not post_battle_review_active:
+		return
 	if _learning_screen_active() and learning_transition.phase != "idle":
 		return
+	_stop_narration()
 	if quiz_task.is_empty():
-		quiz_task = unlock_gate.current_task() if gate_active else lesson_session.next_task(seen_this_run,int(state.get("wave",0)),_reading_available() and bool(progress.data.settings.get("voice",true)))
+		if gate_active:
+			quiz_task=unlock_gate.current_task()
+		else:
+			while post_battle_review_index<post_battle_review_queue.size():
+				var entry: Dictionary=post_battle_review_queue[post_battle_review_index]
+				quiz_task=lesson_session.retry_task(str(entry.retryId),str(current_map.get("id","")),str(current_lesson.get("id","")))
+				if not quiz_task.is_empty(): break
+				post_battle_review_index+=1
 		quiz_hinted = false
 		quiz_resolved = false
 		quiz_feedback_text = ""
 		quiz_selected_id = ""
 	if quiz_task.is_empty():
-		game.continue_wave()
+		if post_battle_review_active: _end_post_battle_review()
 		return
 	quiz_word = quiz_task.get("revealItem",quiz_task.get("item",{}))
-	if str(quiz_task.get("kind","")) == "context":
+	live_learning_active=false
+	learning_field.set_live_battle_mode(false)
+	if str(quiz_task.get("kind","")) == "context" and not post_battle_review_active:
 		_show_context_task()
 		return
 	context_task_active = false
@@ -2352,13 +2823,20 @@ func _show_quiz() -> void:
 	modal_context = "quiz"
 	modal_card.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
 	var shade: ColorRect = modal.get_child(0)
-	shade.color = Color(.045,.033,.02,.74)
-	# Indexed battlefields remain visible beneath the existing modal shade.
-	# A painted background is optional and used only when it actually exists.
-	var background_path: String=str(current_map.get("background",""))
-	if not background_path.is_empty() and ResourceLoader.exists(background_path,"Texture2D"):
+	shade.color = Color(.045,.033,.02,.52)
+	# Learning hides the live field; use the mounted presentation's map texture.
+	var mounted_stage: Dictionary=game.config if is_instance_valid(game) else current_map
+	var background_path: String=str(mounted_stage.get("paintedBackground",mounted_stage.get("background","")))
+	var mounted_texture: Texture2D=game.painted_field.texture if game.painted_field.is_ready() else game.background
+	if mounted_texture==null and not background_path.is_empty() and ResourceLoader.exists(background_path,"Texture2D"):
+		mounted_texture=load(background_path) as Texture2D
+	if mounted_texture!=null:
 		var picture = TextureRect.new()
-		picture.texture = load(background_path)
+		picture.name = "QuizBattlefieldBackground"
+		picture.texture = mounted_texture
+		if game.painted_field.is_ready(): picture.material=game.painted_field.background_material
+		picture.flip_h = game.presentation_mirrored
+		picture.set_meta("sourcePath",background_path)
 		picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -2376,11 +2854,12 @@ func _show_quiz() -> void:
 	var purpose = VBoxContainer.new()
 	purpose.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	header.add_child(purpose)
-	var title = _label(purpose,"聞き取り · 듣고 빈칸 완성" if kind=="listening" else "補給任務 · 빈칸 한 곳 채우기",27,UIStyle.BRASS)
+	var title = _translated_label(purpose,"聞き取り" if kind=="listening" else "補給任務","ききとり" if kind=="listening" else "ほきゅうにんむ","듣고 빈칸 완성" if kind=="listening" else "빈칸 한 곳 채우기",25,UIStyle.BRASS)
 	if gate_active:
 		var gate_state: Dictionary = unlock_gate.snapshot()
-		title.text = "解禁試験 · 해금 시험 %02d / %d" % [int(gate_state.get("index",0))+1,int(gate_state.get("count",0))]
-	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		title.set_word({"jp":"解禁試験","reading":"かいきんしけん","ko":"해금 시험 %02d / %d" % [int(gate_state.get("index",0))+1,int(gate_state.get("count",0))]},25,true)
+	elif post_battle_review_active:
+		title.set_word({"jp":"戦後の復習","reading":"せんごのふくしゅう","ko":"전투 후 복습 %02d / %d" % [post_battle_review_index+1,post_battle_review_queue.size()]},25,true)
 	var instruction = _label(purpose,"나머지 문장은 그대로입니다. 밑줄에 들어갈 단어를 선택하십시오.",20,UIStyle.MUTED)
 	if gate_active: instruction.text = "이 전장의 단어·문법을 힌트 없이 전부 맞히면 다음 맵이 열립니다."
 	instruction.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -2424,14 +2903,15 @@ func _show_quiz() -> void:
 			button.text = ""
 			var choice_text = RubyText.new()
 			choice_text.name = "ChoiceRuby"
-			choice_text.min_reading_size = 22
+			choice_text.min_reading_size = 16
 			choice_text.group_spacing = 6.0
 			choice_text.merge_adjacent_readings = false
 			choice_text.show_reading_guides = false
 			choice_text.font = GameFonts.japanese()
 			choice_text.wrap_japanese = true
-			choice_text.meaning_size = 24
-			choice_text.set_word(choice.item,34,not gate_active)
+			choice_text.meaning_size = 20
+			choice_text.colour_reading_groups=true
+			choice_text.set_word(choice.item,48,not gate_active)
 			button.add_child(choice_text)
 		button.custom_minimum_size = Vector2(260,300)
 		button.add_theme_font_size_override("font_size",28)
@@ -2453,8 +2933,8 @@ func _show_quiz() -> void:
 	modal_footer.minimum_size_changed.connect(_layout)
 	quiz_feedback = UIStyle.TooltipLabel.new()
 	quiz_feedback.set("ruby_context_words",_display_reading_context())
-	quiz_feedback.text = "정답이면 전장에 맞는 지원을 무작위로 받습니다. 힌트를 사용하면 지원이 약해집니다."
-	if gate_active: quiz_feedback.text = "한 문제라도 틀리면 복습 후 처음부터 다시 응시합니다."
+	quiz_feedback.text = "오답·힌트를 쓴 표현은 맞춤 복습에 반영됩니다."
+	if gate_active: quiz_feedback.text = "맞힌 답은 유지합니다. 오답·미응답만 다시 풀면 됩니다."
 	quiz_feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	quiz_feedback.add_theme_font_size_override("font_size",20)
 	quiz_feedback.add_theme_color_override("font_color",Color("c6b482"))
@@ -2467,7 +2947,7 @@ func _show_quiz() -> void:
 	quiz_hint_button = _button(row,"힌트 · 뜻 보기",_quiz_hint)
 	if gate_active:
 		quiz_hint_button.text = "복습 · 이번 응시 종료"
-		quiz_hint_button.tooltip_text = "정답과 설명을 봅니다. 이번 응시는 통과하지 못하며 처음부터 다시 응시할 수 있습니다."
+		quiz_hint_button.tooltip_text = "정답과 설명을 봅니다. 이 문제는 힌트 없이 다시 맞혀야 하며, 이미 맞힌 답은 유지됩니다."
 	quiz_hint_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var listen = _button(row,"일본어 듣기",_listen_quiz)
 	quiz_listen_button = listen
@@ -2475,10 +2955,13 @@ func _show_quiz() -> void:
 	listen.disabled = not _reading_available()
 	if gate_active: listen.disabled = true
 	listen.tooltip_text = "이 PC에는 일본어 읽기 음성이 없습니다." if listen.disabled else "일본어를 다시 듣습니다."
-	quiz_continue_button = _button(row,"건너뛰고 전투 복귀",_continue_battle)
+	quiz_continue_button = _button(row,"건너뛰기" if post_battle_review_active else "건너뛰고 전투 복귀",_continue_battle)
 	quiz_continue_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	quiz_continue_button.custom_minimum_size.y = 42
 	if gate_active: quiz_continue_button.text = "시험 나가기"
+	if post_battle_review_active:
+		var finish_review: Button=_button(row,"복습 끝내기",_end_post_battle_review)
+		finish_review.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	if quiz_hinted:
 		quiz_ruby.set_word(quiz_word,36,true)
 		quiz_hint_button.disabled = true
@@ -2490,13 +2973,46 @@ func _show_quiz() -> void:
 		quiz_feedback.text = quiz_feedback_text
 		quiz_continue_button.text = "전투로 복귀  ›"
 		if gate_active: quiz_continue_button.text = "다음 문제  ›"
+		elif post_battle_review_active: quiz_continue_button.text=_post_battle_continue_text()
 		_style_quiz_result()
 	_layout()
-	learning_transition.present(modal,quiz_choices,modal_footer,"解禁試験 · 해금 시험" if gate_active else "補給任務 · 보급 임무",quiz_resolved)
+	learning_transition.present(modal,quiz_choices,modal_footer,"解禁試験\n해금 시험" if gate_active else "戦後の復習\n전투 후 복습",quiz_resolved,false,post_battle_review_active)
+
+func _live_learning_mission() -> Dictionary:
+	if str(quiz_task.get("kind",""))=="context": return quiz_task.get("mission",{}).duplicate(true)
+	var targets: Array=[]
+	var choice_items: Dictionary={}
+	for choice in quiz_task.get("choices",[]):
+		var item: Dictionary=choice.get("item",{})
+		if item.is_empty(): item={"jp":str(choice.get("label","")),"reading":"","ko":""}
+		var choice_id: String=str(choice.get("id",""))
+		targets.append({"id":choice_id,"label":item,"showImage":false,"position":{"x":.5,"y":.5}})
+		choice_items[choice_id]=item
+	var listening: bool=str(quiz_task.get("kind",""))=="listening"
+	return {"id":str(quiz_task.get("id","")),"report":quiz_word,"revealItem":quiz_word,"questionItem":quiz_task.get("questionItem",quiz_word),"answerId":str(quiz_task.get("answerId","")),"targets":targets,"choiceItems":choice_items,"heading":{"jp":"聞き取り" if listening else "補給任務","reading":"ききとり" if listening else "ほきゅうにんむ","ko":"듣기 문제" if listening else "보급 문제"},"captionKo":"일본어를 듣고 빈칸에 맞는 단어를 고르십시오." if listening else "빈칸에 맞는 단어를 고르십시오."}
+
+func _show_live_learning_task() -> void:
+	_close_modal(false)
+	live_learning_active=true
+	context_task_active=true
+	modal_context="live_quiz"
+	learning_field.set_live_battle_mode(true)
+	learning_field.set_stage_background(str(current_map.get("background","")),current_map)
+	if troops_3d.uses_world_geometry():
+		learning_field.set_world_presentation(current_map,troops_3d.viewport.get_texture(),_project_learning_anchor,_project_learning_world_focus)
+	_layout()
+	learning_field.begin_choice(_live_learning_mission(),_reading_available())
+	if quiz_hinted: learning_field.show_hint()
+	if quiz_resolved: learning_field.show_result(quiz_outcome_correct,quiz_feedback_text,quiz_selected_id)
+	game.set_input_enabled(true)
+	_on_state(game.hud_snapshot())
+	learning_transition.present(learning_field,learning_field.target_buttons,learning_field.action_card,"",quiz_resolved,true)
 
 func _show_context_task() -> void:
 	_cancel_deployment_drag()
 	_close_modal(false)
+	live_learning_active=false
+	learning_field.set_live_battle_mode(false)
 	modal_context = "context"
 	context_task_active = true
 	game.set_input_enabled(false)
@@ -2509,8 +3025,8 @@ func _show_context_task() -> void:
 		learning_field.show_hint()
 	if quiz_resolved:
 		learning_field.show_result(quiz_outcome_correct,quiz_feedback_text,quiz_selected_id)
-	_on_state(game.snapshot())
-	learning_transition.present(learning_field,learning_field.target_buttons,learning_field.action_card,"援軍の要請 · 원군 요청",quiz_resolved)
+	_on_state(game.hud_snapshot())
+	learning_transition.present(learning_field,learning_field.target_buttons,learning_field.action_card,"援軍の要請\n원군 요청",quiz_resolved)
 
 func _project_learning_anchor(canonical: Vector2) -> Vector2:
 	if troops_3d.field_size.x<=0 or troops_3d.field_size.y<=0:
@@ -2542,7 +3058,7 @@ func _quiz_hint() -> void:
 		learning_field.show_hint()
 		return
 	quiz_ruby.set_word(quiz_word,36,true)
-	quiz_feedback.text = "힌트: %s  ·  정답이면 약한 전장 지원" % str(quiz_word.get("ko",""))
+	quiz_feedback.text = "힌트: %s  ·  힌트 사용을 복습 기록에 반영합니다." % str(quiz_word.get("ko",""))
 	quiz_hint_button.disabled = true
 
 func _answer_quiz(answer_id: String) -> void:
@@ -2574,14 +3090,14 @@ func _answer_quiz(answer_id: String) -> void:
 	quiz_hint_button.disabled = true
 	if correct:
 		answers_correct += 1
-		var reward: Dictionary=game.grant_learning_reward(quiz_hinted,str(quiz_task.get("id","")),str(quiz_task.get("kind","meaning")))
-		quiz_feedback.text = _learning_reward_message(reward)
+		quiz_feedback.text = "정답입니다. 학습 기록에 반영했습니다."
 		quiz_feedback.add_theme_color_override("font_color",Color("bbdba7"))
 	else:
 		quiz_feedback.text = "뜻은 ‘%s’입니다. 맞춤 복습에 반영했습니다." % str(quiz_word.get("ko",""))
 		quiz_feedback.add_theme_color_override("font_color",Color("e0ba9a"))
 	quiz_feedback_text = quiz_feedback.text
 	quiz_continue_button.text = "전투로 복귀  ›"
+	if post_battle_review_active: quiz_continue_button.text=_post_battle_continue_text()
 	var correct_card: Control = _style_quiz_result()
 	learning_transition.reveal_result(correct_card,quiz_feedback)
 	_announce("correct" if correct else "incorrect",str(quiz_task.get("id",""))+":answer")
@@ -2603,10 +3119,6 @@ func _style_quiz_result() -> Control:
 			button.modulate = Color(.65,.70,.74,.85)
 	return correct_card
 
-func _learning_reward_message(reward: Dictionary) -> String:
-	if not bool(reward.get("ok",false)): return "정답입니다. 이번 전투의 지원을 준비할 수 없습니다."
-	return "정답 · %s 획득%s\n%s 전투 복귀 후 발동합니다." % [str(reward.nameKo)," · 힌트 지원" if bool(reward.get("hinted",false)) else "",str(reward.effectKo)]
-
 func _answer_context(target_id: String) -> void:
 	if not context_task_active or quiz_resolved or quiz_task.is_empty() or not learning_transition.accepts_answers():
 		return
@@ -2618,24 +3130,21 @@ func _answer_context(target_id: String) -> void:
 	quiz_selected_id = target_id
 	quiz_resolved = true
 	answers_total += 1
-	_track_learning_result("context",bool(result.get("correct",false)))
+	var task_kind: String=str(quiz_task.get("kind","context"))
+	_track_learning_result(task_kind,bool(result.get("correct",false)))
 	var correct: bool = bool(result.get("correct",false))
 	quiz_outcome_correct = correct
-	var mission: Dictionary = quiz_task.get("mission",{})
+	var mission: Dictionary = _live_learning_mission() if live_learning_active else quiz_task.get("mission",{})
 	var message: String
 	if correct:
 		answers_correct += 1
-		var location: Dictionary = mission.get("action",{}).get("position",{})
-		var support_anchors: Dictionary = game.config.get("historicalBattlefield",{}).get("learningSupportAnchors",{})
-		location = support_anchors.get(str(mission.get("id",quiz_task.get("id",""))),location)
-		var reward: Dictionary=game.grant_learning_reward(quiz_hinted,str(quiz_task.get("id","")),"context",Vector2(float(location.get("x",0.5)),float(location.get("y",0.5))))
-		message = _learning_reward_message(reward)+"\n"+str(mission.get("successKo","보고를 이해했습니다."))
+		message = "정답입니다. 학습 기록에 반영했습니다."
 	else:
 		var answer_name: String = ""
 		for target in mission.get("targets",[]):
 			if str(target.get("id",""))==str(mission.get("answerId","")):
 				answer_name = str(target.get("label",{}).get("ko",""))
-		message = "요청한 위치는 ‘%s’입니다.\n이 표현을 맞춤 복습에 반영했습니다." % answer_name
+		message = "요청한 위치는 ‘%s’입니다.\n이 표현을 맞춤 복습에 반영했습니다." % answer_name if task_kind=="context" else "뜻은 ‘%s’입니다. 맞춤 복습에 반영했습니다." % str(quiz_word.get("ko",""))
 	learning_field.show_result(correct,message,target_id)
 	quiz_feedback_text = message
 	var correct_card: Control
@@ -2677,7 +3186,9 @@ func _start_gate() -> void:
 	var script = load("res://native/learning_gate.gd")
 	if script==null: return
 	var next_gate: RefCounted = script.new()
-	var started: Dictionary = next_gate.start(current_lesson,id)
+	next_gate.bind_store(progress)
+	var saved: Dictionary=progress.gate_checkpoint(id,str(current_lesson.get("id","")))
+	var started: Dictionary=next_gate.start(current_lesson,id,saved)
 	if not bool(started.get("ok",false)):
 		_toast(str(started.get("errorKo","시험 문항을 준비할 수 없습니다.")))
 		return
@@ -2685,6 +3196,10 @@ func _start_gate() -> void:
 	_cancel_learning_transition()
 	_close_modal(false)
 	learning_field.clear()
+	live_learning_active=false
+	context_task_active=false
+	post_battle_review_active=false
+	learning_field.set_live_battle_mode(false)
 	unlock_gate = next_gate
 	gate_active = true
 	gate_saved = false
@@ -2695,7 +3210,9 @@ func _start_gate() -> void:
 	_show_quiz()
 
 func _apply_gate_answer(result: Dictionary) -> void:
-	if not bool(result.get("accepted",false)): return
+	if not bool(result.get("accepted",false)):
+		if is_instance_valid(quiz_feedback): quiz_feedback.text=str(result.get("errorKo","답안을 확인하지 못했습니다."))
+		return
 	quiz_resolved = true
 	quiz_selected_id = str(result.get("selectedId",quiz_selected_id))
 	gate_correct_choice = str(result.get("correctChoiceId",""))
@@ -2706,7 +3223,8 @@ func _apply_gate_answer(result: Dictionary) -> void:
 	quiz_listen_button.disabled = not _reading_available()
 	var receipt: Dictionary = unlock_gate.snapshot()
 	if bool(receipt.get("passed",false)):
-		gate_saved = progress.record_assessment(unlock_gate)
+		# Gate commits the final answer and unlock in one transaction.
+		gate_saved = progress.map_assessed(str(receipt.get("mapId","")))
 		if not gate_saved:
 			quiz_feedback.text = "전 문항 정답입니다. 저장을 다시 시도해야 다음 전장이 열립니다. " + progress.save_error
 			quiz_continue_button.text = "저장 다시 시도"
@@ -2717,8 +3235,8 @@ func _apply_gate_answer(result: Dictionary) -> void:
 			quiz_feedback.text = "전 문항 정답 · 다음 전장 해금 완료"
 			quiz_continue_button.text = "다음 전장에 출진  ›"
 	elif bool(receipt.get("complete",false)):
-		quiz_feedback.text = "이번 응시는 통과하지 못했습니다. 원문과 뜻을 복습한 뒤 다시 응시하십시오."
-		quiz_continue_button.text = "처음부터 다시 응시"
+		quiz_feedback.text = "정답 %d개는 유지됩니다. 오답·미응답 %d개만 다시 풀어 주십시오." % [int(receipt.get("correctCount",0)),int(receipt.get("count",0))-int(receipt.get("correctCount",0))]
+		quiz_continue_button.text = "오답·미응답 다시 풀기"
 	else:
 		quiz_feedback.text = "정답 · %d / %d 확인했습니다." % [int(receipt.get("correctCount",0)),int(receipt.get("count",0))]
 		quiz_continue_button.text = "다음 문제  ›"
@@ -2739,7 +3257,11 @@ func _continue_gate(exit_requested: bool) -> void:
 		if gate_saved: _leave_gate(true)
 		else: quiz_feedback.text = "진도 저장에 실패했습니다. 저장 다시 시도를 눌러 주십시오. " + progress.save_error
 		return
-	if bool(receipt.get("complete",false)): unlock_gate.retry()
+	if bool(receipt.get("complete",false)):
+		var restarted: Dictionary=unlock_gate.retry()
+		if not bool(restarted.get("ok",false)):
+			quiz_feedback.text=str(restarted.get("errorKo","다시 풀 문제를 준비하지 못했습니다."))
+			return
 	_stop_narration()
 	_cancel_learning_transition()
 	_close_modal(false)
@@ -2766,31 +3288,57 @@ func _leave_gate(open_next: bool) -> void:
 			_toast("시험 기록을 저장했습니다. 다음 전장은 준비 중입니다.")
 
 func _finish_continue_battle() -> void:
+	if post_battle_review_active:
+		if quiz_task.is_empty(): return
+		if not quiz_resolved: lesson_session.skip_task(quiz_task)
+		progress.write_save()
+		quiz_task.clear()
+		quiz_selected_id=""
+		context_task_active=false
+		quiz_resolved=false
+		quiz_feedback_text=""
+		post_battle_review_index+=1
+		_close_modal(false)
+		_show_quiz()
+		return
 	if quiz_task.is_empty() or battle_finished:
 		return
+	var was_live: bool=live_learning_active
 	progress.write_save()
 	if not quiz_task.is_empty() and not quiz_resolved:
 		lesson_session.skip_task(quiz_task)
 	quiz_task.clear()
 	quiz_selected_id = ""
 	context_task_active = false
+	live_learning_active = false
 	quiz_resolved = false
+	quiz_feedback_text = ""
+	quiz_outcome_correct = false
 	learning_field.clear()
+	learning_field.set_live_battle_mode(false)
 	field_clip.show()
 	army_toolbar.show()
 	learning_panel.show()
 	_layout()
 	_close_modal(false)
-	game.continue_wave()
-	_on_state(game.snapshot())
+	if not was_live or game.between_waves: game.continue_wave()
+	_on_state(game.hud_snapshot())
+	if was_live:
+		_on_wave_started({"mapId":current_map.get("id",""),"wave":game.wave})
 
 func _on_battle_finished(result: Dictionary) -> void:
 	_cancel_deployment_drag()
 	_cancel_learning_transition()
+	if live_learning_active:
+		live_learning_active=false
+		context_task_active=false
+		learning_field.clear()
+		learning_field.set_live_battle_mode(false)
 	var already_finished = battle_finished
 	if not already_finished:
 		_stop_narration()
 	battle_finished = true
+	if not already_finished: post_battle_result=result.duplicate(true)
 	var won = last_victory if already_finished else bool(result.get("victory",result.get("won",false)))
 	last_victory = won
 	if not already_finished and battle_audio != null:
@@ -2806,10 +3354,21 @@ func _on_battle_finished(result: Dictionary) -> void:
 	elif not already_finished and not isolated_candidate:
 		progress.write_save()
 	_rebuild_map_list()
+	if not already_finished and _begin_post_battle_review():
+		return
 	_open_modal()
 	modal_context = "result"
-	_modal_label("勝利  ·  방어 성공" if won else "撤退  ·  거점 함락",30,"e5ca8d")
+	var advance_result: Dictionary=result.get("advanceMission",state.get("advanceMission",{}))
+	var advance_stage: bool=str(current_map.get("id",""))=="basic-farm"
+	if advance_stage:
+		_translated_label(modal_body,"任務達成" if won else "任務失敗","にんむたっせい" if won else "にんむしっぱい","진격 성공" if won else "진격 실패",30,"e5ca8d")
+	else:
+		_translated_label(modal_body,"勝利" if won else "撤退","しょうり" if won else "てったい","방어 성공" if won else "거점 함락",30,"e5ca8d")
 	_modal_label(str(current_map.title),23)
+	if advance_stage and not advance_result.is_empty():
+		var mission_result: String="목표 수비대 %d명 남음 · 후속 아군 %d/%d 도착" % [int(advance_result.get("guardsRemaining",0)),int(advance_result.get("followupArrived",0)),int(advance_result.get("followupRequired",2))]
+		if not won and not str(advance_result.get("failureReasonKo","")).is_empty(): mission_result=str(advance_result.failureReasonKo)+"\n"+mission_result
+		_modal_label(mission_result,20,"d9c79b").name="AdvanceMissionResult"
 	if won and not current_story.is_empty():
 		_modal_label(str(current_story.get("outroKo","")),22,"d9c79b").name="StoryAftermath"
 		if not str(current_story.get("nextStageId","")).is_empty():
@@ -2817,26 +3376,34 @@ func _on_battle_finished(result: Dictionary) -> void:
 		_modal_label("역사 기록 · "+str(current_story.get("historyOutcomeKo","")),20,"aebfcc")
 	if won and int(current_map.get("stageNumber",0))==40 and progress.campaign_unified():
 		var ending: Dictionary = campaign_story.get("ending",{})
-		_modal_label(str(ending.get("titleKo","天下統一 · 전국 통일")),36,"e5ca8d").name="UnificationEnding"
+		_modal_label(str(ending.get("titleKo","天下統一\n전국 통일")),36,"e5ca8d").name="UnificationEnding"
 		_modal_label(str(ending.get("textKo","40개 전장을 지나 전국 통일을 완수했습니다.")),22,"d9c79b")
 	var battle_elapsed: float = float(result.get("battleElapsedSeconds",result.get("elapsed",state.get("battleElapsedSeconds",state.get("elapsed",0)))))
-	_modal_label("%d분 모드 · 전투 시간 %s / %s" % [active_battle_minutes,_battle_clock_text(battle_elapsed),_battle_clock_text(active_battle_minutes*60)],20,"d9c79b").name = "BattleModeResult"
-	_modal_label("이번 전투에서 만난 단어  %d / %d\n보급 임무  %d / %d 정답" % [seen_this_run.size(),learning_words.size(),answers_correct,answers_total],20)
+	var cycle_count: int=int(result.get("totalWaves",state.get("totalWaves",_attack_cycle_count(current_map))))
+	var cleared_cycles: int=int(result.get("completedWave",state.get("completedWave",0)))
+	var result_clock: String="공격 %d/%d회 완료 · 경과 %s" % [cleared_cycles,cycle_count,_battle_clock_text(battle_elapsed)]
+	_modal_label(result_clock,20,"d9c79b").name = "BattleModeResult"
+	_modal_label("이번 전투에서 만난 단어  %d / %d\n전투 후 복습  %d / %d 정답" % [seen_this_run.size(),learning_words.size(),answers_correct,answers_total],20)
 	var categories: Dictionary = {"meaning":"단어 뜻","sentence":"문장 이해","context":"전장 보고","listening":"듣기"}
 	var lines: Array[String] = []
 	for kind in categories:
 		var counts: Dictionary = learning_results.get(kind,{"correct":0,"attempts":0})
 		lines.append("%s  %d / %d" % [categories[kind],int(counts.correct),int(counts.attempts)])
-	_modal_label("이번 전투의 확인 기록\n"+"  ·  ".join(lines),20,"c1d0b5")
+	_modal_label("전투 후 학습 기록\n"+"  ·  ".join(lines),20,"c1d0b5")
 	_modal_label("시간을 두고 뜻과 문장을 확인한 단어  %d / 900" % progress.mastered_count(),20,"d9c79b")
 	if won:
-		_modal_label("軍資金 · 군자금 +%d / 보유 %d" % [int(last_campaign_reward.get("currency",0)),int(progress.data.army.currency)],21,"e5c778")
+		_modal_label("軍資金\n군자금 +%d / 보유 %d" % [int(last_campaign_reward.get("currency",0)),int(progress.data.army.currency)],21,"e5c778")
 		for unit_id in last_campaign_reward.get("unlocked",[]):
-			_modal_label("解禁 · %s 해금! 다음 출진부터 소집할 수 있습니다." % str(progress.unit_definition(str(unit_id)).name),17,"b9d4ab")
-			var training_button = _button(modal_body,"演武 · %s 훈련 던전" % str(progress.unit_definition(str(unit_id)).name),_show_unit_training.bind(str(unit_id)))
+			_modal_label("解禁\n%s 해금! 다음 출진부터 소집할 수 있습니다." % str(progress.unit_definition(str(unit_id)).name),17,"b9d4ab")
+			var training_button = _button(modal_body,"演武\n%s 훈련 던전" % str(progress.unit_definition(str(unit_id)).name),_show_unit_training.bind(str(unit_id)))
 			training_button.custom_minimum_size.y = 44
 			training_button.name = "FirstTraining_%s" % str(unit_id)
 	_modal_label("오답·힌트를 쓴 표현은 맞춤 복습에 반영됩니다.\n다른 문장과 시간을 두고 확인한 기록을 도감에서 볼 수 있습니다.",20,"acbdac")
+	var retry_count: int=_post_battle_retry_ids().size()
+	if retry_count>0:
+		var review_retry: Button=_button(modal_body,"오답·미응답 %d개 다시 풀기" % retry_count,_retry_post_battle_review)
+		review_retry.name="RetryUnresolvedReview"
+		review_retry.custom_minimum_size.y=46
 	var retry = _button(modal_body,"같은 지도 다시 출진",_retry_battle)
 	retry.custom_minimum_size.y = 46
 	var next_stage: Dictionary = _next_registered_stage()
@@ -2853,15 +3420,14 @@ func _on_battle_finished(result: Dictionary) -> void:
 		_modal_label("다음 전장은 준비 중입니다. 현재 전장은 다시 출진할 수 있습니다.",20,"acbdac")
 	var study = _button(modal_body,"학습 도감 열기",_show_study)
 	study.custom_minimum_size.y = 42
-	_button(modal_body,"戦場選択 · 다른 전장 선택",_show_catalog).custom_minimum_size.y = 42
-	_button(modal_body,"兵営 · 병영에서 영구 훈련",func(): _show_home(); _show_barracks()).custom_minimum_size.y = 42
+	_button(modal_body,"戦場選択\n다른 전장 선택",_show_catalog).custom_minimum_size.y = 42
+	_button(modal_body,"兵営\n병영에서 영구 훈련",func(): _show_home(); _show_barracks()).custom_minimum_size.y = 42
 	_layout_narration_subtitle()
-	if not already_finished:
-		if battle_narrator != null:
-			battle_narrator.set_paused(false)
-		if battle_announcer != null:
-			battle_announcer.set_paused(false)
-		_narrate("victory" if won else "defeat","result")
+	if battle_narrator != null:
+		battle_narrator.set_paused(false)
+	if battle_announcer != null:
+		battle_announcer.set_paused(false)
+	_narrate("victory" if won else "defeat","result")
 
 func _retry_battle() -> void:
 	if battle_minutes!=active_battle_minutes:
@@ -2914,12 +3480,12 @@ func _close_modal(resume: bool = true) -> void:
 		modal.queue_free()
 		modal = null
 	if game != null:
-		game.set_input_enabled(not context_task_active and (learning_transition == null or not learning_transition.is_busy()))
+		game.set_input_enabled((not context_task_active or live_learning_active) and (live_learning_active or learning_transition == null or not learning_transition.is_busy()))
 	if resume and resume_after_modal:
 		game.pause_battle()
 	resume_after_modal = false
 	modal_context = ""
-	_set_intermission_presentation(context_task_active)
+	_set_intermission_presentation(_learning_covers_battle())
 
 func _show_study() -> void:
 	if maps.is_empty() and not _candidate_display_allowed(): return
@@ -2930,6 +3496,7 @@ func _show_study() -> void:
 		lesson_session.set_hinted(str(quiz_task.get("id","")))
 	if context_task_active:
 		context_task_active = false
+		live_learning_active = false
 		learning_field.suspend_choice()
 	var was_active = battle_started and not battle_finished and modal == null and not bool(state.get("paused",false))
 	if was_active:
@@ -2937,7 +3504,7 @@ func _show_study() -> void:
 	_open_modal()
 	modal_context = "study"
 	resume_after_modal = was_active
-	_modal_label("言葉の記録  ·  학습 도감",27,"ddc38b")
+	_translated_label(modal_body,"言葉の記録","ことばのきろく","학습 도감",27,"ddc38b")
 	var source_lesson: Dictionary = current_lesson if catalog_study_lesson.is_empty() else catalog_study_lesson
 	var source_words: Array = learning_words if catalog_study_lesson.is_empty() else catalog_study_words
 	var source_plan: Dictionary = {}
@@ -2947,21 +3514,23 @@ func _show_study() -> void:
 			break
 	_modal_label((str(current_map.title) if catalog_study_title.is_empty() else catalog_study_title)+"\n상황 표현 · 단어 · 읽기 · 뜻 · 예문",14,"acbdab")
 	_modal_label(str(source_plan.get("goalKo","")),20,"d8c595")
-	_add_grammar_steps(modal_body,source_lesson)
-	_modal_label("뜻 · 문장 · 듣기를 따로 확인합니다.\n시간을 두고 다른 문장에서도 이해한 단어를 기억 확인으로 표시합니다.",20,"bbc7b3")
 	var search = LineEdit.new()
 	search.placeholder_text = "일본어 · 히라가나 · 한국어 검색"
 	search.custom_minimum_size.y = 41
 	modal_body.add_child(search)
 	var scroll = ScrollContainer.new()
-	scroll.custom_minimum_size.y = 260
+	scroll.custom_minimum_size.y = 120
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	modal_body.add_child(scroll)
 	var list = VBoxContainer.new()
 	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	list.add_theme_constant_override("separation",9)
-	scroll.add_child(list)
+	var study_content: VBoxContainer=VBoxContainer.new()
+	study_content.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	scroll.add_child(study_content)
+	_add_grammar_steps(study_content,source_lesson)
+	study_content.add_child(list)
 	var fill = func(query: String):
 		for child in list.get_children():
 			child.queue_free()
@@ -3016,8 +3585,13 @@ func _show_study() -> void:
 				entry.add_child(text)
 	search.text_changed.connect(fill)
 	fill.call("")
-	var close = _button(modal_body,"図鑑選択 · 도감 목록으로" if not catalog_study_lesson.is_empty() else "戦場へ · 전장으로 돌아가기",_return_from_study)
-	close.custom_minimum_size.y = 43
+	modal_footer=HBoxContainer.new()
+	modal_footer.name="StudyReturnFooter"
+	modal_card.add_child(modal_footer)
+	var close = _button(modal_footer,"図鑑選択\n도감 목록으로" if not catalog_study_lesson.is_empty() else "戦場へ\n전장으로 돌아가기",_return_from_study)
+	close.custom_minimum_size.y = 66
+	close.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	_layout()
 
 func _learning_status_line(word_id: String) -> String:
 	var meaning: Dictionary = progress.learning_status(word_id,"meaning")
@@ -3038,7 +3612,7 @@ func _return_from_study() -> void:
 		return
 	var return_to_result = battle_finished
 	var return_to_briefing = not battle_started
-	var return_to_quiz = bool(state.get("betweenWaves",state.get("waiting",false)))
+	var return_to_quiz = bool(state.get("betweenWaves",state.get("waiting",false))) or not quiz_task.is_empty()
 	_close_modal()
 	if return_to_result:
 		_on_battle_finished({"victory":bool(state.get("victory",false))})
@@ -3116,6 +3690,9 @@ func _play_mission_briefing() -> bool:
 
 func _on_reading_started(text: String, _cached: bool) -> void:
 	if text!=briefing_expected_text or text.is_empty(): return
+	if _learning_screen_active():
+		narration_subtitle.hide()
+		return
 	var caption: Dictionary = {"jp":text,"reading":str(current_story.get("briefingReading","")),"parts":current_story.get("briefingParts",[]),"ko":str(current_story.get("briefingKo",""))}
 	narration_caption_remaining = _caption_dwell_seconds(caption,10.0)
 	narration_subtitle.set_word(caption,26,true)
@@ -3203,6 +3780,9 @@ func _narrate(event_key: String, event_id: String) -> bool:
 	return battle_narrator.enqueue(event_key,{"mapId":str(current_map.get("id","")),"battleId":narration_battle_id,"eventId":narration_battle_id+":"+event_id})
 
 func _on_narration_started(caption: Dictionary) -> void:
+	if _learning_screen_active():
+		narration_subtitle.hide()
+		return
 	narration_caption_remaining = _caption_dwell_seconds(caption,7.0)
 	narration_subtitle.set_word(caption,26,true)
 	_layout_narration_subtitle()
@@ -3222,6 +3802,10 @@ func _announce(event_key: String, event_id: String) -> bool:
 	return battle_announcer.enqueue(event_key,{"mapId":str(current_map.get("id","")),"battleId":narration_battle_id,"eventId":narration_battle_id+":"+event_id})
 
 func _on_announcement_started(caption: Dictionary) -> void:
+	if _learning_screen_active():
+		announcement_subtitle.hide()
+		_sync_announcement_reading()
+		return
 	announcement_caption_remaining = _caption_dwell_seconds(caption,4.5)
 	announcement_subtitle.set_word(caption,26,true)
 	_layout_announcement_subtitle()
@@ -3347,17 +3931,15 @@ func _toast(message: String) -> void:
 	toast_label.text = message
 	toast_label.call("refresh_ruby")
 	toast_clock = 4.0
-	toast_label.visible = learning_field == null or not learning_field.report_card.visible or not progress.save_error.is_empty()
-	if not progress.save_error.is_empty():
-		toast_label.position = Vector2(game.field_rect.position.x+14,game.field_rect.end.y-144)
-		toast_label.size.x = game.field_rect.size.x-200
+	toast_label.visible = live_learning_active or learning_field == null or not learning_field.report_card.visible or not progress.save_error.is_empty()
+	_layout_battle_subtitles(true)
 
 func _input(event: InputEvent) -> void:
 	if _handle_deployment_input(event):
 		get_viewport().set_input_as_handled()
 		return
 	if unit_training!=null and unit_training.visible: return
-	if learning_transition != null and learning_transition.is_busy() and ui.visible and not front_end.visible:
+	if learning_transition != null and learning_transition.is_busy() and not live_learning_active and ui.visible and not front_end.visible:
 		if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_ESCAPE:
 			_continue_battle(true)
 		if event is InputEventKey or event is InputEventMouseButton or event is InputEventScreenTouch or event is InputEventJoypadButton:
@@ -3368,7 +3950,7 @@ func _input(event: InputEvent) -> void:
 		return
 	if barracks != null and barracks.visible:
 		return
-	if context_task_active:
+	if context_task_active and not live_learning_active:
 		return
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_SPACE:
 		if front_end != null and not front_end.visible and modal == null and battle_started and not battle_finished:
@@ -3388,13 +3970,26 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		if event.keycode==KEY_ESCAPE:
 			get_viewport().set_input_as_handled()
 			_continue_battle()
-		elif event.keycode in [KEY_1,KEY_2,KEY_3] and not quiz_resolved:
+			return
+		elif event.keycode in [KEY_1,KEY_2,KEY_3,KEY_4] and not quiz_resolved:
 			get_viewport().set_input_as_handled()
 			var index: int = event.keycode-KEY_1
 			if index<learning_field.target_buttons.size():
 				learning_field.target_buttons[index].pressed.emit()
-		return
+			return
+		elif live_learning_active and quiz_resolved and event.keycode in [KEY_ENTER,KEY_KP_ENTER]:
+			get_viewport().set_input_as_handled()
+			_continue_battle()
+			return
+		if not live_learning_active: return
 	if front_end.visible:
+		if event.keycode==KEY_ESCAPE and front_end.close_detail():
+			get_viewport().set_input_as_handled()
+			return
+		if event.keycode in [KEY_ENTER,KEY_KP_ENTER] and front_end.view == "home":
+			get_viewport().set_input_as_handled()
+			_quick_start_painted()
+			return
 		if event.keycode == KEY_ESCAPE and front_end.view != "home":
 			if front_end.battle_active:
 				_resume_from_navigation()
@@ -3402,6 +3997,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				front_end.show_home()
 		return
 	if modal != null:
+		if modal_context=="briefing" and event.keycode in [KEY_ENTER,KEY_KP_ENTER]:
+			get_viewport().set_input_as_handled()
+			_begin_battle()
+			return
 		if modal_context=="quiz":
 			if event.keycode==KEY_ESCAPE:
 				get_viewport().set_input_as_handled()
@@ -3417,12 +4016,14 @@ func _unhandled_key_input(event: InputEvent) -> void:
 				_return_from_study()
 			elif modal_context == "pause":
 				_close_modal()
+			elif modal_context == "pause_audio":
+				_return_to_pause_menu()
 			elif modal_context in ["briefing","result"]:
 				_show_catalog()
 		return
 	match event.keycode:
 		KEY_ESCAPE:
-			if not game.snapshot().get("pending",{}).is_empty():
+			if not game.pending.is_empty():
 				game.cancel_recruit()
 			elif battle_started and not battle_finished:
 				_show_pause_menu()
@@ -3436,29 +4037,78 @@ func _show_pause_menu() -> void:
 	_open_modal()
 	modal_context = "pause"
 	resume_after_modal = was_running
-	_modal_label("作戦会議 · 작전 메뉴",29,"e1e6e9")
-	_modal_label("일시 정지",20,"9cabb8")
-	_button(modal_body,"続行 · 전투 계속",func(): _close_modal()).custom_minimum_size.y = 49
-	_button(modal_body,"言葉図鑑 · 학습 도감",func(): _close_modal(); _show_study()).custom_minimum_size.y = 49
-	_button(modal_body,"戦場選択 · 다른 전장 선택",_show_catalog).custom_minimum_size.y = 49
-	_button(modal_body,"本陣へ · 시작 화면",_show_home).custom_minimum_size.y = 49
-	var audio = _button(modal_body,"音楽 · 배경음악",_toggle_music)
+	_translated_label(modal_body,"作戦会議","さくせんかいぎ","작전 메뉴",29,"e1e6e9")
+	var actions: GridContainer=GridContainer.new()
+	actions.name="PauseActions"
+	actions.columns=2
+	actions.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	actions.add_theme_constant_override("h_separation",16)
+	actions.add_theme_constant_override("v_separation",14)
+	modal_body.add_child(actions)
+	for item in [
+		{"name":"PauseResume","text":"続行\n전투 계속","action":func(): _close_modal()},
+		{"name":"PauseStudy","text":"言葉図鑑\n학습 도감","action":func(): _close_modal(); _show_study()},
+		{"name":"PauseCatalog","text":"戦場選択\n전장 선택","action":_show_catalog},
+		{"name":"PauseHome","text":"本陣へ\n시작 화면","action":_show_home}
+	]:
+		var button: Button=_button(actions,str(item.text),item.action)
+		button.name=str(item.name)
+		_compact_button(button)
+		if str(item.name)=="PauseCatalog":
+			button.set("ruby_context_words",[{"jp":"戦場選択","reading":"せんじょうせんたく","parts":[{"text":"戦場","reading":"せんじょう"},{"text":"選択","reading":"せんたく"}]}])
+		button.custom_minimum_size=Vector2(0,100)
+		button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	var settings: Button=_button(modal_body,"音量\n음량·음성 설정",_show_pause_audio)
+	settings.name="PauseAudioSettings"
+	_compact_button(settings)
+	settings.custom_minimum_size.y=92
+	_layout()
+
+func _return_to_pause_menu() -> void:
+	var resume_later: bool=resume_after_modal
+	_show_pause_menu()
+	resume_after_modal=resume_later
+
+func _show_pause_audio() -> void:
+	var resume_later: bool=resume_after_modal
+	_open_modal()
+	modal_context="pause_audio"
+	resume_after_modal=resume_later
+	_translated_label(modal_body,"音量","おんりょう","음량·음성 설정",28)
+	var switches: HBoxContainer=HBoxContainer.new()
+	switches.add_theme_constant_override("separation",14)
+	modal_body.add_child(switches)
+	var audio = _button(switches,"音楽\n배경음악",_toggle_music)
+	_compact_button(audio)
 	audio.toggle_mode = true
 	audio.button_pressed = bool(progress.data.settings.get("music",true))
 	audio.tooltip_text = music_button.tooltip_text
-	audio.custom_minimum_size.y = 42
-	var effects_toggle = _button(modal_body,"効果音 · 전투 효과음",_toggle_effects)
+	audio.custom_minimum_size.y = 88
+	audio.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	var effects_toggle = _button(switches,"効果音\n전투 효과음",_toggle_effects)
+	_compact_button(effects_toggle)
 	effects_toggle.toggle_mode = true
 	effects_toggle.button_pressed = bool(progress.data.settings.get("effects",true))
-	effects_toggle.custom_minimum_size.y = 42
-	var narration = _button(modal_body,"音声 · 일본어 음성",_toggle_voice)
+	effects_toggle.custom_minimum_size.y = 88
+	effects_toggle.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	var narration = _button(switches,"音声\n일본어 음성",_toggle_voice)
+	_compact_button(narration)
 	narration.toggle_mode = true
 	narration.button_pressed = bool(progress.data.settings.get("voice",true))
-	narration.custom_minimum_size.y = 42
+	narration.custom_minimum_size.y = 88
+	narration.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	var volumes = VolumeControls.new()
 	volumes.configure(progress.data.settings)
+	# The detail page already has its translated audio heading.
+	volumes.get_node("VolumeHeading").hide()
 	volumes.volume_changed.connect(_set_audio_volume)
 	modal_body.add_child(volumes)
+	var back: Button=_button(modal_body,"戻る\n작전 메뉴로",_return_to_pause_menu)
+	back.name="PauseAudioBack"
+	_compact_button(back)
+	back.set("ruby_context_words",[{"jp":"戻る","reading":"もどる","parts":[{"text":"戻","reading":"もど"},{"text":"る","reading":""}]}])
+	back.custom_minimum_size.y=80
+	_layout()
 
 func _notification(what: int) -> void:
 	if what in [NOTIFICATION_APPLICATION_FOCUS_OUT,NOTIFICATION_WM_WINDOW_FOCUS_OUT]:

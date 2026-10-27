@@ -16,11 +16,15 @@ var departure_delay: float=0.0
 
 func bind(value: Node2D) -> void: battle=value
 func reset() -> void:
-	cease()
+	cease(false)
 	claims.clear()
 	serial=0
 
-func cease() -> void:
+func cease(publish: bool = true) -> void:
+	if publish and is_instance_valid(battle):
+		for job in jobs:
+			job.receipt["reason"]="battle_ended"
+			_publish(job,"complete" if bool(job.receipt.get("actualDelivered",false)) else "failed")
 	if is_instance_valid(battle):
 		for unit in battle.units:
 			if mobility_bases.has(int(unit.id)): unit.mobilityFactor=mobility_bases[int(unit.id)]
@@ -80,10 +84,12 @@ func claim(attempt_id: String, hinted: bool, skill: String, anchor: Vector2=Vect
 	if claims.has(attempt_id):
 		var existing: Dictionary=claims[attempt_id].duplicate(true)
 		existing["duplicate"]=true
+		existing["newlyDeliveredCount"]=0
+		battle._event("learning-reward-receipt","이미 처리한 지원 요청입니다.",{"receipt":existing,"receiptPhase":"duplicate"})
 		return existing
-	if attempt_id.strip_edges().is_empty() or not is_instance_valid(battle) or battle.config.is_empty() or not battle.running or battle.finished or battle.battle_closed: return {"ok":false,"reason":"battle_inactive"}
+	if attempt_id.strip_edges().is_empty() or not is_instance_valid(battle) or battle.config.is_empty() or not battle.running or battle.finished or battle.battle_closed: return _failure_receipt(attempt_id,"battle_inactive")
 	var base: Dictionary=battle.ground_combat.select_march_base()
-	if base.is_empty(): return {"ok":false,"reason":"no_safe_front"}
+	if base.is_empty(): return _failure_receipt(attempt_id,"no_safe_front")
 	var path_index: int=int(base.pathIndex)
 	if anchor.is_finite() and anchor.x>=0 and anchor.x<=1 and anchor.y>=0 and anchor.y<=1:
 		var nearest: float=INF
@@ -93,18 +99,47 @@ func claim(attempt_id: String, hinted: bool, skill: String, anchor: Vector2=Vect
 				var offset: float=battle.ground_combat.route_point(index,projection).distance_squared_to(anchor)
 				if offset<nearest: nearest=offset;path_index=index
 		base=battle.ground_combat.select_march_base(path_index)
-		if base.is_empty(): return {"ok":false,"reason":"no_safe_front"}
+		if base.is_empty(): return _failure_receipt(attempt_id,"no_safe_front")
 	var pool: Array=eligible(path_index)
 	# A separate draw does not perturb the enemy-spawn RNG or get rerolled on replay.
 	var reward_rng: RandomNumberGenerator=RandomNumberGenerator.new()
 	reward_rng.seed=absi((str(battle.config.get("id",""))+":"+attempt_id).hash())
 	var kind: String=str(pool[reward_rng.randi_range(0,pool.size()-1)])
 	serial+=1
-	var receipt: Dictionary={"ok":true,"attemptId":attempt_id,"kind":kind,"nameKo":DEFINITIONS[kind].nameKo,"effectKo":DEFINITIONS[kind].effectKo,"hinted":hinted,"strength":strength(hinted,skill),"pathIndex":path_index,"state":"queued","serial":serial}
+	var receipt: Dictionary={"ok":true,"attemptId":attempt_id,"receiptId":"%d:%d" % [battle.battle_generation,serial],"battleGeneration":int(battle.battle_generation),"kind":kind,"nameKo":DEFINITIONS[kind].nameKo,"effectKo":DEFINITIONS[kind].effectKo,"hinted":hinted,"strength":strength(hinted,skill),"pathIndex":path_index,"state":"queued","serial":serial,"rewardCategory":"effect","resourceDelta":{"gold":0},"permanentTroopCount":0,"plannedCount":3 if kind in ["archer_cover","rockfall","mountain_matchlocks"] else 1,"deliveredCount":0,"actualDelivered":false,"affectedActorIds":[],"destination":{"kind":"common_base_supply","pathIndex":path_index,"pathId":str(battle.paths[path_index].get("id","")),"position":battle._normalized_position(base.position),"labelKo":"공통 기지 보급점"}}
 	if anchor.is_finite() and anchor.x>=0 and anchor.x<=1 and anchor.y>=0 and anchor.y<=1: receipt["requestedAnchor"]={"x":anchor.x,"y":anchor.y}
 	claims[attempt_id]=receipt.duplicate(true)
-	jobs.append({"receipt":receipt.duplicate(true),"age":0.0,"started":false,"released":false,"origin":base.position,"terrain":terrain_plan(path_index),"duration":(4.5 if hinted else 8.0) if kind=="march_drum" else 4.0})
+	var job: Dictionary={"receipt":receipt.duplicate(true),"age":0.0,"started":false,"released":false,"origin":base.position,"terrain":terrain_plan(path_index),"duration":(4.5 if hinted else 8.0) if kind=="march_drum" else 4.0}
+	jobs.append(job)
+	_publish(job,"queued")
 	return receipt
+
+func _failure_receipt(attempt_id: String, reason: String) -> Dictionary:
+	var receipt: Dictionary={"ok":false,"attemptId":attempt_id,"state":"failed","reason":reason,"actualDelivered":false,"deliveredCount":0,"resourceDelta":{"gold":0},"permanentTroopCount":0}
+	if is_instance_valid(battle): battle._event("learning-reward-receipt","지원 요청을 전달하지 못했습니다.",{"receipt":receipt.duplicate(true),"receiptPhase":"failed"})
+	return receipt
+
+func _publish(job: Dictionary, state: String) -> void:
+	var receipt: Dictionary=job.receipt
+	receipt.state=state
+	receipt["accepted"]=true
+	receipt["ok"]=state!="failed"
+	receipt["duplicate"]=false
+	claims[str(receipt.attemptId)]=receipt.duplicate(true)
+	var message: String=str(receipt.nameKo)+(" · 지원 대기" if state=="queued" else " · 지원 시작" if state=="active" else " · 실제 지원 전달" if state=="delivered" else " · 지원 완료" if state=="complete" else " · 지원 미전달")
+	battle._event("learning-reward-receipt",message,{"receipt":receipt.duplicate(true),"receiptPhase":state})
+
+func _delivered(job: Dictionary, count: int, ids: Array) -> void:
+	if count<=0 or bool(job.receipt.get("actualDelivered",false)): return
+	job.receipt["actualDelivered"]=true
+	job.receipt["deliveredCount"]=count
+	job.receipt["countUnit"]="projectiles_launched" if str(job.receipt.kind) in ["archer_cover","mountain_matchlocks"] else "affected_troops" if str(job.receipt.kind)=="march_drum" else "targets_hit" if str(job.receipt.kind)=="rockfall" else "departure_delay_applied"
+	job.receipt["affectedActorIds"]=ids.duplicate()
+	job.receipt["deliveredAt"]=float(battle.elapsed)
+	_publish(job,"delivered")
+
+func receipt_snapshot() -> Array:
+	return claims.values().duplicate(true)
 
 func _targets(path_index: int, origin: Vector2, limit: int, max_range: float, land_only: bool) -> Array:
 	var found: Array=[]
@@ -116,21 +151,30 @@ func _targets(path_index: int, origin: Vector2, limit: int, max_range: float, la
 	if found.size()>limit: found.resize(limit)
 	return found
 
-func _volley(job: Dictionary, type_name: String, origin: Vector2, damage: float, max_range: float) -> void:
+func _volley(job: Dictionary, type_name: String, origin: Vector2, damage: float, max_range: float) -> int:
 	var receipt: Dictionary=job.receipt
-	var targets: Array=_targets(int(receipt.pathIndex),origin,3,max_range,type_name=="gunner")
-	if targets.is_empty(): return
+	var targets: Array=_targets(int(receipt.pathIndex),origin,36,max_range,type_name=="gunner")
+	var launched: int=0
+	var ids: Array=[]
+	var generation: int=int(battle.battle_generation)
 	for member in range(3):
 		var position: Vector2=job.terrain.firing[member] if type_name=="gunner" else origin
-		var member_targets: Array=_targets(int(receipt.pathIndex),position,3,max_range,true) if type_name=="gunner" else targets
+		var member_targets: Array=_targets(int(receipt.pathIndex),position,36,max_range,true) if type_name=="gunner" else targets
+		var source: Dictionary={"id":-20000-int(receipt.serial)*3-member,"type":type_name,"position":position,"campaignLevel":1,"learningSupport":true,"emplacementShooter":type_name=="gunner"}
+		member_targets=member_targets.filter(func(enemy: Dictionary) -> bool: return battle.can_friendly_target_enemy(source,enemy))
 		if member_targets.is_empty(): continue
 		var enemy: Dictionary=member_targets[member%member_targets.size()]
-		var source: Dictionary={"id":-20000-int(receipt.serial)*3-member,"type":type_name,"position":position,"campaignLevel":1,"learningSupport":true}
-		battle.projectiles.append({"position":position,"targetId":int(enemy.id),"targetPos":enemy.position,"damage":damage*float(receipt.strength),"type":type_name,"sourceId":int(source.id),"sourcePosition":position,"speed":2.7 if type_name=="gunner" else 1.1,"age":0.0,"learningSupport":true})
-		battle._combat_event("shot",source,enemy,{"learningSupport":true})
+		battle.projectiles.append({"position":position,"targetId":int(enemy.id),"targetPos":enemy.position,"damage":damage*float(receipt.strength),"type":type_name,"sourceId":int(source.id),"sourcePosition":position,"sourceUnit":source,"emplacementShooter":bool(source.emplacementShooter),"speed":2.7 if type_name=="gunner" else 1.1,"age":0.0,"learningSupport":true,"rewardReceiptId":str(receipt.receiptId)})
+		launched+=1
+		if not ids.has(int(enemy.id)): ids.append(int(enemy.id))
+		battle._combat_event("shot",source,enemy,{"learningSupport":true,"rewardReceiptId":str(receipt.receiptId)})
+		if generation!=int(battle.battle_generation) or battle.finished or battle.battle_closed: return launched
+	job["deliveredTargetIds"]=ids
+	return launched
 
 func step(delta: float) -> void:
 	if not is_instance_valid(battle) or not battle.running or battle.paused or battle.between_waves or battle.finished or battle.battle_closed: return
+	var generation: int=int(battle.battle_generation)
 	departure_delay=maxf(0.0,departure_delay-delta)
 	var active: Array=[]
 	for job in jobs:
@@ -140,46 +184,67 @@ func step(delta: float) -> void:
 			if kind in ["archer_cover","rockfall","mountain_matchlocks"]:
 				var origin: Vector2=job.origin if kind=="archer_cover" else job.terrain.fire
 				var max_range: float=1.45 if kind=="archer_cover" else .055 if kind=="rockfall" else .28
-				if _targets(int(receipt.pathIndex),origin,1,max_range,kind!="archer_cover").is_empty():
+				var candidates: Array=_targets(int(receipt.pathIndex),origin,1 if kind=="rockfall" else 36,max_range,kind!="archer_cover")
+				if kind!="rockfall": candidates=candidates.filter(func(enemy: Dictionary) -> bool: return battle.can_friendly_target_enemy({"type":"archer" if kind=="archer_cover" else "gunner","emplacementShooter":true},enemy))
+				if candidates.is_empty():
 					job["waitClock"]=float(job.get("waitClock",0.0))+delta
 					if float(job.waitClock)<20.0: active.append(job)
-					else: claims[str(receipt.attemptId)].state="complete"
+					else: receipt["reason"]="no_eligible_target";_publish(job,"failed")
+					if generation!=int(battle.battle_generation): return
 					continue
 			job.started=true
-			claims[str(receipt.attemptId)].state="active"
-			battle._event("learning-support",str(receipt.nameKo)+" · 지원 시작",{"supportKind":kind,"pathIndex":int(receipt.pathIndex)})
+			_publish(job,"active")
+			if generation!=int(battle.battle_generation) or battle.finished or battle.battle_closed: return
 			if kind=="supply_disruption":
+				var before: float=departure_delay
 				departure_delay=maxf(departure_delay,2.8*float(receipt.strength))
+				receipt["delaySeconds"]=maxf(0.0,departure_delay-before)
+				_delivered(job,1 if departure_delay>before else 0,[])
 				job.released=true
 		job.age=float(job.age)+maxf(0.0,delta)
 		if kind=="archer_cover" and not bool(job.released):
-			var candidates: Array=_targets(int(receipt.pathIndex),job.origin,1,1.45,false)
-			if not candidates.is_empty():
-				_volley(job,"archer",job.origin,14.0,1.45)
-				job.released=true
+			job.released=true
+			var count: int=_volley(job,"archer",job.origin,14.0,1.45)
+			if generation!=int(battle.battle_generation): return
+			_delivered(job,count,job.get("deliveredTargetIds",[]))
 		if kind=="mountain_matchlocks" and float(job.age)>=.80 and not bool(job.released):
-			_volley(job,"gunner",job.terrain.fire,20.0,.28)
 			job.released=true
+			var count: int=_volley(job,"gunner",job.terrain.fire,20.0,.28)
+			if generation!=int(battle.battle_generation): return
+			_delivered(job,count,job.get("deliveredTargetIds",[]))
 		if kind=="rockfall" and float(job.age)>=.75 and not bool(job.released):
-			for enemy in _targets(int(receipt.pathIndex),job.terrain.fire,3,.055,true):
-				battle._damage_enemy(enemy,30.0*float(receipt.strength),"rockfall",{"id":-30000-int(receipt.serial),"type":"rockfall","position":job.terrain.origin,"learningSupport":true})
 			job.released=true
+			var ids: Array=[]
+			for enemy in _targets(int(receipt.pathIndex),job.terrain.fire,3,.055,true):
+				var damage: float=battle._damage_enemy(enemy,30.0*float(receipt.strength),"rockfall",{"id":-30000-int(receipt.serial),"type":"rockfall","position":job.terrain.origin,"learningSupport":true})
+				if generation!=int(battle.battle_generation): return
+				if damage>0.0: ids.append(int(enemy.id))
+			_delivered(job,ids.size(),ids)
+		if kind=="march_drum":
+			var affected: Array=[]
+			for unit in battle.units:
+				if float(unit.get("hp",0))<=0 or not battle.ground_combat.is_marching(str(unit.type)): continue
+				var id: int=int(unit.id)
+				if not mobility_bases.has(id): mobility_bases[id]=float(unit.get("mobilityFactor",1.0))
+				unit.mobilityFactor=maxf(float(unit.mobilityFactor),float(mobility_bases[id])*(1.0+.14*float(receipt.strength)))
+				affected.append(id)
+			_delivered(job,affected.size(),affected)
+		if generation!=int(battle.battle_generation) or battle.finished or battle.battle_closed: return
 		var duration: float=1.65 if kind=="mountain_matchlocks" else 1.05 if kind=="rockfall" else float(job.duration)
 		if float(job.age)<duration: active.append(job)
-		else: claims[str(receipt.attemptId)].state="complete"
+		else:
+			if not bool(receipt.actualDelivered): receipt["reason"]="no_effect_delivered"
+			_publish(job,"complete" if bool(receipt.actualDelivered) else "failed")
+			if generation!=int(battle.battle_generation): return
 	jobs=active
 	var drum: float=1.0
 	for job in jobs:
 		if bool(job.started) and str(job.receipt.kind)=="march_drum": drum=maxf(drum,1.0+.14*float(job.receipt.strength))
 	for unit in battle.units:
-		if not battle.ground_combat.is_marching(str(unit.type)): continue
 		var id: int=int(unit.id)
-		if drum>1.0:
-			if not mobility_bases.has(id): mobility_bases[id]=float(unit.get("mobilityFactor",1.0))
-			unit.mobilityFactor=float(mobility_bases[id])*drum
-		elif mobility_bases.has(id):
-			unit.mobilityFactor=mobility_bases[id]
-			mobility_bases.erase(id)
+		if not mobility_bases.has(id): continue
+		unit.mobilityFactor=float(mobility_bases[id])*drum
+		if drum<=1.0: mobility_bases.erase(id)
 
 func actor_states() -> Array:
 	var records: Array=[]

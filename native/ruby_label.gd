@@ -19,9 +19,9 @@ var base_size: int = 34
 var font: Font = GameFonts.japanese()
 var reading_font: Font = GameFonts.reading()
 var meaning_font: Font = GameFonts.body()
-var ink: Color = Color("ead9b9")
-var reading_ink: Color = Color("d7dec9")
-var meaning_ink: Color = Color("ccd5c7")
+var ink: Color = Color("f4f1e8")
+var reading_ink: Color = Color("b8c5cd")
+var meaning_ink: Color = Color("ced7da")
 var meaning_visible: bool = true
 var meaning_size: int = 20
 var wrap_japanese: bool = false
@@ -54,27 +54,38 @@ func set_text(value: String, text_size: int = -1, context_words: Array = []) -> 
 	set_word(RubyReadings.word_for_text(value,context_words),base_size if text_size<0 else text_size,false)
 
 static func make_tooltip(value: String, context_words: Array = []) -> Control:
+	if value.strip_edges().is_empty(): return null
 	var panel: PanelContainer=PanelContainer.new()
 	panel.name="AnnotatedTooltip"
-	var box: StyleBoxFlat=StyleBoxFlat.new()
-	box.bg_color=Color("141819f5")
-	box.border_color=Color("67614f")
-	box.set_border_width_all(1)
-	box.content_margin_left=10
-	box.content_margin_right=10
-	box.content_margin_top=6
-	box.content_margin_bottom=6
-	panel.add_theme_stylebox_override("panel",box)
+	# Resolve at runtime to avoid a preload cycle with the shared controls.
+	var ui_style: Script=load("res://native/sengoku_ui.gd")
+	panel.add_theme_stylebox_override("panel",ui_style.textured_panel("ink",Color.WHITE,14))
 	var ruby: Control=load("res://native/ruby_label.gd").new()
 	ruby.name="TooltipRuby"
 	ruby.font=GameFonts.body()
 	ruby.horizontal_alignment=HORIZONTAL_ALIGNMENT_LEFT
 	ruby.wrap_japanese=true
-	ruby.colour_reading_groups=false
-	ruby.custom_minimum_size.x=420
-	ruby.size.x=420
-	ruby.set_text(value,20,context_words)
+	ruby.colour_reading_groups=true
+	var viewport_size: Vector2=Vector2(1280,800)
+	var tree: SceneTree=Engine.get_main_loop() as SceneTree
+	if tree!=null: viewport_size=tree.root.get_visible_rect().size
+	var width: float=minf(420,maxf(120,viewport_size.x-76))
+	var points: int=20
+	var height: float=0
+	while true:
+		ruby.custom_minimum_size.x=width
+		ruby.size.x=width
+		ruby.set_text(value,points,context_words)
+		height=float(ruby.get_text_layout().height)
+		if height<=viewport_size.y-68: break
+		if width<viewport_size.x-76: width=minf(width+120,viewport_size.x-76)
+		elif points>18: points-=1
+		else: break
+	ruby.size.y=height
 	panel.add_child(ruby)
+	# A detached tooltip must advertise its measured body before PopupPanel fits it.
+	panel.custom_minimum_size=Vector2(width+28,height+20)
+	panel.size=panel.custom_minimum_size
 	return panel
 
 func _pieces() -> Array:
@@ -214,7 +225,8 @@ func get_text_layout() -> Dictionary:
 	var face: Font = font if font!=null else ThemeDB.fallback_font
 	var kana_face: Font = reading_font if reading_font!=null else face
 	var korean_face: Font = meaning_font if meaning_font!=null else face
-	var width: float = maxf(1.0,size.x-TEXT_PADDING*2.0) if size.x>10 else 592.0
+	var padding: float=maxf(TEXT_PADDING,float(outline_size)+2.0)
+	var width: float = maxf(1.0,size.x-padding*2.0) if size.x>10 else 592.0
 	var text_size: int = base_size
 	if not wrap_japanese:
 		while text_size>18:
@@ -236,7 +248,7 @@ func get_text_layout() -> Dictionary:
 		for part in row:
 			if not part.reading.is_empty() and not annotated_groups.has(int(part.group)):
 				annotated_groups[int(part.group)] = annotated_groups.size()
-	var y: float = TEXT_PADDING
+	var y: float = padding
 	for row in lines:
 		var total_width: float = 0.0
 		var reading_rows: int = 0
@@ -247,7 +259,7 @@ func get_text_layout() -> Dictionary:
 			body_rows = maxi(body_rows,part.body.size())
 		var reading_height: float = reading_rows*kana_face.get_height(ruby_size)
 		var body_y: float = y+reading_height+(READING_GAP if reading_rows>0 else 0.0)
-		var x: float = TEXT_PADDING
+		var x: float = padding
 		if horizontal_alignment==HORIZONTAL_ALIGNMENT_CENTER: x+=(width-total_width)*0.5
 		elif horizontal_alignment==HORIZONTAL_ALIGNMENT_RIGHT: x+=width-total_width
 		var reading_positions: Dictionary=_reading_positions(row,x,width)
@@ -282,16 +294,22 @@ func get_text_layout() -> Dictionary:
 			y += 4.0
 		for text in meanings:
 			var span: float = korean_face.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,meaning_size).x
-			var meaning_x: float=TEXT_PADDING
+			var meaning_x: float=padding
 			if horizontal_alignment==HORIZONTAL_ALIGNMENT_CENTER: meaning_x+=(width-span)*.5
 			elif horizontal_alignment==HORIZONTAL_ALIGNMENT_RIGHT: meaning_x+=width-span
 			runs.append(_text_run(korean_face,text,meaning_size,meaning_x,y,"meaning"))
 			y += korean_face.get_height(meaning_size)
-	return {"runs":runs,"guides":guides,"height":y+TEXT_PADDING,"body_size":text_size,"ruby_size":ruby_size,"colouredGroups":annotated_groups.size() if colour_reading_groups and annotated_groups.size()>1 else 0}
+	return {"runs":runs,"guides":guides,"height":y+padding,"body_size":text_size,"ruby_size":ruby_size,"colouredGroups":annotated_groups.size() if colour_reading_groups and not reading_group_palette.is_empty() else 0}
 
 func _group_ink(group: int, role: String, annotated_groups: Dictionary) -> Color:
-	if colour_reading_groups and annotated_groups.size()>1 and annotated_groups.has(group) and not reading_group_palette.is_empty():
-		return reading_group_palette[int(annotated_groups[group]) % reading_group_palette.size()]
+	if colour_reading_groups and annotated_groups.has(group) and not reading_group_palette.is_empty():
+		var index: int=int(annotated_groups[group])
+		var pigment: Color=reading_group_palette[index % reading_group_palette.size()]
+		var dark_ink: bool=ink.r*.2126+ink.g*.7152+ink.b*.0722<.45
+		var pale_pigment: bool=pigment.r*.2126+pigment.g*.7152+pigment.b*.0722>.55
+		if dark_ink and pale_pigment:
+			return Color("795424") if index%2==0 else Color("285f74")
+		return pigment
 	return reading_ink if role=="reading" else ink
 
 func _sync_minimum_height() -> void:

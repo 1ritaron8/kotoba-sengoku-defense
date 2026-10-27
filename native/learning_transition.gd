@@ -25,6 +25,8 @@ var surface: Control
 var cards: Array = []
 var footer: Control
 var visuals: Array = []
+var live_battle_mode: bool = false
+var _live_serial: int = 0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -80,10 +82,10 @@ func accepts_actions() -> bool:
 	return phase in ["choice","result"]
 
 func is_busy() -> bool:
-	return phase in ["preview","entering","revealing","exiting"]
+	return not live_battle_mode and phase in ["preview","entering","revealing","exiting"]
 
 func covers_battle() -> bool:
-	return phase in ["choice","revealing","result"]
+	return not live_battle_mode and phase in ["choice","revealing","result"]
 
 func _set_phase(value: String) -> void:
 	phase = value
@@ -127,6 +129,7 @@ func _saved_alpha(control: Control) -> float:
 	return 1.0
 
 func cancel() -> void:
+	_live_serial+=1
 	_stop_tween()
 	_restore_visuals()
 	surface = null
@@ -138,13 +141,22 @@ func cancel() -> void:
 		banner.hide()
 	hide()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	live_battle_mode=false
 	_set_phase("idle")
 
-func present(screen: Control, choices: Array, actions: Control, title: String, already_resolved: bool = false) -> void:
+func present(screen: Control, choices: Array, actions: Control, title: String, already_resolved: bool = false, live_battle: bool = false, completed_battle: bool = false) -> void:
 	cancel()
+	live_battle_mode=live_battle
 	surface = screen
 	cards = choices.duplicate()
 	footer = actions
+	if live_battle_mode:
+		# The owning screen supplies a local panel. Never cover, dim or capture
+		# the rest of the battlefield while that panel accepts answers.
+		surface.show()
+		_set_phase("result" if already_resolved else "choice")
+		presented.emit()
+		return
 	_remember(surface)
 	_remember(footer)
 	for card in cards:
@@ -157,6 +169,8 @@ func present(screen: Control, choices: Array, actions: Control, title: String, a
 	footer.modulate.a = 0
 	heading.text = title
 	caption.text = "전투 잠시 멈춤 · 카드를 선택하십시오" if not already_resolved else "전투 잠시 멈춤 · 임무 결과 확인"
+	if completed_battle:
+		caption.text = "전투 종료 · 복습 문제를 선택하십시오" if not already_resolved else "전투 종료 · 복습 결과 확인"
 	_arrange()
 	shade.color.a = 0
 	banner.modulate.a = 0
@@ -188,6 +202,12 @@ func _finish_present(already_resolved: bool) -> void:
 
 func reveal_result(focus_card: Control, feedback: Control) -> void:
 	_stop_tween()
+	if live_battle_mode:
+		# Keep deduplication's revealing phase without scaling the compact
+		# card outside its bounds or installing a full-screen input blocker.
+		_set_phase("revealing")
+		_finish_live_result.call_deferred(_live_serial)
+		return
 	# Result styles and translations are applied by the owning screen first.
 	# Keep those colors when a later navigation interrupts this emphasis.
 	for value in visuals:
@@ -213,10 +233,18 @@ func _finish_result() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_set_phase("result")
 
+func _finish_live_result(serial: int) -> void:
+	if serial==_live_serial and live_battle_mode and phase=="revealing":
+		_set_phase("result")
+
 func begin_return() -> void:
 	if phase == "exiting" or surface == null:
 		return
 	_stop_tween()
+	if live_battle_mode:
+		_set_phase("exiting")
+		_finish_live_return.call_deferred(_live_serial)
+		return
 	banner.hide()
 	shade.color.a = 0
 	show()
@@ -233,6 +261,10 @@ func begin_return() -> void:
 func _finish_return() -> void:
 	cancel()
 	return_finished.emit()
+
+func _finish_live_return(serial: int) -> void:
+	if serial==_live_serial and live_battle_mode and phase=="exiting":
+		_finish_return()
 
 func _process(_delta: float) -> void:
 	# Containers and window resize may change card dimensions during a tween.

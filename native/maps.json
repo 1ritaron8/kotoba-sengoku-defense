@@ -1,7 +1,7 @@
 [
   {
     "id": "basic-forest",
-    "title": "마루네 요새 · 구릉 접근",
+    "title": "마루네 요새 · 언덕 접근",
     "shortName": "마루네",
     "japanese": "丸根砦・丘の攻防",
     "reading": "まるねとりで・おかのこうぼう",
@@ -15,8 +15,10 @@
     "tierIndex": 0,
     "level": 1,
     "difficulty": 1,
-    "totalWaves": 10,
-    "initialGold": 280,
+    "totalWaves": 4,
+    "initialGold": 150,
+    "passiveGoldPerTick": 1,
+    "enemyBountyMultiplier": 0.5,
     "recruitCost": 60,
     "unitLimit": 14,
     "recommendedWords": 15,
@@ -34,7 +36,8 @@
       "unitBonuses": [
         {
           "type": "archer",
-          "damageFactor": 1.1
+          "damageFactor": 1.1,
+          "rangeFactor": 0.7
         }
       ]
     },
@@ -58962,5 +58965,597 @@
       "groundPostAnchorsDigestFormat": "UTF-8 compact JSON, ensure_ascii=false",
       "alignmentReferenceSha256": "1beb10363b3e396eb581f6625b31be32bffb960f3d77ec785bbacef342e5d2cc"
     }
+  },
+  {
+    "id": "basic-farm",
+    "title": "오케하자마 전투",
+    "shortName": "오케하자마",
+    "japanese": "桶狭間の戦い",
+    "reading": "おけはざまのたたかい",
+    "mode": "advance",
+    "missionMode": "advance",
+    "color": "#667448",
+    "accent": "#c5b47b",
+    "words": "사람 · 병사 · 무기",
+    "icon": "槍",
+    "theme": "farm",
+    "tier": "basic",
+    "tierIndex": 0,
+    "level": 2,
+    "stageNumber": 2,
+    "difficulty": 1.18,
+    "totalWaves": 5,
+    "initialGold": 180,
+    "passiveGoldPerTick": 1,
+    "enemyBountyMultiplier": 0.65,
+    "waveGoldBonusEnabled": false,
+    "recruitCost": 25,
+    "unitLimit": 0,
+    "recommendedWords": 15,
+    "reviewWords": 15,
+    "unlocked": false,
+    "music": "res://assets/music/stages/basic-farm-otogi4.ogg",
+    "description": "논밭 사이의 길을 따라 진격하여 적 수비병을 제압하고, 합류 지점을 확보해 후속 병력을 맞이합니다.",
+    "trait": {
+      "stageId": "basic-farm",
+      "id": "basic-farm-operation",
+      "nameJP": "桶狭間・合流地点",
+      "reading": "おけはざま・ごうりゅうちてん",
+      "nameKO": "오케하자마 합류 지점",
+      "descriptionKO": "창병과 사무라이로 앞길을 열고, 길 옆 궁병으로 지원합니다. 합류 지점을 확보하면 앞쪽 사격 지점 두 곳을 사용할 수 있습니다.",
+      "unitBonuses": []
+    },
+    "paintedPresentation": true,
+    "paintedBackground": "res://assets/painted-battlefield/stage02-okehazama.png",
+    "background": "res://assets/painted-battlefield/stage02-okehazama.png",
+    "paintedForeground": "res://assets/painted-battlefield/stage02-foreground-mask.svg",
+    "paintedComposition": {
+      "revision": "painted-stage02-1",
+      "artSize": {
+        "width": 1944,
+        "height": 809
+      },
+      "coordinateSpace": "canonical_normalized_map",
+      "gate": {
+        "x": 0.18,
+        "y": 0.8
+      },
+      "capturePoint": {
+        "x": 0.695,
+        "y": 0.395
+      },
+      "learningLandmarks": {
+        "zone-01": {
+          "x": 0.315,
+          "y": 0.435
+        },
+        "zone-14": {
+          "x": 0.48,
+          "y": 0.66
+        },
+        "zone-13": {
+          "x": 0.695,
+          "y": 0.395
+        }
+      },
+      "occlusionPatches": [
+        {
+          "id": "camp-front-west",
+          "sourceRect": [
+            0,
+            640,
+            232,
+            145
+          ],
+          "baseline": 778
+        },
+        {
+          "id": "camp-front-east",
+          "sourceRect": [
+            302,
+            612,
+            155,
+            145
+          ],
+          "baseline": 751
+        },
+        {
+          "id": "tree-west-road",
+          "sourceRect": [
+            350,
+            325,
+            125,
+            137
+          ],
+          "baseline": 458
+        },
+        {
+          "id": "tree-mid-south",
+          "sourceRect": [
+            720,
+            510,
+            83,
+            102
+          ],
+          "baseline": 606
+        },
+        {
+          "id": "tree-mid-east",
+          "sourceRect": [
+            1107,
+            416,
+            88,
+            112
+          ],
+          "baseline": 523
+        },
+        {
+          "id": "tree-east-road",
+          "sourceRect": [
+            1509,
+            320,
+            120,
+            130
+          ],
+          "baseline": 444
+        }
+      ],
+      "terrainHeight": "painted surfaces; no 3D height provider",
+      "crop": "none"
+    },
+    "paths": [
+      {
+        "id": "okehazama-approach",
+        "objectiveId": "main",
+        "points": [
+          {
+            "x": 1.02,
+            "y": -0.11
+          },
+          {
+            "x": 0.944,
+            "y": 0.02
+          },
+          {
+            "x": 0.87,
+            "y": 0.17
+          },
+          {
+            "x": 0.81,
+            "y": 0.28
+          },
+          {
+            "x": 0.695,
+            "y": 0.395
+          },
+          {
+            "x": 0.52,
+            "y": 0.47
+          },
+          {
+            "x": 0.405,
+            "y": 0.55
+          },
+          {
+            "x": 0.322,
+            "y": 0.65
+          },
+          {
+            "x": 0.18,
+            "y": 0.8
+          }
+        ],
+        "paintedRoadHalfWidthPixels": 52,
+        "enemyFormationLaneGapPixels": 18
+      }
+    ],
+    "objectives": [
+      {
+        "id": "main",
+        "label": "味方の陣",
+        "hp": 26,
+        "x": 0.18,
+        "y": 0.8,
+        "side": "friendly",
+        "mobile": false
+      }
+    ],
+    "buildZones": [
+      {
+        "id": "stage02-road-support",
+        "nameKo": "앞길 지원 사격 지점",
+        "terrain": "grass",
+        "x": 0.565,
+        "y": 0.33,
+        "r": 0.027,
+        "elevation": 0,
+        "guardRadius": 0.19,
+        "pathIndex": 0,
+        "segmentIndex": 4,
+        "slotCapacity": 2,
+        "slotPositions": [
+          {
+            "x": 0.553,
+            "y": 0.336
+          },
+          {
+            "x": 0.577,
+            "y": 0.324
+          }
+        ],
+        "acceptedUnitTypes": [
+          "archer",
+          "gunner"
+        ],
+        "postRangeBonusPercent": 0,
+        "rangeBonusPercent": 0,
+        "placementRole": "ranged"
+      },
+      {
+        "id": "stage02-rear-south",
+        "nameKo": "후방 남쪽 사격 지점",
+        "terrain": "grass",
+        "x": 0.335,
+        "y": 0.745,
+        "r": 0.027,
+        "elevation": 0,
+        "guardRadius": 0.19,
+        "pathIndex": 0,
+        "segmentIndex": 7,
+        "slotCapacity": 2,
+        "slotPositions": [
+          {
+            "x": 0.323,
+            "y": 0.751
+          },
+          {
+            "x": 0.34700000000000003,
+            "y": 0.739
+          }
+        ],
+        "acceptedUnitTypes": [
+          "archer",
+          "gunner"
+        ],
+        "postRangeBonusPercent": 0,
+        "rangeBonusPercent": 0,
+        "placementRole": "ranged"
+      },
+      {
+        "id": "stage02-north-post",
+        "nameKo": "왼쪽 사격 지점",
+        "terrain": "grass",
+        "x": 0.315,
+        "y": 0.435,
+        "r": 0.027,
+        "elevation": 0,
+        "guardRadius": 0.19,
+        "pathIndex": 0,
+        "segmentIndex": 6,
+        "slotCapacity": 2,
+        "slotPositions": [
+          {
+            "x": 0.303,
+            "y": 0.441
+          },
+          {
+            "x": 0.327,
+            "y": 0.429
+          }
+        ],
+        "acceptedUnitTypes": [
+          "archer",
+          "gunner"
+        ],
+        "postRangeBonusPercent": 0,
+        "rangeBonusPercent": 0,
+        "placementRole": "ranged"
+      },
+      {
+        "id": "stage02-south-post",
+        "nameKo": "중앙 사격 지점",
+        "terrain": "grass",
+        "x": 0.48,
+        "y": 0.66,
+        "r": 0.027,
+        "elevation": 0,
+        "guardRadius": 0.19,
+        "pathIndex": 0,
+        "segmentIndex": 5,
+        "slotCapacity": 2,
+        "slotPositions": [
+          {
+            "x": 0.46799999999999997,
+            "y": 0.666
+          },
+          {
+            "x": 0.492,
+            "y": 0.654
+          }
+        ],
+        "acceptedUnitTypes": [
+          "archer",
+          "gunner"
+        ],
+        "postRangeBonusPercent": 0,
+        "rangeBonusPercent": 0,
+        "placementRole": "ranged"
+      },
+      {
+        "id": "stage02-forward-north",
+        "nameKo": "전방 북쪽 사격 지점",
+        "terrain": "grass",
+        "x": 0.68,
+        "y": 0.265,
+        "r": 0.027,
+        "elevation": 0,
+        "guardRadius": 0.19,
+        "pathIndex": 0,
+        "segmentIndex": 3,
+        "slotCapacity": 2,
+        "slotPositions": [
+          {
+            "x": 0.668,
+            "y": 0.271
+          },
+          {
+            "x": 0.6920000000000001,
+            "y": 0.259
+          }
+        ],
+        "acceptedUnitTypes": [
+          "archer",
+          "gunner"
+        ],
+        "postRangeBonusPercent": 0,
+        "rangeBonusPercent": 0,
+        "placementRole": "ranged",
+        "unlockAfterCapture": true
+      },
+      {
+        "id": "stage02-forward-south",
+        "nameKo": "전방 남쪽 사격 지점",
+        "terrain": "grass",
+        "x": 0.7,
+        "y": 0.53,
+        "r": 0.027,
+        "elevation": 0,
+        "guardRadius": 0.19,
+        "pathIndex": 0,
+        "segmentIndex": 4,
+        "slotCapacity": 2,
+        "slotPositions": [
+          {
+            "x": 0.688,
+            "y": 0.536
+          },
+          {
+            "x": 0.712,
+            "y": 0.524
+          }
+        ],
+        "acceptedUnitTypes": [
+          "archer",
+          "gunner"
+        ],
+        "postRangeBonusPercent": 0,
+        "rangeBonusPercent": 0,
+        "placementRole": "ranged",
+        "unlockAfterCapture": true
+      }
+    ],
+    "obstacles": [
+      {
+        "id": "camp-left-house",
+        "x": 0.089,
+        "y": 0.68,
+        "r": 0.041,
+        "blockPlacement": true
+      },
+      {
+        "id": "camp-lower-house",
+        "x": 0.035,
+        "y": 0.814,
+        "r": 0.03,
+        "blockPlacement": true
+      },
+      {
+        "id": "camp-west-wall",
+        "x": 0.1,
+        "y": 0.884,
+        "r": 0.027,
+        "blockPlacement": true
+      },
+      {
+        "id": "camp-right-wall",
+        "x": 0.218,
+        "y": 0.853,
+        "r": 0.025,
+        "blockPlacement": true
+      },
+      {
+        "id": "tree-northwest",
+        "x": 0.091,
+        "y": 0.207,
+        "r": 0.025,
+        "blockPlacement": true
+      },
+      {
+        "id": "tree-north-center",
+        "x": 0.434,
+        "y": 0.153,
+        "r": 0.02,
+        "blockPlacement": true
+      },
+      {
+        "id": "tree-west-road",
+        "x": 0.216,
+        "y": 0.558,
+        "r": 0.018,
+        "blockPlacement": true
+      },
+      {
+        "id": "tree-mid-south",
+        "x": 0.395,
+        "y": 0.736,
+        "r": 0.018,
+        "blockPlacement": true
+      },
+      {
+        "id": "tree-mid-east",
+        "x": 0.596,
+        "y": 0.639,
+        "r": 0.021,
+        "blockPlacement": true
+      },
+      {
+        "id": "tree-east-road",
+        "x": 0.815,
+        "y": 0.544,
+        "r": 0.025,
+        "blockPlacement": true
+      },
+      {
+        "id": "grove-east",
+        "x": 0.925,
+        "y": 0.575,
+        "r": 0.065,
+        "blockPlacement": true
+      },
+      {
+        "id": "rock-northwest",
+        "x": 0.039,
+        "y": 0.242,
+        "r": 0.048,
+        "blockPlacement": true
+      },
+      {
+        "id": "rock-west",
+        "x": 0.277,
+        "y": 0.492,
+        "r": 0.021,
+        "blockPlacement": true
+      },
+      {
+        "id": "rock-mid-east",
+        "x": 0.553,
+        "y": 0.575,
+        "r": 0.026,
+        "blockPlacement": true
+      },
+      {
+        "id": "rock-east",
+        "x": 0.855,
+        "y": 0.552,
+        "r": 0.048,
+        "blockPlacement": true
+      },
+      {
+        "id": "rock-southeast",
+        "x": 0.898,
+        "y": 0.656,
+        "r": 0.037,
+        "blockPlacement": true
+      },
+      {
+        "id": "enemy-supply-left",
+        "x": 0.634,
+        "y": 0.241,
+        "r": 0.016,
+        "blockPlacement": true
+      },
+      {
+        "id": "enemy-supply-right",
+        "x": 0.74,
+        "y": 0.234,
+        "r": 0.021,
+        "blockPlacement": true
+      }
+    ],
+    "camera": {
+      "allowZoom": false
+    },
+    "tactics": {
+      "nameKo": "합류 지점 확보",
+      "descriptionKo": "전진 병력으로 길을 열고 풀밭의 궁병으로 지원합니다. 수비대를 물리친 뒤 합류 지점을 지켜 후속 부대를 맞이합니다.",
+      "hintKo": "수비병 6명 제압 → 합류 지점 10초 점유 → 후속 병력 2명 도착",
+      "groundPosts": []
+    },
+    "historicalBattlefield": {
+      "nameKo": "오케하자마 주변 논밭길",
+      "legacyEncounterTheme": "farm",
+      "adaptationKo": "1560년 오케하자마 전투를 배경으로 한 가상 합류 작전입니다. 길·논·야영지 배치와 병력 규모는 게임용 각색입니다.",
+      "learningSupportAnchors": {
+        "zone-01": {
+          "x": 0.315,
+          "y": 0.435
+        },
+        "zone-14": {
+          "x": 0.48,
+          "y": 0.66
+        },
+        "zone-13": {
+          "x": 0.695,
+          "y": 0.395
+        }
+      },
+      "waterFeatures": [
+        {
+          "id": "paddy-west",
+          "kind": "paddy",
+          "x": 0,
+          "y": 0.4,
+          "w": 0.145,
+          "h": 0.14,
+          "blocksMovement": true
+        },
+        {
+          "id": "paddy-northwest",
+          "kind": "paddy",
+          "x": 0.15,
+          "y": 0,
+          "w": 0.185,
+          "h": 0.2,
+          "blocksMovement": true
+        },
+        {
+          "id": "paddy-southeast",
+          "kind": "paddy",
+          "x": 0.69,
+          "y": 0.8,
+          "w": 0.15,
+          "h": 0.16,
+          "blocksMovement": true
+        },
+        {
+          "id": "paddy-bottom",
+          "kind": "paddy",
+          "x": 0.8,
+          "y": 0.94,
+          "w": 0.2,
+          "h": 0.06,
+          "blocksMovement": true
+        }
+      ]
+    },
+    "advanceMission": {
+      "capturePoint": {
+        "x": 0.695,
+        "y": 0.395
+      },
+      "captureRadius": 0.085,
+      "contestRadius": 0.11,
+      "holdSeconds": 10,
+      "requiredGuardCount": 6,
+      "followupCount": 2,
+      "followupArrivalRadius": 0.075,
+      "pathIndex": 0
+    },
+    "enemyApproachCohortSize": 3,
+    "enemyApproachAdmissionSize": 3,
+    "emplacementAssaultZoneIds": [
+      "stage02-north-post",
+      "stage02-south-post"
+    ]
   }
 ]

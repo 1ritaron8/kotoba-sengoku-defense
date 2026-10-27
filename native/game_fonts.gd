@@ -1,16 +1,12 @@
 extends RefCounted
-## Traditional Korean Myeongjo and Japanese brush lettering, with clear kana.
+## One licensed Gothic family keeps Japanese, kana and Korean aligned.
 
-const HEADING_PATH: String = "res://assets/fonts/NanumMyeongjo-ExtraBold.ttf"
-const BODY_PATH: String = "res://assets/fonts/NanumMyeongjo-Bold.ttf"
-const JAPANESE_PATH: String = "res://assets/fonts/YujiSyuku-Regular.ttf"
-const READING_PATH: String = "res://assets/fonts/KleeOne-SemiBold.ttf"
-const FALLBACK_PATH: String = "res://assets/fonts/NotoSerifCJKjp-Medium.otf"
+const HEADING_PATH: String = "res://assets/fonts/NotoSansCJKjp-Regular.otf"
+const BODY_PATH: String = HEADING_PATH
+const JAPANESE_PATH: String = HEADING_PATH
+const READING_PATH: String = HEADING_PATH
+const FALLBACK_PATH: String = HEADING_PATH
 
-static var _heading: Font
-static var _body: Font
-static var _japanese: Font
-static var _reading: Font
 static var _fallback: Font
 static var _theme: Theme
 
@@ -26,36 +22,16 @@ static func _font_file(path: String) -> Font:
 	return null
 
 static func body() -> Font:
-	if _body == null:
-		_body = _font_file(BODY_PATH)
-		if _body == null:
-			_body = ThemeDB.fallback_font
-		else:
-			_body.fallbacks = [japanese(),fallback()]
-	return _body
+	return fallback()
 
 static func heading() -> Font:
-	if _heading == null:
-		_heading = _font_file(HEADING_PATH)
-		if _heading == null:
-			_heading = body()
-		else:
-			_heading.fallbacks = [japanese(),fallback()]
-	return _heading
+	return fallback()
 
 static func japanese() -> Font:
-	if _japanese == null:
-		_japanese = _font_file(JAPANESE_PATH)
-		if _japanese == null: _japanese = fallback()
-		else: _japanese.fallbacks = [fallback()]
-	return _japanese
+	return fallback()
 
 static func reading() -> Font:
-	if _reading == null:
-		_reading = _font_file(READING_PATH)
-		if _reading == null: _reading = fallback()
-		else: _reading.fallbacks = [fallback()]
-	return _reading
+	return fallback()
 
 static func fallback() -> Font:
 	if _fallback == null:

@@ -5,19 +5,21 @@ signal closed
 
 const Battle = preload("res://native/game.gd")
 const Troops3D = preload("res://native/troops_3d.gd")
+const PaintedStage = preload("res://native/painted_stage.gd")
 const CombatFeedback = preload("res://native/combat_feedback.gd")
 const BattleAudio = preload("res://native/battle_audio.gd")
 const RubyText = preload("res://native/ruby_label.gd")
+const UnitPreview = preload("res://native/barracks_portrait.gd")
 const UIStyle = preload("res://native/sengoku_ui.gd")
 const UIPresentation = preload("res://native/battlefield_hud.gd")
 const GameFonts = preload("res://native/game_fonts.gd")
 const TRAINING_LIMIT_SECONDS: float = 75.0
-const UNIT_ORDER: Array = ["archer","spear","samurai","gunner","naginata","monk","commander","ninja"]
+const UNIT_ORDER: Array = ["archer","spear","samurai","gunner","monk","commander","ninja"]
 const LESSONS: Dictionary = {
-	"archer":{"titleKo":"황금 진지에 궁병 배치","deployKo":"황금색 사격 진지를 클릭해 궁병을 배치하십시오.","attackKo":"배치한 궁병의 화살이 연습 적에게 명중하도록 지키십시오.","useKo":"고정된 진지에서 적 경로를 향해 화살을 쏩니다."},
+	"archer":{"titleKo":"사격 진지에 궁병 배치","deployKo":"빈자리가 있는 사격 진지를 클릭해 궁병을 배치하십시오.","attackKo":"배치한 궁병의 화살이 연습 적에게 명중하도록 지키십시오.","useKo":"고정된 진지에서 적 경로를 향해 화살을 쏩니다."},
 	"spear":{"titleKo":"기지에서 창병 출진","deployKo":"출진을 누르면 창병이 아군 기지에서 출발합니다.","attackKo":"창병이 전진해 연습 적을 창으로 공격하는 모습을 확인하십시오.","useKo":"아군 기지에서 적의 진입구를 향해 전진하며 가까운 적과 교전합니다."},
 	"samurai":{"titleKo":"사무라이의 전진과 교전","deployKo":"출진을 눌러 사무라이를 기지에서 내보내십시오.","attackKo":"사무라이가 적에게 접근해 칼을 명중하도록 지키십시오.","useKo":"기지에서 전진해 근접 교전을 이어갑니다."},
-	"gunner":{"titleKo":"청록 전선에 조총병 배치","deployKo":"청록색 전선 지점을 클릭해 조총병을 배치하십시오.","attackKo":"제자리에 선 조총병의 탄환이 가까운 연습 적에게 명중하도록 지키십시오.","useKo":"적 경로 가까이에 배치하고 제자리에서 화승총을 쏩니다."},
+	"gunner":{"titleKo":"조총병 배치 연습","deployKo":"표시된 배치 지점을 클릭해 조총병을 배치하십시오.","attackKo":"제자리에 선 조총병의 탄환이 가까운 연습 적에게 명중하도록 지키십시오.","useKo":"적 경로 가까이에 배치하고 제자리에서 화승총을 쏩니다."},
 	"naginata":{"titleKo":"성벽·사격 진지 호위","deployKo":"청록색 진지 주변에 장도병을 배치하십시오.","attackKo":"장도병이 방어 구역 안에서 기지 공격자를 저지하고 칼날을 명중하는지 확인하십시오.","useKo":"타워 방어 구역 안에서 기지 공격자를 막고 표적을 잃으면 배치 지점으로 복귀합니다."},
 	"monk":{"titleKo":"승병의 아군 치료","deployKo":"청록색 지원 지점에 승병을 배치하십시오.","attackKo":"부상 연습병의 체력이 승병의 실제 치료로 회복되는지 확인하십시오.","useKo":"공격 대신 부상 아군을 치료합니다. 진언 지원 스킬은 영구 Lv.3·5·8에서 열립니다."},
 	"commander":{"titleKo":"기마 무장의 기지 출진","deployKo":"출진을 눌러 기마 무장을 기지에서 내보내십시오.","attackKo":"말을 탄 무장이 전진해 연습 적과 교전하는 모습을 확인하십시오.","useKo":"기지에서 출진해 빠르게 전진하고 가까운 적과 교전합니다."},
@@ -104,7 +106,8 @@ func _definition(id: String) -> Dictionary:
 	return {}
 
 func _unlocked(id: String) -> bool:
-	return not _definition(id).is_empty() and (progress==null or id in progress.unlocked_units())
+	var definition: Dictionary = _definition(id)
+	return not definition.is_empty() and bool(definition.get("active",true)) and (progress==null or id in progress.unlocked_units())
 
 func _trained(id: String) -> bool:
 	if progress!=null and progress.has_method("is_unit_trained"):
@@ -134,7 +137,8 @@ func open(id: String, stage: Dictionary) -> bool:
 		return false
 	_dispose_battle()
 	unit_id=id
-	source_stage=stage.duplicate(true)
+	var use_3d: bool = bool(ProjectSettings.get_setting("application/config/use_3d_units",false))
+	source_stage=stage.duplicate(true) if use_3d else PaintedStage.apply(stage)
 	view="training"
 	phase="ready"
 	_open=true
@@ -150,7 +154,10 @@ func open(id: String, stage: Dictionary) -> bool:
 	observations={"deployments":0,"shots":0,"hits":0,"damage":0.0,"heals":0,"healingAmount":0.0,"kills":0,"orders":0,"chargeImpacts":0,"distanceAdvanced":0.0,"returnObserved":false,"fortDamage":0.0,"fortDestroyed":false,"fortHits":0,"missionObserved":false,"missionTargetId":-1,"consumptionObserved":false,"consumeReason":"","consumedTargetId":-1,"unitFallen":false,"invalidPlacements":0,"trainingOnly":true}
 	_build_training()
 	var runtime: Dictionary = source_stage.duplicate(true)
+	runtime["trainingOnly"]=true
 	battle=Battle.new()
+	var allow_render: bool = render_enabled and DisplayServer.get_name()!="headless"
+	battle.three_d_enabled=allow_render and use_3d
 	battle.name="IndependentTrainingBattle"
 	battle.input_enabled=true
 	battle.external_combat_feedback=true
@@ -169,13 +176,13 @@ func open(id: String, stage: Dictionary) -> bool:
 	battle.load_map(runtime,0)
 	battle.set_seed(3167)
 	battle.ui_font=font
+	battle.set_floating_label_style(UIStyle.floating_label_style())
+	if not battle.three_d_enabled: battle.painted_field.attach_to(battle)
 	battle.game_event.connect(_observe_event)
 	if battle.actor_overlay!=null:
 		battle.actor_overlay.z_as_relative=true
 		battle.actor_overlay.z_index=3
-	var allow_render: bool = render_enabled and DisplayServer.get_name()!="headless"
-	battle.three_d_enabled=allow_render and bool(ProjectSettings.get_setting("application/config/use_3d_units",false))
-	if allow_render:
+	if battle.three_d_enabled:
 		troop_renderer=Troops3D.new()
 		troop_renderer.battle=battle
 		field_clip.add_child(troop_renderer)
@@ -186,6 +193,7 @@ func open(id: String, stage: Dictionary) -> bool:
 		if troop_renderer.side_overlay!=null:
 			troop_renderer.side_overlay.z_as_relative=true
 			troop_renderer.side_overlay.z_index=2
+	if allow_render:
 		feedback=CombatFeedback.new()
 		feedback.battle=battle
 		feedback.troop_renderer=troop_renderer
@@ -265,6 +273,7 @@ func _label(parent: Node, text: String, points: int = 20, color: String = UIStyl
 	var label: Label=UIStyle.TooltipLabel.new()
 	label.text=text
 	label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	label.custom_minimum_size.x=1
 	label.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	label.add_theme_font_override("font",GameFonts.heading() if points>=26 else GameFonts.body())
 	label.add_theme_font_size_override("font_size",maxi(20,points))
@@ -324,7 +333,7 @@ func _build_menu() -> void:
 	var heading: HBoxContainer=HBoxContainer.new()
 	heading.add_theme_constant_override("separation",18)
 	shell.add_child(heading)
-	var title: Label=_label(heading,"鍛錬",36,"e5d09f")
+	var title: Label=_label(heading,"鍛錬",36,UIStyle.TEXT)
 	title.name="TrainingTitle"
 	title.add_theme_font_override("font",GameFonts.japanese())
 	title.custom_minimum_size.x=120
@@ -345,17 +354,25 @@ func _build_menu() -> void:
 	scroller.add_child(grid)
 	for id in UNIT_ORDER:
 		var definition: Dictionary=_definition(id)
+		if definition.is_empty() or not bool(definition.get("active",true)):
+			continue
 		var available: bool=_unlocked(id)
 		var can_enter: bool=practice_available(id)
 		var card: PanelContainer=PanelContainer.new()
 		card.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 		card.custom_minimum_size=Vector2(245,0)
 		card.name="TrainingCard_"+str(id)
-		card.add_theme_stylebox_override("panel",UIStyle.frame(UIStyle.SURFACE,UIStyle.BLUE if id==unit_id else UIStyle.LINE))
+		card.add_theme_stylebox_override("panel",UIStyle.textured_panel("ink"))
 		grid.add_child(card)
 		var column: VBoxContainer=VBoxContainer.new()
 		column.add_theme_constant_override("separation",8)
 		card.add_child(column)
+		var thumbnail: Control=UnitPreview.new()
+		thumbnail.name="TrainingUnitPreview_"+str(id)
+		thumbnail.custom_minimum_size=Vector2(1,118)
+		thumbnail.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		thumbnail.configure(str(id),0,available)
+		column.add_child(thumbnail)
 		var ruby: Control=RubyText.new()
 		ruby.font=GameFonts.japanese()
 		ruby.reading_font=GameFonts.reading()
@@ -363,8 +380,8 @@ func _build_menu() -> void:
 		ruby.set_word({"jp":definition.get("jp",""),"reading":definition.get("reading",""),"ko":definition.get("name",""),"parts":definition.get("parts",[])},30,true)
 		column.add_child(ruby)
 		var badge: String="수련 완료" if _trained(id) else "첫 연무" if available else "%d개 전투 완수 후 해금" % int(definition.get("unlockClears",0))
-		_label(column,badge,20,"acd0af" if _trained(id) else "e1c794" if available else UIStyle.MUTED)
-		_label(column,str(LESSONS[id].useKo),20,"dfd5c1")
+		_label(column,badge,20,"acd0af" if _trained(id) else UIStyle.BLUE if available else UIStyle.MUTED)
+		_label(column,str(LESSONS[id].useKo),20,UIStyle.TEXT)
 		var enter: Button=_button(column,"연무 입장" if can_enter else "새 전장 준비 중" if available else "미해금",func(): _enter_from_menu(str(id)))
 		enter.disabled=not can_enter
 		if available and not can_enter: enter.tooltip_text="새 전장이 준비되면 연습할 수 있습니다."
@@ -386,7 +403,7 @@ func _build_training() -> void:
 	var shell: VBoxContainer=_shell()
 	var head: HBoxContainer=HBoxContainer.new()
 	shell.add_child(head)
-	header=_label(head,"鍛錬 · "+str(_definition(unit_id).get("name",""))+" 연무",30,"e5d09f")
+	header=_label(head,"鍛錬 · "+str(_definition(unit_id).get("name",""))+" 연무",30,UIStyle.TEXT)
 	header.name="TrainingPracticeTitle"
 	header.tooltip_text="たんれん · 병종 연무"
 	header.size_flags_horizontal=Control.SIZE_EXPAND_FILL
@@ -417,7 +434,7 @@ func _build_training() -> void:
 	var panel: PanelContainer=PanelContainer.new()
 	panel.name="TrainingInstructionPanel"
 	panel.custom_minimum_size=Vector2(280,0)
-	panel.add_theme_stylebox_override("panel",UIStyle.frame(UIStyle.SURFACE,UIStyle.LINE))
+	panel.add_theme_stylebox_override("panel",UIStyle.textured_panel("ink"))
 	body.add_child(panel)
 	var column: VBoxContainer=VBoxContainer.new()
 	column.add_theme_constant_override("separation",16)
@@ -429,10 +446,10 @@ func _build_training() -> void:
 	ruby.meaning_font=GameFonts.body()
 	ruby.set_word({"jp":definition.jp,"reading":definition.reading,"ko":definition.name,"parts":definition.get("parts",[])},34,true)
 	column.add_child(ruby)
-	goal_label=_label(column,"",22,"e5d09f")
-	goal_label.autowrap_mode=TextServer.AUTOWRAP_OFF
+	goal_label=_label(column,"",22,UIStyle.TEXT)
+	goal_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	hint_label=_label(column,"",20)
-	observation_label=_label(column,"",20,"d4c4a5")
+	observation_label=_label(column,"",20,UIStyle.MUTED)
 	var spacer: Control=Control.new()
 	spacer.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	column.add_child(spacer)
@@ -449,8 +466,8 @@ func _build_training() -> void:
 	order_button=_button(footer,"표시한 진지 암살",func(): issue_assassination())
 	order_button.visible=unit_id=="ninja"
 	footer_hint=_label(footer,"배치/출진 [R]    ·    전장 클릭    ·    뒤로 [Esc]",20,UIStyle.MUTED)
-	footer_hint.autowrap_mode=TextServer.AUTOWRAP_OFF
-	footer_hint.custom_minimum_size.x=460
+	footer_hint.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	footer_hint.custom_minimum_size.x=1
 	footer_hint.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	footer_hint.size_flags_vertical=Control.SIZE_SHRINK_CENTER
 
@@ -748,8 +765,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _process(delta: float) -> void:
-	if view=="training" and phase in ["producing","combat"]:
-		advance_training(minf(maxf(0,delta),.25))
+	if view=="training" and phase in ["producing","combat"] and is_instance_valid(battle):
+		advance_training(minf(maxf(0,delta),.25)*float(battle.effective_speed()))
 
 func advance_training(delta: float) -> void:
 	if not is_instance_valid(battle) or phase not in ["producing","combat"] or battle.paused or not is_finite(delta) or delta<=0:
@@ -905,7 +922,7 @@ func current_goal() -> Dictionary:
 
 func diagnostics() -> Dictionary:
 	var result: Dictionary=observations.duplicate(true)
-	result.merge({"view":view,"status":phase,"unitId":unit_id,"sourceStageId":str(source_stage.get("id","")),"elapsedSeconds":elapsed_seconds,"actorId":actor_id,"routeIndex":route_index,"recommended":recommended,"targetIds":_target_ids.duplicate(),"goal":current_goal(),"rendererActive":is_instance_valid(troop_renderer),"trainingOnly":true},true)
+	result.merge({"view":view,"status":phase,"unitId":unit_id,"sourceStageId":str(source_stage.get("id","")),"elapsedSeconds":elapsed_seconds,"actorId":actor_id,"routeIndex":route_index,"recommended":recommended,"targetIds":_target_ids.duplicate(),"goal":current_goal(),"rendererActive":is_instance_valid(troop_renderer),"renderMode":"3d" if is_instance_valid(battle) and battle.three_d_enabled else "painted2d" if bool(source_stage.get("paintedPresentation",false)) else "legacy_flat2d","trainingOnly":true},true)
 	return result
 
 func _refresh_ui() -> void:

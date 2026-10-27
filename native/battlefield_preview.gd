@@ -5,6 +5,8 @@ const WorldAdapter = preload("res://native/battlefield_world_adapter.gd")
 const RemasterVisualScene = preload("res://native/remaster_visual_slice.gd")
 const RenderedArt = preload("res://native/rendered_battlefield_helpers.gd")
 const Presentation = preload("res://native/battlefield_presentation.gd")
+const PaintedStage = preload("res://native/painted_stage.gd")
+const PaintedBattlefield = preload("res://native/painted_battlefield.gd")
 const WORLD_WIDTH: float = 18.5
 const ELEVATION: float = 50.0
 const MAX_RENDER_SIZE: Vector2 = Vector2(960,640)
@@ -13,6 +15,7 @@ const PRESENTATION_CACHE_VERSION: String = "native-preview-4-stage-viewpoint"
 static var visual_profiles: Dictionary = {}
 static var completed_previews: Dictionary = {}
 static var completed_order: Array[String] = []
+static var background_aspects: Dictionary = {}
 const COMPLETED_PREVIEW_LIMIT: int = 40
 var stage: Dictionary = {}
 var viewport: SubViewport
@@ -35,6 +38,10 @@ var capturing: bool = false
 var frame_budget_usec: int = Battlefield.INTERACTIVE_FRAME_BUDGET_USEC
 
 static func _completed_key(value: Dictionary) -> String:
+	if not bool(ProjectSettings.get_setting("application/config/use_3d_units",false)):
+		var flat_stage: Dictionary = PaintedStage.apply(value)
+		var background_path: String = str(flat_stage.get("background",""))
+		return "flat-preview-1:"+JSON.stringify(flat_stage).sha256_text()+":"+str(FileAccess.get_modified_time(background_path))
 	if not value.get("worldGeometry",{}).is_empty():
 		var authored_revision: String = FileAccess.get_file_as_string("res://native/remaster_visual_slice.gd").sha256_text()+FileAccess.get_file_as_string("res://native/remaster_surface_materials.gd").sha256_text()
 		return "authored-world-preview-1:"+JSON.stringify(value).sha256_text()+":"+authored_revision
@@ -55,16 +62,52 @@ static func release_shared_resources() -> void:
 	completed_previews.clear()
 	completed_order.clear()
 	visual_profiles.clear()
+	background_aspects.clear()
+
+static func aspect_ratio_for_stage(value: Dictionary) -> float:
+	if bool(ProjectSettings.get_setting("application/config/use_3d_units",false)):
+		return 16.0/10.0
+	var completed_key: String=_completed_key(value)
+	if completed_previews.has(completed_key):
+		var texture: Texture2D=completed_previews[completed_key].texture
+		if texture!=null and texture.get_height()>0:
+			return float(texture.get_width())/float(texture.get_height())
+	var flat_stage: Dictionary=PaintedStage.apply(value)
+	var background_path: String=str(flat_stage.get("background",""))
+	if background_aspects.has(background_path): return float(background_aspects[background_path])
+	var source: Image=Image.load_from_file(background_path) if not background_path.is_empty() else null
+	if source!=null and not source.is_empty():
+		var ratio: float=float(source.get_width())/float(source.get_height())
+		background_aspects[background_path]=ratio
+		return ratio
+	return 1831.0/859.0
 
 func configure(value: Dictionary) -> void:
 	stage=value.duplicate(true)
 	_request_refresh()
+
+func _uses_2d() -> bool:
+	return not bool(ProjectSettings.get_setting("application/config/use_3d_units",false))
+
+func _create_image() -> void:
+	image=TextureRect.new()
+	image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
+	image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	image.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	image.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(image)
+	resized.connect(_request_refresh)
+	visibility_changed.connect(_visibility_changed)
 
 func _ready() -> void:
 	mouse_filter=Control.MOUSE_FILTER_IGNORE
 	clip_contents=true
 	set_process(false)
 	set_physics_process(false)
+	_create_image()
+	if _uses_2d():
+		_request_refresh()
+		return
 	viewport=SubViewport.new()
 	viewport.own_world_3d=true
 	viewport.transparent_bg=false
@@ -111,18 +154,13 @@ func _ready() -> void:
 	world.add_child(fill)
 	battlefield=Battlefield.new()
 	world.add_child(battlefield)
-	image=TextureRect.new()
 	image.texture=viewport.get_texture()
-	image.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
-	image.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	image.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	image.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	add_child(image)
-	resized.connect(_request_refresh)
-	visibility_changed.connect(_visibility_changed)
 	_request_refresh()
 
 func _visibility_changed() -> void:
+	if _uses_2d():
+		if is_visible_in_tree(): _request_refresh()
+		return
 	if viewport==null: return
 	if not is_visible_in_tree():
 		viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED
@@ -130,7 +168,7 @@ func _visibility_changed() -> void:
 		_request_refresh()
 
 func _request_refresh() -> void:
-	if not is_inside_tree() or viewport==null or pending_refresh: return
+	if not is_inside_tree() or image==null or (not _uses_2d() and viewport==null) or pending_refresh: return
 	pending_refresh=true
 	if building or capturing: return
 	call_deferred("_refresh")
@@ -138,6 +176,10 @@ func _request_refresh() -> void:
 func _refresh() -> void:
 	if building or capturing: return
 	pending_refresh=false
+	if _uses_2d():
+		_refresh_flat()
+		return
+	image.material=null
 	if viewport==null or not is_visible_in_tree() or stage.is_empty(): return
 	var logical_size: Vector2=size.max(Vector2(2,2))
 	var scale_factor: float=minf(1.0,minf(MAX_RENDER_SIZE.x/logical_size.x,MAX_RENDER_SIZE.y/logical_size.y))
@@ -216,6 +258,34 @@ func _refresh() -> void:
 			pending_refresh=false
 			_request_refresh()
 
+func _refresh_flat() -> void:
+	if image==null or not is_visible_in_tree() or stage.is_empty(): return
+	var requested_stage: Dictionary = PaintedStage.apply(stage)
+	image.material=PaintedBattlefield.scenery_material_for(requested_stage)
+	var completed_key: String = _completed_key(stage)
+	if completed_key==render_key: return
+	cache_hit=completed_previews.has(completed_key)
+	if cache_hit:
+		var cached: Dictionary = completed_previews[completed_key]
+		image.texture=cached.texture
+		cached_terrain=cached.terrain
+	else:
+		var background_path: String = str(requested_stage.get("background",""))
+		var source_image: Image = Image.load_from_file(background_path) if not background_path.is_empty() else null
+		if source_image==null or source_image.is_empty():
+			image.texture=null
+			render_key=""
+			cached_terrain={"ready":false,"renderMode":"flat2d","background":background_path}
+			return
+		image.texture=ImageTexture.create_from_image(source_image)
+		cached_terrain={"ready":true,"renderMode":"painted2d" if bool(requested_stage.get("paintedPresentation",false)) else "legacy_flat2d","converted":bool(requested_stage.get("paintedPresentation",false)),"background":background_path,"imageSize":source_image.get_size(),"world3D":false}
+		completed_previews[completed_key]={"texture":image.texture,"terrain":cached_terrain.duplicate(true)}
+		render_requests+=1
+	completed_order.erase(completed_key)
+	completed_order.append(completed_key)
+	while completed_order.size()>COMPLETED_PREVIEW_LIMIT: completed_previews.erase(completed_order.pop_front())
+	render_key=completed_key
+
 func _configure_lighting() -> void:
 	if is_instance_valid(remaster_visuals):
 		remaster_visuals.apply_lighting(self)
@@ -275,9 +345,10 @@ func _configure_authored_camera(value: Dictionary) -> void:
 	camera.look_at(target,Vector3.UP)
 
 func _terrain_diagnostics() -> Dictionary:
+	if _uses_2d(): return cached_terrain.duplicate(true)
 	var details: Dictionary=battlefield.diagnostics() if is_instance_valid(battlefield) else {}
 	if is_instance_valid(remaster_visuals): details["remasterVisuals"]=remaster_visuals.diagnostics()
 	return details
 
 func diagnostics() -> Dictionary:
-	return {"stageId":str(stage.get("id","")),"nativeBattlefield":is_instance_valid(battlefield),"authoredWorld":not stage.get("worldGeometry",{}).is_empty(),"static":true,"processing":is_processing(),"mouseIgnore":mouse_filter==Control.MOUSE_FILTER_IGNORE,"renderRequests":render_requests,"viewportSize":viewport.size if viewport!=null else Vector2i.ZERO,"updateMode":viewport.render_target_update_mode if viewport!=null else SubViewport.UPDATE_DISABLED,"worldWidth":camera.size if camera!=null else WORLD_WIDTH,"elevation":float(stage.get("worldGeometry",{}).get("camera",{}).get("elevationDegrees",Presentation.elevation_for_stage(stage))),"frameBudgetUsec":Battlefield.preview_frame_budget(frame_budget_usec),"loading":is_loading(),"cacheHit":cache_hit,"cachedPreviewCount":completed_previews.size(),"terrain":cached_terrain.duplicate(true) if cache_hit else _terrain_diagnostics()}
+	return {"stageId":str(stage.get("id","")),"nativeBattlefield":is_instance_valid(battlefield),"authoredWorld":not _uses_2d() and not stage.get("worldGeometry",{}).is_empty(),"renderMode":str(cached_terrain.get("renderMode","flat2d")) if _uses_2d() else "3d","world3D":is_instance_valid(world),"static":true,"processing":is_processing(),"mouseIgnore":mouse_filter==Control.MOUSE_FILTER_IGNORE,"renderRequests":render_requests,"viewportSize":viewport.size if viewport!=null else Vector2i.ZERO,"updateMode":viewport.render_target_update_mode if viewport!=null else SubViewport.UPDATE_DISABLED,"worldWidth":camera.size if camera!=null else WORLD_WIDTH,"elevation":float(stage.get("worldGeometry",{}).get("camera",{}).get("elevationDegrees",Presentation.elevation_for_stage(stage))),"frameBudgetUsec":Battlefield.preview_frame_budget(frame_budget_usec),"loading":is_loading(),"cacheHit":cache_hit,"cachedPreviewCount":completed_previews.size(),"terrain":cached_terrain.duplicate(true) if cache_hit else _terrain_diagnostics()}

@@ -14,6 +14,8 @@ const Battlefield = preload("res://native/battlefield_3d.gd")
 const RenderedArt = preload("res://native/rendered_battlefield_helpers.gd")
 const BattlefieldMaterials = preload("res://native/battlefield_materials.gd")
 static var _presentation_stages: Dictionary = {}
+static var _picture_cache: Dictionary = {}
+const MOUNTAIN_REFERENCE: String="res://assets/painted-battlefield/mountain-reference.png"
 var font: Font
 var mission: Dictionary = {}
 var choosing: bool = false
@@ -24,8 +26,9 @@ var report_card: Panel
 var report_frame: StyleBox
 var question_sheet: Panel
 var report_text: Control
-var report_heading: Label
+var report_heading: Control
 var action_card: Panel
+var action_frame: StyleBox
 var feedback: Label
 var hint_button: Button
 var listen_button: Button
@@ -50,16 +53,39 @@ var announcement_row_height: float = 0.0
 var announcement_anchor: Control
 var question_item: Dictionary = {}
 var reveal_item: Dictionary = {}
+var live_battle: bool = false
+var live_battle_bounds: Rect2
+var live_panel_rect: Rect2
+var live_panel: Panel
+var _live_layout_overflow: bool = false
 
 func _ready() -> void:
 	theme = GameFonts.theme()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	clip_contents = true
 	resized.connect(_arrange)
+	live_panel=Panel.new()
+	live_panel.name="LiveBattleLearningPanel"
+	live_panel.mouse_filter=Control.MOUSE_FILTER_STOP
+	var local_frame: StyleBoxFlat=UIStyle.frame("1e2527f5",UIStyle.BRASS)
+	local_frame.shadow_size=0
+	live_panel.add_theme_stylebox_override("panel",local_frame)
+	add_child(live_panel)
+	live_panel.hide()
 	report_card = _panel(false)
 	report_frame = report_card.get_theme_stylebox("panel")
-	report_heading = _label(report_card,"伝令 · 전령 보고",20,Color(UIStyle.BRASS))
-	task_caption = _label(report_card,"빈칸에 들어갈 일본어를 골라 원군을 보내십시오.",20,Color(UIStyle.MUTED))
+	report_heading = RubyText.new()
+	report_heading.name = "TranslatedReportHeading"
+	report_heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	report_heading.wrap_japanese = true
+	report_heading.colour_reading_groups = true
+	report_heading.ink = Color(UIStyle.BRASS)
+	report_heading.reading_ink = Color(UIStyle.BRASS)
+	report_heading.meaning_ink = Color(UIStyle.TEXT)
+	report_heading.meaning_size = 17
+	report_heading.set_word({"jp":"伝令","reading":"でんれい","ko":"전령 보고"},20,true)
+	report_card.add_child(report_heading)
+	task_caption = _label(report_card,"요청의 뜻에 맞는 일본어를 선택하십시오.",20,Color(UIStyle.MUTED))
 	task_caption.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	task_caption.hide()
 	announcement_anchor = Control.new()
@@ -85,12 +111,62 @@ func _ready() -> void:
 	report_text.wrap_japanese = true
 	report_card.add_child(report_text)
 	action_card = _panel()
+	action_frame = action_card.get_theme_stylebox("panel")
 	feedback = _label(action_card,"",20,Color(UIStyle.TEXT))
 	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	hint_button = _button(action_card,"힌트 · 원문 보기",func(): hint_requested.emit())
 	listen_button = _button(action_card,"보고 듣기",func(): listen_requested.emit())
 	continue_button = _button(action_card,"임무 건너뛰기",func(): continue_requested.emit())
 	clear()
+	set_live_battle_mode(live_battle)
+
+func set_live_battle_mode(enabled: bool) -> void:
+	live_battle=enabled
+	if report_card==null or action_card==null: return
+	mouse_filter=Control.MOUSE_FILTER_IGNORE if live_battle or not choosing else Control.MOUSE_FILTER_STOP
+	report_heading.meaning_size=13 if live_battle else 17
+	report_heading.min_reading_size=11 if live_battle else 16
+	report_text.group_spacing=3.0 if live_battle else 8.0
+	if not live_battle:
+		report_text.meaning_size=20
+		report_text.min_reading_size=22
+		for button in target_buttons:
+			var choice_word: Control=button.get_node("DestinationWord")
+			choice_word.meaning_size=20
+			choice_word.min_reading_size=16
+			choice_word.group_spacing=0.0
+			button.get_node("DestinationAction").add_theme_font_size_override("font_size",18)
+			button.get_node("ChoiceNumber").add_theme_font_size_override("font_size",22)
+	task_caption.add_theme_font_size_override("font_size",14 if live_battle else 20)
+	feedback.add_theme_font_size_override("font_size",14 if live_battle else 20)
+	for button in [hint_button,listen_button,continue_button]:
+		button.add_theme_font_size_override("font_size",15 if live_battle else 20)
+		for state_name in ["normal","hover","pressed","disabled","focus"]:
+			var style: StyleBox = UIStyle.textured_button(state_name)
+			if live_battle:
+				style=UIStyle.button(state_name)
+				style.content_margin_left=6
+				style.content_margin_right=6
+				style.content_margin_top=4
+				style.content_margin_bottom=4
+			button.add_theme_stylebox_override(state_name,style)
+	hint_button.text="힌트" if live_battle else "힌트 · 원문 보기"
+	listen_button.text="듣기" if live_battle else "보고 듣기"
+	# The compact footer shares the local panel background; restore the old
+	# footer surface when returning to the separate full-screen study flow.
+	action_card.add_theme_stylebox_override("panel",StyleBoxEmpty.new() if live_battle else action_frame)
+	for child in action_card.get_children():
+		if str(child.name).begins_with("MaterialSurface_"): child.visible=not live_battle
+	_arrange()
+	queue_redraw()
+
+func set_live_battle_bounds(bounds: Rect2) -> void:
+	if live_battle_bounds==bounds: return
+	live_battle_bounds=bounds
+	if is_node_ready(): _arrange()
+
+func contains_live_point(local_point: Vector2) -> bool:
+	return live_battle and choosing and is_visible_in_tree() and live_panel_rect.has_point(local_point)
 
 func set_stage_background(path: String, stage: Dictionary = {}) -> void:
 	world_texture = null
@@ -136,7 +212,9 @@ func _sync_presentation(value: Dictionary) -> void:
 	var selected: Dictionary = _background_stage
 	var mission_id: String = str(value.get("id",""))
 	var explicit_id: String = str(value.get("mapId",value.get("stageId","")))
-	if stages.has(explicit_id):
+	if bool(_background_stage.get("paintedPresentation",false)):
+		selected=_background_stage
+	elif stages.has(explicit_id):
 		selected = stages[explicit_id]
 	else:
 		for candidate_id in stages:
@@ -152,13 +230,19 @@ func _sync_presentation(value: Dictionary) -> void:
 		var image: TextureRect = target_buttons[index].get_node_or_null("DestinationImage")
 		if image != null:
 			image.flip_h = presentation_mirrored
-			if index < value.get("targets",[]).size():
+			if image.visible and index < value.get("targets",[]).size():
 				image.texture = _target_crop(Presentation.point(value.targets[index].get("position",{})),str(value.targets[index].get("id","")))
 		if index < value.get("targets",[]).size():
 			target_anchors[index] = _target_view_point(Presentation.point(value.targets[index].get("position",{})))
 	queue_redraw()
 
 func _sync_stage_art(stage: Dictionary) -> void:
+	if bool(stage.get("paintedPresentation",false)):
+		var path: String=str(stage.get("paintedBackground",stage.get("background","")))
+		stage_texture=_picture(path)
+		stage_art={"mode":"painted","stageId":str(stage.get("id","")),"artPath":path,"coordinateSpace":"canonical_normalized_map"}
+		_stage_art_signature=path
+		return
 	if stage.get("worldGeometry") is Dictionary and not stage.worldGeometry.is_empty():
 		# The current authored floor and scenery are rendered by the real camera.
 		stage_texture = world_texture
@@ -184,11 +268,29 @@ func _sync_stage_art(stage: Dictionary) -> void:
 	if str(stage_art.get("mode","")) == "rendered" and bool(stage_art.get("sourceDataVerified",false)):
 		stage_texture = BattlefieldMaterials.rendered_art_texture(path,str(stage_art.get("artSha256","")))
 
-func _target_crop(canonical: Vector2, target_id: String = "") -> AtlasTexture:
+static func _picture(path: String) -> Texture2D:
+	if _picture_cache.has(path): return _picture_cache[path]
+	var result: Texture2D
+	if ResourceLoader.exists(path,"Texture2D"): result=load(path) as Texture2D
+	elif FileAccess.file_exists(path):
+		var source: Image=Image.load_from_file(path)
+		if source!=null and not source.is_empty(): result=ImageTexture.create_from_image(source)
+	if result!=null: _picture_cache[path]=result
+	return result
+
+func _target_crop(canonical: Vector2, target_id: String = "") -> Texture2D:
+	for target in mission.get("targets",[]):
+		if str(target.get("id",""))!=target_id: continue
+		if bool(target.get("displayOnlyTerrain",false)):
+			var reference_path: String=str(target.get("displayImagePath",""))
+			if reference_path.is_empty() and str(target.get("terrainKind",""))=="mountain": reference_path=MOUNTAIN_REFERENCE
+			return _picture(reference_path)
 	if stage_texture == null: return null
 	var source_size: Vector2 = stage_texture.get_size()
 	if source_size.x<=0 or source_size.y<=0: return null
 	var crop_size: Vector2 = source_size*Vector2(.34,.42)
+	if bool(_background_stage.get("paintedPresentation",false)):
+		crop_size=source_size*Vector2(.18,.31)
 	var texture_anchor: Vector2 = canonical
 	if world_projection.is_valid():
 		# Authored landmarks need a local view; a wide crop can show the same
@@ -270,6 +372,10 @@ func clear() -> void:
 		report_card.hide()
 		question_sheet.hide()
 		action_card.hide()
+		feedback.text=""
+		feedback.tooltip_text=""
+	if live_panel!=null: live_panel.hide()
+	live_panel_rect=Rect2()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	queue_redraw()
 
@@ -290,11 +396,10 @@ func show_report(value: Dictionary, voice_available: bool) -> void:
 	hinted = false
 	report_clock = clampf(float(str(mission.get("report",{}).get("reading","")).length())/4.0+4.0,18.0,32.0)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	report_heading.text = "伝令 · 전령 보고"
+	report_heading.set_word({"jp":"伝令","reading":"でんれい","ko":"전령 보고"},20,true)
 	task_caption.hide()
 	question_sheet.hide()
-	report_heading.add_theme_constant_override("outline_size",2)
-	report_heading.add_theme_color_override("font_outline_color",Color(0.04,0.05,0.04,0.95))
+	report_heading.outline_size = 2
 	report_card.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
 	report_text.outline_size = 4
 	report_text.ink = Color("fff9ec")
@@ -302,8 +407,9 @@ func show_report(value: Dictionary, voice_available: bool) -> void:
 	report_text.meaning_ink = Color("fff3c7")
 	report_text.reading_group_palette[0]=Color("ffe6a3")
 	report_text.reading_group_palette[1]=Color("9fe7ff")
-	report_text.meaning_size = 20
-	report_text.set_word(mission.get("report",{}),24,true)
+	report_text.meaning_size = 18
+	report_text.min_reading_size = 12
+	report_text.set_word(mission.get("report",{}),20,true)
 	report_card.show()
 	action_card.hide()
 	listen_button.disabled = not voice_available
@@ -332,11 +438,12 @@ func begin_choice(value: Dictionary, can_listen: bool) -> void:
 	hinted = false
 	report_clock = 0
 	correct_target = str(mission.get("answerId",""))
-	mouse_filter = Control.MOUSE_FILTER_STOP
-	report_heading.text = "援軍の要請 · 원군 요청"
+	mouse_filter = Control.MOUSE_FILTER_IGNORE if live_battle else Control.MOUSE_FILTER_STOP
+	report_heading.set_word(mission.get("heading",{"jp":"援軍の要請","reading":"えんぐんのようせい","ko":"원군 요청"}),22,true)
+	task_caption.text=str(mission.get("captionKo","요청의 뜻에 맞는 일본어를 선택하십시오."))
 	task_caption.show()
 	question_sheet.show()
-	report_heading.add_theme_constant_override("outline_size",0)
+	report_heading.outline_size = 0
 	report_card.add_theme_stylebox_override("panel",StyleBoxEmpty.new())
 	report_text.outline_size = 0
 	report_text.ink = Color("282119")
@@ -345,22 +452,23 @@ func begin_choice(value: Dictionary, can_listen: bool) -> void:
 	report_text.reading_group_palette[0] = Color("795424")
 	report_text.reading_group_palette[1] = Color("285f74")
 	report_text.meaning_size = 20
+	report_text.min_reading_size = 22
 	report_text.set_word(question_item,36,true)
 	report_card.show()
 	action_card.show()
 	# Give wrapped text its real width before the first long instruction;
 	# otherwise Label can retain the height measured at its initial zero width.
 	feedback.size = Vector2(maxf(100,size.x-60),60)
-	_set_feedback_text("요청에 맞는 목적지를 선택하면 전장에 맞는 지원을 무작위로 받습니다.")
+	_set_feedback_text("정답이면 전장 지원을 무작위로 받습니다." if live_battle else "요청에 맞는 목적지를 선택하면 전장에 맞는 지원을 무작위로 받습니다.")
 	feedback.add_theme_color_override("font_color",Color(UIStyle.TEXT))
 	hint_button.disabled = false
 	listen_button.disabled = not can_listen
 	listen_button.tooltip_text = "일본어 보고를 다시 듣습니다." if can_listen else "이 PC에는 일본어 읽기 음성이 없습니다. 글자로 확인하십시오."
-	continue_button.text = "건너뛰고 전투 복귀"
+	continue_button.text = "건너뛰기" if live_battle else "건너뛰고 전투 복귀"
 	_build_targets(true)
 	_arrange()
 	show()
-	if not target_buttons.is_empty():
+	if not live_battle and not target_buttons.is_empty():
 		target_buttons[0].grab_focus()
 
 func _build_targets(interactive: bool) -> void:
@@ -378,7 +486,8 @@ func _build_targets(interactive: bool) -> void:
 			var picture = TextureRect.new()
 			picture.name = "DestinationImage"
 			picture.flip_h = presentation_mirrored
-			picture.texture = _target_crop(Vector2(float(target.position.x),float(target.position.y)),str(target.get("id","")))
+			picture.visible=bool(target.get("showImage",true))
+			if picture.visible: picture.texture = _target_crop(Presentation.point(target.get("position",{})),str(target.get("id","")))
 			picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			picture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 			picture.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -398,13 +507,17 @@ func _build_targets(interactive: bool) -> void:
 			choice_word.reading_font = GameFonts.reading()
 			choice_word.meaning_font = GameFonts.body()
 			choice_word.ink = Color(UIStyle.TEXT)
-			choice_word.reading_ink = Color("d9cfb8")
-			choice_word.meaning_ink = Color("d3bc88")
+			choice_word.reading_ink = Color(UIStyle.MUTED)
+			choice_word.meaning_ink = Color(UIStyle.TEXT)
 			choice_word.meaning_size = 20
+			choice_word.min_reading_size=16
+			choice_word.colour_reading_groups=true
 			choice_word.wrap_japanese = true
-			choice_word.set_word(label_word,28,true)
+			choice_word.set_word(label_word,48,true)
 			button.add_child(choice_word)
-			var caption = _label(button,"이 목적지로 원군 파견",20,Color(UIStyle.MUTED))
+			var caption_text: String="지형 참고 그림" if bool(target.get("displayOnlyTerrain",false)) else "현재 전장의 지형"
+			if not bool(target.get("showImage",true)): caption_text="단어 선택"
+			var caption = _label(button,caption_text,18,Color(UIStyle.MUTED))
 			caption.name = "DestinationAction"
 			caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		else:
@@ -419,7 +532,7 @@ func _build_targets(interactive: bool) -> void:
 			button.add_child(label)
 		button.tooltip_text = "" if interactive else str(label_word.get("ko",""))
 		target_buttons.append(button)
-		target_anchors.append(_target_view_point(Vector2(float(target.position.x),float(target.position.y))))
+		target_anchors.append(_target_view_point(Presentation.point(target.get("position",{}))))
 		index += 1
 
 func _choose(target_id: String) -> void:
@@ -458,17 +571,17 @@ func show_result(correct: bool, value: String, selected_id: String = "") -> void
 	_set_feedback_text(value)
 	feedback.add_theme_color_override("font_color",Color("a9d4ca") if correct else Color("dfb5a4"))
 	hint_button.disabled = true
-	continue_button.text = "전투로 복귀  ›"
+	continue_button.text = "확인  ›" if live_battle else "전투로 복귀  ›"
 	for index in range(target_buttons.size()):
 		var button: Button = target_buttons[index]
 		button.disabled = true
 		if str(mission.targets[index].id) == correct_target:
 			button.add_theme_stylebox_override("disabled",UIStyle.textured_panel("lacquer",Color("9dc5b0")))
-			button.get_node("DestinationAction").text = "요청한 목적지"
+			button.get_node("DestinationAction").text = "요청한 목적지" if bool(mission.targets[index].get("showImage",true)) else "정답"
 			button.get_node("DestinationAction").add_theme_color_override("font_color",Color("c5e6c6"))
 		elif str(mission.targets[index].id) == selected_id:
 			button.add_theme_stylebox_override("disabled",UIStyle.textured_panel("lacquer",Color("c98d78")))
-			button.get_node("DestinationAction").text = "선택한 목적지"
+			button.get_node("DestinationAction").text = "선택한 목적지" if bool(mission.targets[index].get("showImage",true)) else "선택한 답"
 			button.get_node("DestinationAction").add_theme_color_override("font_color",Color("efbfaa"))
 		else:
 			button.modulate = Color(.70,.65,.56,.80)
@@ -479,23 +592,137 @@ func suspend_choice() -> void:
 	hide()
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
+func _arrange_live_battle() -> void:
+	# Main supplies the free battlefield rectangle above its toolbar. The root
+	# remains transparent to input; only this panel and its controls stop it.
+	var safe: Rect2=Rect2(Vector2.ZERO,size)
+	if live_battle_bounds.has_area(): safe=safe.intersection(live_battle_bounds)
+	if not safe.has_area():
+		live_panel_rect=Rect2()
+		_live_layout_overflow=true
+		return
+	var panel_width: float=minf(520,safe.size.x)
+	var inner_width: float=maxf(1,panel_width-20)
+	var count: int=maxi(1,target_buttons.size())
+	var card_width: float=maxf(1,(inner_width-8*(count-1))/count)
+	var limit_height: float=minf(450,safe.size.y)
+	var heading_height: float=0
+	var question_height: float=0
+	var card_height: float=0
+	var image_height: float=0
+	var feedback_height: float=0
+	var button_height: float=0
+	var panel_height: float=0
+	announcement_anchor.hide()
+	report_heading.meaning_size=12
+	report_heading.min_reading_size=11
+	report_heading.size.x=minf(174,inner_width*.44)
+	report_heading.set_word(mission.get("heading",{"jp":"援軍の要請","reading":"えんぐんのようせい","ko":"원군 요청"}),17,true)
+	report_heading._sync_minimum_height()
+	report_heading.size.y=report_heading.custom_minimum_size.y
+	task_caption.add_theme_font_size_override("font_size",13)
+	task_caption.size.x=maxf(1,inner_width-report_heading.size.x-8)
+	task_caption.size.y=task_caption.get_minimum_size().y
+	heading_height=maxf(report_heading.size.y,task_caption.size.y)
+	# Measure the real JP/ruby/Korean blocks, including hint/result text. A
+	# denser tier reduces only typography and thumbnail height, never content.
+	for density in range(4):
+		report_text.meaning_size=15 if density<2 else 14
+		report_text.min_reading_size=12 if density<2 else 11
+		report_text.group_spacing=3.0
+		report_text.size.x=maxf(1,inner_width-12)
+		report_text.set_word(reveal_item if hinted or resolved else question_item,23-density*2,true)
+		report_text._sync_minimum_height()
+		report_text.size.y=report_text.custom_minimum_size.y
+		question_height=report_text.size.y+8
+		image_height=48-density*6
+		card_height=0
+		for button in target_buttons:
+			var choice_word: Control=button.get_node("DestinationWord")
+			choice_word.custom_minimum_size.x=1
+			choice_word.size.x=maxf(1,card_width-12)
+			choice_word.meaning_size=14 if density<2 else 13
+			choice_word.min_reading_size=11
+			choice_word.group_spacing=2.0
+			choice_word.set_word(choice_word.word,23-density,true)
+			choice_word._sync_minimum_height()
+			choice_word.size.y=choice_word.custom_minimum_size.y
+			var caption: Label=button.get_node("DestinationAction")
+			caption.add_theme_font_size_override("font_size",11)
+			caption.size.x=maxf(1,card_width-12)
+			caption.size.y=maxf(16,caption.get_minimum_size().y)
+			var picture_height: float=image_height if button.get_node("DestinationImage").visible else 22.0
+			card_height=maxf(card_height,picture_height+choice_word.size.y+caption.size.y+12)
+		feedback.add_theme_font_size_override("font_size",14 if density<2 else 13)
+		feedback.size.x=inner_width
+		feedback.call("refresh_ruby")
+		feedback_height=maxf(20,feedback.get_combined_minimum_size().y)
+		button_height=32
+		for button in [hint_button,listen_button,continue_button]:
+			button_height=maxf(button_height,button.get_combined_minimum_size().y)
+		panel_height=20+heading_height+6+question_height+8+card_height+8+feedback_height+6+button_height
+		if panel_height<=limit_height: break
+	# Keep all measured content instead of clipping a long localized result.
+	# A host with insufficient free space can inspect this flag and enlarge it.
+	_live_layout_overflow=panel_height>limit_height
+	live_panel_rect=Rect2(Vector2(safe.end.x-panel_width,maxf(safe.position.y,safe.end.y-panel_height)),Vector2(panel_width,panel_height))
+	live_panel.position=live_panel_rect.position
+	live_panel.size=live_panel_rect.size
+	report_card.position=live_panel_rect.position+Vector2(10,10)
+	report_heading.position=Vector2.ZERO
+	task_caption.position=Vector2(report_heading.size.x+8,maxf(0,(heading_height-task_caption.size.y)*.5))
+	question_sheet.position=Vector2(0,heading_height+6)
+	question_sheet.size=Vector2(inner_width,question_height)
+	report_text.position=question_sheet.position+Vector2(6,4)
+	report_card.size=Vector2(inner_width,question_sheet.position.y+question_height)
+	var cards_y: float=report_card.position.y+report_card.size.y+8
+	for index in range(target_buttons.size()):
+		var button: Button=target_buttons[index]
+		button.position=Vector2(report_card.position.x+(card_width+8)*index,cards_y)
+		button.size=Vector2(card_width,card_height)
+		var picture: TextureRect=button.get_node("DestinationImage")
+		picture.position=Vector2.ONE
+		picture.size=Vector2(maxf(1,card_width-2),image_height)
+		var number: Label=button.get_node("ChoiceNumber")
+		number.add_theme_font_size_override("font_size",15)
+		number.position=Vector2(6,3)
+		number.size=Vector2(24,22)
+		var choice_word: Control=button.get_node("DestinationWord")
+		choice_word.position=Vector2(6,(image_height if picture.visible else 22.0)+4)
+		var caption: Label=button.get_node("DestinationAction")
+		caption.position=Vector2(6,card_height-caption.size.y-4)
+	action_card.position=Vector2(report_card.position.x,cards_y+card_height+8)
+	action_card.size=Vector2(inner_width,feedback_height+6+button_height)
+	feedback.position=Vector2.ZERO
+	feedback.size=Vector2(inner_width,feedback_height)
+	var buttons: Array=[hint_button,listen_button,continue_button]
+	var action_width: float=(inner_width-16)/3.0
+	for index in range(buttons.size()):
+		buttons[index].position=Vector2((action_width+8)*index,feedback_height+6)
+		buttons[index].size=Vector2(action_width,button_height)
+	queue_redraw()
+
 func _arrange() -> void:
 	if report_card == null or size.x < 10:
 		return
+	live_panel.visible=live_battle and choosing
+	if live_battle and choosing:
+		_arrange_live_battle()
+		return
+	live_panel_rect=Rect2()
 	if not choosing:
 		announcement_anchor.hide()
-		var banner_width: float = minf(620,size.x-24)
+		var banner_width: float = minf(340,size.x-24)
 		report_card.position = Vector2(12,12)
 		report_heading.position = Vector2(12,5)
 		report_heading.size = Vector2(banner_width-24,30)
-		report_heading.add_theme_font_size_override("font_size",20)
-		if report_heading.has_method("refresh_ruby"): report_heading.call("refresh_ruby")
+		report_heading._sync_minimum_height()
 		report_heading.size.y = maxf(30,report_heading.get_combined_minimum_size().y)
 		report_text.position = Vector2(12,report_heading.position.y+report_heading.size.y+8)
 		report_text.size.x = banner_width-24
 		var face: Font = GameFonts.japanese()
-		var span: float = face.get_string_size(str(mission.get("report",{}).get("jp","")),HORIZONTAL_ALIGNMENT_LEFT,-1,24).x
-		var point_size: int = 24 if span<=banner_width-32 else 22
+		var span: float = face.get_string_size(str(mission.get("report",{}).get("jp","")),HORIZONTAL_ALIGNMENT_LEFT,-1,20).x
+		var point_size: int = 20 if span<=banner_width-32 else 18
 		if report_text.base_size!=point_size:
 			report_text.set_word(mission.get("report",{}),point_size,true)
 		report_text._sync_minimum_height()
@@ -506,7 +733,6 @@ func _arrange() -> void:
 	var content_width: float = minf(1184,size.x-96)
 	var content_x: float = (size.x-content_width)*.5
 	report_card.position = Vector2(content_x,36)
-	report_heading.add_theme_font_size_override("font_size",22)
 	report_heading.position = Vector2(0,0)
 	var announcement_width: float = minf(420,content_width*.4)
 	var heading_width: float = content_width-announcement_width-24
@@ -514,34 +740,40 @@ func _arrange() -> void:
 	announcement_anchor.size = Vector2(announcement_width,112)
 	announcement_anchor.show()
 	report_heading.size = Vector2(heading_width,32)
-	if report_heading.has_method("refresh_ruby"): report_heading.call("refresh_ruby")
+	report_heading._sync_minimum_height()
 	report_heading.size.y = maxf(32,report_heading.get_combined_minimum_size().y)
 	task_caption.position = Vector2(0,report_heading.size.y+8)
-	task_caption.size = Vector2(heading_width,66)
+	task_caption.size.x = heading_width
+	task_caption.size.y = maxf(32,task_caption.get_minimum_size().y)
 	report_text.position = Vector2(0,maxf(124,task_caption.position.y+task_caption.size.y+18))
 	report_text.size.x = content_width
 	if report_text.base_size!=36:
 		report_text.set_word(reveal_item if hinted or resolved else question_item,36,true)
 	report_text._sync_minimum_height()
 	report_text.size.y = report_text.custom_minimum_size.y
-	question_sheet.position = report_text.position-Vector2(12,6)
-	question_sheet.size = report_text.size+Vector2(24,12)
+	question_sheet.position = report_text.position-Vector2(18,12)
+	question_sheet.size = report_text.size+Vector2(36,24)
 	report_card.size = Vector2(content_width,report_text.position.y+report_text.custom_minimum_size.y+6)
-	feedback.position = Vector2(14,8)
-	feedback.size.x = content_width-28
-	var feedback_height: float = maxf(54,feedback.get_minimum_size().y)
+	action_card.size.x=content_width
+	var footer_content: Rect2=UIStyle.content_rect(action_card)
+	feedback.position = footer_content.position
+	feedback.size.x = footer_content.size.x
+	feedback.call("refresh_ruby")
+	var feedback_height: float = maxf(54,feedback.get_combined_minimum_size().y)
 	feedback.size.y = feedback_height
-	var button_y: float = feedback_height+16
-	var footer_height: float = button_y+48
+	var button_y: float = feedback.position.y+feedback_height+8
+	var button_height: float=maxf(48,maxf(hint_button.get_combined_minimum_size().y,maxf(listen_button.get_combined_minimum_size().y,continue_button.get_combined_minimum_size().y)))
+	var footer_style: StyleBox=action_card.get_theme_stylebox("panel")
+	var footer_height: float = button_y+button_height+footer_style.get_margin(SIDE_BOTTOM)
 	action_card.position = Vector2(content_x,size.y-footer_height-28)
 	action_card.size = Vector2(content_width,footer_height)
-	var available: float = (content_width-52)/3.0
-	hint_button.position = Vector2(14,button_y)
-	hint_button.size = Vector2(available,40)
-	listen_button.position = Vector2(26+available,button_y)
-	listen_button.size = Vector2(available,40)
-	continue_button.position = Vector2(38+available*2,button_y)
-	continue_button.size = Vector2(available,40)
+	var available: float = (footer_content.size.x-24)/3.0
+	hint_button.position = Vector2(footer_content.position.x,button_y)
+	hint_button.size = Vector2(available,button_height)
+	listen_button.position = Vector2(footer_content.position.x+12+available,button_y)
+	listen_button.size = Vector2(available,button_height)
+	continue_button.position = Vector2(footer_content.position.x+24+available*2,button_y)
+	continue_button.size = Vector2(available,button_height)
 	var count: int = maxi(1,target_buttons.size())
 	var gap: float = 20
 	var card_width: float = (content_width-gap*(count-1))/count
@@ -555,9 +787,18 @@ func _arrange() -> void:
 		button.size = Vector2(card_width,card_height)
 		var choice_word: Control = button.get_node("DestinationWord")
 		choice_word.size.x = card_width-28
+		var label_word: Dictionary=choice_word.word
+		var points: int=48
+		while points>30:
+			choice_word.set_word(label_word,points,true)
+			choice_word._sync_minimum_height()
+			var jp_width: float=GameFonts.japanese().get_string_size(str(label_word.get("jp","")),HORIZONTAL_ALIGNMENT_LEFT,-1,points).x
+			if choice_word.custom_minimum_size.y<=card_height*.56 and jp_width<=card_width-32: break
+			points-=2
+		choice_word.set_word(label_word,points,true)
 		choice_word._sync_minimum_height()
 		choice_word.size.y = choice_word.custom_minimum_size.y
-		var image_height: float = maxf(24,card_height-choice_word.size.y-55)
+		var image_height: float = maxf(24,card_height-choice_word.size.y-56)
 		var image: TextureRect = button.get_node("DestinationImage")
 		image.position = Vector2(1,1)
 		image.size = Vector2(card_width-2,image_height)
@@ -569,8 +810,8 @@ func _arrange() -> void:
 		title.size = Vector2(card_width-28,52)
 		choice_word.position = Vector2(14,image_height+8)
 		var caption: Label = button.get_node("DestinationAction")
-		caption.position = Vector2(14,card_height-39)
-		caption.size = Vector2(card_width-28,30)
+		caption.position = Vector2(14,card_height-40)
+		caption.size = Vector2(card_width-28,28)
 	queue_redraw()
 
 func _process(delta: float) -> void:
@@ -582,7 +823,7 @@ func _process(delta: float) -> void:
 			queue_redraw()
 
 func _draw() -> void:
-	if not visible or mission.is_empty() or not choosing:
+	if live_battle or not visible or mission.is_empty() or not choosing:
 		return
 	draw_rect(Rect2(Vector2.ZERO,size),Color(UIStyle.INK))
 	if stage_texture != null:

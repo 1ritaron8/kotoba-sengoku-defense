@@ -1,5 +1,6 @@
 extends RefCounted
-## A fresh, private all-correct assessment. It never records SRS or rewards.
+## A private all-correct assessment. Retry restores verified answers from the scoped progress checkpoint.
+## It never records SRS or rewards; saved unlocks still require the complete scope.
 const Cloze = preload("res://native/learning_cloze.gd")
 var _lesson: Dictionary = {}
 var _map_id: String = ""
@@ -13,6 +14,8 @@ var _complete: bool = false
 var _failure: String = ""
 var _ready: bool = false
 var _rng := RandomNumberGenerator.new()
+var _store: RefCounted
+var _verified: Array = []
 
 static func scope_hash(lesson: Dictionary) -> String:
 	var scope: Dictionary = {"lessonId":str(lesson.get("id","")),"words":[],"grammar":lesson.get("grammarSteps",[]).duplicate(true)}
@@ -23,7 +26,37 @@ static func scope_hash(lesson: Dictionary) -> String:
 	hash.update(JSON.stringify(scope,"",true).to_utf8_buffer())
 	return hash.finish().hex_encode()
 
-func start(lesson: Dictionary, map_id: String) -> Dictionary:
+static func clean_checkpoint(lesson: Dictionary, map_id: String, value: Variant) -> Dictionary:
+	if not value is Dictionary or value.get("format")!=1 or value.get("mapId")!=map_id or value.get("lessonId")!=str(lesson.get("id","")) or value.get("scopeHash")!=scope_hash(lesson): return {}
+	if not value.get("answers") is Array: return {}
+	var expected: Array=[]
+	var item_ids: Dictionary={}
+	for word in lesson.get("newWords",[]):
+		expected.append({"itemId":str(word.get("id","")),"answerId":str(word.get("id",""))})
+	for step in lesson.get("grammarSteps",[]):
+		expected.append({"itemId":str(step.get("id","")),"answerId":str(step.get("assessment",{}).get("answerId",""))})
+	# A partial checkpoint can never claim completion. Only the final live
+	# answer transaction writes a completed assessment and removes this state.
+	if expected.is_empty() or value.answers.size()>=expected.size(): return {}
+	for entry in expected:
+		if str(entry.itemId).is_empty() or str(entry.answerId).is_empty() or item_ids.has(str(entry.itemId)): return {}
+		item_ids[str(entry.itemId)]=true
+	var tokens: Dictionary={}
+	for index in range(value.answers.size()):
+		var answer: Variant=value.answers[index]
+		if not answer is Dictionary or answer.get("itemId")!=expected[index].itemId or answer.get("answerId")!=expected[index].answerId or not answer.get("questionId") is String: return {}
+		var token: String=str(answer.questionId)
+		if not token.ends_with(":"+str(index)+":"+str(expected[index].itemId)) or token.get_slice(":",0).length()!=32 or tokens.has(token): return {}
+		tokens[token]=true
+	return {"format":1,"mapId":map_id,"lessonId":str(lesson.get("id","")),"scopeHash":scope_hash(lesson),"answers":value.answers.duplicate(true)}
+
+func bind_store(progress_store: RefCounted) -> void:
+	_store=progress_store
+
+func checkpoint() -> Dictionary:
+	return {"format":1,"mapId":_map_id,"lessonId":str(_lesson.get("id","")),"scopeHash":_scope_hash,"answers":_verified.duplicate(true)}
+
+func start(lesson: Dictionary, map_id: String, saved: Dictionary = {}) -> Dictionary:
 	_lesson = lesson.duplicate(true)
 	_map_id = map_id
 	_scope_hash = scope_hash(_lesson)
@@ -31,6 +64,7 @@ func start(lesson: Dictionary, map_id: String) -> Dictionary:
 	_questions = []
 	_index = 0
 	_correct_count = 0
+	_verified=[]
 	_complete = false
 	_failure = ""
 	_ready = false
@@ -64,12 +98,44 @@ func start(lesson: Dictionary, map_id: String) -> Dictionary:
 			if stable==answer: question.answerId = option.id
 		_shuffle(question.choices)
 	_ready = true
+	var restored: Dictionary=clean_checkpoint(_lesson,_map_id,saved)
+	if not restored.is_empty():
+		_verified=restored.answers.duplicate(true)
+		_index=_verified.size()
+		_correct_count=_index
+	if _store!=null and not _store.save_gate_checkpoint(self):
+		return _invalid(str(_store.save_error))
 	var status: Dictionary = snapshot()
 	status["ok"] = true
 	return status
 
+func matches_scope(lesson: Dictionary, map_id: String) -> bool:
+	return _ready and _map_id==map_id and _scope_hash==scope_hash(lesson)
+
 func retry() -> Dictionary:
-	return start(_lesson,_map_id)
+	# Correct answers form a private prefix: a wrong answer, hint or skip ends
+	# the round without advancing this index. Never rebuild/reset that prefix.
+	if not _ready or _index>=_questions.size():
+		var rejected: Dictionary=snapshot()
+		rejected["ok"]=false
+		rejected["errorKo"]="다시 풀 문제가 없거나 시험 범위를 확인하지 못했습니다."
+		return rejected
+	_attempt_id=Crypto.new().generate_random_bytes(16).hex_encode()
+	for index in range(_index,_questions.size()):
+		var question: Dictionary=_questions[index]
+		var answer: String=""
+		for option in question.choices:
+			if str(option.id)==str(question.answerId): answer=str(option.itemId)
+		question.id=_attempt_id+":"+str(index)+":"+str(question.itemId)
+		for option in question.choices:
+			option.id=question.id+":option:"+str(option.itemId)
+			if str(option.itemId)==answer: question.answerId=option.id
+		_shuffle(question.choices)
+	_complete=false
+	_failure=""
+	var status: Dictionary=snapshot()
+	status["ok"]=true
+	return status
 
 func current_task() -> Dictionary:
 	if not _ready or _complete or _index>=_questions.size(): return {}
@@ -87,9 +153,19 @@ func answer(choice_id: String) -> Dictionary:
 	if not valid: return _rejected("현재 문제의 선택지가 아닙니다.")
 	var correct: bool = choice_id==str(question.answerId)
 	if correct:
+		var stable_answer: String=""
+		for option in question.choices:
+			if str(option.id)==choice_id: stable_answer=str(option.itemId)
+		_verified.append({"itemId":str(question.itemId),"answerId":stable_answer,"questionId":str(question.id)})
 		_correct_count += 1
 		_index += 1
 		_complete = _index>=_questions.size()
+		if _store!=null and not _store.save_gate_checkpoint(self):
+			_verified.pop_back()
+			_correct_count-=1
+			_index-=1
+			_complete=false
+			return _rejected("정답 기록을 저장하지 못했습니다. 다시 선택해 주십시오. "+str(_store.save_error))
 	else:
 		_complete = true
 		_failure = "incorrect"

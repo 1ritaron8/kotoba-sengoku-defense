@@ -66,6 +66,9 @@ const HOSTILE_SIDE_COLOR: Color = Color("ff6472")
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if is_instance_valid(battle) and not battle.three_d_enabled:
+		set_process(false)
+		return
 	z_index = -1
 	viewport = SubViewport.new()
 	viewport.transparent_bg = false
@@ -746,8 +749,9 @@ func sync_actor_states(states: Array) -> void:
 			live[key] = true
 			var actor: Actor
 			var model_type: String = _model_type(source)
+			var model_identity: String=model_type
 			var model_evolution: int = clampi(int(source.get("evolution",0)),0,2)
-			if actors.has(key) and (actors[key].unit_type != model_type or actors[key].evolution_stage != model_evolution or actors[key].hostile == bool(source.get("friendly",false))):
+			if actors.has(key) and (actors[key].unit_type != model_identity or actors[key].evolution_stage != model_evolution or actors[key].hostile == bool(source.get("friendly",false))):
 				actors[key].queue_free()
 				actors.erase(key)
 				motion_tracks.erase(key)

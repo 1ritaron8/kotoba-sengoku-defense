@@ -1,6 +1,7 @@
 extends RefCounted
 const UnitGrowth = preload("res://native/unit_growth.gd")
 const UnitSkills = preload("res://native/unit_skills.gd")
+const BattleDuration = preload("res://native/battle_duration.gd")
 
 const SAVE_PATH = "user://progress.json"
 const MAX_ARMY_LEVEL = 10
@@ -9,7 +10,7 @@ const DAY_SECONDS = 86400.0
 const MIN_MASTER_SPAN = 72000.0
 const AUDIO_DEFAULTS: Dictionary = {"masterVolume":1.0,"musicVolume":1.0,"effectsVolume":0.8,"voiceVolume":0.8}
 var save_path: String = SAVE_PATH
-var data: Dictionary = {"version": 3, "maps": {}, "words": {}, "settings": {"music": true, "voice": true, "effects":true,"masterVolume":1.0,"musicVolume":1.0,"effectsVolume":0.8,"voiceVolume":0.8,"battleMinutes":10}, "army":{"currency":180,"levels":{},"selected":"archer"}, "learning":{"items":{},"attempts":{},"lastClockAt":0.0}}
+var data: Dictionary = {"version": 3, "maps": {}, "words": {}, "settings": {"music": true, "voice": true, "effects":true,"masterVolume":1.0,"musicVolume":1.0,"effectsVolume":0.8,"voiceVolume":0.8,"battleMinutes":BattleDuration.FIXED_MINUTES}, "army":{"currency":180,"levels":{},"selected":"archer"}, "learning":{"items":{},"attempts":{},"lastClockAt":0.0}}
 var save_error: String = ""
 var read_error: String = ""
 var _save_read_blocked: bool = false
@@ -19,6 +20,7 @@ var stage_numbers: Dictionary = {}
 var stage_names: Dictionary = {}
 var stage_previous: Dictionary = {}
 var stage_lessons: Dictionary = {}
+var _review_scopes: Dictionary = {}
 var vocabulary_ids: Dictionary = {}
 var playable_catalog_available: bool = false
 
@@ -65,6 +67,18 @@ func _init() -> void:
 					if int(stage_numbers[stage_id])==lesson_number: stage_lessons[stage_id] = lesson
 				for word in lesson.get("newWords",[]):
 					vocabulary_ids[str(word.id)] = true
+	var plans: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://native/learning_plans.json"))
+	if curriculum is Dictionary and plans is Dictionary:
+		var scope_words: Array=[]
+		var number: int=0
+		for tier in ["basic","beginner","intermediate","advanced"]:
+			for lesson in curriculum.get(tier,[]):
+				number+=1
+				scope_words.append_array(lesson.get("newWords",[]))
+				for id in stage_lessons:
+					if int(stage_numbers[id])!=number: continue
+					var scope: Dictionary={"mapId":str(id),"lesson":lesson,"plan":plans.get("stages",{}).get(str(id),{}),"words":scope_words,"transferExamples":plans.get("transferExamples",{})}
+					_review_scopes[str(id)]=JSON.stringify(scope,"",true).sha256_text()
 	_sanitize_army()
 
 func read_save() -> void:
@@ -106,11 +120,9 @@ func read_save() -> void:
 			data.settings[setting] = true
 	for setting in AUDIO_DEFAULTS:
 		data.settings[setting] = audio_volume(str(setting))
-	var battle_minutes = data.settings.get("battleMinutes",10)
-	if (battle_minutes is int or battle_minutes is float) and is_finite(float(battle_minutes)) and float(battle_minutes) in [10.0,20.0]:
-		data.settings.battleMinutes = int(battle_minutes)
-	else:
-		data.settings.battleMinutes = 10
+	# Old duration preferences are ignored in memory; reading never rewrites
+	# the player's save just to migrate the fixed five-minute rule.
+	data.settings.battleMinutes = BattleDuration.FIXED_MINUTES
 	if loaded.get("army") is Dictionary:
 		data.army = loaded.army.duplicate(true)
 	else:
@@ -159,7 +171,7 @@ func _new_skill() -> Dictionary:
 
 func _sanitize_learning() -> void:
 	var source: Dictionary = data.learning if data.get("learning") is Dictionary else {}
-	var clean: Dictionary = {"items":{},"attempts":{},"assessments":{},"lastClockAt":0.0}
+	var clean: Dictionary = {"items":{},"attempts":{},"assessments":{},"reviewSessions":{},"gateSessions":{},"lastClockAt":0.0}
 	var system_now: float = Time.get_unix_time_from_system()
 	clean.lastClockAt = minf(_timestamp(source.get("lastClockAt",0)),system_now+300.0)
 	if source.get("items") is Dictionary:
@@ -202,7 +214,85 @@ func _sanitize_learning() -> void:
 			if receipt.get("passed")!=true or _count(receipt.get("correctCount",0))!=_count(receipt.get("count",0)) or _count(receipt.get("count",0))==0: continue
 			if not receipt.get("scopeHash") is String or str(receipt.scopeHash).length()!=64: continue
 			clean.assessments[str(id)] = {"passed":true,"correctCount":_count(receipt.correctCount),"count":_count(receipt.count),"scopeHash":str(receipt.scopeHash),"attemptId":str(receipt.get("attemptId","")),"passedAt":_timestamp(receipt.get("passedAt",0))}
+	if source.get("reviewSessions") is Dictionary:
+		for id in source.reviewSessions:
+			var checkpoint: Dictionary=_clean_review_checkpoint(source.reviewSessions[id])
+			if not checkpoint.is_empty() and str(checkpoint.mapId)==str(id) and not checkpoint.tasks.is_empty(): clean.reviewSessions[str(id)]=checkpoint
+	if source.get("gateSessions") is Dictionary:
+		var gate_script=load("res://native/learning_gate.gd")
+		for id in source.gateSessions:
+			if not stage_lessons.has(str(id)): continue
+			var checkpoint: Dictionary=gate_script.clean_checkpoint(stage_lessons[str(id)],str(id),source.gateSessions[id])
+			if not checkpoint.is_empty(): clean.gateSessions[str(id)]=checkpoint
 	data.learning = clean
+
+func review_scope(map_id: String, lesson_id: String) -> String:
+	if str(stage_lessons.get(map_id,{}).get("id",""))!=lesson_id: return ""
+	return str(_review_scopes.get(map_id,""))
+
+func _clean_review_checkpoint(value: Variant) -> Dictionary:
+	if not value is Dictionary or value.get("format")!=1: return {}
+	var id: String=str(value.get("mapId",""))
+	var lesson_id: String=str(value.get("lessonId",""))
+	var scope: String=review_scope(id,lesson_id)
+	if scope.is_empty() or value.get("scopeHash")!=scope: return {}
+	if not value.get("batchId") is String or str(value.batchId).length()!=32: return {}
+	if not value.get("tasks") is Array or value.tasks.size()>64: return {}
+	var seen: Dictionary={}
+	for task in value.tasks:
+		if not task is Dictionary or not task.get("key") is String or not str(task.key).begins_with(str(value.batchId)+":"+id+":") or seen.has(str(task.key)): return {}
+		if not task.get("itemId") is String or str(task.itemId).is_empty() or str(task.get("kind","")) not in ["meaning","sentence","listening","context"]: return {}
+		if not task.get("contextId") is String or not task.get("choiceIds") is Array or task.choiceIds.size()<2 or task.choiceIds.size()>4: return {}
+		for choice_id in task.choiceIds:
+			if not choice_id is String or str(choice_id).is_empty(): return {}
+		seen[str(task.key)]=true
+	return value.duplicate(true)
+
+func review_checkpoint(map_id: String, lesson_id: String) -> Dictionary:
+	var clean: Dictionary=_clean_review_checkpoint(data.learning.get("reviewSessions",{}).get(map_id,{}))
+	return clean if not clean.is_empty() and str(clean.mapId)==map_id and str(clean.lessonId)==lesson_id else {}
+
+func save_review_checkpoint(checkpoint: Dictionary) -> bool:
+	var clean: Dictionary=_clean_review_checkpoint(checkpoint)
+	if clean.is_empty():
+		save_error="복습 기록의 전장·학습 범위를 확인하지 못했습니다."
+		return false
+	var before: Dictionary=data.duplicate(true)
+	_set_review_checkpoint(clean)
+	if not write_save():
+		data=before
+		return false
+	return true
+
+func _set_review_checkpoint(checkpoint: Dictionary) -> void:
+	if not data.learning.get("reviewSessions") is Dictionary: data.learning["reviewSessions"]={}
+	if checkpoint.tasks.is_empty(): data.learning.reviewSessions.erase(str(checkpoint.mapId))
+	else: data.learning.reviewSessions[str(checkpoint.mapId)]=checkpoint.duplicate(true)
+
+func gate_checkpoint(map_id: String, lesson_id: String) -> Dictionary:
+	if str(stage_lessons.get(map_id,{}).get("id",""))!=lesson_id: return {}
+	var script=load("res://native/learning_gate.gd")
+	return script.clean_checkpoint(stage_lessons[map_id],map_id,data.learning.get("gateSessions",{}).get(map_id,{}))
+
+func save_gate_checkpoint(gate: RefCounted) -> bool:
+	var receipt: Dictionary=gate.snapshot()
+	var id: String=str(receipt.get("mapId",""))
+	if not map_unlocked(id) or not map_cleared(id):
+		save_error="클리어한 전장의 시험만 저장할 수 있습니다."
+		return false
+	if bool(receipt.get("passed",false)): return record_assessment(gate)
+	var script=load("res://native/learning_gate.gd")
+	var checkpoint: Dictionary=script.clean_checkpoint(stage_lessons.get(id,{}),id,gate.checkpoint())
+	if checkpoint.is_empty():
+		save_error="시험 정답 기록의 범위를 확인하지 못했습니다."
+		return false
+	var before: Dictionary=data.duplicate(true)
+	if not data.learning.get("gateSessions") is Dictionary: data.learning["gateSessions"]={}
+	data.learning.gateSessions[id]=checkpoint
+	if not write_save():
+		data=before
+		return false
+	return true
 
 func _day(now: float) -> String:
 	return Time.get_date_string_from_unix_time(int(now))
@@ -264,7 +354,7 @@ func record_learning(item_id: String, skill: String, correct: bool, hinted: bool
 	result["nextReviewAt"] = status.nextReviewAt
 	return result
 
-func record_learning_batch(records: Array, now: float = -1) -> Dictionary:
+func record_learning_batch(records: Array, now: float = -1, review_state: Dictionary = {}) -> Dictionary:
 	if not is_finite(now) or now>253402300799.0: return {"accepted":false,"error":"잘못된 학습 시각입니다."}
 	if records.is_empty(): return {"accepted":false,"error":"학습 답안이 비어 있습니다."}
 	var ids: Dictionary = {}
@@ -275,12 +365,17 @@ func record_learning_batch(records: Array, now: float = -1) -> Dictionary:
 			return {"accepted":false,"error":"학습 항목과 답안 식별자가 필요합니다."}
 		if ids.has(attempt) or data.learning.attempts.has(attempt): return {"accepted":false,"duplicate":true}
 		ids[attempt] = true
+	var checkpoint: Dictionary={}
+	if not review_state.is_empty():
+		checkpoint=_clean_review_checkpoint(review_state)
+		if checkpoint.is_empty(): return {"accepted":false,"error":"복습 범위가 바뀌어 답안을 저장하지 못했습니다."}
 	var before: Dictionary = data.duplicate(true)
 	var timestamp: float = _time(now)
 	var outcomes: Array = []
 	for record in records:
 		outcomes.append(_apply_learning(record,timestamp))
 	data.learning.lastClockAt = timestamp
+	if not checkpoint.is_empty(): _set_review_checkpoint(checkpoint)
 	if not write_save():
 		data = before
 		return {"accepted":false,"error":save_error,"outcomes":[]}
@@ -374,12 +469,15 @@ func _sanitize_army() -> void:
 	army.training = clean_training
 	data.army = army
 	var selected: String = str(army.get("selected","archer"))
-	data.army.selected = selected if selected in unlocked_units() else "archer"
+	# Retiring a playable role must not discard its saved selection or training.
+	# The visible roster chooses an active fallback without changing this data.
+	var selected_definition: Dictionary=unit_definition(selected)
+	data.army.selected = selected if selected in unlocked_units() or (not selected_definition.is_empty() and not bool(selected_definition.get("active",true))) else "archer"
 
 func unlocked_units() -> Array:
 	var result: Array = []
 	for definition in unit_catalog:
-		if data.maps.size() >= int(definition.get("unlockClears",0)):
+		if bool(definition.get("active",true)) and data.maps.size() >= int(definition.get("unlockClears",0)):
 			result.append(str(definition.id))
 	return result
 
@@ -492,6 +590,10 @@ func select_army_unit(id: String) -> bool:
 	if not id in unlocked_units():
 		return false
 	var before: String = str(data.army.selected)
+	# Repeated recruitment clicks do not change persistent selection. Avoid a
+	# primary+backup disk transaction for every soldier in the same burst.
+	# An earlier failure still retries through the existing save/error path.
+	if before==id and save_error.is_empty() and not _save_read_blocked: return true
 	data.army.selected = id
 	if not write_save():
 		data.army.selected = before
@@ -577,6 +679,7 @@ func record_assessment(gate: RefCounted) -> bool:
 	if not data.learning.get("assessments") is Dictionary: data.learning["assessments"] = {}
 	receipt["passedAt"] = Time.get_unix_time_from_system()
 	data.learning.assessments[id] = receipt.duplicate(true)
+	if data.learning.get("gateSessions") is Dictionary: data.learning.gateSessions.erase(id)
 	if not map_assessed(id) or not write_save():
 		data = before
 		return false
@@ -599,7 +702,6 @@ func complete_map(id: String, summary: Dictionary) -> Dictionary:
 	var previous: Dictionary = data.maps.get(id, {})
 	var first_clear: bool = previous.is_empty()
 	var reward: int = (140+int(stage_numbers[id])*8) if first_clear else (40+int(stage_numbers[id])*2)
-	reward += clampi(int(summary.get("correct",0)),0,20)*5
 	var record: Dictionary = summary.duplicate(true)
 	record["wins"] = int(previous.get("wins", 0)) + 1
 	record["finished_at"] = Time.get_unix_time_from_system()
@@ -613,6 +715,18 @@ func complete_map(id: String, summary: Dictionary) -> Dictionary:
 		data = before
 		return {"currency":0,"unlocked":[],"firstClear":false,"saved":false,"error":save_error}
 	return {"currency":reward,"unlocked":new_unlocks,"firstClear":first_clear}
+
+func update_map_learning_summary(id: String, summary: Dictionary) -> bool:
+	if not data.maps.has(id): return false
+	# Post-battle answers update the existing clear record only. Never replay
+	# complete_map: wins, completion time, currency and unlocks belong to combat.
+	var previous: Dictionary=data.maps[id].duplicate(true)
+	for key in ["seen","correct","attempts"]:
+		data.maps[id][key]=maxi(0,int(summary.get(key,0)))
+	if not write_save():
+		data.maps[id]=previous
+		return false
+	return true
 
 func mastered_count() -> int:
 	var count: int = 0

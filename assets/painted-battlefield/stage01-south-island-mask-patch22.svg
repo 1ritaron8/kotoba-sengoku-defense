@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1831" height="859" viewBox="0 0 1831 859">
+  <!-- Functional source-pixel coverage only. Visible RGB always comes from
+       stage01.png; this mask contains no replacement scenery artwork. -->
+  <defs>
+    <radialGradient id="contact" cx="50%" cy="48%" r="50%">
+      <stop offset="0" stop-color="white" stop-opacity="1"/>
+      <stop offset="0.63" stop-color="white" stop-opacity="1"/>
+      <stop offset="0.86" stop-color="white" stop-opacity="0.65"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- The existing mound's soft ground contact; never a rectangular tile. -->
+  <ellipse cx="1177" cy="741" rx="170" ry="58" fill="url(#contact)"/>
+  <!-- Stairs, rock mound, attached foliage and actual platform perimeter. -->
+  <path fill="white" d="
+    M1008 663 L1013 653 L1009 646 L1018 640 L1015 633
+    L1024 628 L1022 620 L1033 618 L1030 611 L1042 610
+    L1041 603 L1053 606 L1059 598 L1071 603 L1079 600
+    L1086 611 L1097 612 L1093 603 L1096 594 L1103 590
+    L1109 598 L1128 600 L1155 588 L1161 584 L1164 576
+    L1170 577 L1172 584 L1183 577 L1186 573 L1192 574
+    L1196 562 L1202 562 L1208 576 L1213 578 L1215 584
+    L1233 591 L1236 588 L1242 590 L1243 599 L1253 602
+    L1257 597 L1263 601 L1266 614 L1271 621 L1269 639
+    L1279 642 L1288 641 L1293 648 L1305 649 L1311 657
+    L1323 655 L1328 662 L1337 663 L1336 672 L1345 678
+    L1340 687 L1347 693 L1342 704 L1347 709 L1338 718
+    L1341 725 L1333 732 L1333 740 L1321 745 L1328 753
+    L1316 758 L1315 768 L1301 768 L1296 776 L1284 771
+    L1275 779 L1261 776 L1253 783 L1239 778 L1226 783
+    L1217 777 L1204 785 L1191 778 L1179 782 L1169 775
+    L1154 776 L1146 769 L1133 772 L1125 763 L1111 764
+    L1102 755 L1091 751 L1084 742 L1073 738 L1070 729
+    L1057 727 L1055 717 L1042 716 L1041 707 L1029 705
+    L1030 697 L1018 693 L1020 683 L1010 678 Z"/>
+  <!-- Small protruding leaves/flowers on the mound's western edge. -->
+  <path fill="white" d="M1013 649 L1005 652 L1003 659 L995 659
+    L997 668 L989 674 L993 682 L986 689 L991 697 L989 705
+    L1001 709 L999 717 L1013 720 L1018 729 L1033 730
+    L1036 738 L1054 739 L1065 727 L1059 709 L1041 685 Z"/>
+  <!-- Tall banner and pole, with transparent grass on both sides. -->
+  <path fill="white" d="M1113 534 L1117 530 L1121 534 L1122 539
+    L1146 538 L1151 535 L1155 541 L1151 546 L1150 617
+    L1147 624 L1148 634 L1141 635 L1138 625 L1121 625
+    L1120 637 L1113 637 Z"/>
+  <!-- Thin rear suspension rope remains registered to its original pixels. -->
+  <path d="M1154 589 L1200 562 L1211 590" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round"/>
+</svg>

@@ -19,6 +19,12 @@ var maximum_reached: int = 0
 var sentence_turn: Dictionary = {}
 var hinted_tasks: Dictionary = {}
 var issued_counts: Dictionary = {}
+# Private task copies preserve the actual wrong/unanswered question, not a new
+# randomly selected question. Correct results leave this queue only after save.
+var _review_tasks: Dictionary = {}
+var _pending_review_id: String = ""
+var _review_batch_id: String = ""
+var _review_scope: String = ""
 
 func configure(progress_store: RefCounted, curriculum: Dictionary, learning_plans: Dictionary) -> void:
 	store = progress_store
@@ -50,7 +56,11 @@ func begin_lesson(current_lesson: Dictionary, current_stage: Dictionary) -> void
 	sentence_turn = {}
 	hinted_tasks = {}
 	issued_counts = {}
+	_review_tasks.clear()
+	_pending_review_id=""
 	session_id = Crypto.new().generate_random_bytes(16).hex_encode()
+	_review_batch_id=session_id
+	_review_scope=store.review_scope(str(stage.get("id","")),str(lesson.get("id","")))
 	maximum_reached = maxi(int(current_stage.get("stageNumber",0)),int(lesson_numbers.get(str(current_lesson.get("id","")),1)))
 	for map_id in store.data.maps:
 		maximum_reached = maxi(maximum_reached,int(store.stage_numbers.get(str(map_id),0)))
@@ -67,6 +77,7 @@ func begin_lesson(current_lesson: Dictionary, current_stage: Dictionary) -> void
 			previous_ids.append(id)
 	for id in store.review_ids(previous_ids,review_budget):
 		_add_word(str(id),included)
+	_restore_review()
 
 func _previously_exposed(id: String) -> bool:
 	var historical: Dictionary = store.data.words.get(id,{})
@@ -94,6 +105,7 @@ func next_task(seen_ids: Array, wave: int, voice_available: bool) -> Dictionary:
 				used_missions[mission_id] = true
 				_count_issued(str(built.get("representativeItemId","")))
 				pending = built
+				_remember_review_task()
 				return pending.duplicate(true)
 	var candidates: Array = []
 	for word in words:
@@ -143,6 +155,108 @@ func next_task(seen_ids: Array, wave: int, voice_available: bool) -> Dictionary:
 	practice_counter += 1
 	_count_issued(chosen)
 	pending = {"id":_attempt_id(wave,chosen),"kind":kind,"item":item,"itemId":chosen,"skill":skill,"contextId":context_id,"choices":choices,"answerId":chosen,"questionItem":blank.questionItem,"revealItem":blank.revealItem,"cloze":blank.cloze,"promptKo":"빈칸에 들어갈 일본어를 고르십시오.","cueKo":str(blank.questionItem.get("ko","")),"showMeaning":true}
+	_remember_review_task()
+	return pending.duplicate(true)
+
+func prepare_review(waves: Array, seen_ids: Array, voice_available: bool) -> bool:
+	# Build the finite batch before displaying it. Issuing a task does not
+	# count an exposure; closing the app cannot lose the not-yet-shown tail.
+	if _review_tasks.is_empty():
+		_review_batch_id=session_id
+		for review_wave in waves:
+			var task: Dictionary=next_task(seen_ids,int(review_wave),voice_available)
+			if task.is_empty(): continue
+			pending={}
+			_pending_review_id=""
+	return save_review()
+
+func save_review() -> bool:
+	return store.save_review_checkpoint(review_checkpoint())
+
+func review_checkpoint(exclude_id: String = "") -> Dictionary:
+	var tasks: Array=[]
+	for key in _review_tasks:
+		if str(key)==exclude_id: continue
+		var task: Dictionary=_review_tasks[key]
+		var choice_ids: Array=[]
+		for choice in task.choices: choice_ids.append(str(choice.id))
+		tasks.append({"key":str(key),"kind":str(task.kind),"itemId":str(task.itemId),"contextId":str(task.contextId),"choiceIds":choice_ids,"representativeItemId":str(task.get("representativeItemId",""))})
+	return {"format":1,"mapId":str(stage.get("id","")),"lessonId":str(lesson.get("id","")),"scopeHash":_review_scope,"batchId":_review_batch_id,"tasks":tasks}
+
+func _restore_review() -> void:
+	var saved: Dictionary=store.review_checkpoint(str(stage.get("id","")),str(lesson.get("id","")))
+	if saved.is_empty(): return
+	var restored: Dictionary={}
+	for descriptor in saved.tasks:
+		var task: Dictionary=_restore_review_task(descriptor)
+		if task.is_empty(): return
+		restored[str(descriptor.key)]=task
+	_review_batch_id=str(saved.batchId)
+	_review_tasks=restored
+
+func _restore_review_task(descriptor: Dictionary) -> Dictionary:
+	var id: String=str(descriptor.itemId)
+	var kind: String=str(descriptor.kind)
+	var context_id: String=str(descriptor.contextId)
+	var task: Dictionary={}
+	if kind=="context":
+		var mission: Dictionary={}
+		for authored in plans.get("stages",{}).get(str(stage.get("id","")),{}).get("missions",[]):
+			if str(authored.get("id",""))==id: mission=authored;break
+		if mission.is_empty() or context_id!="mission:"+id: return {}
+		task=_mission_task(mission,int(mission.get("wave",1)))
+		if task.is_empty(): return {}
+		var representative: String=str(descriptor.get("representativeItemId",""))
+		if not representative.is_empty() and (not representative in mission.get("itemIds",[]) or not word_index.has(representative)): return {}
+		task.representativeItemId=representative
+	else:
+		var word: Dictionary=word_index.get(id,{})
+		var stage_number: int=int(lesson_numbers.get(str(lesson.get("id","")),0))
+		if word.is_empty() or int(word.get("lessonNumber",0))>stage_number: return {}
+		var skill: String="context" if kind=="sentence" else kind
+		if skill not in ["meaning","listening","context"]: return {}
+		var item: Dictionary=word.duplicate(true)
+		if kind=="sentence":
+			if context_id not in ["example:"+id,"transfer:"+id]: return {}
+			item=word.get("transferExample" if context_id.begins_with("transfer:") else "example",{}).duplicate(true)
+			if item.is_empty(): return {}
+			item["contextId"]=context_id
+		elif context_id!=kind+":"+id: return {}
+		var blank: Dictionary=Cloze.build(item if kind=="sentence" else word.get("example",word),word)
+		if not bool(blank.get("valid",false)): blank=Cloze.build(word.get("example",word),word)
+		if not bool(blank.get("valid",false)): return {}
+		var choices: Array=[]
+		var seen: Dictionary={}
+		for choice_id in descriptor.choiceIds:
+			var candidate: Dictionary=word_index.get(str(choice_id),{})
+			if candidate.is_empty() or int(candidate.get("lessonNumber",0))>stage_number or seen.has(str(choice_id)): return {}
+			seen[str(choice_id)]=true
+			choices.append(Cloze.option(candidate,blank.cloze,str(choice_id)==id))
+		if not seen.has(id): return {}
+		task={"kind":kind,"item":item,"itemId":id,"skill":skill,"contextId":context_id,"choices":choices,"answerId":id,"questionItem":blank.questionItem,"revealItem":blank.revealItem,"cloze":blank.cloze,"promptKo":"빈칸에 들어갈 일본어를 고르십시오.","cueKo":str(blank.questionItem.get("ko","")),"showMeaning":true}
+	var actual_ids: Array=[]
+	for choice in task.choices: actual_ids.append(str(choice.id))
+	if actual_ids!=descriptor.choiceIds: return {}
+	task["id"]=str(descriptor.key)
+	return task
+
+func _remember_review_task() -> void:
+	_pending_review_id=str(pending.id)
+	_review_tasks[_pending_review_id]=pending.duplicate(true)
+
+func review_retry_ids(map_id: String, lesson_id: String) -> Array:
+	if map_id!=str(stage.get("id","")) or lesson_id!=str(lesson.get("id","")): return []
+	return _review_tasks.keys()
+
+func retry_task(review_id: String, map_id: String, lesson_id: String) -> Dictionary:
+	if map_id!=str(stage.get("id","")) or lesson_id!=str(lesson.get("id","")): return {}
+	if not pending.is_empty():
+		return pending.duplicate(true) if _pending_review_id==review_id else {}
+	if not _review_tasks.has(review_id): return {}
+	pending=_review_tasks[review_id].duplicate(true)
+	# A fresh receipt ID permits a real retry without replaying a prior save.
+	pending.id=_attempt_id(0,str(pending.itemId))
+	_pending_review_id=review_id
 	return pending.duplicate(true)
 
 func _count_issued(id: String) -> void:
@@ -270,6 +384,7 @@ func skip_task(task: Dictionary) -> void:
 	if not representative.is_empty():
 		store.mark_exposure(representative,"context",str(pending.contextId))
 	last_item_id = representative if not representative.is_empty() else str(pending.itemId)
+	_pending_review_id=""
 	pending = {}
 
 func record(task: Dictionary, answer_id: String, hinted: bool) -> Dictionary:
@@ -286,7 +401,8 @@ func record(task: Dictionary, answer_id: String, hinted: bool) -> Dictionary:
 	var representative: String = str(pending.get("representativeItemId",""))
 	if not representative.is_empty():
 		records.append({"itemId":representative,"skill":"context","correct":correct,"hinted":used_hint,"contextId":str(pending.contextId),"attemptId":str(pending.id)+":word:"+representative})
-	var result: Dictionary = store.record_learning_batch(records)
+	var checkpoint: Dictionary=review_checkpoint(_pending_review_id if correct else "")
+	var result: Dictionary = store.record_learning_batch(records,-1,checkpoint)
 	result["correct"] = correct
 	result["hinted"] = used_hint
 	result["kind"] = str(pending.kind)
@@ -296,6 +412,8 @@ func record(task: Dictionary, answer_id: String, hinted: bool) -> Dictionary:
 	result["mastered"] = status.mastered
 	result["nextReviewAt"] = status.nextReviewAt
 	if bool(result.accepted):
+		if correct: _review_tasks.erase(_pending_review_id)
 		last_item_id = representative if not representative.is_empty() else str(pending.itemId)
+		_pending_review_id=""
 		pending = {}
 	return result

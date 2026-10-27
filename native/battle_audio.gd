@@ -61,6 +61,7 @@ var _rng := RandomNumberGenerator.new()
 var _terminal_token := ""
 var _seen_ids: Dictionary = {}
 var _seen_order: Array[String] = []
+var _seen_order_cursor: int = 0
 var _shutdown := false
 var _voice_hit_count := 0
 var _voice_death_count := 0
@@ -144,6 +145,7 @@ func set_volume(value: float) -> void:
 	_apply_bus_gain()
 
 func set_paused(value: bool) -> void:
+	if paused == value: return
 	paused = value
 	for index in players.size():
 		players[index].stream_paused = paused and not bool(slots[index].get("ui",false))
@@ -226,9 +228,12 @@ func consume_event(event: Dictionary) -> bool:
 	last_position = point
 	if not event_id.is_empty():
 		_seen_ids[event_id] = true
-		_seen_order.append(event_id)
-		if _seen_order.size() > 256:
-			_seen_ids.erase(_seen_order.pop_front())
+		if _seen_order.size() < 256:
+			_seen_order.append(event_id)
+		else:
+			_seen_ids.erase(_seen_order[_seen_order_cursor])
+			_seen_order[_seen_order_cursor] = event_id
+			_seen_order_cursor = (_seen_order_cursor+1)%256
 	_maybe_voice(action,event)
 	return true
 
@@ -344,8 +349,11 @@ func _process(delta: float) -> void:
 	_clock += maxf(delta,0.0)
 	var target := DUCK_DB if voice_active else 0.0
 	var speed := 90.0 if voice_active else 26.0
+	var previous_duck: float = _duck
 	_duck = move_toward(_duck,target,speed * delta)
-	_apply_bus_gain()
+	# Settings setters apply immediately. Idle frames need no repeated bus
+	# lookup/writes once the narration duck has reached its target.
+	if _duck != previous_duck: _apply_bus_gain()
 	# Only a bounded history is needed for each active actor; clean a long-run
 	# cooldown map rather than retaining every past enemy forever.
 	if last_play.size() > 512:
@@ -371,6 +379,7 @@ func stop_all() -> void:
 	_terminal_token = ""
 	_seen_ids.clear()
 	_seen_order.clear()
+	_seen_order_cursor = 0
 	_voice_hit_count = 0
 	_voice_death_count = 0
 
